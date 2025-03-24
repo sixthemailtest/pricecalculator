@@ -403,7 +403,7 @@ function App() {
       <div className="hotel-calculator">
         <div className="header">
           <h1>
-            Hotel Room Price Calculator
+            Price Calculator
             <span style={{ 
               marginLeft: '10px', 
               fontSize: '16px', 
@@ -417,9 +417,6 @@ function App() {
               📅 {new Date().toLocaleDateString()} - {currentDay}
             </span>
           </h1>
-          <div className="date-display">
-            
-          </div>
           <button className="clear-button" onClick={resetForm}>Clear</button>
         </div>
         
@@ -598,19 +595,13 @@ function App() {
                 <DatePicker
                   selected={checkInDate}
                   onChange={handleCheckInChange}
-                  showTimeSelect
                   dateFormat="MMMM d, yyyy h:mm aa"
-                  timeFormat="h:mm aa"
-                  timeIntervals={60}
-                  timeCaption="Time"
                   minDate={new Date()}
                   className="date-picker"
-                  popperPlacement="bottom-start"
-                  popperModifiers={{
-                    preventOverflow: {
-                      enabled: true,
-                    },
-                  }}
+                  showTimeSelect={false}
+                  timeFormat="HH:mm"
+                  timeIntervals={60}
+                  timeCaption="Time"
                 />
                 <span className="calendar-icon">📅</span>
                 <span className="time-note">Standard check-in: 3:00 PM</span>
@@ -639,19 +630,13 @@ function App() {
                 <DatePicker
                   selected={checkOutDate}
                   onChange={handleCheckOutChange}
-                  showTimeSelect
                   dateFormat="MMMM d, yyyy h:mm aa"
-                  timeFormat="h:mm aa"
+                  minDate={checkInDate}
+                  className="date-picker"
+                  showTimeSelect={false}
+                  timeFormat="HH:mm"
                   timeIntervals={60}
                   timeCaption="Time"
-                  minDate={new Date(checkInDate.getTime() + (24 * 60 * 60 * 1000))}
-                  className="date-picker"
-                  popperPlacement="bottom-start"
-                  popperModifiers={{
-                    preventOverflow: {
-                      enabled: true,
-                    },
-                  }}
                 />
                 <span className="calendar-icon">📅</span>
                 <span className="time-note">Standard check-out: 11:00 AM</span>

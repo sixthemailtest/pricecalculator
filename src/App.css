@@ -530,3 +530,82 @@
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
+
+/* Calendar styles for mobile */
+.react-datepicker {
+  font-size: 0.8em !important;
+  width: 100% !important;
+  max-width: 280px !important;
+}
+
+.react-datepicker__month-container {
+  width: 100% !important;
+}
+
+.react-datepicker__header {
+  padding: 6px !important;
+}
+
+.react-datepicker__day {
+  width: 1.7em !important;
+  line-height: 1.7em !important;
+  margin: 0.1em !important;
+}
+
+.react-datepicker__current-month {
+  font-size: 1em !important;
+}
+
+.react-datepicker__day-name {
+  width: 1.7em !important;
+  line-height: 1.7em !important;
+  margin: 0.1em !important;
+}
+
+/* Hide time section */
+.react-datepicker__time-container {
+  display: none !important;
+}
+
+.react-datepicker__time-box {
+  width: 100% !important;
+  max-width: 280px !important;
+}
+
+.react-datepicker__time-list {
+  height: 200px !important;
+}
+
+.react-datepicker__time-list-item {
+  padding: 5px !important;
+  height: 25px !important;
+  line-height: 25px !important;
+}
+
+@media screen and (max-width: 480px) {
+  .App {
+    padding: 10px;
+  }
+  
+  .time-section {
+    padding: 10px;
+  }
+  
+  .check-time {
+    min-width: 100px;
+  }
+  
+  .extra-hours {
+    min-width: 100px;
+  }
+  
+  .date-picker-container {
+    min-width: 160px;  /* Even smaller for mobile */
+    padding: 10px;
+  }
+  
+  .date-picker {
+    width: 100%;
+    font-size: 12px;
+  }
+}
