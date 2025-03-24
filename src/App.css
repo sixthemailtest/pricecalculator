@@ -348,6 +348,17 @@
   font-size: 14px;
   margin-bottom: 5px;
   cursor: pointer;
+  background-color: #fff;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.date-picker:focus {
+  outline: none;
+  border-color: #001f5c;
+  box-shadow: 0 0 0 2px rgba(0, 31, 92, 0.1);
 }
 
 .calendar-icon {

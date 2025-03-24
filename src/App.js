@@ -602,6 +602,8 @@ function App() {
                   timeFormat="HH:mm"
                   timeIntervals={60}
                   timeCaption="Time"
+                  onFocus={e => e.target.blur()}
+                  onKeyDown={e => e.preventDefault()}
                 />
                 <span className="calendar-icon">📅</span>
                 <span className="time-note">Standard check-in: 3:00 PM</span>
@@ -637,6 +639,8 @@ function App() {
                   timeFormat="HH:mm"
                   timeIntervals={60}
                   timeCaption="Time"
+                  onFocus={e => e.target.blur()}
+                  onKeyDown={e => e.preventDefault()}
                 />
                 <span className="calendar-icon">📅</span>
                 <span className="time-note">Standard check-out: 11:00 AM</span>
