@@ -362,15 +362,23 @@ function App() {
           )}
           
           {totalNights !== 7 && (
-            <div className="summary-line">
-              <span>Base Room Price:</span>
-              <span>${pricing.totalBasePrice.toFixed(2)}</span>
-            </div>
+            <>
+              {pricing.daysBreakdown.map((day, index) => (
+                <div key={index} className="summary-line">
+                  <span>{day.day}:</span>
+                  <span>${day.basePrice.toFixed(2)}</span>
+                </div>
+              ))}
+              <div className="summary-line" style={{ borderTop: '1px solid #eee', marginTop: '8px', paddingTop: '8px' }}>
+                <span>Total Base Price:</span>
+                <span>${pricing.totalBasePrice.toFixed(2)}</span>
+              </div>
+            </>
           )}
           
           {overnightPayment === 'credit' && totalNights < 7 && (
             <div className="summary-line">
-              <span>Tax (15%)</span>
+              <span>Tax (15%):</span>
               <span>${pricing.taxAmount.toFixed(2)}</span>
             </div>
           )}
