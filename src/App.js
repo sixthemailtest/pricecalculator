@@ -40,9 +40,17 @@ function App() {
   const [checkInDate, setCheckInDate] = useState(defaultCheckIn);
   const [checkOutDate, setCheckOutDate] = useState(defaultCheckOut);
   
-  // Initialize date and time on component mount
+  // Initialize date and time on component mount and set up timer
   useEffect(() => {
-    updateCurrentDateTime();
+    updateCurrentDateTime(); // Initial update
+    
+    // Set up timer to update every second
+    const timer = setInterval(() => {
+      updateCurrentDateTime();
+    }, 1000);
+    
+    // Cleanup timer on component unmount
+    return () => clearInterval(timer);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -51,7 +59,7 @@ function App() {
     calculateCheckoutTime();
     calculatePrice();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [extraHours, hasJacuzzi, paymentMethod, extraHourRate, isSmoking]);
+  }, [extraHours, hasJacuzzi, paymentMethod, extraHourRate, isSmoking, currentTime]);
   
   // Update overnight calculations when relevant state changes
   useEffect(() => {
@@ -85,7 +93,7 @@ function App() {
     setCurrentDate(now.toLocaleDateString('en-US', options));
     
     // Format time
-    const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: true };
+    const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
     const timeString = now.toLocaleTimeString('en-US', timeOptions);
     setCurrentTime(timeString);
 
@@ -96,7 +104,7 @@ function App() {
   const calculateCheckoutTime = (currentTimeDate = null) => {
     const now = currentTimeDate || new Date();
     const checkoutDate = new Date(now.getTime() + ((4 + extraHours) * 60 * 60 * 1000));
-    const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: true };
+    const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
     setCheckoutTime(checkoutDate.toLocaleTimeString('en-US', timeOptions));
   };
   
