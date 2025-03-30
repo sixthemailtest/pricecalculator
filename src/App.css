@@ -316,16 +316,19 @@
 /* Overnight dates section */
 .overnight-dates {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
   gap: 20px;
   margin-bottom: 20px;
   position: relative;
   z-index: 1;
+  justify-content: center;
+  flex-wrap: nowrap;
 }
 
 .date-picker-container {
   position: relative;
-  flex: 1;
+  flex: 1 1 calc(50% - 10px);
+  max-width: calc(50% - 10px);
   min-width: 280px;
   background-color: #fff;
   padding: 15px;
@@ -617,5 +620,16 @@
     width: 1.8em !important;
     line-height: 1.8em !important;
     margin: 0.2em !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .date-picker-container {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+  
+  .overnight-dates {
+    flex-direction: column;
   }
 }

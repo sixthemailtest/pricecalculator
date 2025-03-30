@@ -76,10 +76,10 @@ function App() {
     // Format current day based on weekday type
     let formattedDay;
     if (now.getDay() === 5) { // Friday
-      formattedDay = `Bold Friday`;
+      formattedDay = `Friday`;
       style = { fontWeight: '900' };
     } else if (now.getDay() === 0 || now.getDay() === 6) { // Weekend
-      formattedDay = `Weekend ${dayName}`;
+      formattedDay = `${dayName}`;
       style = { color: '#00308F', fontWeight: 'bold' };
     } else { // Weekday
       formattedDay = ` ${dayName}`;
@@ -222,7 +222,7 @@ function App() {
       if (dayOfWeek === 5) { // Friday
         dayBasePrice = hasJacuzziOvernight ? 159 : 139;
         if (overnightPayment === 'credit' && !hasJacuzziOvernight) {
-          dayBasePrice = 130;
+          dayBasePrice = 139;
         }
       } else if (dayOfWeek === 0 || dayOfWeek === 6) { // Weekend (Sunday or Saturday)
         dayBasePrice = hasJacuzziOvernight ? 169 : 139;
