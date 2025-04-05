@@ -621,6 +621,20 @@
     line-height: 1.8em !important;
     margin: 0.2em !important;
   }
+
+  /* Add responsive styles for Stay number and price */
+  .saved-stay .stay-number {
+    font-size: 14px !important;
+  }
+
+  .saved-stay .stay-price {
+    font-size: 15px !important;
+  }
+
+  .saved-stay .remove-button {
+    font-size: 11px !important;
+    padding: 3px 6px !important;
+  }
 }
 
 @media screen and (max-width: 768px) {

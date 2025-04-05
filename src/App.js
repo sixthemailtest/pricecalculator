@@ -432,22 +432,33 @@ function App() {
                       borderBottom: '1px solid #e0e0e0',
                       paddingBottom: '8px'
                     }}>
-                      <span style={{ 
-                        fontWeight: 'bold', 
-                        fontSize: '16px',
-                        color: '#001f5c'
-                      }}>Stay #{index + 1}</span>
+                      <span 
+                        className="stay-number"
+                        style={{ 
+                          fontWeight: 'bold', 
+                          fontSize: '16px',
+                          color: '#001f5c'
+                        }}
+                      >
+                        Stay #{index + 1}
+                      </span>
                       <div style={{
                         display: 'flex',
                         alignItems: 'center',
                         gap: '8px'
                       }}>
-                        <span style={{ 
-                          fontWeight: 'bold', 
-                          color: '#001f5c',
-                          fontSize: '18px'
-                        }}>${stay.price.toFixed(2)}</span>
+                        <span 
+                          className="stay-price"
+                          style={{ 
+                            fontWeight: 'bold', 
+                            color: '#001f5c',
+                            fontSize: '18px'
+                          }}
+                        >
+                          ${stay.price.toFixed(2)}
+                        </span>
                         <button 
+                          className="remove-button"
                           onClick={() => removeSavedStay(stay.id)}
                           style={{
                             background: '#dc3545',
