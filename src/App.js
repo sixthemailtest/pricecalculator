@@ -28,6 +28,10 @@ function App() {
   const [overnightCheckoutExtraHours, setOvernightCheckoutExtraHours] = useState(0);
   const [hasJacuzziOvernight, setHasJacuzziOvernight] = useState(false);
   
+  // Multiple overnight stays management
+  const [savedStays, setSavedStays] = useState([]);
+  const [totalStaysPrice, setTotalStaysPrice] = useState(0);
+  
   // Default check-in date (today at 3 PM)
   const defaultCheckIn = new Date();
   defaultCheckIn.setHours(15, 0, 0, 0);
@@ -160,9 +164,9 @@ function App() {
       totalBasePrice = calculateRegularPricing(totalNights, daysBreakdown);
     }
     
-    // Calculate tax (15%) if payment method is credit card and stay is less than 7 nights
+    // Calculate tax (15%) for all payments if stay is less than 7 nights
     let taxAmount = 0;
-    if (overnightPayment === 'credit' && totalNights < 7) {
+    if (totalNights < 7) {
       taxAmount = totalBasePrice * 0.15;
     }
     
@@ -317,18 +321,57 @@ function App() {
     setCheckInDate(defaultCheckIn);
     setCheckOutDate(defaultCheckOut);
     
+    // Clear saved stays
+    setSavedStays([]);
+    setTotalStaysPrice(0);
+    
     // Update current time
     updateCurrentDateTime();
   };
   
   // Reset overnight stay
-  // eslint-disable-next-line no-unused-vars
   const resetOvernightStay = () => {
+    // Save current selection before resetting
+    const pricing = calculateOvernightPrice();
+    if (pricing && pricing.totalPrice > 0) {
+      const checkInDay = new Date(checkInDate).toLocaleDateString('en-US', { weekday: 'long' });
+      const checkOutDay = new Date(checkOutDate).toLocaleDateString('en-US', { weekday: 'long' });
+      
+      const newStay = {
+        id: Date.now(),
+        checkIn: new Date(checkInDate),
+        checkOut: new Date(checkOutDate),
+        hasJacuzzi: hasJacuzziOvernight,
+        smoking: overnightSmoking,
+        payment: overnightPayment,
+        extraRate: overnightExtraRate,
+        checkInAdjustment: overnightExtraHours,
+        checkOutAdjustment: overnightCheckoutExtraHours,
+        nights: pricing.nights,
+        basePrice: pricing.totalBasePrice,
+        tax: pricing.taxAmount,
+        extraHoursCheckIn: pricing.extraHoursCheckInCost,
+        extraHoursCheckOut: pricing.extraHoursCheckOutCost,
+        price: pricing.totalPrice,
+        checkInDay,
+        checkOutDay,
+        details: pricing
+      };
+      
+      const updatedStays = [...savedStays, newStay];
+      setSavedStays(updatedStays);
+      
+      // Calculate total price of all stays
+      const newTotalPrice = updatedStays.reduce((sum, stay) => sum + stay.price, 0);
+      setTotalStaysPrice(newTotalPrice);
+    }
+    
     // Reset room and payment selections
     setOvernightPayment('cash');
     setOvernightExtraHours(0);
     setOvernightCheckoutExtraHours(0);
     setHasJacuzziOvernight(false);
+    setOvernightSmoking(false);
     
     // Reset dates to defaults
     const today = new Date();
@@ -342,8 +385,191 @@ function App() {
     setCheckOutDate(checkOutDefault);
   };
   
+  // Remove a saved stay
+  const removeSavedStay = (stayId) => {
+    const updatedStays = savedStays.filter(stay => stay.id !== stayId);
+    setSavedStays(updatedStays);
+    
+    // Recalculate total price
+    const newTotalPrice = updatedStays.reduce((sum, stay) => sum + stay.price, 0);
+    setTotalStaysPrice(newTotalPrice);
+  };
+  
   // Price summary section for overnight stays
   const renderOvernightStayPriceSummary = () => {
+    if (activeTab === 'multiple') {
+      return (
+        <div className="price-summary" style={{ 
+          backgroundColor: '#fff',
+          padding: '20px',
+          borderRadius: '8px',
+          boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+          margin: '20px 0'
+        }}>
+          <h3 style={{ 
+            color: '#001f5c',
+            borderBottom: '2px solid #001f5c',
+            paddingBottom: '10px',
+            marginBottom: '15px'
+          }}>Price Summary</h3>
+          {savedStays.length > 0 && (
+            <div className="saved-stays-section">
+              {savedStays.map((stay, index) => (
+                <div key={stay.id} className="saved-stay" style={{ 
+                  marginBottom: '15px', 
+                  padding: '15px', 
+                  backgroundColor: '#f8f9fa', 
+                  borderRadius: '8px',
+                  position: 'relative',
+                  border: '1px solid #e0e0e0'
+                }}>
+                  <div style={{ marginBottom: '10px' }}>
+                    <div style={{ 
+                      display: 'flex', 
+                      justifyContent: 'space-between', 
+                      alignItems: 'center', 
+                      marginBottom: '8px',
+                      borderBottom: '1px solid #e0e0e0',
+                      paddingBottom: '8px'
+                    }}>
+                      <span style={{ 
+                        fontWeight: 'bold', 
+                        fontSize: '16px',
+                        color: '#001f5c'
+                      }}>Stay #{index + 1}</span>
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px'
+                      }}>
+                        <span style={{ 
+                          fontWeight: 'bold', 
+                          color: '#001f5c',
+                          fontSize: '18px'
+                        }}>${stay.price.toFixed(2)}</span>
+                        <button 
+                          onClick={() => removeSavedStay(stay.id)}
+                          style={{
+                            background: '#dc3545',
+                            border: 'none',
+                            color: '#fff',
+                            fontSize: '13px',
+                            cursor: 'pointer',
+                            padding: '4px 8px',
+                            borderRadius: '4px',
+                            transition: 'all 0.2s',
+                            fontWeight: '500',
+                            marginLeft: '4px'
+                          }}
+                          onMouseOver={(e) => {
+                            e.target.style.backgroundColor = '#c82333';
+                          }}
+                          onMouseOut={(e) => {
+                            e.target.style.backgroundColor = '#dc3545';
+                          }}
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                    <div style={{ fontSize: '14px', color: '#000' }}>
+                      {stay.checkInDay} ({stay.checkIn.toLocaleDateString()}) to {stay.checkOutDay} ({stay.checkOut.toLocaleDateString()})
+                    </div>
+                    <div style={{ fontSize: '14px', color: '#000', marginTop: '4px' }}>
+                      {stay.nights} {stay.nights === 1 ? 'night' : 'nights'}
+                      {stay.hasJacuzzi ? ' • Jacuzzi' : ''}
+                      {stay.checkInAdjustment !== 0 && ` • Check-in ${stay.checkInAdjustment > 0 ? `+${stay.checkInAdjustment}hrs` : `${stay.checkInAdjustment}hrs`}`}
+                      {stay.checkOutAdjustment !== 0 && ` • Check-out ${stay.checkOutAdjustment > 0 ? `+${stay.checkOutAdjustment}hrs` : `${stay.checkOutAdjustment}hrs`}`}
+                    </div>
+                  </div>
+                  <div style={{ 
+                    fontSize: '13px', 
+                    color: '#000', 
+                    backgroundColor: '#f0f0f0',
+                    padding: '10px',
+                    borderRadius: '6px',
+                    marginTop: '8px'
+                  }}>
+                    <div className="summary-line" style={{ 
+                      display: 'flex', 
+                      flexDirection: 'column',
+                      gap: '4px'
+                    }}>
+                      <div style={{ 
+                        display: 'flex', 
+                        justifyContent: 'space-between',
+                        borderBottom: '1px solid #ddd',
+                        paddingBottom: '4px',
+                        marginBottom: '4px'
+                      }}>
+                        <span>Base Price ({stay.nights} {stay.nights === 1 ? 'night' : 'nights'}):</span>
+                        <span>${stay.basePrice.toFixed(2)}</span>
+                      </div>
+                      {stay.details.daysBreakdown.map((day, idx) => (
+                        <div key={idx} style={{ 
+                          display: 'flex', 
+                          justifyContent: 'space-between',
+                          fontSize: '12px',
+                          color: '#444'
+                        }}>
+                          <span>{day.day}:</span>
+                          <span>${day.basePrice.toFixed(2)}</span>
+                        </div>
+                      ))}
+                    </div>
+                    {stay.tax > 0 && (
+                      <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', marginTop: '8px' }}>
+                        <span>Tax (15%):</span>
+                        <span>${stay.tax.toFixed(2)}</span>
+                      </div>
+                    )}
+                    {stay.extraHoursCheckIn > 0 && (
+                      <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                        <span>Check-in Hours ({stay.checkInAdjustment > 0 ? `Late: +${stay.checkInAdjustment}hrs` : `Early: ${Math.abs(stay.checkInAdjustment)}hrs`}):</span>
+                        <span>${stay.extraHoursCheckIn.toFixed(2)}</span>
+                      </div>
+                    )}
+                    {stay.extraHoursCheckOut > 0 && (
+                      <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                        <span>Check-out Hours ({stay.checkOutAdjustment > 0 ? `Late: +${stay.checkOutAdjustment}hrs` : `Early: ${Math.abs(stay.checkOutAdjustment)}hrs`}):</span>
+                        <span>${stay.extraHoursCheckOut.toFixed(2)}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+              
+              <div className="summary-line total" style={{ 
+                marginTop: '20px', 
+                borderTop: '2px solid #001f5c',
+                paddingTop: '15px',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                fontSize: '18px',
+                fontWeight: 'bold'
+              }}>
+                <span style={{ color: '#001f5c' }}>Total Price:</span>
+                <span style={{ color: '#001f5c', fontSize: '20px' }}>${totalStaysPrice.toFixed(2)}</span>
+              </div>
+            </div>
+          )}
+          {savedStays.length === 0 && (
+            <p style={{ 
+              textAlign: 'center', 
+              color: '#000', 
+              padding: '30px',
+              backgroundColor: '#f8f9fa',
+              borderRadius: '6px',
+              fontSize: '15px'
+            }}>
+              Select dates and click "Add Stay" to begin adding stays
+            </p>
+          )}
+        </div>
+      );
+    }
+
     if (!checkInDate || !checkOutDate) {
       return <p>Please select check-in and check-out dates.</p>;
     }
@@ -356,6 +582,7 @@ function App() {
       <div className="price-summary">
         <h3>Price Summary</h3>
         
+        {/* Current stay summary */}
         <div className="summary-section">
           <div className="summary-line">
             <span>Stay Duration:</span>
@@ -384,7 +611,7 @@ function App() {
             </>
           )}
           
-          {overnightPayment === 'credit' && totalNights < 7 && (
+          {totalNights < 7 && (
             <div className="summary-line">
               <span>Tax (15%):</span>
               <span>${pricing.taxAmount.toFixed(2)}</span>
@@ -448,6 +675,15 @@ function App() {
             onClick={() => setActiveTab('overnight')}
           >
             Overnight Stay
+          </button>
+          <button 
+            className={`tab-button ${activeTab === 'multiple' ? 'active' : ''}`} 
+            onClick={() => setActiveTab('multiple')}
+            style={{
+              backgroundColor: activeTab === 'multiple' ? '#b19cd9' : '#e6e0f3'
+            }}
+          >
+            Multiple Nights
           </button>
         </div>
         
@@ -604,6 +840,206 @@ function App() {
           
           <div className={`overnight-stay-section ${activeTab === 'overnight' ? 'active' : ''}`}>
             <h2 className="section-header">Overnight Stay</h2>
+            
+            <div className="overnight-dates">
+              <div className="date-picker-container">
+                <label>Check-in Date:</label>
+                <DatePicker
+                  selected={checkInDate}
+                  onChange={handleCheckInChange}
+                  dateFormat="MMMM d, yyyy h:mm aa"
+                  minDate={new Date()}
+                  className="date-picker"
+                  showTimeSelect={false}
+                  timeFormat="HH:mm"
+                  timeIntervals={60}
+                  timeCaption="Time"
+                  onFocus={e => e.target.blur()}
+                  onKeyDown={e => e.preventDefault()}
+                />
+                <span className="calendar-icon">📅</span>
+                <span className="time-note">Standard check-in: 3:00 PM</span>
+                
+                <div className="extra-hours-overnight">
+                  <label>Hour Adjustment:</label>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px' }}>
+                    <div className="hours-control">
+                      <button className="minus-btn" onClick={() => handleOvernightExtraHoursChange(-1)}>-</button>
+                      <span>{overnightExtraHours}</span>
+                      <button className="plus-btn" onClick={() => handleOvernightExtraHoursChange(1)}>+</button>
+                    </div>
+                    <span className="hours-note" style={{ color: '#00308F', fontWeight: 'bold' }}>
+                      {overnightExtraHours < 0 
+                        ? `${Math.abs(overnightExtraHours)} hrs before (${new Date(new Date().setHours(15 + overnightExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})})` 
+                        : overnightExtraHours > 0 
+                        ? `${overnightExtraHours} hrs after (${new Date(new Date().setHours(15 + overnightExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})})` 
+                        : 'Standard time (3:00 PM)'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="date-picker-container">
+                <label>Check-out Date:</label>
+                <DatePicker
+                  selected={checkOutDate}
+                  onChange={handleCheckOutChange}
+                  dateFormat="MMMM d, yyyy h:mm aa"
+                  minDate={checkInDate}
+                  className="date-picker"
+                  showTimeSelect={false}
+                  timeFormat="HH:mm"
+                  timeIntervals={60}
+                  timeCaption="Time"
+                  onFocus={e => e.target.blur()}
+                  onKeyDown={e => e.preventDefault()}
+                />
+                <span className="calendar-icon">📅</span>
+                <span className="time-note">Standard check-out: 11:00 AM</span>
+                
+                <div className="extra-hours-overnight">
+                  <label>Hour Adjustment:</label>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px' }}>
+                    <div className="hours-control">
+                      <button className="minus-btn" onClick={() => handleCheckoutExtraHoursChange(-1)}>-</button>
+                      <span>{overnightCheckoutExtraHours}</span>
+                      <button className="plus-btn" onClick={() => handleCheckoutExtraHoursChange(1)}>+</button>
+                    </div>
+                    <span className="hours-note" style={{ color: '#00308F', fontWeight: 'bold' }}>
+                      {overnightCheckoutExtraHours < 0 
+                        ? `${Math.abs(overnightCheckoutExtraHours)} hrs before (${new Date(new Date().setHours(11 + overnightCheckoutExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})})` 
+                        : overnightCheckoutExtraHours > 0 
+                        ? `${overnightCheckoutExtraHours} hrs after (${new Date(new Date().setHours(11 + overnightCheckoutExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})})` 
+                        : 'Standard time (11:00 AM)'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="room-options">
+              <div className="option-group">
+                <label>Room Type:</label>
+                <div className="radio-group">
+                  <label>
+                    <input
+                      type="radio"
+                      checked={!hasJacuzziOvernight}
+                      onChange={() => setHasJacuzziOvernight(false)}
+                    />
+                    No Jacuzzi
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      checked={hasJacuzziOvernight}
+                      onChange={() => setHasJacuzziOvernight(true)}
+                    />
+                    With Jacuzzi
+                  </label>
+                </div>
+              </div>
+              
+              <div className="option-group">
+                <label>Smoking Preference:</label>
+                <div className="radio-group">
+                  <label>
+                    <input
+                      type="radio"
+                      checked={!overnightSmoking}
+                      onChange={() => setOvernightSmoking(false)}
+                    />
+                    Non-Smoking
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      checked={overnightSmoking}
+                      onChange={() => setOvernightSmoking(true)}
+                    />
+                    Smoking
+                  </label>
+                </div>
+              </div>
+              
+              <div className="option-group">
+                <label>Payment Method:</label>
+                <div className="radio-group">
+                  <label>
+                    <input
+                      type="radio"
+                      value="cash"
+                      checked={overnightPayment === 'cash'}
+                      onChange={() => setOvernightPayment('cash')}
+                    />
+                    Cash
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      value="credit"
+                      checked={overnightPayment === 'credit'}
+                      onChange={() => setOvernightPayment('credit')}
+                    />
+                    Credit Card
+                  </label>
+                </div>
+              </div>
+              
+              <div className="option-group">
+                <label>Extra Hour Rate:</label>
+                <div className="radio-group">
+                  <label>
+                    <input
+                      type="radio"
+                      checked={overnightExtraRate === 15}
+                      onChange={() => setOvernightExtraRate(15)}
+                    />
+                    $15/hour
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      checked={overnightExtraRate === 10}
+                      onChange={() => setOvernightExtraRate(10)}
+                    />
+                    $10/hour
+                  </label>
+                </div>
+              </div>
+            </div>
+            
+            {renderOvernightStayPriceSummary()}
+          </div>
+
+          {/* Multiple Nights Section */}
+          <div 
+            className={`overnight-stay-section ${activeTab === 'multiple' ? 'active' : ''}`}
+            style={{
+              backgroundColor: '#e6e0f3'
+            }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
+              <h2 className="section-header">Multiple Nights</h2>
+              <button 
+                className="add-more-button"
+                onClick={() => resetOvernightStay()}
+                style={{
+                  backgroundColor: '#8a2be2',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  padding: '5px 10px',
+                  fontSize: '14px',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '5px'
+                }}
+              >
+                <span>+</span> Add Stay
+              </button>
+            </div>
             
             <div className="overnight-dates">
               <div className="date-picker-container">
