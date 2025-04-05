@@ -1024,18 +1024,6 @@ function App() {
               <button 
                 className="add-more-button"
                 onClick={() => resetOvernightStay()}
-                style={{
-                  backgroundColor: '#8a2be2',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '4px',
-                  padding: '5px 10px',
-                  fontSize: '14px',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '5px'
-                }}
               >
                 <span>+</span> Add Stay
               </button>
