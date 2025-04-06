@@ -462,8 +462,11 @@ function App() {
                           className="stay-number"
                           style={{ 
                             fontWeight: 'bold', 
-                            fontSize: '16px',
-                            color: '#001f5c'
+                            fontSize: '14px',
+                            color: '#001f5c',
+                            '@media (max-width: 375px)': {
+                              fontSize: '12px'
+                            }
                           }}
                         >
                           Stay #{index + 1}
@@ -474,15 +477,22 @@ function App() {
                             border: 'none',
                             color: '#fff',
                             cursor: 'pointer',
-                            padding: '2px 6px',
-                            fontSize: '11px',
+                            padding: '2px 4px',
+                            fontSize: '10px',
                             borderRadius: '3px',
                             display: 'inline-flex',
                             alignItems: 'center',
                             transition: 'all 0.2s',
                             fontWeight: '500',
                             textTransform: 'uppercase',
-                            letterSpacing: '0.5px'
+                            letterSpacing: '0.3px',
+                            minWidth: '32px',
+                            justifyContent: 'center',
+                            '@media (max-width: 375px)': {
+                              fontSize: '9px',
+                              padding: '2px 3px',
+                              minWidth: '28px'
+                            }
                           }}
                           onMouseOver={(e) => {
                             e.target.style.background = '#002d85';
@@ -757,7 +767,7 @@ function App() {
             className={`tab-button ${activeTab === 'short' ? 'active' : ''}`} 
             onClick={() => setActiveTab('short')}
             style={{
-              backgroundColor: activeTab === 'short' ? '#ffb380' : '#fff0e6'
+              backgroundColor: activeTab === 'short' ? '#dbf5db' : '#f0fff0'
             }}
           >
             Short Stay
@@ -772,7 +782,7 @@ function App() {
             className={`tab-button ${activeTab === 'multiple' ? 'active' : ''}`} 
             onClick={() => setActiveTab('multiple')}
             style={{
-              backgroundColor: activeTab === 'multiple' ? '#9370db' : '#b19cd9'
+              backgroundColor: activeTab === 'multiple' ? '#b19cd9' : '#f0e6ff'
             }}
           >
             Multiple Nights
@@ -781,7 +791,7 @@ function App() {
         
         <div className="stay-sections">
           <div className={`short-stay-section ${activeTab === 'short' ? 'active' : ''}`}
-            style={{ backgroundColor: '#fff3e6' }}>
+            style={{ backgroundColor: '#f0fff0' }}>
             <h2 className="section-header">Short Stay</h2>
             
             <div className="option-group" style={{ maxWidth: '500px', margin: '0 auto 20px auto' }}>
