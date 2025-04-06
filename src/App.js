@@ -499,16 +499,27 @@ function App() {
                             minWidth: '28px',
                             justifyContent: 'center',
                             '@media (max-width: 375px)': {
-                              fontSize: '9px',
-                              padding: '1px 3px',
-                              minWidth: '24px'
+                              background: 'none',
+                              padding: '0',
+                              minWidth: 'auto',
+                              fontSize: '16px',
+                              color: '#001f5c',
+                              transform: 'scaleX(-1)'
                             }
                           }}
                           onMouseOver={(e) => {
-                            e.target.style.background = '#002d85';
+                            if (window.innerWidth > 375) {
+                              e.target.style.background = '#002d85';
+                            } else {
+                              e.target.style.color = '#002d85';
+                            }
                           }}
                           onMouseOut={(e) => {
-                            e.target.style.background = '#001f5c';
+                            if (window.innerWidth > 375) {
+                              e.target.style.background = '#001f5c';
+                            } else {
+                              e.target.style.color = '#001f5c';
+                            }
                           }}
                           onClick={() => {
                             // Set all the form fields to this stay's values
@@ -525,7 +536,7 @@ function App() {
                             removeSavedStay(stay.id);
                           }}
                         >
-                          Edit
+                          {window.innerWidth <= 375 ? '✎' : 'Edit'}
                         </button>
                       </div>
                       <div style={{
