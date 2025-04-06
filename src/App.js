@@ -458,7 +458,8 @@ function App() {
                         alignItems: 'center', 
                         gap: '8px',
                         '@media (max-width: 375px)': {
-                          gap: '4px'
+                          gap: '4px',
+                          marginRight: '8px'
                         }
                       }}>
                         <span 
@@ -495,7 +496,8 @@ function App() {
                             '@media (max-width: 375px)': {
                               fontSize: '9px',
                               padding: '1px 3px',
-                              minWidth: '24px'
+                              minWidth: '24px',
+                              marginRight: '4px'
                             }
                           }}
                           onMouseOver={(e) => {
@@ -527,7 +529,7 @@ function App() {
                         alignItems: 'center',
                         gap: '8px',
                         '@media (max-width: 375px)': {
-                          gap: '4px'
+                          gap: '6px'
                         }
                       }}>
                         <span 
