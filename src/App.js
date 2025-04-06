@@ -456,7 +456,10 @@ function App() {
                       <div style={{ 
                         display: 'flex', 
                         alignItems: 'center', 
-                        gap: '8px'
+                        gap: '8px',
+                        '@media (max-width: 375px)': {
+                          gap: '4px'
+                        }
                       }}>
                         <span 
                           className="stay-number"
@@ -464,8 +467,9 @@ function App() {
                             fontWeight: 'bold', 
                             fontSize: '14px',
                             color: '#001f5c',
+                            whiteSpace: 'nowrap',
                             '@media (max-width: 375px)': {
-                              fontSize: '12px'
+                              fontSize: '11px'
                             }
                           }}
                         >
@@ -486,12 +490,12 @@ function App() {
                             fontWeight: '500',
                             textTransform: 'uppercase',
                             letterSpacing: '0.3px',
-                            minWidth: '32px',
+                            minWidth: '28px',
                             justifyContent: 'center',
                             '@media (max-width: 375px)': {
                               fontSize: '9px',
-                              padding: '2px 3px',
-                              minWidth: '28px'
+                              padding: '1px 3px',
+                              minWidth: '24px'
                             }
                           }}
                           onMouseOver={(e) => {
@@ -521,14 +525,20 @@ function App() {
                       <div style={{
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '8px'
+                        gap: '8px',
+                        '@media (max-width: 375px)': {
+                          gap: '4px'
+                        }
                       }}>
                         <span 
                           className="stay-price"
                           style={{ 
                             fontWeight: 'bold', 
                             color: '#001f5c',
-                            fontSize: '18px'
+                            fontSize: '16px',
+                            '@media (max-width: 375px)': {
+                              fontSize: '14px'
+                            }
                           }}
                         >
                           ${stay.price.toFixed(2)}
@@ -540,13 +550,17 @@ function App() {
                             background: '#dc3545',
                             border: 'none',
                             color: '#fff',
-                            fontSize: '13px',
+                            fontSize: '12px',
                             cursor: 'pointer',
-                            padding: '4px 8px',
+                            padding: '3px 6px',
                             borderRadius: '4px',
                             transition: 'all 0.2s',
                             fontWeight: '500',
-                            marginLeft: '4px'
+                            marginLeft: '4px',
+                            '@media (max-width: 375px)': {
+                              fontSize: '10px',
+                              padding: '2px 4px'
+                            }
                           }}
                           onMouseOver={(e) => {
                             e.target.style.backgroundColor = '#c82333';
