@@ -27,6 +27,7 @@ function App() {
   const [overnightExtraHours, setOvernightExtraHours] = useState(0);
   const [overnightCheckoutExtraHours, setOvernightCheckoutExtraHours] = useState(0);
   const [hasJacuzziOvernight, setHasJacuzziOvernight] = useState(false);
+  const [bedType, setBedType] = useState('queen');
   
   // Multiple overnight stays management
   const [savedStays, setSavedStays] = useState([]);
@@ -69,7 +70,8 @@ function App() {
   useEffect(() => {
     calculateOvernightPrice();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [overnightSmoking, overnightPayment, hasJacuzziOvernight, checkInDate, checkOutDate, overnightExtraHours, overnightExtraRate, overnightCheckoutExtraHours]);
+  }, [overnightSmoking, overnightPayment, hasJacuzziOvernight, checkInDate, checkOutDate, 
+      overnightExtraHours, overnightExtraRate, overnightCheckoutExtraHours, bedType]);
   
   const updateCurrentDateTime = () => {
     const now = new Date();
@@ -157,8 +159,15 @@ function App() {
     
     // Special pricing for 7-night stays
     if (totalNights === 7) {
-      // Flat rate for 7 nights, regardless of payment method
+      // Flat rate for 7 nights
       totalBasePrice = hasJacuzziOvernight ? 695 : 675;
+      
+      // Add bed type adjustment for 7 nights
+      if (bedType === 'king') {
+        totalBasePrice += (5 * 7); // $5 extra per night for King
+      } else if (bedType === 'double') {
+        totalBasePrice += (10 * 7); // $10 extra per night for Double
+      }
     } else {
       // Regular pricing for non-7-night stays
       totalBasePrice = calculateRegularPricing(totalNights, daysBreakdown);
@@ -173,18 +182,16 @@ function App() {
     // Calculate extra hours cost for check-in
     let extraHoursCheckInCost = 0;
     if (overnightExtraHours !== 0) {
-      // Both early and late check-in are charged at the selected rate
       extraHoursCheckInCost = Math.abs(overnightExtraHours) * overnightExtraRate;
     }
     
     // Calculate extra hours cost for checkout
     let extraHoursCheckOutCost = 0;
     if (overnightCheckoutExtraHours > 0) {
-      // For late checkout, use the selected rate ($15 or $10 per hour)
       extraHoursCheckOutCost = overnightCheckoutExtraHours * overnightExtraRate;
     }
     
-    // Calculate total price (base price + tax + extra hours costs)
+    // Calculate total price
     calculatedTotalPrice = totalBasePrice + taxAmount + extraHoursCheckInCost + extraHoursCheckOutCost;
     
     return {
@@ -206,7 +213,7 @@ function App() {
     for (let i = 0; i < totalNights; i++) {
       const currentDate = new Date(checkInDate);
       currentDate.setDate(currentDate.getDate() + i);
-      const dayOfWeek = currentDate.getDay(); // 0: Sunday, 1-4: Monday-Thursday, 5: Friday, 6: Saturday
+      const dayOfWeek = currentDate.getDay();
       
       let dayBasePrice = 0;
       let dayName = '';
@@ -222,7 +229,7 @@ function App() {
         dayName = ['Monday', 'Tuesday', 'Wednesday', 'Thursday'][dayOfWeek - 1];
       }
       
-      // Set prices based on day of week, jacuzzi, and payment method
+      // Set base prices based on day of week and jacuzzi
       if (dayOfWeek === 5) { // Friday
         dayBasePrice = hasJacuzziOvernight ? 159 : 139;
         if (overnightPayment === 'credit' && !hasJacuzziOvernight) {
@@ -233,6 +240,13 @@ function App() {
       } else { // Weekday (Mon-Thu)
         dayBasePrice = hasJacuzziOvernight ? 120 : 105;
       }
+
+      // Add bed type price adjustment
+      if (bedType === 'king') {
+        dayBasePrice += 5; // King bed is $5 more
+      } else if (bedType === 'double') {
+        dayBasePrice += 10; // Double bed is $10 more
+      }
       
       // Add to pricing totals
       totalBasePrice += dayBasePrice;
@@ -240,7 +254,7 @@ function App() {
       // Add to days breakdown
       daysBreakdown.push({
         day: dayName,
-        date: '',  // Remove date display completely
+        date: '',
         basePrice: dayBasePrice
       });
     }
@@ -309,6 +323,7 @@ function App() {
     setOvernightExtraHours(0);
     setOvernightCheckoutExtraHours(0);
     setHasJacuzziOvernight(false);
+    setBedType('queen');
     
     // Reset dates to defaults
     const defaultCheckIn = new Date();
@@ -355,7 +370,8 @@ function App() {
         price: pricing.totalPrice,
         checkInDay,
         checkOutDay,
-        details: pricing
+        details: pricing,
+        bedType: bedType
       };
       
       const updatedStays = [...savedStays, newStay];
@@ -366,12 +382,13 @@ function App() {
       setTotalStaysPrice(newTotalPrice);
     }
     
-    // Reset room and payment selections
+    // Reset all selections including bed type
     setOvernightPayment('cash');
     setOvernightExtraHours(0);
     setOvernightCheckoutExtraHours(0);
     setHasJacuzziOvernight(false);
     setOvernightSmoking(false);
+    setBedType('queen');
     
     // Reset dates to defaults
     const today = new Date();
@@ -398,6 +415,8 @@ function App() {
   // Price summary section for overnight stays
   const renderOvernightStayPriceSummary = () => {
     if (activeTab === 'multiple') {
+      const currentPricing = calculateOvernightPrice();
+      
       return (
         <div className="price-summary" style={{ 
           backgroundColor: '#fff',
@@ -412,6 +431,8 @@ function App() {
             paddingBottom: '10px',
             marginBottom: '15px'
           }}>Price Summary</h3>
+
+          {/* Saved Stays Section */}
           {savedStays.length > 0 && (
             <div className="saved-stays-section">
               {savedStays.map((stay, index) => (
@@ -432,16 +453,61 @@ function App() {
                       borderBottom: '1px solid #e0e0e0',
                       paddingBottom: '8px'
                     }}>
-                      <span 
-                        className="stay-number"
-                        style={{ 
-                          fontWeight: 'bold', 
-                          fontSize: '16px',
-                          color: '#001f5c'
-                        }}
-                      >
-                        Stay #{index + 1}
-                      </span>
+                      <div style={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        gap: '8px'
+                      }}>
+                        <span 
+                          className="stay-number"
+                          style={{ 
+                            fontWeight: 'bold', 
+                            fontSize: '16px',
+                            color: '#001f5c'
+                          }}
+                        >
+                          Stay #{index + 1}
+                        </span>
+                        <button
+                          style={{
+                            background: '#001f5c',
+                            border: 'none',
+                            color: '#fff',
+                            cursor: 'pointer',
+                            padding: '2px 6px',
+                            fontSize: '11px',
+                            borderRadius: '3px',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            transition: 'all 0.2s',
+                            fontWeight: '500',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.5px'
+                          }}
+                          onMouseOver={(e) => {
+                            e.target.style.background = '#002d85';
+                          }}
+                          onMouseOut={(e) => {
+                            e.target.style.background = '#001f5c';
+                          }}
+                          onClick={() => {
+                            // Set all the form fields to this stay's values
+                            setCheckInDate(new Date(stay.checkIn));
+                            setCheckOutDate(new Date(stay.checkOut));
+                            setHasJacuzziOvernight(stay.hasJacuzzi);
+                            setOvernightSmoking(stay.smoking);
+                            setOvernightPayment(stay.payment);
+                            setOvernightExtraRate(stay.extraRate);
+                            setOvernightExtraHours(stay.checkInAdjustment);
+                            setOvernightCheckoutExtraHours(stay.checkOutAdjustment);
+                            setBedType(stay.bedType);
+                            // Remove this stay
+                            removeSavedStay(stay.id);
+                          }}
+                        >
+                          Edit
+                        </button>
+                      </div>
                       <div style={{
                         display: 'flex',
                         alignItems: 'center',
@@ -489,6 +555,7 @@ function App() {
                     <div style={{ fontSize: '14px', color: '#000', marginTop: '4px' }}>
                       {stay.nights} {stay.nights === 1 ? 'night' : 'nights'}
                       {stay.hasJacuzzi ? ' • Jacuzzi' : ''}
+                      {' • '}{stay.bedType.charAt(0).toUpperCase() + stay.bedType.slice(1)} Bed
                       {stay.checkInAdjustment !== 0 && ` • Check-in ${stay.checkInAdjustment > 0 ? `+${stay.checkInAdjustment}hrs` : `${stay.checkInAdjustment}hrs`}`}
                       {stay.checkOutAdjustment !== 0 && ` • Check-out ${stay.checkOutAdjustment > 0 ? `+${stay.checkOutAdjustment}hrs` : `${stay.checkOutAdjustment}hrs`}`}
                     </div>
@@ -561,10 +628,13 @@ function App() {
                 fontWeight: 'bold'
               }}>
                 <span style={{ color: '#001f5c' }}>Total Price:</span>
-                <span style={{ color: '#001f5c', fontSize: '20px' }}>${totalStaysPrice.toFixed(2)}</span>
+                <span style={{ color: '#001f5c', fontSize: '20px' }}>
+                  ${totalStaysPrice.toFixed(2)}
+                </span>
               </div>
             </div>
           )}
+
           {savedStays.length === 0 && (
             <p style={{ 
               textAlign: 'center', 
@@ -603,7 +673,15 @@ function App() {
           {totalNights === 7 && (
             <div className="summary-line">
               <span>Weekly Special Rate:</span>
-              <span>${hasJacuzziOvernight ? '695.00' : '675.00'}</span>
+              <span>${(() => {
+                let baseRate = hasJacuzziOvernight ? 695 : 675;
+                if (bedType === 'king') {
+                  baseRate += (5 * 7); // $5 extra per night for King
+                } else if (bedType === 'double') {
+                  baseRate += (10 * 7); // $10 extra per night for Double
+                }
+                return baseRate.toFixed(2);
+              })()}</span>
             </div>
           )}
           
@@ -678,6 +756,9 @@ function App() {
           <button 
             className={`tab-button ${activeTab === 'short' ? 'active' : ''}`} 
             onClick={() => setActiveTab('short')}
+            style={{
+              backgroundColor: activeTab === 'short' ? '#ffb380' : '#fff0e6'
+            }}
           >
             Short Stay
           </button>
@@ -691,7 +772,7 @@ function App() {
             className={`tab-button ${activeTab === 'multiple' ? 'active' : ''}`} 
             onClick={() => setActiveTab('multiple')}
             style={{
-              backgroundColor: activeTab === 'multiple' ? '#b19cd9' : '#e6e0f3'
+              backgroundColor: activeTab === 'multiple' ? '#9370db' : '#b19cd9'
             }}
           >
             Multiple Nights
@@ -699,7 +780,8 @@ function App() {
         </div>
         
         <div className="stay-sections">
-          <div className={`short-stay-section ${activeTab === 'short' ? 'active' : ''}`}>
+          <div className={`short-stay-section ${activeTab === 'short' ? 'active' : ''}`}
+            style={{ backgroundColor: '#fff3e6' }}>
             <h2 className="section-header">Short Stay</h2>
             
             <div className="option-group" style={{ maxWidth: '500px', margin: '0 auto 20px auto' }}>
@@ -952,6 +1034,38 @@ function App() {
               </div>
               
               <div className="option-group">
+                <label>Bed Type:</label>
+                <div className="radio-group">
+                  <label>
+                    <input
+                      type="radio"
+                      checked={bedType === 'queen'}
+                      onChange={() => setBedType('queen')}
+                    />
+                    Queen Bed
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      checked={bedType === 'king'}
+                      onChange={() => setBedType('king')}
+                    />
+                    King Bed
+                  </label>
+                  {!hasJacuzziOvernight && (
+                    <label>
+                      <input
+                        type="radio"
+                        checked={bedType === 'double'}
+                        onChange={() => setBedType('double')}
+                      />
+                      Double Bed
+                    </label>
+                  )}
+                </div>
+              </div>
+              
+              <div className="option-group">
                 <label>Smoking Preference:</label>
                 <div className="radio-group">
                   <label>
@@ -1136,6 +1250,38 @@ function App() {
                     />
                     With Jacuzzi
                   </label>
+                </div>
+              </div>
+              
+              <div className="option-group">
+                <label>Bed Type:</label>
+                <div className="radio-group">
+                  <label>
+                    <input
+                      type="radio"
+                      checked={bedType === 'queen'}
+                      onChange={() => setBedType('queen')}
+                    />
+                    Queen Bed
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      checked={bedType === 'king'}
+                      onChange={() => setBedType('king')}
+                    />
+                    King Bed
+                  </label>
+                  {!hasJacuzziOvernight && (
+                    <label>
+                      <input
+                        type="radio"
+                        checked={bedType === 'double'}
+                        onChange={() => setBedType('double')}
+                      />
+                      Double Bed
+                    </label>
+                  )}
                 </div>
               </div>
               
