@@ -459,7 +459,7 @@ function App() {
                         gap: '8px',
                         '@media (max-width: 375px)': {
                           gap: '4px',
-                          marginRight: '8px'
+                          flex: '0 0 auto'
                         }
                       }}>
                         <span 
@@ -496,8 +496,7 @@ function App() {
                             '@media (max-width: 375px)': {
                               fontSize: '9px',
                               padding: '1px 3px',
-                              minWidth: '24px',
-                              marginRight: '4px'
+                              minWidth: '24px'
                             }
                           }}
                           onMouseOver={(e) => {
@@ -529,7 +528,9 @@ function App() {
                         alignItems: 'center',
                         gap: '8px',
                         '@media (max-width: 375px)': {
-                          gap: '8px',
+                          gap: '6px',
+                          marginLeft: '12px',
+                          flex: '1',
                           justifyContent: 'flex-end'
                         }
                       }}>
@@ -540,8 +541,7 @@ function App() {
                             color: '#001f5c',
                             fontSize: '16px',
                             '@media (max-width: 375px)': {
-                              fontSize: '13px',
-                              marginRight: '4px'
+                              fontSize: '12px'
                             }
                           }}
                         >
@@ -562,8 +562,7 @@ function App() {
                             fontWeight: '500',
                             '@media (max-width: 375px)': {
                               fontSize: '10px',
-                              padding: '2px 4px',
-                              marginLeft: '4px'
+                              padding: '2px 4px'
                             }
                           }}
                           onMouseOver={(e) => {
