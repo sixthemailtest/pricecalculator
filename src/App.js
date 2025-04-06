@@ -529,7 +529,8 @@ function App() {
                         alignItems: 'center',
                         gap: '8px',
                         '@media (max-width: 375px)': {
-                          gap: '6px'
+                          gap: '8px',
+                          justifyContent: 'flex-end'
                         }
                       }}>
                         <span 
@@ -539,7 +540,8 @@ function App() {
                             color: '#001f5c',
                             fontSize: '16px',
                             '@media (max-width: 375px)': {
-                              fontSize: '14px'
+                              fontSize: '13px',
+                              marginRight: '4px'
                             }
                           }}
                         >
@@ -558,10 +560,10 @@ function App() {
                             borderRadius: '4px',
                             transition: 'all 0.2s',
                             fontWeight: '500',
-                            marginLeft: '4px',
                             '@media (max-width: 375px)': {
                               fontSize: '10px',
-                              padding: '2px 4px'
+                              padding: '2px 4px',
+                              marginLeft: '4px'
                             }
                           }}
                           onMouseOver={(e) => {
