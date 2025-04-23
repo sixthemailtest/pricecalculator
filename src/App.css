@@ -1,0 +1,1050 @@
+/* Base styles */
+.App {
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Hotel calculator */
+.hotel-calculator {
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Header section */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.date-display {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.date-icon {
+  font-size: 20px;
+  background-color: #001f5c; /* Darker blue */
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.day-name {
+  font-weight: bold;
+}
+
+/* Friday and Weekend styling is handled in the JavaScript component */
+
+.clear-button {
+  background-color: #f44336; /* Red */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.clear-button:hover {
+  background-color: #d32f2f; /* Darker red on hover */
+}
+
+/* Tab navigation */
+.stay-tabs {
+  display: flex;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.tab-button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  background: transparent;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.tab-button:first-child {
+  background-color: #f0f8f0; /* Very light green for short stay */
+}
+
+.tab-button:nth-child(2) {
+  background-color: #c9dffc; /* Light blue for overnight */
+}
+
+.tab-button.active {
+  background-color: #e8f5e9; /* Darker light green for short stay when active */
+  color: #001f5c; /* Darker blue */
+}
+
+.tab-button:nth-child(2).active {
+  background-color: #90b4e0; /* Darker blue for overnight when active */
+  color: #001f5c; /* Darker blue */
+}
+
+.tab-button:hover:not(.active) {
+  opacity: 0.9;
+}
+
+/* Stay sections container */
+.stay-sections {
+  position: relative;
+}
+
+/* Short stay section */
+.short-stay-section {
+  background-color: #e8f5e9; /* Light green color */
+  padding: 15px;
+  display: none;
+}
+
+.short-stay-section.active {
+  display: block;
+}
+
+/* Overnight stay section */
+.overnight-stay-section {
+  background-color: #c9dffc; /* Light blue color - slightly darker */
+  padding: 15px;
+  display: none;
+}
+
+.overnight-stay-section.active {
+  display: block;
+}
+
+.section-header {
+  color: #001f5c; /* Darker Blue */
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.section-subheader {
+  color: #001f5c;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Time section */
+.time-section {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.check-time {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+  min-width: 120px;
+}
+
+.check-time label {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 2px;
+  color: #001f5c; /* Darker Blue */
+}
+
+.check-time span {
+  font-size: 16px;
+  color: #001f5c; /* Darker Blue */
+  font-weight: 500;
+}
+
+/* Extra hours control */
+.extra-hours {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  flex: 1;
+  min-width: 120px;
+}
+
+.extra-hours label {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 2px;
+  color: #001f5c;
+}
+
+.hours-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #fff;
+  padding: 5px 8px;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.hours-control span {
+  min-width: 24px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.minus-btn, .plus-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.minus-btn {
+  background-color: #f44336; /* Red */
+  color: white;
+}
+
+.plus-btn {
+  background-color: #4caf50; /* Green */
+  color: white;
+}
+
+.minus-btn:hover, .plus-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Room options */
+.room-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.option-group {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.option-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: normal;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+/* Price summary */
+.price-summary {
+  background-color: #f0f0f0; /* Light grey */
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid #ccc;
+}
+
+.summary-line {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.total-hours {
+  font-weight: bold;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+}
+
+.total {
+  font-weight: bold;
+  font-size: 18px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+  color: #001f5c; /* Darker Blue */
+}
+
+/* Overnight dates section */
+.overnight-dates {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+.date-picker-container {
+  position: relative;
+  flex: 1 1 calc(50% - 10px);
+  max-width: calc(50% - 10px);
+  min-width: 280px;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.date-picker-container label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #001f5c;
+}
+
+.date-picker {
+  width: 75%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  background-color: #fff;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.date-picker:focus {
+  outline: none;
+  border-color: #001f5c;
+  box-shadow: 0 0 0 2px rgba(0, 31, 92, 0.1);
+}
+
+.calendar-icon {
+  position: absolute;
+  right: 25px;
+  top: 42px;
+  font-size: 20px;
+  color: #001f5c;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Calendar styles */
+.react-datepicker {
+  font-size: 0.9em !important;
+  width: auto !important;
+}
+
+.react-datepicker__month-container {
+  float: left;
+  width: auto;
+}
+
+.react-datepicker__header {
+  padding: 8px !important;
+}
+
+.react-datepicker__day {
+  width: 2em !important;
+  line-height: 2em !important;
+  margin: 0.2em !important;
+}
+
+/* Styling for highlighted dates */
+.react-datepicker__day--highlighted {
+  background-color: #3b82f6 !important;
+  color: white !important;
+  border-radius: 50% !important;
+}
+
+.react-datepicker__day--highlighted:hover {
+  background-color: #2563eb !important;
+}
+
+.react-datepicker__current-month {
+  font-size: 1em !important;
+}
+
+.react-datepicker__day-name {
+  width: 2em !important;
+  line-height: 2em !important;
+  margin: 0.2em !important;
+}
+
+/* Hide time section */
+.react-datepicker__time-container {
+  display: none !important;
+}
+
+.time-note {
+  display: block;
+  font-size: 12px;
+  color: #777;
+  margin-top: 5px;
+}
+
+.extra-hours-overnight {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  margin-top: 15px;
+}
+
+.extra-hours-overnight label {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 2px;
+  color: #001f5c;
+  align-self: center;
+}
+
+.hours-note {
+  font-size: 13px;
+  color: #666;
+  font-style: italic;
+}
+
+/* Summary styles */
+.summary-header {
+  font-weight: bold;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  color: #001f5c;
+}
+
+.day-breakdown {
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  background-color: #f0f8ff;
+  border-radius: 5px;
+  display: inline-block;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.day-header {
+  font-weight: bold;
+  color: #001f5c;
+  font-size: 14px;
+}
+
+.total-days {
+  font-weight: bold;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+}
+
+/* Fix for datepicker popup positioning */
+.react-datepicker-popper {
+  z-index: 10 !important;
+}
+
+.react-datepicker-wrapper,
+.react-datepicker__input-container {
+  display: block;
+  width: 100%;
+}
+
+/* Ensure calendar is visible */
+.react-datepicker {
+  font-size: 0.9rem !important;
+}
+
+/* Ensure calendar dropdown doesn't get cut off */
+.react-datepicker__time-container {
+  width: auto !important;
+}
+
+.react-datepicker__time-box {
+  width: auto !important;
+  text-align: center !important;
+}
+
+.days-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 10px 0;
+}
+
+.summary-section {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #f8f8ff;
+  border-radius: 8px;
+  border: 1px solid #e0e0e8;
+}
+
+.section-title {
+  font-weight: bold;
+  color: #001f5c;
+  margin-bottom: 10px;
+  font-size: 15px;
+  border-bottom: 1px solid #e0e0e8;
+  padding-bottom: 5px;
+}
+
+/* Calendar styles for mobile */
+.react-datepicker {
+  font-size: 0.8em !important;
+  width: 100% !important;
+  max-width: 250px !important;
+}
+
+.react-datepicker__month-container {
+  width: 100% !important;
+  max-width: 250px !important;
+}
+
+.react-datepicker__header {
+  padding: 4px !important;
+}
+
+.react-datepicker__day {
+  width: 1.5em !important;
+  line-height: 1.5em !important;
+  margin: 0.1em !important;
+  font-size: 0.9em !important;
+}
+
+.react-datepicker__current-month {
+  font-size: 0.9em !important;
+  padding: 2px 0 !important;
+}
+
+.react-datepicker__day-name {
+  width: 1.5em !important;
+  line-height: 1.5em !important;
+  margin: 0.1em !important;
+  font-size: 0.8em !important;
+}
+
+/* Hide time section */
+.react-datepicker__time-container {
+  display: none !important;
+}
+
+.react-datepicker__time-box {
+  width: 100% !important;
+  max-width: 280px !important;
+}
+
+.react-datepicker__time-list {
+  height: 200px !important;
+}
+
+.react-datepicker__time-list-item {
+  padding: 5px !important;
+  height: 25px !important;
+  line-height: 25px !important;
+}
+
+@media screen and (max-width: 480px) {
+  .App {
+    padding: 10px;
+  }
+  
+  .time-section {
+    padding: 10px;
+  }
+  
+  .check-time {
+    min-width: 100px;
+  }
+  
+  .extra-hours {
+    min-width: 100px;
+  }
+  
+  .date-picker-container {
+    min-width: 250px;
+    padding: 12px;
+  }
+  
+  .date-picker {
+    font-size: 14px;
+  }
+  
+  .calendar-icon {
+    right: 20px;
+    top: 40px;
+  }
+  
+  .react-datepicker {
+    font-size: 0.85em !important;
+  }
+  
+  .react-datepicker__day {
+    width: 1.8em !important;
+    line-height: 1.8em !important;
+    margin: 0.2em !important;
+  }
+  
+  .react-datepicker__day-name {
+    width: 1.8em !important;
+    line-height: 1.8em !important;
+    margin: 0.2em !important;
+  }
+
+  /* Add responsive styles for Stay number and price */
+  .saved-stay .stay-number {
+    font-size: 14px !important;
+  }
+
+  .saved-stay .stay-price {
+    font-size: 15px !important;
+  }
+
+  .saved-stay .remove-button {
+    font-size: 11px !important;
+    padding: 3px 6px !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .date-picker-container {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+  
+  .overnight-dates {
+    flex-direction: column;
+  }
+}
+
+.add-more-button {
+  background-color: #8a2be2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+@media (max-width: 480px) {
+  .add-more-button {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+}
+
+/* Add styles for the Change Price tab */
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.tab:hover {
+  background-color: #e0e0e0;
+}
+
+.tab.active {
+  background-color: #007BFF;
+  color: #fff;
+}
+
+.change-price-tab {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.price-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.price-group {
+  flex: 1 1 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.price-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.price-group input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.edit-price-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-price-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Change Price section styles */
+.change-price-section {
+  background-color: #fff3b0;
+  padding: 15px;
+  display: none;
+}
+
+.change-price-section.active {
+  display: block;
+}
+
+.price-input-group {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.price-input-group label {
+  display: block;
+  color: #001f5c;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.price-input-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.price-input-group input:focus {
+  outline: none;
+  border-color: #001f5c;
+  box-shadow: 0 0 0 2px rgba(0, 31, 92, 0.1);
+}
+
+.edit-price-btn {
+  background-color: #001f5c;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.edit-price-btn:hover {
+  background-color: #002d85;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.price-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.dollar-sign {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  font-weight: bold;
+  pointer-events: none;
+  margin-bottom: 10px;
+  z-index: 1;
+}
+
+/* Shake animation for reminders */
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+.shaking {
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both infinite;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.checkout-alert {
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both infinite;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Room cards and grid */
+.room-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+  padding: 10px;
+}
+
+.room-card {
+  background-color: #e6f7e6; /* Light green background for available rooms */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 15px;
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+  border: 1px solid #90ee90; /* Green border for available rooms */
+  display: flex;
+  flex-direction: column;
+  position: relative; /* enable absolute positioning of inner elements */
+}
+
+.room-card.occupied {
+  background-color: #fff0f0;
+  border-color: #ffb6c1;
+}
+
+.room-card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.room-detail {
+  margin-bottom: 10px;
+}
+
+.room-number {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.room-status {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  margin-bottom: 6px;
+  background-color: #90ee90;
+  color: #006400;
+}
+
+.room-card.occupied .room-status {
+  background-color: #ffb6c1;
+  color: #8b0000;
+}
+
+.room-feature, .room-beds, .room-smoking {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 3px;
+}
+
+.room-handicap {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 3px;
+}
+
+.reminder-button {
+  margin-top: 6px;
+  background-color: #e0e0e0;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.reminder-button:hover {
+  background-color: #d0d0d0;
+}
+
+/* Accordion styles */
+.accordion-section {
+  margin-bottom: 15px;
+}
+
+.accordion-header {
+  background-color: #f5f5f5;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.accordion-header:hover {
+  background-color: #e8e8e8;
+}
+
+.accordion-header h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Clock icon shaking animation - removing duplicate keyframes */
+.shaking {
+  animation: shake 0.6s;
+  animation-iteration-count: infinite;
+}
+
+.reset-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  background-color: #dc3545; /* Red color */
+  color: white; /* White text for contrast */
+  border: 1px solid #dc3545; /* Matching border */
+}
+
+.reset-button:hover {
+  opacity: 1;
+  background-color: #c82333 !important; /* Darker red on hover */
+  border-color: #c82333;
+}
+
+.clock-icon {
+  transition: transform 0.2s ease-in-out;
+}
+
+.clock-icon:hover {
+  transform: scale(1.2);
+}
+
+/* Styles for room card hour adjustment buttons */
+.plus-adj-btn,
+.minus-adj-btn {
+  color: white; /* White text for contrast */
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+}
+
+.plus-adj-btn {
+  background-color: #28a745; /* Green */
+}
+
+.plus-adj-btn:hover {
+  background-color: #218838; /* Darker green */
+}
+
+.minus-adj-btn {
+  background-color: #dc3545; /* Red */
+}
+
+.minus-adj-btn:hover {
+  background-color: #c82333; /* Darker red */
+}
+
+.plus-adj-btn:active,
+.minus-adj-btn:active {
+  transform: scale(0.95); /* Slightly shrink on click */
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+.shaking {
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both infinite;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.checkout-alert {
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both infinite;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
