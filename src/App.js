@@ -1031,7 +1031,25 @@ function App() {
       };
     } else {
       // Simple default pricing if no dates are selected
-      const basicPrice = room.type === 'jacuzzi' ? 120 : 100;
+      // Use prices state based on current day
+      let basicPrice;
+      const currentDayOfWeek = new Date().getDay();
+      
+      if (currentDayOfWeek === 5) { // Friday
+        basicPrice = room.type === 'jacuzzi' ? prices.friday.withJacuzzi : prices.friday.withoutJacuzzi;
+      } else if (currentDayOfWeek === 0 || currentDayOfWeek === 6) { // Weekend
+        basicPrice = room.type === 'jacuzzi' ? prices.weekend.withJacuzzi : prices.weekend.withoutJacuzzi;
+      } else { // Weekday
+        basicPrice = room.type === 'jacuzzi' ? prices.weekday.withJacuzzi : prices.weekday.withoutJacuzzi;
+      }
+
+      // Add bed type adjustment
+      if (room.beds === 'king') {
+        basicPrice += 5;
+      } else if (room.beds === 'double') {
+        basicPrice += 10;
+      }
+
       const taxAmount = basicPrice * 0.15;
       
       // Calculate extra hour charges
