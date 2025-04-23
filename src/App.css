@@ -75,25 +75,25 @@
   display: flex;
   background-color: #001f5c; /* Default dark blue */
   border-bottom: 1px solid #eee;
-  flex-wrap: wrap; /* Allow wrapping */
-  padding: 5px 5px 0 5px; /* Add some padding */
+  padding: 5px 5px 0 5px;
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
 .tab-button {
-  /* flex: 1; Removed for natural width */
-  padding: 10px 15px; /* Adjusted padding */
+  padding: 10px 15px;
   border: none;
-  /* background: transparent; Will be set inline */
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-  border-radius: 5px 5px 0 0; /* Rounded top corners */
-  margin: 0 2px; /* Spacing between tabs */
-  color: #ffffff; /* Default white text */
-  background-color: #001f5c; /* Default dark blue background */
+  transition: background-color 0.3s, color 0.3s, font-size 0.3s;
+  border-radius: 5px 5px 0 0;
+  margin: 0 2px;
+  color: #ffffff;
+  background-color: #001f5c;
   text-align: center;
-  flex-grow: 1; /* Allow buttons to grow slightly */
-  min-width: 100px; /* Minimum width */
+  flex-grow: 1;
+  min-width: auto;
+  white-space: nowrap;
 }
 
 /* Hover effect for non-active tabs */
@@ -1048,12 +1048,18 @@
   perspective: 1000px;
 }
 
-/* Media Query for Tabs (Adjustments for wrapping) */
-@media (max-width: 700px) { /* Wider breakpoint for tabs */
+/* Media Query for Tabs */
+@media (max-width: 700px) {
+  .stay-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding: 2px;
+  }
   .tab-button {
-    min-width: 120px; /* Ensure readable width */
-    margin-bottom: 5px; /* Add bottom margin when wrapped */
-    border-radius: 5px; /* Fully rounded corners when wrapped */
+    font-size: 12px;
+    padding: 8px 10px;
+    flex-grow: 0;
+    flex-shrink: 0;
   }
 }
 
