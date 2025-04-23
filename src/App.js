@@ -1463,7 +1463,7 @@ function App() {
       return updatedRooms;
     });
   };
-
+  
   return (
     <div className="App">
       <div className="hotel-calculator">
