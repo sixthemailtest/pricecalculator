@@ -1045,9 +1045,17 @@ function App() {
   
   // Add state for multiple filters
   const [selectedFilters, setSelectedFilters] = useState([]);
+  const [selectedRooms, setSelectedRooms] = useState([]);
+  const [changeStatusMode, setChangeStatusMode] = useState(false);
+  const [showChangeStatusModal, setShowChangeStatusModal] = useState(false);
 
   // Update filter handling
   const handleFilterClick = (filter) => {
+    if (filter === 'change-status') {
+      setShowChangeStatusModal(true);
+      return;
+    }
+    
     setSelectedFilters(prev => {
       if (filter === 'all') {
         return [];
@@ -1370,6 +1378,41 @@ function App() {
     }
   };
   
+  const handleRoomSelection = (roomNumber) => {
+    setSelectedRooms(prev => {
+      if (prev.includes(roomNumber)) {
+        return prev.filter(num => num !== roomNumber);
+      } else {
+        return [...prev, roomNumber];
+      }
+    });
+  };
+  
+  // Add function to change status of selected rooms
+  const changeSelectedRoomsStatus = () => {
+    setRooms(prevRooms => {
+      const updatedRooms = { ...prevRooms };
+      
+      // Update ground floor rooms
+      updatedRooms.groundFloor = prevRooms.groundFloor.map(room => ({
+        ...room,
+        status: selectedRooms.includes(room.number) ? 'available' : 'occupied'
+      }));
+      
+      // Update first floor rooms
+      updatedRooms.firstFloor = prevRooms.firstFloor.map(room => ({
+        ...room,
+        status: selectedRooms.includes(room.number) ? 'available' : 'occupied'
+      }));
+      
+      return updatedRooms;
+    });
+    
+    // Reset selected rooms and exit change status mode
+    setSelectedRooms([]);
+    setChangeStatusMode(false);
+  };
+
   return (
     <div className="App">
       <div className="hotel-calculator">
@@ -2043,11 +2086,11 @@ function App() {
                       padding: '8px 16px',
                       borderRadius: '20px',
                       border: 'none',
-                      backgroundColor: selectedFilters.length === 0 ? '#001f5c' : '#f0f0f0',
-                      color: selectedFilters.length === 0 ? '#fff' : '#333',
+                      backgroundColor: selectedFilters.length === 0 && !changeStatusMode ? '#001f5c' : '#f0f0f0',
+                      color: selectedFilters.length === 0 && !changeStatusMode ? '#fff' : '#333',
                       cursor: 'pointer',
                       fontSize: '14px',
-                      fontWeight: selectedFilters.length === 0 ? 'bold' : 'normal',
+                      fontWeight: selectedFilters.length === 0 && !changeStatusMode ? 'bold' : 'normal',
                       transition: 'all 0.3s ease',
                       display: 'flex',
                       alignItems: 'center',
@@ -2056,6 +2099,28 @@ function App() {
                   >
                     <span style={{ fontSize: '16px' }}>🏠</span>
                     All Rooms
+                  </button>
+                  
+                  {/* Change Status Filter */}
+                  <button
+                    onClick={() => handleFilterClick('change-status')}
+                    style={{
+                      padding: '8px 16px',
+                      borderRadius: '20px',
+                      border: 'none',
+                      backgroundColor: '#f0f0f0',
+                      color: '#333',
+                      cursor: 'pointer',
+                      fontSize: '14px',
+                      fontWeight: 'normal',
+                      transition: 'all 0.3s ease',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px'
+                    }}
+                  >
+                    <span style={{ fontSize: '16px' }}>🔄</span>
+                    Change status
                   </button>
                   
                   {/* Status Filters */}
@@ -3547,6 +3612,199 @@ function App() {
           )}
         </div>
       </div>
+
+      {/* Change Status Modal */}
+      {showChangeStatusModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 1000
+        }}>
+          <div style={{
+            backgroundColor: 'white',
+            borderRadius: '8px',
+            padding: '20px',
+            maxWidth: '600px',
+            width: '90%',
+            maxHeight: '80vh',
+            display: 'flex',
+            flexDirection: 'column'
+          }}>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: '20px'
+            }}>
+              <h2 style={{ margin: 0 }}>Change Room Status</h2>
+              <button 
+                onClick={() => {
+                  setShowChangeStatusModal(false);
+                  setSelectedRooms([]);
+                }}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  fontSize: '24px',
+                  cursor: 'pointer'
+                }}
+              >
+                &times;
+              </button>
+            </div>
+            
+            <div style={{
+              overflowY: 'auto',
+              flex: 1,
+              marginBottom: '20px'
+            }}>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))',
+                gap: '10px'
+              }}>
+                {/* Ground Floor Rooms */}
+                {rooms.groundFloor.map(room => (
+                  <div key={`modal-${room.number}`} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: '8px',
+                    borderRadius: '4px',
+                    border: '1px solid #ddd',
+                    cursor: 'pointer',
+                    backgroundColor: selectedRooms.includes(room.number) ? '#e6f7ff' : 'white',
+                  }} onClick={() => handleRoomSelection(room.number)}>
+                    <div style={{
+                      width: '18px',
+                      height: '18px',
+                      borderRadius: '50%',
+                      border: '2px solid #001f5c',
+                      marginRight: '10px',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      backgroundColor: selectedRooms.includes(room.number) ? '#001f5c' : 'white'
+                    }}>
+                      {selectedRooms.includes(room.number) && (
+                        <div style={{ 
+                          width: '10px', 
+                          height: '10px', 
+                          borderRadius: '50%', 
+                          backgroundColor: 'white' 
+                        }}></div>
+                      )}
+                    </div>
+                    <div>
+                      <div style={{ fontWeight: 'bold' }}>{room.number}</div>
+                      <div style={{ 
+                        fontSize: '12px',
+                        color: room.status === 'available' ? 'green' : 'red'
+                      }}>
+                        {room.status === 'available' ? 'Available' : 'Occupied'}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                
+                {/* First Floor Rooms */}
+                {rooms.firstFloor.map(room => (
+                  <div key={`modal-${room.number}`} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: '8px',
+                    borderRadius: '4px',
+                    border: '1px solid #ddd',
+                    cursor: 'pointer',
+                    backgroundColor: selectedRooms.includes(room.number) ? '#e6f7ff' : 'white',
+                  }} onClick={() => handleRoomSelection(room.number)}>
+                    <div style={{
+                      width: '18px',
+                      height: '18px',
+                      borderRadius: '50%',
+                      border: '2px solid #001f5c',
+                      marginRight: '10px',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      backgroundColor: selectedRooms.includes(room.number) ? '#001f5c' : 'white'
+                    }}>
+                      {selectedRooms.includes(room.number) && (
+                        <div style={{ 
+                          width: '10px', 
+                          height: '10px', 
+                          borderRadius: '50%', 
+                          backgroundColor: 'white' 
+                        }}></div>
+                      )}
+                    </div>
+                    <div>
+                      <div style={{ fontWeight: 'bold' }}>{room.number}</div>
+                      <div style={{ 
+                        fontSize: '12px',
+                        color: room.status === 'available' ? 'green' : 'red'
+                      }}>
+                        {room.status === 'available' ? 'Available' : 'Occupied'}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              borderTop: '1px solid #eee',
+              paddingTop: '15px'
+            }}>
+              <div>
+                <span style={{ fontWeight: 'bold' }}>{selectedRooms.length}</span> rooms selected
+              </div>
+              <div>
+                <button
+                  onClick={() => {
+                    setShowChangeStatusModal(false);
+                    setSelectedRooms([]);
+                  }}
+                  style={{
+                    padding: '8px 16px',
+                    borderRadius: '4px',
+                    border: '1px solid #ddd',
+                    backgroundColor: '#f5f5f5',
+                    marginRight: '10px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => {
+                    changeSelectedRoomsStatus();
+                    setShowChangeStatusModal(false);
+                  }}
+                  style={{
+                    padding: '8px 16px',
+                    borderRadius: '4px',
+                    border: 'none',
+                    backgroundColor: '#28a745',
+                    color: 'white',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Change status to available
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
