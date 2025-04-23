@@ -864,9 +864,19 @@ function App() {
         ...prevRooms,
         [floor]: prevRooms[floor].map(room => {
           if (room.number === roomNumber) {
+            // Cycle through the three statuses: available -> occupied -> cleared -> available
+            let newStatus;
+            if (room.status === 'available') {
+              newStatus = 'occupied';
+            } else if (room.status === 'occupied') {
+              newStatus = 'cleared';
+            } else {
+              newStatus = 'available';
+            }
+            
             return {
               ...room,
-              status: room.status === 'available' ? 'occupied' : 'available'
+              status: newStatus
             };
           }
           return room;
@@ -1088,6 +1098,8 @@ function App() {
           return room.status === 'available';
         case 'occupied':
           return room.status === 'occupied';
+        case 'cleared':
+          return room.status === 'cleared';
         case 'handicap':
           return room.handicap === true;
         default:
@@ -1411,6 +1423,27 @@ function App() {
     // Reset selected rooms and exit change status mode
     setSelectedRooms([]);
     setChangeStatusMode(false);
+  };
+
+  // Add function to clear all room statuses
+  const clearAllRoomStatus = () => {
+    setRooms(prevRooms => {
+      const updatedRooms = { ...prevRooms };
+      
+      // Update ground floor rooms
+      updatedRooms.groundFloor = prevRooms.groundFloor.map(room => ({
+        ...room,
+        status: 'cleared'
+      }));
+      
+      // Update first floor rooms
+      updatedRooms.firstFloor = prevRooms.firstFloor.map(room => ({
+        ...room,
+        status: 'cleared'
+      }));
+      
+      return updatedRooms;
+    });
   };
 
   return (
@@ -2123,6 +2156,28 @@ function App() {
                     Change status
                   </button>
                   
+                  {/* Clear All Rooms Status Button */}
+                  <button
+                    onClick={clearAllRoomStatus}
+                    style={{
+                      padding: '8px 16px',
+                      borderRadius: '20px',
+                      border: 'none',
+                      backgroundColor: '#f0f0f0',
+                      color: '#333',
+                      cursor: 'pointer',
+                      fontSize: '14px',
+                      fontWeight: 'normal',
+                      transition: 'all 0.3s ease',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px'
+                    }}
+                  >
+                    <span style={{ fontSize: '16px' }}>🗑️</span>
+                    Clear all rooms status
+                  </button>
+                  
                   {/* Status Filters */}
                   <button
                     onClick={() => handleFilterClick('available')}
@@ -2163,6 +2218,28 @@ function App() {
                   >
                     <span style={{ fontSize: '16px' }}>🚫</span>
                     Occupied
+                  </button>
+                  
+                  {/* Cleared Filter */}
+                  <button
+                    onClick={() => handleFilterClick('cleared')}
+                    style={{
+                      padding: '8px 16px',
+                      borderRadius: '20px',
+                      border: 'none',
+                      backgroundColor: selectedFilters.includes('cleared') ? '#001f5c' : '#f0f0f0',
+                      color: selectedFilters.includes('cleared') ? '#fff' : '#333',
+                      cursor: 'pointer',
+                      fontSize: '14px',
+                      fontWeight: selectedFilters.includes('cleared') ? 'bold' : 'normal',
+                      transition: 'all 0.3s ease',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px'
+                    }}
+                  >
+                    <span style={{ fontSize: '16px' }}>⚪</span>
+                    Cleared
                   </button>
                   
                   {/* Room Type Filters */}
@@ -2357,8 +2434,12 @@ function App() {
                       .filter(filterRoom)
                       .map(room => (
                         <div key={room.number} 
-                            className={`room-card ${room.status === 'available' ? '' : 'occupied'}`}
+                            className={`room-card ${room.status === 'available' ? '' : room.status === 'cleared' ? 'cleared' : 'occupied'}`}
                             onClick={() => toggleRoomStatus('groundFloor', room.number)}
+                            style={{
+                              backgroundColor: room.status === 'cleared' ? '#e0e0e0' : undefined,
+                              borderColor: room.status === 'cleared' ? '#c0c0c0' : undefined
+                            }}
                           >
                             {/* Rest of room card content */}
                             <div className="room-detail">
@@ -2411,7 +2492,20 @@ function App() {
                                   Clear
                                 </button>
                               </div>
-                              <div className="room-status">{room.status === 'available' ? 'Available' : 'Occupied'}</div>
+                              <div className="room-status" style={{
+                                display: 'inline-block',
+                                padding: '2px 6px',
+                                borderRadius: '4px',
+                                fontSize: '12px',
+                                marginBottom: '6px',
+                                backgroundColor: room.status === 'available' ? '#90ee90' : 
+                                        room.status === 'cleared' ? '#c0c0c0' : '#ffb6c1',
+                                color: room.status === 'available' ? '#006400' : 
+                                      room.status === 'cleared' ? '#505050' : '#8b0000'
+                              }}>
+                                {room.status === 'available' ? 'Available' : 
+                                 room.status === 'cleared' ? 'Cleared' : 'Occupied'}
+                              </div>
                               {room.type === 'jacuzzi' && <div className="room-feature">🛁 Jacuzzi</div>}
                               <div className="room-beds">{room.beds === 'queen' ? '👑 Queen Bed 👤👤' : room.beds === 'king' ? '👑 King Bed 👤👤👤' : '🛏️ Queen 2 Beds 👤👤👤👤'}</div>
                               <div className="room-smoking">{room.smoking ? '🚬 Smoking' : '🚭 Non-Smoking'}</div>
@@ -2858,8 +2952,12 @@ function App() {
                       .filter(filterRoom)
                       .map(room => (
                         <div key={room.number} 
-                            className={`room-card ${room.status === 'available' ? '' : 'occupied'}`}
+                            className={`room-card ${room.status === 'available' ? '' : room.status === 'cleared' ? 'cleared' : 'occupied'}`}
                             onClick={() => toggleRoomStatus('firstFloor', room.number)}
+                            style={{
+                              backgroundColor: room.status === 'cleared' ? '#e0e0e0' : undefined,
+                              borderColor: room.status === 'cleared' ? '#c0c0c0' : undefined
+                            }}
                           >
                             {/* Rest of room card content */}
                             <div className="room-detail">
@@ -2912,7 +3010,20 @@ function App() {
                                   Clear
                                 </button>
                               </div>
-                              <div className="room-status">{room.status === 'available' ? 'Available' : 'Occupied'}</div>
+                              <div className="room-status" style={{
+                                display: 'inline-block',
+                                padding: '2px 6px',
+                                borderRadius: '4px',
+                                fontSize: '12px',
+                                marginBottom: '6px',
+                                backgroundColor: room.status === 'available' ? '#90ee90' : 
+                                        room.status === 'cleared' ? '#c0c0c0' : '#ffb6c1',
+                                color: room.status === 'available' ? '#006400' : 
+                                      room.status === 'cleared' ? '#505050' : '#8b0000'
+                              }}>
+                                {room.status === 'available' ? 'Available' : 
+                                 room.status === 'cleared' ? 'Cleared' : 'Occupied'}
+                              </div>
                               {room.type === 'jacuzzi' && <div className="room-feature">🛁 Jacuzzi</div>}
                               <div className="room-beds">{room.beds === 'queen' ? '👑 Queen Bed 👤👤' : room.beds === 'king' ? '👑 King Bed 👤👤👤' : '🛏️ Queen 2 Beds 👤👤👤👤'}</div>
                               <div className="room-smoking">{room.smoking ? '🚬 Smoking' : '🚭 Non-Smoking'}</div>
@@ -3705,9 +3816,11 @@ function App() {
                       <div style={{ fontWeight: 'bold' }}>{room.number}</div>
                       <div style={{ 
                         fontSize: '12px',
-                        color: room.status === 'available' ? 'green' : 'red'
+                        color: room.status === 'available' ? 'green' : 
+                               room.status === 'cleared' ? '#505050' : 'red'
                       }}>
-                        {room.status === 'available' ? 'Available' : 'Occupied'}
+                        {room.status === 'available' ? 'Available' : 
+                         room.status === 'cleared' ? 'Cleared' : 'Occupied'}
                       </div>
                     </div>
                   </div>
@@ -3748,9 +3861,11 @@ function App() {
                       <div style={{ fontWeight: 'bold' }}>{room.number}</div>
                       <div style={{ 
                         fontSize: '12px',
-                        color: room.status === 'available' ? 'green' : 'red'
+                        color: room.status === 'available' ? 'green' : 
+                               room.status === 'cleared' ? '#505050' : 'red'
                       }}>
-                        {room.status === 'available' ? 'Available' : 'Occupied'}
+                        {room.status === 'available' ? 'Available' : 
+                         room.status === 'cleared' ? 'Cleared' : 'Occupied'}
                       </div>
                     </div>
                   </div>
