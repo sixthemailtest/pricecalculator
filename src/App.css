@@ -73,40 +73,39 @@
 /* Tab navigation */
 .stay-tabs {
   display: flex;
-  background-color: #fff;
+  background-color: #001f5c; /* Default dark blue */
   border-bottom: 1px solid #eee;
+  flex-wrap: wrap; /* Allow wrapping */
+  padding: 5px 5px 0 5px; /* Add some padding */
 }
 
 .tab-button {
-  flex: 1;
-  padding: 12px;
+  /* flex: 1; Removed for natural width */
+  padding: 10px 15px; /* Adjusted padding */
   border: none;
-  background: transparent;
+  /* background: transparent; Will be set inline */
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 5px 5px 0 0; /* Rounded top corners */
+  margin: 0 2px; /* Spacing between tabs */
+  color: #ffffff; /* Default white text */
+  background-color: #001f5c; /* Default dark blue background */
+  text-align: center;
+  flex-grow: 1; /* Allow buttons to grow slightly */
+  min-width: 100px; /* Minimum width */
 }
 
-.tab-button:first-child {
-  background-color: #f0f8f0; /* Very light green for short stay */
-}
-
-.tab-button:nth-child(2) {
-  background-color: #c9dffc; /* Light blue for overnight */
-}
-
-.tab-button.active {
-  background-color: #e8f5e9; /* Darker light green for short stay when active */
-  color: #001f5c; /* Darker blue */
-}
-
-.tab-button:nth-child(2).active {
-  background-color: #90b4e0; /* Darker blue for overnight when active */
-  color: #001f5c; /* Darker blue */
-}
-
+/* Hover effect for non-active tabs */
 .tab-button:hover:not(.active) {
-  opacity: 0.9;
+  background-color: #003399; /* Slightly lighter blue on hover */
+}
+
+/* Style for the active tab (overridden by inline style for specific color) */
+.tab-button.active {
+  /* Base active style (color set inline) */
+  position: relative;
+  bottom: -1px; /* Slight visual lift */
 }
 
 /* Stay sections container */
@@ -1047,4 +1046,56 @@
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   perspective: 1000px;
+}
+
+/* Media Query for Tabs (Adjustments for wrapping) */
+@media (max-width: 700px) { /* Wider breakpoint for tabs */
+  .tab-button {
+    min-width: 120px; /* Ensure readable width */
+    margin-bottom: 5px; /* Add bottom margin when wrapped */
+    border-radius: 5px; /* Fully rounded corners when wrapped */
+  }
+}
+
+/* Media Query for Room Grid */
+@media (max-width: 600px) {
+  .rooms-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    padding: 10px;
+  }
+  .room-card {
+    padding: 12px; /* Adjusted padding */
+  }
+}
+@media (max-width: 480px) { /* Adjusted breakpoint for single column */
+  .rooms-grid {
+    grid-template-columns: 1fr;
+  }
+  /* Ensure room card content doesn't overflow */
+  .room-card .room-detail > div {
+     word-wrap: break-word; /* Break long words if needed */
+  }
+}
+
+
+/* Media Query for Change Price Cards */
+@media (max-width: 700px) {
+  .change-price-section .option-group {
+     min-width: 260px; /* Adjusted min-width */
+     flex-basis: 45%; /* Allow two columns if space */
+  }
+   .change-price-section .price-summary > div[style*="flex"] {
+    justify-content: center; /* Center cards when wrapping */
+  }
+}
+@media (max-width: 600px) { /* Stacking point */
+  .change-price-section .price-summary > div[style*="flex"] {
+    flex-direction: column;
+    gap: 15px;
+  }
+   .change-price-section .option-group {
+     min-width: 90%; /* Take most width when stacked */
+     flex-basis: auto;
+  }
 }
