@@ -1473,7 +1473,8 @@ function App() {
             className={`tab-button ${activeTab === 'short' ? 'active' : ''}`} 
             onClick={() => setActiveTab('short')}
             style={{
-              backgroundColor: activeTab === 'short' ? '#dbf5db' : '#f0fff0'
+              backgroundColor: activeTab === 'short' ? '#6495ED' : '#001f5c',
+              color: '#ffffff'
             }}
           >
             Short Stay
@@ -1481,6 +1482,10 @@ function App() {
           <button 
             className={`tab-button ${activeTab === 'overnight' ? 'active' : ''}`} 
             onClick={() => setActiveTab('overnight')}
+            style={{
+              backgroundColor: activeTab === 'overnight' ? '#6495ED' : '#001f5c',
+              color: '#ffffff'
+            }}
           >
             Overnight Stay
           </button>
@@ -1488,7 +1493,8 @@ function App() {
             className={`tab-button ${activeTab === 'multiple' ? 'active' : ''}`} 
             onClick={() => setActiveTab('multiple')}
             style={{
-              backgroundColor: activeTab === 'multiple' ? '#b19cd9' : '#f0e6ff'
+              backgroundColor: activeTab === 'multiple' ? '#6495ED' : '#001f5c',
+              color: '#ffffff'
             }}
           >
             Multiple Nights
@@ -1497,7 +1503,8 @@ function App() {
             className={`tab-button ${activeTab === 'rooms' ? 'active' : ''}`} 
             onClick={() => setActiveTab('rooms')}
             style={{
-              backgroundColor: activeTab === 'rooms' ? '#4169E1' : '#E6E6FA'
+              backgroundColor: activeTab === 'rooms' ? '#6495ED' : '#001f5c',
+              color: '#ffffff'
             }}
           >
             Rooms
@@ -1506,7 +1513,8 @@ function App() {
             className={`tab-button ${activeTab === 'changePrice' ? 'active' : ''}`} 
             onClick={() => setActiveTab('changePrice')}
             style={{
-              backgroundColor: activeTab === 'changePrice' ? '#fafcde' : '#f4f9bb'
+              backgroundColor: activeTab === 'changePrice' ? '#6495ED' : '#001f5c',
+              color: '#ffffff'
             }}
           >
             Change Price
@@ -2141,7 +2149,7 @@ function App() {
                       padding: '8px 16px',
                       borderRadius: '20px',
                       border: 'none',
-                      backgroundColor: '#f0f0f0',
+                      backgroundColor: '#9ee589',
                       color: '#333',
                       cursor: 'pointer',
                       fontSize: '14px',
@@ -2153,7 +2161,7 @@ function App() {
                     }}
                   >
                     <span style={{ fontSize: '16px' }}>🔄</span>
-                    Change status
+                    Change Room Status
                   </button>
                   
                   {/* Clear All Rooms Status Button */}
@@ -2218,28 +2226,6 @@ function App() {
                   >
                     <span style={{ fontSize: '16px' }}>🚫</span>
                     Occupied
-                  </button>
-                  
-                  {/* Cleared Filter */}
-                  <button
-                    onClick={() => handleFilterClick('cleared')}
-                    style={{
-                      padding: '8px 16px',
-                      borderRadius: '20px',
-                      border: 'none',
-                      backgroundColor: selectedFilters.includes('cleared') ? '#001f5c' : '#f0f0f0',
-                      color: selectedFilters.includes('cleared') ? '#fff' : '#333',
-                      cursor: 'pointer',
-                      fontSize: '14px',
-                      fontWeight: selectedFilters.includes('cleared') ? 'bold' : 'normal',
-                      transition: 'all 0.3s ease',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '6px'
-                    }}
-                  >
-                    <span style={{ fontSize: '16px' }}>⚪</span>
-                    Cleared
                   </button>
                   
                   {/* Room Type Filters */}
@@ -2715,7 +2701,7 @@ function App() {
                                 display: 'flex', 
                                 alignItems: 'center', 
                                 justifyContent: 'space-between',
-                                backgroundColor: '#f5f5f5',
+                                backgroundColor: 'transparent',
                                 padding: '5px 8px',
                                 borderRadius: '4px',
                                 marginBottom: '5px'
@@ -2769,7 +2755,7 @@ function App() {
                                 display: 'flex', 
                                 alignItems: 'center', 
                                 justifyContent: 'space-between',
-                                backgroundColor: '#f5f5f5',
+                                backgroundColor: 'transparent',
                                 padding: '5px 8px',
                                 borderRadius: '4px',
                                 marginBottom: '5px'
@@ -2822,10 +2808,9 @@ function App() {
                               <div 
                                 onClick={(e) => e.stopPropagation()} // Prevent click from bubbling to card
                                 style={{ 
-                                  backgroundColor: '#f5f5f5',
+                                  backgroundColor: 'transparent',
                                   padding: '5px 8px',
-                                  borderRadius: '4px',
-                                  marginBottom: '5px'
+                                  borderRadius: '4px'
                                 }}>
                                 <div style={{ fontSize: '12px', fontWeight: 'bold', marginBottom: '3px' }}>
                                   Extra Hour Rate:
@@ -3233,7 +3218,7 @@ function App() {
                                 display: 'flex', 
                                 alignItems: 'center', 
                                 justifyContent: 'space-between',
-                                backgroundColor: '#f5f5f5',
+                                backgroundColor: 'transparent',
                                 padding: '5px 8px',
                                 borderRadius: '4px',
                                 marginBottom: '5px'
@@ -3287,7 +3272,7 @@ function App() {
                                 display: 'flex', 
                                 alignItems: 'center', 
                                 justifyContent: 'space-between',
-                                backgroundColor: '#f5f5f5',
+                                backgroundColor: 'transparent',
                                 padding: '5px 8px',
                                 borderRadius: '4px',
                                 marginBottom: '5px'
@@ -3340,10 +3325,9 @@ function App() {
                               <div 
                                 onClick={(e) => e.stopPropagation()} // Prevent click from bubbling to card
                                 style={{ 
-                                  backgroundColor: '#f5f5f5',
+                                  backgroundColor: 'transparent',
                                   padding: '5px 8px',
-                                  borderRadius: '4px',
-                                  marginBottom: '5px'
+                                  borderRadius: '4px'
                                 }}>
                                 <div style={{ fontSize: '12px', fontWeight: 'bold', marginBottom: '3px' }}>
                                   Extra Hour Rate:
@@ -3594,7 +3578,7 @@ function App() {
                       gap: '10px'
                     }}>
                       Jacuzzi Room Prices 
-                      <span style={{ fontSize: '20px' }}>🛁 🚭/🚬</span>
+                      <span style={{ fontSize: '20px' }}>🛁</span>
                     </h3>
                     <div className="price-input-group" style={{ 
                       display: 'flex', 
