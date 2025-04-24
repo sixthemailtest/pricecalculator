@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import './App.css';
+import LoginModal from './LoginModal';
 
 function App() {
   // Short stay state
@@ -21,23 +22,32 @@ function App() {
   const [roomFilter, setRoomFilter] = useState('all');
   const [groundFloorExpanded, setGroundFloorExpanded] = useState(true);
   const [firstFloorExpanded, setFirstFloorExpanded] = useState(false);
-  const [rooms, setRooms] = useState({
-    groundFloor: Array.from({length: 19}, (_, i) => ({
-      number: `${101 + i}`,
-      type: i % 3 === 0 ? 'jacuzzi' : 'standard',
-      beds: i % 4 === 0 ? 'double' : i % 2 === 0 ? 'king' : 'queen',
-      status: i % 2 === 0 ? 'available' : 'occupied',
-      smoking: i % 3 === 0,
-      handicap: [108, 114].includes(101 + i) // Making room 108 and 114 handicap accessible
-    })),
-    firstFloor: Array.from({length: 26}, (_, i) => ({
-      number: `${200 + i}`,
-      type: i % 3 === 0 ? 'jacuzzi' : 'standard',
-      beds: i % 4 === 0 ? 'double' : i % 2 === 0 ? 'king' : 'queen',
-      status: i % 2 === 0 ? 'available' : 'occupied',
-      smoking: i % 3 === 0,
-      handicap: [204, 215].includes(200 + i) // Making room 204 and 215 handicap accessible
-    }))
+  const [rooms, setRooms] = useState(() => {
+    // Try to load rooms from localStorage
+    const savedRooms = localStorage.getItem('roomsData');
+    if (savedRooms) {
+      return JSON.parse(savedRooms);
+    }
+    
+    // Default initial state if nothing in localStorage
+    return {
+      groundFloor: Array.from({length: 19}, (_, i) => ({
+        number: `${101 + i}`,
+        type: i % 3 === 0 ? 'jacuzzi' : 'standard',
+        beds: i % 4 === 0 ? 'double' : i % 2 === 0 ? 'king' : 'queen',
+        status: i % 2 === 0 ? 'available' : 'occupied',
+        smoking: i % 3 === 0,
+        handicap: [108, 114].includes(101 + i) // Making room 108 and 114 handicap accessible
+      })),
+      firstFloor: Array.from({length: 26}, (_, i) => ({
+        number: `${200 + i}`,
+        type: i % 3 === 0 ? 'jacuzzi' : 'standard',
+        beds: i % 4 === 0 ? 'double' : i % 2 === 0 ? 'king' : 'queen',
+        status: i % 2 === 0 ? 'available' : 'occupied',
+        smoking: i % 3 === 0,
+        handicap: [204, 215].includes(200 + i) // Making room 204 and 215 handicap accessible
+      }))
+    };
   });
   
   // UI state
@@ -882,6 +892,10 @@ function App() {
           return room;
         })
       };
+      
+      // Save updated rooms to localStorage
+      saveRoomsToStorage(updatedRooms);
+      
       return updatedRooms;
     });
   };
@@ -1076,11 +1090,56 @@ function App() {
   const [selectedRooms, setSelectedRooms] = useState([]);
   const [changeStatusMode, setChangeStatusMode] = useState(false);
   const [showChangeStatusModal, setShowChangeStatusModal] = useState(false);
-
+  
+  // Authentication state
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [pendingRoomAction, setPendingRoomAction] = useState(null);
+  
+  // Check if user is authenticated on component mount
+  useEffect(() => {
+    const authStatus = localStorage.getItem('isAuthenticated');
+    if (authStatus === 'true') {
+      setIsAuthenticated(true);
+    }
+  }, []);
+  
+  // Handle successful login
+  const handleLogin = (success) => {
+    if (success) {
+      setIsAuthenticated(true);
+      localStorage.setItem('isAuthenticated', 'true');
+      
+      // Execute pending room action if any
+      if (pendingRoomAction) {
+        const { floor, roomNumber } = pendingRoomAction;
+        toggleRoomStatus(floor, roomNumber);
+        setPendingRoomAction(null);
+      }
+    }
+  };
+  
+  // Handle room card click with authentication check
+  const handleRoomCardClick = (floor, roomNumber) => {
+    // If already authenticated, allow the action
+    if (isAuthenticated) {
+      toggleRoomStatus(floor, roomNumber);
+    } else {
+      // Store the pending action and show login modal
+      setPendingRoomAction({ floor, roomNumber });
+      setShowLoginModal(true);
+    }
+  };
+  
   // Update filter handling
   const handleFilterClick = (filter) => {
     if (filter === 'change-status') {
-      setShowChangeStatusModal(true);
+      // Check authentication before showing change status modal
+      if (isAuthenticated) {
+        setShowChangeStatusModal(true);
+      } else {
+        setShowLoginModal(true);
+      }
       return;
     }
     
@@ -1142,13 +1201,65 @@ function App() {
   
   // State for room-specific calendar and hour adjustments
   const [openCalendar, setOpenCalendar] = useState(null);
-  const [roomSchedules, setRoomSchedules] = useState({});
-  const [checkoutAlerts, setCheckoutAlerts] = useState({});
+  const [roomSchedules, setRoomSchedules] = useState(() => {
+    // Try to load room schedules from localStorage
+    const savedSchedules = localStorage.getItem('roomSchedules');
+    if (savedSchedules) {
+      const parsedSchedules = JSON.parse(savedSchedules);
+      
+      // Convert date strings back to Date objects
+      for (const roomNumber in parsedSchedules) {
+        if (parsedSchedules[roomNumber].selectedDates) {
+          parsedSchedules[roomNumber].selectedDates = parsedSchedules[roomNumber].selectedDates.map(
+            dateStr => new Date(dateStr)
+          );
+        }
+        if (parsedSchedules[roomNumber].startDate) {
+          parsedSchedules[roomNumber].startDate = new Date(parsedSchedules[roomNumber].startDate);
+        }
+        if (parsedSchedules[roomNumber].endDate) {
+          parsedSchedules[roomNumber].endDate = new Date(parsedSchedules[roomNumber].endDate);
+        }
+        if (parsedSchedules[roomNumber].checkoutTime) {
+          parsedSchedules[roomNumber].checkoutTime = new Date(parsedSchedules[roomNumber].checkoutTime);
+        }
+      }
+      
+      return parsedSchedules;
+    }
+    return {};
+  });
+  const [checkoutAlerts, setCheckoutAlerts] = useState(() => {
+    // Try to load checkout alerts from localStorage
+    const savedAlerts = localStorage.getItem('checkoutAlerts');
+    return savedAlerts ? JSON.parse(savedAlerts) : {};
+  });
   const [openTimePickerRoom, setOpenTimePickerRoom] = useState(null);
   const [manualTimeInput, setManualTimeInput] = useState('');
 
+  // Helper function to save room data to localStorage
+  const saveRoomsToStorage = (roomsData) => {
+    localStorage.setItem('roomsData', JSON.stringify(roomsData));
+  };
+
+  // Helper function to save room schedules to localStorage
+  const saveRoomSchedulesToStorage = (schedules) => {
+    localStorage.setItem('roomSchedules', JSON.stringify(schedules));
+  };
+
+  // Helper function to save checkout alerts to localStorage
+  const saveCheckoutAlertsToStorage = (alerts) => {
+    localStorage.setItem('checkoutAlerts', JSON.stringify(alerts));
+  };
+
   // Update to support multiple date selection
   const handleRoomDateSelect = (roomNumber, date) => {
+    // Verify user is authenticated
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
+    
     const today = new Date();
     const isClickedDateToday = date.getDate() === today.getDate() &&
                              date.getMonth() === today.getMonth() &&
@@ -1185,11 +1296,11 @@ function App() {
         
       // Sort dates chronologically
       updatedDates.sort((a, b) => new Date(a) - new Date(b));
-          
-        return {
-          ...prev,
-          [roomNumber]: {
-            ...current,
+      
+      const updatedSchedules = {
+        ...prev,
+        [roomNumber]: {
+          ...current,
           selectedDates: updatedDates,
           // Keep the existing startDate/endDate for backward compatibility/display
           startDate: updatedDates.length > 0 ? updatedDates[0] : null,
@@ -1197,6 +1308,11 @@ function App() {
           hourRate: current.hourRate || 15 // Ensure hourRate is preserved/defaulted
         }
       };
+      
+      // Save to localStorage
+      saveRoomSchedulesToStorage(updatedSchedules);
+      
+      return updatedSchedules;
     });
     
     // Do not close the calendar after date selection
@@ -1205,15 +1321,26 @@ function App() {
 
   // Add function to handle hourly rate change
   const handleRoomHourRateChange = (roomNumber, rate) => {
+    // Verify user is authenticated
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
+
     setRoomSchedules(prev => {
       const current = prev[roomNumber] || {};
-      return {
+      const updatedSchedules = {
         ...prev,
         [roomNumber]: {
           ...current,
           hourRate: rate
         }
       };
+      
+      // Save to localStorage
+      saveRoomSchedulesToStorage(updatedSchedules);
+      
+      return updatedSchedules;
     });
     
     // Force UI update to recalculate prices immediately
@@ -1239,6 +1366,9 @@ function App() {
           }
         }
         
+        // Save updated rooms to localStorage
+        saveRoomsToStorage(updatedRooms);
+        
         return updatedRooms;
       });
     }, 50); // Small delay to ensure state has updated
@@ -1246,6 +1376,12 @@ function App() {
 
   // Handle room hour adjustment
   const handleRoomHourAdjustment = (roomNumber, type, change) => {
+    // Verify user is authenticated
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
+
     setRoomSchedules(prev => {
       const current = prev[roomNumber] || { checkInAdj: 0, checkOutAdj: 0 };
       const updated = {
@@ -1253,7 +1389,13 @@ function App() {
         [type === 'checkIn' ? 'checkInAdj' : 'checkOutAdj']: 
           (current[type === 'checkIn' ? 'checkInAdj' : 'checkOutAdj'] || 0) + change
       };
-      return { ...prev, [roomNumber]: updated };
+      
+      const updatedSchedules = { ...prev, [roomNumber]: updated };
+      
+      // Save to localStorage
+      saveRoomSchedulesToStorage(updatedSchedules);
+      
+      return updatedSchedules;
     });
     
     // Force UI update to recalculate prices immediately
@@ -1279,6 +1421,9 @@ function App() {
           }
         }
         
+        // Save updated rooms to localStorage
+        saveRoomsToStorage(updatedRooms);
+        
         return updatedRooms;
       });
     }, 50); // Small delay to ensure state has updated
@@ -1293,15 +1438,26 @@ function App() {
   
   // Function to handle setting checkout time
   const handleSetCheckoutTime = (roomNumber, time) => {
+    // Verify user is authenticated
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
+    
     setRoomSchedules(prev => {
       const current = prev[roomNumber] || {};
-      return {
+      const updatedSchedules = {
         ...prev,
         [roomNumber]: {
           ...current,
           checkoutTime: time
         }
       };
+      
+      // Save to localStorage
+      saveRoomSchedulesToStorage(updatedSchedules);
+      
+      return updatedSchedules;
     });
     
     // Force UI update
@@ -1310,9 +1466,19 @@ function App() {
 
   // Function to dismiss checkout alert
   const dismissCheckoutAlert = (roomNumber) => {
+    // Verify user is authenticated
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
+    
     setCheckoutAlerts(prev => {
       const newAlerts = {...prev};
       delete newAlerts[roomNumber];
+      
+      // Save to localStorage
+      saveCheckoutAlertsToStorage(newAlerts);
+      
       return newAlerts;
     });
   };
@@ -1321,12 +1487,22 @@ function App() {
   const resetRoomPrice = (e, roomNumber) => {
     e.stopPropagation();
     
+    // Verify user is authenticated
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
+    
     // Reset room price calculation state
     setRoomSchedules(prev => {
       const updated = { ...prev };
       if (updated[roomNumber]) {
         delete updated[roomNumber];
       }
+      
+      // Save to localStorage
+      saveRoomSchedulesToStorage(updated);
+      
       return updated;
     });
     
@@ -1336,6 +1512,10 @@ function App() {
       if (updated[roomNumber]) {
         delete updated[roomNumber];
       }
+      
+      // Save to localStorage
+      saveCheckoutAlertsToStorage(updated);
+      
       return updated;
     });
   };
@@ -1374,6 +1554,13 @@ function App() {
   // Function to handle manual time input for checkout
   const handleManualTimeInput = (e, roomNumber) => {
     e.stopPropagation();
+    
+    // Verify user is authenticated
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
+    
     setManualTimeInput(e.target.value);
   };
 
@@ -1381,6 +1568,12 @@ function App() {
   const setCheckoutTimeFromInput = (e, roomNumber) => {
     e.preventDefault();
     e.stopPropagation();
+    
+    // Verify user is authenticated
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
     
     // Parse time from input (12-hour format)
     const timeRegex = /^(0?[1-9]|1[0-2]):([0-5][0-9])\s?(AM|PM|am|pm)$/i;
@@ -1420,6 +1613,12 @@ function App() {
   
   // Add function to change status of selected rooms
   const changeSelectedRoomsStatus = () => {
+    // Verify user is authenticated
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
+    
     setRooms(prevRooms => {
       const updatedRooms = { ...prevRooms };
       
@@ -1434,6 +1633,9 @@ function App() {
         ...room,
         status: selectedRooms.includes(room.number) ? 'available' : 'occupied'
       }));
+      
+      // Save updated rooms to localStorage
+      saveRoomsToStorage(updatedRooms);
       
       return updatedRooms;
     });
@@ -1441,10 +1643,17 @@ function App() {
     // Reset selected rooms and exit change status mode
     setSelectedRooms([]);
     setChangeStatusMode(false);
+    setShowChangeStatusModal(false);
   };
-
+  
   // Add function to clear all room statuses
   const clearAllRoomStatus = () => {
+    // Verify user is authenticated
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
+    
     setRooms(prevRooms => {
       const updatedRooms = { ...prevRooms };
       
@@ -1460,8 +1669,17 @@ function App() {
         status: 'cleared'
       }));
       
+      // Save updated rooms to localStorage
+      saveRoomsToStorage(updatedRooms);
+      
       return updatedRooms;
     });
+  };
+  
+  // Handle logout
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    localStorage.removeItem('isAuthenticated');
   };
   
   return (
@@ -1496,16 +1714,6 @@ function App() {
             }}
           >
             Short Stay
-          </button>
-          <button 
-            className={`tab-button ${activeTab === 'overnight' ? 'active' : ''}`} 
-            onClick={() => setActiveTab('overnight')}
-            style={{
-              backgroundColor: activeTab === 'overnight' ? '#6495ED' : '#001f5c',
-              color: '#ffffff'
-            }}
-          >
-            Overnight Stay
           </button>
           <button 
             className={`tab-button ${activeTab === 'multiple' ? 'active' : ''}`} 
@@ -2125,6 +2333,38 @@ function App() {
             }}>
               <h2 className="section-header">Room Status</h2>
               
+              {/* Admin status and logout */}
+              {isAuthenticated && (
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginBottom: '10px'
+                }}>
+                  <span style={{ 
+                    color: '#28a745',
+                    fontWeight: 'bold',
+                    marginRight: '10px'
+                  }}>
+                    Admin Mode Active
+                  </span>
+                  <button
+                    onClick={handleLogout}
+                    style={{
+                      padding: '5px 10px',
+                      borderRadius: '4px',
+                      border: 'none',
+                      backgroundColor: '#dc3545',
+                      color: 'white',
+                      fontSize: '13px',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+              
               {/* Room Filters */}
               <div className="room-filters" style={{
                 backgroundColor: '#fff',
@@ -2184,7 +2424,14 @@ function App() {
                   
                   {/* Clear All Rooms Status Button */}
                   <button
-                    onClick={clearAllRoomStatus}
+                    onClick={(e) => {
+                      // Check authentication before clearing all rooms
+                      if (isAuthenticated) {
+                        clearAllRoomStatus();
+                      } else {
+                        setShowLoginModal(true);
+                      }
+                    }}
                     style={{
                       padding: '8px 16px',
                       borderRadius: '20px',
@@ -2439,7 +2686,7 @@ function App() {
                       .map(room => (
                         <div key={room.number} 
                             className={`room-card ${room.status === 'available' ? '' : room.status === 'cleared' ? 'cleared' : 'occupied'}`}
-                            onClick={() => toggleRoomStatus('groundFloor', room.number)}
+                            onClick={() => handleRoomCardClick('groundFloor', room.number)}
                             style={{
                               backgroundColor: room.status === 'cleared' ? '#e0e0e0' : undefined,
                               borderColor: room.status === 'cleared' ? '#c0c0c0' : undefined
@@ -2459,6 +2706,11 @@ function App() {
                                   }}
                                   onClick={(e) => {
                                     e.stopPropagation();
+                                    // Verify user is authenticated before setting time or dismissing alerts
+                                    if (!isAuthenticated) {
+                                      setShowLoginModal(true);
+                                      return;
+                                    }
                                     if (checkoutAlerts[room.number]) {
                                       dismissCheckoutAlert(room.number);
                                     } else {
@@ -2484,7 +2736,15 @@ function App() {
                                 </span>
                                 <button 
                                   className="reset-button"
-                                  onClick={(e) => resetRoomPrice(e, room.number)}
+                                  onClick={(e) => {
+                                    // Check authentication before resetting room price
+                                    if (isAuthenticated) {
+                                      resetRoomPrice(e, room.number);
+                                    } else {
+                                      e.stopPropagation();
+                                      setShowLoginModal(true);
+                                    }
+                                  }}
                                   style={{
                                     marginLeft: '8px',
                                     fontSize: '10px',
@@ -2544,7 +2804,12 @@ function App() {
                                   <button
                                     onClick={(e) => {
                                       e.stopPropagation();
-                                      dismissCheckoutAlert(room.number);
+                                      // Check authentication before dismissing alert
+                                      if (isAuthenticated) {
+                                        dismissCheckoutAlert(room.number);
+                                      } else {
+                                        setShowLoginModal(true);
+                                      }
                                     }}
                                     style={{
                                       backgroundColor: 'white',
@@ -2691,6 +2956,11 @@ function App() {
                               <span 
                                 onClick={(e) => { 
                                   e.stopPropagation(); 
+                                  // Verify user is authenticated before opening calendar
+                                  if (!isAuthenticated) {
+                                    setShowLoginModal(true);
+                                    return;
+                                  }
                                   setOpenCalendar(openCalendar === room.number ? null : room.number); 
                                 }}
                                 style={{ 
@@ -2731,7 +3001,12 @@ function App() {
                                   <button
                                     onClick={(e) => {
                                       e.stopPropagation();
-                                      handleRoomHourAdjustment(room.number, 'checkIn', -1);
+                                      // Check authentication before allowing adjustment
+                                      if (isAuthenticated) {
+                                        handleRoomHourAdjustment(room.number, 'checkIn', -1);
+                                      } else {
+                                        setShowLoginModal(true);
+                                      }
                                     }}
                                     style={{ 
                                       border: 'none',
@@ -2751,7 +3026,12 @@ function App() {
                                   <button
                                     onClick={(e) => {
                                       e.stopPropagation();
-                                      handleRoomHourAdjustment(room.number, 'checkIn', 1);
+                                      // Check authentication before allowing adjustment
+                                      if (isAuthenticated) {
+                                        handleRoomHourAdjustment(room.number, 'checkIn', 1);
+                                      } else {
+                                        setShowLoginModal(true);
+                                      }
                                     }}
                                     style={{ 
                                       border: 'none',
@@ -2785,7 +3065,12 @@ function App() {
                                   <button
                                     onClick={(e) => {
                                       e.stopPropagation();
-                                      handleRoomHourAdjustment(room.number, 'checkOut', -1);
+                                      // Check authentication before allowing adjustment
+                                      if (isAuthenticated) {
+                                        handleRoomHourAdjustment(room.number, 'checkOut', -1);
+                                      } else {
+                                        setShowLoginModal(true);
+                                      }
                                     }}
                                     style={{ 
                                       border: 'none',
@@ -2805,7 +3090,12 @@ function App() {
                                   <button
                                     onClick={(e) => {
                                       e.stopPropagation();
-                                      handleRoomHourAdjustment(room.number, 'checkOut', 1);
+                                      // Check authentication before allowing adjustment
+                                      if (isAuthenticated) {
+                                        handleRoomHourAdjustment(room.number, 'checkOut', 1);
+                                      } else {
+                                        setShowLoginModal(true);
+                                      }
                                     }}
                                     style={{ 
                                       border: 'none',
@@ -2840,10 +3130,13 @@ function App() {
                                       name={`hourRate-${room.number}`} // Ensure unique name for radio group per room
                                       checked={(roomSchedules[room.number]?.hourRate || 15) === 15}
                                       onChange={(e) => {
-                                        // e.stopPropagation(); // Already stopped by the parent div's onClick
-                                        handleRoomHourRateChange(room.number, 15);
+                                        // Check authentication before allowing rate change
+                                        if (isAuthenticated) {
+                                          handleRoomHourRateChange(room.number, 15);
+                                        } else {
+                                          setShowLoginModal(true);
+                                        }
                                       }}
-                                      // onClick={(e) => e.stopPropagation()} // Not needed if parent div stops propagation
                                       style={{ cursor: 'pointer' }}
                                     />
                                     $15/hour
@@ -2854,10 +3147,13 @@ function App() {
                                       name={`hourRate-${room.number}`} // Ensure unique name for radio group per room
                                       checked={(roomSchedules[room.number]?.hourRate || 15) === 10}
                                       onChange={(e) => {
-                                        // e.stopPropagation(); // Already stopped by the parent div's onClick
-                                        handleRoomHourRateChange(room.number, 10);
+                                        // Check authentication before allowing rate change
+                                        if (isAuthenticated) {
+                                          handleRoomHourRateChange(room.number, 10);
+                                        } else {
+                                          setShowLoginModal(true);
+                                        }
                                       }}
-                                      // onClick={(e) => e.stopPropagation()} // Not needed if parent div stops propagation
                                       style={{ cursor: 'pointer' }}
                                     />
                                     $10/hour
@@ -2956,7 +3252,7 @@ function App() {
                       .map(room => (
                         <div key={room.number} 
                             className={`room-card ${room.status === 'available' ? '' : room.status === 'cleared' ? 'cleared' : 'occupied'}`}
-                            onClick={() => toggleRoomStatus('firstFloor', room.number)}
+                            onClick={() => handleRoomCardClick('firstFloor', room.number)}
                             style={{
                               backgroundColor: room.status === 'cleared' ? '#e0e0e0' : undefined,
                               borderColor: room.status === 'cleared' ? '#c0c0c0' : undefined
@@ -2976,6 +3272,11 @@ function App() {
                                   }}
                                   onClick={(e) => {
                                     e.stopPropagation();
+                                    // Verify user is authenticated before setting time or dismissing alerts
+                                    if (!isAuthenticated) {
+                                      setShowLoginModal(true);
+                                      return;
+                                    }
                                     if (checkoutAlerts[room.number]) {
                                       dismissCheckoutAlert(room.number);
                                     } else {
@@ -2983,7 +3284,7 @@ function App() {
                                     }
                                   }}
                                 >
-                                  <span role="img" aria-label="clock" style={{ fontSize: '18px' }}>⏱️</span>
+                                  <span role="img" aria-label="clock" style={{ fontSize: '18px' }}>⏰</span>
                                   {roomSchedules[room.number]?.checkoutTime && (
                                     <span style={{ 
                                       fontSize: '12px', 
@@ -3001,7 +3302,15 @@ function App() {
                                 </span>
                                 <button 
                                   className="reset-button"
-                                  onClick={(e) => resetRoomPrice(e, room.number)}
+                                  onClick={(e) => {
+                                    // Check authentication before resetting room price
+                                    if (isAuthenticated) {
+                                      resetRoomPrice(e, room.number);
+                                    } else {
+                                      e.stopPropagation();
+                                      setShowLoginModal(true);
+                                    }
+                                  }}
                                   style={{
                                     marginLeft: '8px',
                                     fontSize: '10px',
@@ -3061,7 +3370,12 @@ function App() {
                                   <button
                                     onClick={(e) => {
                                       e.stopPropagation();
-                                      dismissCheckoutAlert(room.number);
+                                      // Check authentication before dismissing alert
+                                      if (isAuthenticated) {
+                                        dismissCheckoutAlert(room.number);
+                                      } else {
+                                        setShowLoginModal(true);
+                                      }
                                     }}
                                     style={{
                                       backgroundColor: 'white',
@@ -3208,6 +3522,11 @@ function App() {
                               <span 
                                 onClick={(e) => { 
                                   e.stopPropagation(); 
+                                  // Verify user is authenticated before opening calendar
+                                  if (!isAuthenticated) {
+                                    setShowLoginModal(true);
+                                    return;
+                                  }
                                   setOpenCalendar(openCalendar === room.number ? null : room.number); 
                                 }}
                                 style={{ 
@@ -3248,7 +3567,12 @@ function App() {
                                   <button
                                     onClick={(e) => {
                                       e.stopPropagation();
-                                      handleRoomHourAdjustment(room.number, 'checkIn', -1);
+                                      // Check authentication before allowing adjustment
+                                      if (isAuthenticated) {
+                                        handleRoomHourAdjustment(room.number, 'checkIn', -1);
+                                      } else {
+                                        setShowLoginModal(true);
+                                      }
                                     }}
                                     style={{ 
                                       border: 'none',
@@ -3268,7 +3592,12 @@ function App() {
                                   <button
                                     onClick={(e) => {
                                       e.stopPropagation();
-                                      handleRoomHourAdjustment(room.number, 'checkIn', 1);
+                                      // Check authentication before allowing adjustment
+                                      if (isAuthenticated) {
+                                        handleRoomHourAdjustment(room.number, 'checkIn', 1);
+                                      } else {
+                                        setShowLoginModal(true);
+                                      }
                                     }}
                                     style={{ 
                                       border: 'none',
@@ -3302,7 +3631,12 @@ function App() {
                                   <button
                                     onClick={(e) => {
                                       e.stopPropagation();
-                                      handleRoomHourAdjustment(room.number, 'checkOut', -1);
+                                      // Check authentication before allowing adjustment
+                                      if (isAuthenticated) {
+                                        handleRoomHourAdjustment(room.number, 'checkOut', -1);
+                                      } else {
+                                        setShowLoginModal(true);
+                                      }
                                     }}
                                     style={{ 
                                       border: 'none',
@@ -3322,7 +3656,12 @@ function App() {
                                   <button
                                     onClick={(e) => {
                                       e.stopPropagation();
-                                      handleRoomHourAdjustment(room.number, 'checkOut', 1);
+                                      // Check authentication before allowing adjustment
+                                      if (isAuthenticated) {
+                                        handleRoomHourAdjustment(room.number, 'checkOut', 1);
+                                      } else {
+                                        setShowLoginModal(true);
+                                      }
                                     }}
                                     style={{ 
                                       border: 'none',
@@ -3357,10 +3696,13 @@ function App() {
                                       name={`hourRate-${room.number}`} // Ensure unique name for radio group per room
                                       checked={(roomSchedules[room.number]?.hourRate || 15) === 15}
                                       onChange={(e) => {
-                                        // e.stopPropagation(); // Already stopped by the parent div's onClick
-                                        handleRoomHourRateChange(room.number, 15);
+                                        // Check authentication before allowing rate change
+                                        if (isAuthenticated) {
+                                          handleRoomHourRateChange(room.number, 15);
+                                        } else {
+                                          setShowLoginModal(true);
+                                        }
                                       }}
-                                      // onClick={(e) => e.stopPropagation()} // Not needed if parent div stops propagation
                                       style={{ cursor: 'pointer' }}
                                     />
                                     $15/hour
@@ -3371,10 +3713,13 @@ function App() {
                                       name={`hourRate-${room.number}`} // Ensure unique name for radio group per room
                                       checked={(roomSchedules[room.number]?.hourRate || 15) === 10}
                                       onChange={(e) => {
-                                        // e.stopPropagation(); // Already stopped by the parent div's onClick
-                                        handleRoomHourRateChange(room.number, 10);
+                                        // Check authentication before allowing rate change
+                                        if (isAuthenticated) {
+                                          handleRoomHourRateChange(room.number, 10);
+                                        } else {
+                                          setShowLoginModal(true);
+                                        }
                                       }}
-                                      // onClick={(e) => e.stopPropagation()} // Not needed if parent div stops propagation
                                       style={{ cursor: 'pointer' }}
                                     />
                                     $10/hour
@@ -3922,6 +4267,16 @@ function App() {
           </div>
         </div>
       )}
+      
+      {/* Login Modal */}
+      <LoginModal 
+        isOpen={showLoginModal}
+        onClose={() => {
+          setShowLoginModal(false);
+          setPendingRoomAction(null);
+        }}
+        onLogin={handleLogin}
+      />
     </div>
   );
 }
