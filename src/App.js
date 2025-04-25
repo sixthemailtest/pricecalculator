@@ -31,22 +31,49 @@ function App() {
     
     // Default initial state if nothing in localStorage
     return {
-      groundFloor: Array.from({length: 19}, (_, i) => ({
-        number: `${101 + i}`,
-        type: i % 3 === 0 ? 'jacuzzi' : 'standard',
-        beds: i % 4 === 0 ? 'double' : i % 2 === 0 ? 'king' : 'queen',
-        status: i % 2 === 0 ? 'available' : 'occupied',
-        smoking: i % 3 === 0,
-        handicap: [108, 114].includes(101 + i) // Making room 108 and 114 handicap accessible
-      })),
-      firstFloor: Array.from({length: 26}, (_, i) => ({
-        number: `${200 + i}`,
-        type: i % 3 === 0 ? 'jacuzzi' : 'standard',
-        beds: i % 4 === 0 ? 'double' : i % 2 === 0 ? 'king' : 'queen',
-        status: i % 2 === 0 ? 'available' : 'occupied',
-        smoking: i % 3 === 0,
-        handicap: [204, 215].includes(200 + i) // Making room 204 and 215 handicap accessible
-      }))
+      groundFloor: [
+        { number: "101", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
+        { number: "102", type: "standard", beds: "queen", status: "available", smoking: true, handicap: false },
+        { number: "103", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
+        { number: "104", type: "standard", beds: "queen", status: "available", smoking: true, handicap: false },
+        { number: "105", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
+        { number: "106", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
+        { number: "107", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
+        { number: "108", type: "standard", beds: "queen", status: "available", smoking: false, handicap: true },
+        { number: "109", type: "jacuzzi", beds: "queen", status: "available", smoking: false, handicap: false },
+        { number: "110", type: "jacuzzi", beds: "queen", status: "available", smoking: true, handicap: false },
+        { number: "111", type: "jacuzzi", beds: "queen", status: "available", smoking: false, handicap: false },
+        { number: "112", type: "jacuzzi", beds: "queen", status: "available", smoking: true, handicap: false },
+        { number: "114", type: "standard", beds: "queen", status: "available", smoking: false, handicap: true },
+        { number: "119", type: "jacuzzi", beds: "queen", status: "available", smoking: true, handicap: false, onlineBookingOnly: true }
+      ],
+      firstFloor: [
+        { number: "200", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
+        { number: "201", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
+        { number: "202", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
+        { number: "203", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
+        { number: "204", type: "standard", beds: "queen", status: "available", smoking: true, handicap: true },
+        { number: "205", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
+        { number: "206", type: "standard", beds: "queen", status: "available", smoking: true, handicap: false },
+        { number: "207", type: "standard", beds: "double", status: "available", smoking: true, handicap: false },
+        { number: "208", type: "jacuzzi", beds: "king", status: "available", smoking: false, handicap: false },
+        { number: "209", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
+        { number: "210", type: "jacuzzi", beds: "king", status: "available", smoking: true, handicap: false },
+        { number: "211", type: "standard", beds: "king", status: "available", smoking: true, handicap: false },
+        { number: "212", type: "standard", beds: "king", status: "available", smoking: false, handicap: false },
+        { number: "214", type: "jacuzzi", beds: "king", status: "available", smoking: false, handicap: false },
+        { number: "215", type: "standard", beds: "double", status: "available", smoking: false, handicap: true },
+        { number: "216", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
+        { number: "217", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
+        { number: "218", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
+        { number: "219", type: "standard", beds: "double", status: "available", smoking: true, handicap: false },
+        { number: "220", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
+        { number: "221", type: "standard", beds: "king", status: "available", smoking: false, handicap: false },
+        { number: "222", type: "standard", beds: "king", status: "available", smoking: false, handicap: false },
+        { number: "223", type: "standard", beds: "king", status: "available", smoking: false, handicap: false },
+        { number: "224", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
+        { number: "225", type: "standard", beds: "king", status: "available", smoking: false, handicap: false }
+      ]
     };
   });
   
@@ -92,6 +119,62 @@ function App() {
   
   // Initialize date and time on component mount and set up timer
   useEffect(() => {
+    // Clear localStorage for rooms data to force reset
+    localStorage.removeItem('roomsData');
+    
+    // Reset rooms with the updated configuration
+    const updatedRooms = {
+      groundFloor: [
+        { number: "101", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
+        { number: "102", type: "standard", beds: "queen", status: "available", smoking: true, handicap: false },
+        { number: "103", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
+        { number: "104", type: "standard", beds: "queen", status: "available", smoking: true, handicap: false },
+        { number: "105", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
+        { number: "106", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
+        { number: "107", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
+        { number: "108", type: "standard", beds: "queen", status: "available", smoking: false, handicap: true },
+        { number: "109", type: "jacuzzi", beds: "queen", status: "available", smoking: false, handicap: false },
+        { number: "110", type: "jacuzzi", beds: "queen", status: "available", smoking: true, handicap: false },
+        { number: "111", type: "jacuzzi", beds: "queen", status: "available", smoking: false, handicap: false },
+        { number: "112", type: "jacuzzi", beds: "queen", status: "available", smoking: true, handicap: false },
+        { number: "114", type: "standard", beds: "queen", status: "available", smoking: false, handicap: true },
+        { number: "119", type: "jacuzzi", beds: "queen", status: "available", smoking: true, handicap: false, onlineBookingOnly: true }
+      ],
+      firstFloor: [
+        { number: "200", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
+        { number: "201", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
+        { number: "202", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
+        { number: "203", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
+        { number: "204", type: "standard", beds: "queen", status: "available", smoking: true, handicap: true },
+        { number: "205", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
+        { number: "206", type: "standard", beds: "queen", status: "available", smoking: true, handicap: false },
+        { number: "207", type: "standard", beds: "double", status: "available", smoking: true, handicap: false },
+        { number: "208", type: "jacuzzi", beds: "king", status: "available", smoking: false, handicap: false },
+        { number: "209", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
+        { number: "210", type: "jacuzzi", beds: "king", status: "available", smoking: true, handicap: false },
+        { number: "211", type: "standard", beds: "king", status: "available", smoking: true, handicap: false },
+        { number: "212", type: "standard", beds: "king", status: "available", smoking: false, handicap: false },
+        { number: "214", type: "jacuzzi", beds: "king", status: "available", smoking: false, handicap: false },
+        { number: "215", type: "standard", beds: "double", status: "available", smoking: false, handicap: true },
+        { number: "216", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
+        { number: "217", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
+        { number: "218", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
+        { number: "219", type: "standard", beds: "double", status: "available", smoking: true, handicap: false },
+        { number: "220", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
+        { number: "221", type: "standard", beds: "king", status: "available", smoking: false, handicap: false },
+        { number: "222", type: "standard", beds: "king", status: "available", smoking: false, handicap: false },
+        { number: "223", type: "standard", beds: "king", status: "available", smoking: false, handicap: false },
+        { number: "224", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
+        { number: "225", type: "standard", beds: "king", status: "available", smoking: false, handicap: false }
+      ]
+    };
+    
+    // Update state
+    setRooms(updatedRooms);
+    
+    // Save to localStorage
+    localStorage.setItem('roomsData', JSON.stringify(updatedRooms));
+    
     updateCurrentDateTime(); // Initial update
     
     // Set up timer to update every second
@@ -360,6 +443,14 @@ function App() {
       });
       // Update all calculations with new prices
       handlePriceUpdate();
+      return;
+    }
+    
+    // If in rooms tab, reload the page to force refresh room data
+    if (activeTab === 'rooms') {
+      // Clear localStorage
+      localStorage.removeItem('roomsData');
+      window.location.reload();
       return;
     }
 
@@ -1130,7 +1221,7 @@ function App() {
       setShowLoginModal(true);
     }
   };
-  
+
   // Update filter handling
   const handleFilterClick = (filter) => {
     if (filter === 'change-status') {
@@ -1179,6 +1270,8 @@ function App() {
           return room.status === 'cleared';
         case 'handicap':
           return room.handicap === true;
+        case 'online-booking-only':
+          return room.onlineBookingOnly === true;
         default:
           return true;
       }
@@ -1296,11 +1389,11 @@ function App() {
         
       // Sort dates chronologically
       updatedDates.sort((a, b) => new Date(a) - new Date(b));
-      
+          
       const updatedSchedules = {
-        ...prev,
-        [roomNumber]: {
-          ...current,
+          ...prev,
+          [roomNumber]: {
+            ...current,
           selectedDates: updatedDates,
           // Keep the existing startDate/endDate for backward compatibility/display
           startDate: updatedDates.length > 0 ? updatedDates[0] : null,
@@ -1754,6 +1847,58 @@ function App() {
             
             <div className="option-group" style={{ maxWidth: '500px', margin: '0 auto 20px auto' }}>
               <label className="section-subheader">Check-in & Check-out Times</label>
+              
+              {/* Daily Room Prices */}
+              <div style={{ 
+                display: 'flex', 
+                justifyContent: 'center', 
+                marginBottom: '15px', 
+                gap: '15px',
+                backgroundColor: '#fffbe5', /* Light yellow background */
+                padding: '8px 15px',
+                borderRadius: '8px',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+              }}>
+                <div style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: '5px', 
+                  fontWeight: 'bold',
+                  color: '#333'
+                }}>
+                  <span>Standard - ${(() => {
+                    const now = new Date();
+                    const day = now.getDay(); // 0 is Sunday, 6 is Saturday
+                    if (day === 5) { // Friday
+                      return prices.friday.withoutJacuzzi.toFixed(2);
+                    } else if (day === 0 || day === 6) { // Weekend (Sunday or Saturday)
+                      return prices.weekend.withoutJacuzzi.toFixed(2);
+                    } else { // Weekday
+                      return prices.weekday.withoutJacuzzi.toFixed(2);
+                    }
+                  })()}</span>
+                </div>
+                <div style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: '5px', 
+                  fontWeight: 'bold',
+                  color: '#333'
+                }}>
+                  <span>Jacuzzi - ${(() => {
+                    const now = new Date();
+                    const day = now.getDay(); // 0 is Sunday, 6 is Saturday
+                    if (day === 5) { // Friday
+                      return prices.friday.withJacuzzi.toFixed(2);
+                    } else if (day === 0 || day === 6) { // Weekend (Sunday or Saturday)
+                      return prices.weekend.withJacuzzi.toFixed(2);
+                    } else { // Weekday
+                      return prices.weekday.withJacuzzi.toFixed(2);
+                    }
+                  })()}</span>
+                </div>
+              </div>
+              
               <div className="time-section">
                 <div className="check-time">
                   <label>Check-in Time:</label>
@@ -2537,6 +2682,28 @@ function App() {
                     Handicap
                   </button>
                   
+                  {/* Online Booking Only Filter */}
+                  <button
+                    onClick={() => handleFilterClick('online-booking-only')}
+                    style={{
+                      padding: '8px 16px',
+                      borderRadius: '20px',
+                      border: 'none',
+                      backgroundColor: selectedFilters.includes('online-booking-only') ? '#001f5c' : '#f0f0f0',
+                      color: selectedFilters.includes('online-booking-only') ? '#fff' : '#333',
+                      cursor: 'pointer',
+                      fontSize: '14px',
+                      fontWeight: selectedFilters.includes('online-booking-only') ? 'bold' : 'normal',
+                      transition: 'all 0.3s ease',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px'
+                    }}
+                  >
+                    <span style={{ fontSize: '16px' }}>🌐</span>
+                    Online Booking Only
+                  </button>
+                  
                   {/* Smoking Filters */}
                   <button
                     onClick={() => handleFilterClick('non-smoking')}
@@ -2773,7 +2940,8 @@ function App() {
                               {room.type === 'jacuzzi' && <div className="room-feature">🛁 Jacuzzi</div>}
                               <div className="room-beds">{room.beds === 'queen' ? '👑 Queen Bed 👤👤' : room.beds === 'king' ? '👑 King Bed 👤👤👤' : '🛏️ Queen 2 Beds 👤👤👤👤'}</div>
                               <div className="room-smoking">{room.smoking ? '🚬 Smoking' : '🚭 Non-Smoking'}</div>
-                              {room.isHandicap && <div className="room-handicap">♿ Handicap Accessible</div>}
+                              {room.handicap && <div className="room-handicap">♿ Handicap Accessible</div>}
+                              {room.onlineBookingOnly && <div style={{ backgroundColor: '#ffd700', color: '#000', padding: '2px 6px', borderRadius: '4px', fontSize: '12px', fontWeight: 'bold', marginTop: '4px' }}>🌐 Online Booking Only</div>}
                               
                               {/* Checkout Alert Message */}
                               {checkoutAlerts[room.number] && (
@@ -2806,7 +2974,7 @@ function App() {
                                       e.stopPropagation();
                                       // Check authentication before dismissing alert
                                       if (isAuthenticated) {
-                                        dismissCheckoutAlert(room.number);
+                                      dismissCheckoutAlert(room.number);
                                       } else {
                                         setShowLoginModal(true);
                                       }
@@ -3003,7 +3171,7 @@ function App() {
                                       e.stopPropagation();
                                       // Check authentication before allowing adjustment
                                       if (isAuthenticated) {
-                                        handleRoomHourAdjustment(room.number, 'checkIn', -1);
+                                      handleRoomHourAdjustment(room.number, 'checkIn', -1);
                                       } else {
                                         setShowLoginModal(true);
                                       }
@@ -3028,7 +3196,7 @@ function App() {
                                       e.stopPropagation();
                                       // Check authentication before allowing adjustment
                                       if (isAuthenticated) {
-                                        handleRoomHourAdjustment(room.number, 'checkIn', 1);
+                                      handleRoomHourAdjustment(room.number, 'checkIn', 1);
                                       } else {
                                         setShowLoginModal(true);
                                       }
@@ -3067,7 +3235,7 @@ function App() {
                                       e.stopPropagation();
                                       // Check authentication before allowing adjustment
                                       if (isAuthenticated) {
-                                        handleRoomHourAdjustment(room.number, 'checkOut', -1);
+                                      handleRoomHourAdjustment(room.number, 'checkOut', -1);
                                       } else {
                                         setShowLoginModal(true);
                                       }
@@ -3092,7 +3260,7 @@ function App() {
                                       e.stopPropagation();
                                       // Check authentication before allowing adjustment
                                       if (isAuthenticated) {
-                                        handleRoomHourAdjustment(room.number, 'checkOut', 1);
+                                      handleRoomHourAdjustment(room.number, 'checkOut', 1);
                                       } else {
                                         setShowLoginModal(true);
                                       }
@@ -3132,7 +3300,7 @@ function App() {
                                       onChange={(e) => {
                                         // Check authentication before allowing rate change
                                         if (isAuthenticated) {
-                                          handleRoomHourRateChange(room.number, 15);
+                                        handleRoomHourRateChange(room.number, 15);
                                         } else {
                                           setShowLoginModal(true);
                                         }
@@ -3149,7 +3317,7 @@ function App() {
                                       onChange={(e) => {
                                         // Check authentication before allowing rate change
                                         if (isAuthenticated) {
-                                          handleRoomHourRateChange(room.number, 10);
+                                        handleRoomHourRateChange(room.number, 10);
                                         } else {
                                           setShowLoginModal(true);
                                         }
@@ -3339,7 +3507,8 @@ function App() {
                               {room.type === 'jacuzzi' && <div className="room-feature">🛁 Jacuzzi</div>}
                               <div className="room-beds">{room.beds === 'queen' ? '👑 Queen Bed 👤👤' : room.beds === 'king' ? '👑 King Bed 👤👤👤' : '🛏️ Queen 2 Beds 👤👤👤👤'}</div>
                               <div className="room-smoking">{room.smoking ? '🚬 Smoking' : '🚭 Non-Smoking'}</div>
-                              {room.isHandicap && <div className="room-handicap">♿ Handicap Accessible</div>}
+                              {room.handicap && <div className="room-handicap">♿ Handicap Accessible</div>}
+                              {room.onlineBookingOnly && <div style={{ backgroundColor: '#ffd700', color: '#000', padding: '2px 6px', borderRadius: '4px', fontSize: '12px', fontWeight: 'bold', marginTop: '4px' }}>🌐 Online Booking Only</div>}
                               
                               {/* Checkout Alert Message */}
                               {checkoutAlerts[room.number] && (
@@ -3372,7 +3541,7 @@ function App() {
                                       e.stopPropagation();
                                       // Check authentication before dismissing alert
                                       if (isAuthenticated) {
-                                        dismissCheckoutAlert(room.number);
+                                      dismissCheckoutAlert(room.number);
                                       } else {
                                         setShowLoginModal(true);
                                       }
@@ -3569,7 +3738,7 @@ function App() {
                                       e.stopPropagation();
                                       // Check authentication before allowing adjustment
                                       if (isAuthenticated) {
-                                        handleRoomHourAdjustment(room.number, 'checkIn', -1);
+                                      handleRoomHourAdjustment(room.number, 'checkIn', -1);
                                       } else {
                                         setShowLoginModal(true);
                                       }
@@ -3594,7 +3763,7 @@ function App() {
                                       e.stopPropagation();
                                       // Check authentication before allowing adjustment
                                       if (isAuthenticated) {
-                                        handleRoomHourAdjustment(room.number, 'checkIn', 1);
+                                      handleRoomHourAdjustment(room.number, 'checkIn', 1);
                                       } else {
                                         setShowLoginModal(true);
                                       }
@@ -3633,7 +3802,7 @@ function App() {
                                       e.stopPropagation();
                                       // Check authentication before allowing adjustment
                                       if (isAuthenticated) {
-                                        handleRoomHourAdjustment(room.number, 'checkOut', -1);
+                                      handleRoomHourAdjustment(room.number, 'checkOut', -1);
                                       } else {
                                         setShowLoginModal(true);
                                       }
@@ -3658,7 +3827,7 @@ function App() {
                                       e.stopPropagation();
                                       // Check authentication before allowing adjustment
                                       if (isAuthenticated) {
-                                        handleRoomHourAdjustment(room.number, 'checkOut', 1);
+                                      handleRoomHourAdjustment(room.number, 'checkOut', 1);
                                       } else {
                                         setShowLoginModal(true);
                                       }
@@ -3698,7 +3867,7 @@ function App() {
                                       onChange={(e) => {
                                         // Check authentication before allowing rate change
                                         if (isAuthenticated) {
-                                          handleRoomHourRateChange(room.number, 15);
+                                        handleRoomHourRateChange(room.number, 15);
                                         } else {
                                           setShowLoginModal(true);
                                         }
@@ -3715,7 +3884,7 @@ function App() {
                                       onChange={(e) => {
                                         // Check authentication before allowing rate change
                                         if (isAuthenticated) {
-                                          handleRoomHourRateChange(room.number, 10);
+                                        handleRoomHourRateChange(room.number, 10);
                                         } else {
                                           setShowLoginModal(true);
                                         }
