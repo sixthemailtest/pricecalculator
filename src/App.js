@@ -1840,7 +1840,7 @@ function App() {
             <h2 className="section-header">Short Stay</h2>
             
             <div className="option-group" style={{ maxWidth: '500px', margin: '0 auto 20px auto' }}>
-              <label className="section-subheader">Check-in & Check-out Times</label>
+              <label className="section-subheader">Daily Room Prices</label>
               
               {/* Daily Room Prices */}
               <div style={{ 
@@ -1923,12 +1923,12 @@ function App() {
               
               <div className="time-section">
                 <div className="check-time">
-                  <label>Check-in Time:</label>
+                  <label>Check-in @:</label>
                   <span>{currentTime}</span>
                 </div>
                 
                 <div className="check-time">
-                  <label>Check-out Time:</label>
+                  <label>Check-out @:</label>
                   <span>{checkoutTime}</span>
                 </div>
                 
@@ -4184,7 +4184,7 @@ function App() {
                           checked={bedType === 'double'}
                           onChange={() => setBedType('double')}
                         />
-                        Double
+                        Queen 2 Beds
                       </label>
                     </div>
                   </div>
@@ -4283,6 +4283,87 @@ function App() {
                 }}
               >
                 Cancel
+              </button>
+              <button
+                onClick={() => {
+                  // Add the current stay to saved stays
+                  const roomInfo = rooms.groundFloor.find(room => room.number === openBookingModal) || 
+                                  rooms.firstFloor.find(room => room.number === openBookingModal);
+                  
+                  if (roomInfo && checkInDate && checkOutDate) {
+                    // Calculate nights between the dates
+                    const oneDay = 24 * 60 * 60 * 1000;
+                    const nights = Math.round(Math.abs((checkOutDate - checkInDate) / oneDay));
+                    
+                    if (nights > 0) {
+                      // Use the existing overnight price calculation for consistency
+                      const pricing = calculateOvernightPrice();
+                      
+                      // Get day names for display
+                      const checkInDay = checkInDate.toLocaleDateString('en-US', { weekday: 'short' });
+                      const checkOutDay = checkOutDate.toLocaleDateString('en-US', { weekday: 'short' });
+                      
+                      // Room type matches the selected room's type
+                      const hasJacuzzi = roomInfo.type === 'jacuzzi';
+                      
+                      // Create new stay object
+                      const newStay = {
+                        id: Date.now(), // Unique ID
+                        checkIn: new Date(checkInDate),
+                        checkOut: new Date(checkOutDate),
+                        checkInDay,
+                        checkOutDay,
+                        nights,
+                        hasJacuzzi,
+                        smoking: overnightSmoking,
+                        payment: overnightPayment,
+                        extraRate: overnightExtraRate,
+                        bedType: roomInfo.beds || 'queen',
+                        checkInAdjustment: overnightExtraHours,
+                        checkOutAdjustment: overnightCheckoutExtraHours,
+                        price: pricing.totalPrice,
+                        basePrice: pricing.totalBasePrice,
+                        tax: pricing.taxAmount,
+                        extraHoursCheckIn: pricing.extraHoursCheckInCost,
+                        extraHoursCheckOut: pricing.extraHoursCheckOutCost,
+                        details: {
+                          daysBreakdown: pricing.daysBreakdown
+                        }
+                      };
+                      
+                      // Add to saved stays
+                      setSavedStays(prevStays => [...prevStays, newStay]);
+                      
+                      // Update price total
+                      setTotalStaysPrice(prevTotal => prevTotal + pricing.totalPrice);
+                      
+                      // Reset the form to prepare for another entry
+                      resetOvernightStay();
+                      
+                      // Close the modal
+                      setOpenBookingModal(null);
+                      
+                      // Show notification
+                      alert(`Stay for Room ${openBookingModal} has been added!`);
+                    } else {
+                      alert('Please select valid check-in and check-out dates with at least one night stay.');
+                    }
+                  } else {
+                    alert('Please select valid check-in and check-out dates.');
+                  }
+                }}
+                style={{
+                  padding: '6px 12px', // Reduced padding
+                  borderRadius: '4px',
+                  border: 'none',
+                  backgroundColor: '#3498db', // Blue color for Add Stay
+                  color: 'white',
+                  cursor: 'pointer',
+                  fontWeight: 'bold',
+                  fontSize: '13px' // Reduced font size
+                }}
+              >
+                +Add Stay
               </button>
               <button
                 onClick={() => {
