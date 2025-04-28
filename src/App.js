@@ -405,31 +405,33 @@ function App() {
   
   // Handler for check-in date changes
   const handleCheckInChange = (date) => {
-    // Ensure check-in is before check-out
-    if (date >= checkOutDate) {
-      // If not, set check-out to a day after check-in
-      const newCheckOut = new Date(date);
-      newCheckOut.setDate(newCheckOut.getDate() + 1);
-      newCheckOut.setHours(11, 0, 0, 0);
-      setCheckOutDate(newCheckOut);
+    setCheckInDate(date);
+    
+    // If check-out date is before new check-in date, update it
+    if (checkOutDate && date > checkOutDate) {
+      // Set checkout to same day as check-in for now
+      setCheckOutDate(new Date(date.getTime()));
     }
     
-    // Set check-in time to 3 PM + any hour adjustments
-    date.setHours(15 + overnightExtraHours, 0, 0, 0);
-    setCheckInDate(date);
+    // Reset extra hours when changing date
+    setOvernightExtraHours(0);
+    
+    // Calculate price after state updates
+    setTimeout(() => {
+      handlePriceUpdate();
+    }, 0);
   };
   
-  // Handler for check-out date changes
-  // eslint-disable-next-line no-unused-vars
   const handleCheckOutChange = (date) => {
-    // Ensure check-out is after check-in
-    if (date <= checkInDate) {
-      return; // Prevent setting check-out before check-in
-    }
-    
-    // Set check-out time to 11 AM + any hour adjustments
-    date.setHours(11 + overnightCheckoutExtraHours, 0, 0, 0);
     setCheckOutDate(date);
+    
+    // Reset extra hours when changing date
+    setOvernightCheckoutExtraHours(0);
+    
+    // Calculate price after state updates
+    setTimeout(() => {
+      handlePriceUpdate();
+    }, 0);
   };
 
   // Update resetForm function
@@ -1852,42 +1854,70 @@ function App() {
                 boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
               }}>
                 <div style={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: '5px', 
-                  fontWeight: 'bold',
-                  color: '#333'
+                  textAlign: 'center',
+                  color: '#333',
+                  padding: '4px 8px',
+                  borderRadius: '6px',
+                  backgroundColor: 'rgba(255,255,255,0.5)'
                 }}>
-                  <span>Standard - ${(() => {
+                  <div style={{ fontWeight: 'bold', marginBottom: '2px' }}>Standard</div>
+                  {(() => {
                     const now = new Date();
                     const day = now.getDay(); // 0 is Sunday, 6 is Saturday
+                    let basePrice;
+                    
                     if (day === 5) { // Friday
-                      return prices.friday.withoutJacuzzi.toFixed(2);
+                      basePrice = prices.friday.withoutJacuzzi;
                     } else if (day === 0 || day === 6) { // Weekend (Sunday or Saturday)
-                      return prices.weekend.withoutJacuzzi.toFixed(2);
+                      basePrice = prices.weekend.withoutJacuzzi;
                     } else { // Weekday
-                      return prices.weekday.withoutJacuzzi.toFixed(2);
+                      basePrice = prices.weekday.withoutJacuzzi;
                     }
-                  })()}</span>
+                    
+                    const tax = basePrice * 0.15;
+                    const total = basePrice + tax;
+                    
+                    return (
+                      <>
+                        <div style={{ fontSize: '12px', color: '#555' }}>Base: ${basePrice.toFixed(2)}</div>
+                        <div style={{ fontSize: '12px', color: '#555' }}>Tax: ${tax.toFixed(2)}</div>
+                        <div style={{ fontWeight: 'bold', color: '#333' }}>Total: ${total.toFixed(2)}</div>
+                      </>
+                    );
+                  })()}
                 </div>
                 <div style={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: '5px', 
-                  fontWeight: 'bold',
-                  color: '#333'
+                  textAlign: 'center',
+                  color: '#333',
+                  padding: '4px 8px',
+                  borderRadius: '6px',
+                  backgroundColor: 'rgba(255,255,255,0.5)'
                 }}>
-                  <span>Jacuzzi - ${(() => {
+                  <div style={{ fontWeight: 'bold', marginBottom: '2px' }}>Jacuzzi</div>
+                  {(() => {
                     const now = new Date();
                     const day = now.getDay(); // 0 is Sunday, 6 is Saturday
+                    let basePrice;
+                    
                     if (day === 5) { // Friday
-                      return prices.friday.withJacuzzi.toFixed(2);
+                      basePrice = prices.friday.withJacuzzi;
                     } else if (day === 0 || day === 6) { // Weekend (Sunday or Saturday)
-                      return prices.weekend.withJacuzzi.toFixed(2);
+                      basePrice = prices.weekend.withJacuzzi;
                     } else { // Weekday
-                      return prices.weekday.withJacuzzi.toFixed(2);
+                      basePrice = prices.weekday.withJacuzzi;
                     }
-                  })()}</span>
+                    
+                    const tax = basePrice * 0.15;
+                    const total = basePrice + tax;
+                    
+                    return (
+                      <>
+                        <div style={{ fontSize: '12px', color: '#555' }}>Base: ${basePrice.toFixed(2)}</div>
+                        <div style={{ fontSize: '12px', color: '#555' }}>Tax: ${tax.toFixed(2)}</div>
+                        <div style={{ fontWeight: 'bold', color: '#333' }}>Total: ${total.toFixed(2)}</div>
+                      </>
+                    );
+                  })()}
                 </div>
               </div>
               
@@ -2046,7 +2076,8 @@ function App() {
                   selected={checkInDate}
                   onChange={handleCheckInChange}
                   dateFormat="MMMM d, yyyy h:mm aa"
-                  minDate={new Date()}
+                  // Allow selection of past dates 
+                  // minDate={new Date()}
                   className="date-picker"
                   showTimeSelect={false}
                   timeFormat="HH:mm"
@@ -2082,9 +2113,10 @@ function App() {
                 <DatePicker
                   selected={checkOutDate}
                   onChange={handleCheckOutChange}
-                  dateFormat="MMMM d, yyyy h:mm aa"
-                  minDate={checkInDate}
-                  className="date-picker"
+                  dateFormat="MM/dd/yy h:mm aa"
+                  // Allow any date including past dates
+                  // minDate={checkInDate}
+                  className="date-picker compact-datepicker" // Added class for specific styling
                   showTimeSelect={false}
                   timeFormat="HH:mm"
                   timeIntervals={60}
@@ -2265,9 +2297,10 @@ function App() {
                 <DatePicker
                   selected={checkInDate}
                   onChange={handleCheckInChange}
-                  dateFormat="MMMM d, yyyy h:mm aa"
-                  minDate={new Date()}
-                  className="date-picker"
+                  dateFormat="MM/dd/yy h:mm aa"
+                  // Allow selection of past dates
+                  // minDate={new Date()}
+                  className="date-picker compact-datepicker" // Added class for specific styling
                   showTimeSelect={false}
                   timeFormat="HH:mm"
                   timeIntervals={60}
@@ -2275,8 +2308,8 @@ function App() {
                   onFocus={e => e.target.blur()}
                   onKeyDown={e => e.preventDefault()}
                 />
-                <span className="calendar-icon">📅</span>
-                <span className="time-note">Standard check-in: 3:00 PM</span>
+                <span className="calendar-icon" style={{ fontSize: '14px' }}>📅</span>
+                <span className="time-note" style={{ fontSize: '11px' }}>Std: 3 PM</span>
                 
                 <div className="extra-hours-overnight">
                   <label>Hour Adjustment:</label>
@@ -2288,9 +2321,9 @@ function App() {
                     </div>
                     <span className="hours-note" style={{ color: '#00308F', fontWeight: 'bold' }}>
                       {overnightExtraHours < 0 
-                        ? `${Math.abs(overnightExtraHours)} hrs before (${new Date(new Date().setHours(15 + overnightExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})})` 
+                        ? `${Math.abs(overnightExtraHours)} hr early (${new Date(new Date().setHours(15 + overnightExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})})` 
                         : overnightExtraHours > 0 
-                        ? `${overnightExtraHours} hrs after (${new Date(new Date().setHours(15 + overnightExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})})` 
+                        ? `${overnightExtraHours} hr late (${new Date(new Date().setHours(15 + overnightExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})})` 
                         : 'Standard time (3:00 PM)'}
                     </span>
                   </div>
@@ -2302,9 +2335,10 @@ function App() {
                 <DatePicker
                   selected={checkOutDate}
                   onChange={handleCheckOutChange}
-                  dateFormat="MMMM d, yyyy h:mm aa"
-                  minDate={checkInDate}
-                  className="date-picker"
+                  dateFormat="MM/dd/yy h:mm aa"
+                  // Allow any date including past dates
+                  // minDate={checkInDate}
+                  className="date-picker compact-datepicker" // Added class
                   showTimeSelect={false}
                   timeFormat="HH:mm"
                   timeIntervals={60}
@@ -2312,23 +2346,23 @@ function App() {
                   onFocus={e => e.target.blur()}
                   onKeyDown={e => e.preventDefault()}
                 />
-                <span className="calendar-icon">📅</span>
-                <span className="time-note">Standard check-out: 11:00 AM</span>
+                <span className="calendar-icon" style={{ fontSize: '14px' }}>📅</span> {/* Reduced font size */}
+                <span className="time-note" style={{ fontSize: '11px' }}>Std: 11 AM</span> {/* Reduced font size */}
                 
                 <div className="extra-hours-overnight">
                   <label>Hour Adjustment:</label>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px' }}> {/* Reduced gap */}
                     <div className="hours-control">
-                      <button className="minus-btn" onClick={() => handleCheckoutExtraHoursChange(-1)}>-</button>
-                      <span>{overnightCheckoutExtraHours}</span>
-                      <button className="plus-btn" onClick={() => handleCheckoutExtraHoursChange(1)}>+</button>
+                      <button className="minus-btn" onClick={() => handleCheckoutExtraHoursChange(-1)}>-</button> {/* Added class */} 
+                      <span style={{ fontSize: '12px' }}>{overnightCheckoutExtraHours}</span> {/* Reduced font size */}
+                      <button className="plus-btn" onClick={() => handleCheckoutExtraHoursChange(1)}>+</button> {/* Added class */} 
                     </div>
-                    <span className="hours-note" style={{ color: '#00308F', fontWeight: 'bold' }}>
+                    <span className="hours-note" style={{ fontSize: '11px', color: '#00308F', fontWeight: 'bold' }}> {/* Reduced font size */}
                       {overnightCheckoutExtraHours < 0 
-                        ? `${Math.abs(overnightCheckoutExtraHours)} hrs before (${new Date(new Date().setHours(11 + overnightCheckoutExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})})` 
+                        ? `${Math.abs(overnightCheckoutExtraHours)}hr early (${new Date(new Date().setHours(11 + overnightCheckoutExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})})` 
                         : overnightCheckoutExtraHours > 0 
-                        ? `${overnightCheckoutExtraHours} hrs after (${new Date(new Date().setHours(11 + overnightCheckoutExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})})` 
-                        : 'Standard time (11:00 AM)'}
+                        ? `${overnightCheckoutExtraHours}hr late (${new Date(new Date().setHours(11 + overnightCheckoutExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})})` 
+                        : 'Standard'}
                     </span>
                   </div>
                 </div>
@@ -4029,7 +4063,8 @@ function App() {
                       selected={checkInDate}
                       onChange={handleCheckInChange}
                       dateFormat="MM/dd/yy h:mm aa"
-                      minDate={new Date()}
+                      // Allow selection of past dates
+                      // minDate={new Date()}
                       className="date-picker compact-datepicker" // Added class for specific styling
                       showTimeSelect={false}
                       timeFormat="HH:mm"
@@ -4066,7 +4101,8 @@ function App() {
                       selected={checkOutDate}
                       onChange={handleCheckOutChange}
                       dateFormat="MM/dd/yy h:mm aa"
-                      minDate={checkInDate}
+                      // Allow selection of any date including past dates
+                      // minDate={checkInDate}
                       className="date-picker compact-datepicker" // Added class
                       showTimeSelect={false}
                       timeFormat="HH:mm"
