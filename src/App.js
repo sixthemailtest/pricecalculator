@@ -18,6 +18,12 @@ function App() {
   const [isSmoking, setIsSmoking] = useState(false);
   const [dayStyle, setDayStyle] = useState({});
   
+  // Short stay price settings
+  const [shortStayPrices, setShortStayPrices] = useState({
+    baseRate: { withoutJacuzzi: 60, withJacuzzi: 90 },
+    extraHourRate: { regular: 15, discounted: 10 }
+  });
+  
   // Rooms state
   const [roomFilter, setRoomFilter] = useState('all');
   const [groundFloorExpanded, setGroundFloorExpanded] = useState(true);
@@ -192,7 +198,7 @@ function App() {
     calculateCheckoutTime();
     calculatePrice();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [extraHours, hasJacuzzi, paymentMethod, extraHourRate, isSmoking, currentTime]);
+  }, [extraHours, hasJacuzzi, paymentMethod, extraHourRate, isSmoking, currentTime, shortStayPrices]);
   
   // Update overnight calculations when relevant state changes
   useEffect(() => {
@@ -247,14 +253,12 @@ function App() {
     let basePrice;
     let tax = 0;
     
-    if (hasJacuzzi) {
-      basePrice = paymentMethod === 'cash' ? 90 : 90; // Same base price, tax calculated separately
-    } else {
-      basePrice = paymentMethod === 'cash' ? 60 : 60; // Same base price, tax calculated separately
-    }
+    // Use shortStayPrices for base rate
+    basePrice = hasJacuzzi ? shortStayPrices.baseRate.withJacuzzi : shortStayPrices.baseRate.withoutJacuzzi;
     
-    // Extra hours cost
-    const extraHoursCost = extraHours * extraHourRate;
+    // Use shortStayPrices for extra hour rate
+    const hourlyRate = extraHourRate === 15 ? shortStayPrices.extraHourRate.regular : shortStayPrices.extraHourRate.discounted;
+    const extraHoursCost = extraHours * hourlyRate;
     
     // Calculate tax only for credit card and only on base price
     if (paymentMethod === 'credit') {
@@ -443,6 +447,11 @@ function App() {
         friday: { withoutJacuzzi: 139, withJacuzzi: 159 },
         weekend: { withoutJacuzzi: 139, withJacuzzi: 169 }
       });
+      // Reset short stay prices to default values
+      setShortStayPrices({
+        baseRate: { withoutJacuzzi: 45, withJacuzzi: 55 },
+        extraHourRate: { regular: 15, discounted: 10 }
+      });
       // Update all calculations with new prices
       handlePriceUpdate();
       return;
@@ -561,11 +570,11 @@ function App() {
   
   // Price summary section for overnight stays
   const renderOvernightStayPriceSummary = () => {
-    if (activeTab === 'multiple' || openBookingModal) { // Added check for openBookingModal
+    if (activeTab === 'multiple' || false) { // Removed reference to openBookingModal
       const currentPricing = calculateOvernightPrice();
       
       // Define compact styles conditionally
-      const isModal = !!openBookingModal;
+      const isModal = false; // Previously was checking openBookingModal
       const summaryPadding = isModal ? '10px' : '20px';
       const headerFontSize = isModal ? '14px' : '18px';
       const itemFontSize = isModal ? '12px' : '14px';
@@ -583,243 +592,243 @@ function App() {
       const totalValueFontSize = isModal ? '18px' : '20px';
 
       if (activeTab === 'multiple' && !isModal) { // Logic for the main multiple stays tab
-          return (
-            <div className="price-summary" style={{ 
-              backgroundColor: '#fff',
+      return (
+        <div className="price-summary" style={{ 
+          backgroundColor: '#fff',
               padding: summaryPadding,
-              borderRadius: '8px',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+          borderRadius: '8px',
+          boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
               margin: sectionMargin
-            }}>
-              <h3 style={{ 
-                color: '#001f5c',
-                borderBottom: '2px solid #001f5c',
-                paddingBottom: '10px',
+        }}>
+          <h3 style={{ 
+            color: '#001f5c',
+            borderBottom: '2px solid #001f5c',
+            paddingBottom: '10px',
                 marginBottom: '15px',
                 fontSize: headerFontSize
-              }}>Price Summary</h3>
+          }}>Price Summary</h3>
 
-              {/* Saved Stays Section */}
-              {savedStays.length > 0 && (
-                <div className="saved-stays-section">
-                  {savedStays.map((stay, index) => (
-                    <div key={stay.id} className="saved-stay" style={{ 
+          {/* Saved Stays Section */}
+          {savedStays.length > 0 && (
+            <div className="saved-stays-section">
+              {savedStays.map((stay, index) => (
+                <div key={stay.id} className="saved-stay" style={{ 
                       marginBottom: savedStayMargin, 
                       padding: savedStayPadding, 
-                      backgroundColor: '#f8f9fa', 
-                      borderRadius: '8px',
-                      position: 'relative',
-                      border: '1px solid #e0e0e0'
+                  backgroundColor: '#f8f9fa', 
+                  borderRadius: '8px',
+                  position: 'relative',
+                  border: '1px solid #e0e0e0'
+                }}>
+                  <div style={{ marginBottom: '10px' }}>
+                    <div style={{ 
+                      display: 'flex', 
+                      justifyContent: 'space-between', 
+                      alignItems: 'center', 
+                      marginBottom: '8px',
+                      borderBottom: '1px solid #e0e0e0',
+                      paddingBottom: '8px',
+                        flexWrap: 'nowrap',
+                        gap: '10px'
                     }}>
-                      <div style={{ marginBottom: '10px' }}>
-                        <div style={{
-                          display: 'flex', 
-                          justifyContent: 'space-between', 
-                          alignItems: 'center', 
-                          marginBottom: '8px',
-                          borderBottom: '1px solid #e0e0e0',
-                          paddingBottom: '8px',
-                          flexWrap: 'nowrap',
-                          gap: '10px'
-                        }}>
-                          <div style={{ 
-                            display: 'flex', 
-                            alignItems: 'center', 
-                            gap: '4px',
-                            flex: '0 0 auto'
-                          }}>
-                            <span 
-                              className="stay-number"
-                              style={{ 
-                                fontWeight: 'bold', 
-                                fontSize: savedStayFontSize, // Adjusted
-                                color: '#001f5c',
-                                whiteSpace: 'nowrap'
-                              }}
-                            >
-                              Stay #{index+ 1}
-                            </span>
-                            <button
-                              style={{ // Adjusted button styles
-                                background: '#001f5c',
-                                border: 'none',
-                                color: '#fff',
-                                cursor: 'pointer',
-                                padding: '2px 4px',
-                                fontSize: buttonFontSize,
-                                borderRadius: '3px',
-                                fontWeight: '500',
-                                textTransform: 'uppercase',
-                                minWidth: '28px',
-                                justifyContent: 'center'
-                              }}
-                              onClick={() => {
-                                // Set all the form fields to this stay's values
-                                setCheckInDate(new Date(stay.checkIn));
-                                setCheckOutDate(new Date(stay.checkOut));
-                                setHasJacuzziOvernight(stay.hasJacuzzi);
-                                setOvernightSmoking(stay.smoking);
-                                setOvernightPayment(stay.payment);
-                                setOvernightExtraRate(stay.extraRate);
-                                setOvernightExtraHours(stay.checkInAdjustment);
-                                setOvernightCheckoutExtraHours(stay.checkOutAdjustment);
-                                setBedType(stay.bedType);
-                                // Remove this stay
-                                removeSavedStay(stay.id);
-                              }}
-                            >
-                              Edit
-                            </button>
-                          </div>
-                          <div style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '8px',
-                            flex: '1',
-                            justifyContent: 'flex-end'
-                          }}>
-                            <span 
-                              className="stay-price"
-                              style={{ 
-                                fontWeight: 'bold', 
-                                color: '#001f5c',
-                                fontSize: savedStayPriceFontSize, // Adjusted
-                                marginLeft: 'auto'
-                              }}
-                            >
-                              ${stay.price.toFixed(2)}
-                            </span>
-                            <button 
-                              className="remove-button"
-                              onClick={() => removeSavedStay(stay.id)}
-                              style={{ // Adjusted button styles
-                                background: '#dc3545',
-                                border: 'none',
-                                color: '#fff',
-                                fontSize: removeButtonFontSize,
-                                cursor: 'pointer',
-                                padding: '3px 6px',
-                                borderRadius: '4px',
-                                fontWeight: '500',
-                                marginLeft: '4px'
-                              }}
-                            >
-                              Remove
-                            </button>
-                          </div>
-                        </div>
-                        <div style={{ fontSize: savedStayFontSize, color: '#000' }}> {/* Adjusted */}
-                          {stay.checkInDay} ({stay.checkIn.toLocaleDateString()}) to {stay.checkOutDay} ({stay.checkOut.toLocaleDateString()})
-                        </div>
-                        <div style={{ fontSize: savedStayFontSize, color: '#000', marginTop: '4px' }}> {/* Adjusted */}
-                          {stay.nights} {stay.nights === 1 ? 'night' : 'nights'}
-                          {stay.hasJacuzzi ? ' • Jacuzzi' : ''}
-                          {' • '}{stay.bedType.charAt(0).toUpperCase() + stay.bedType.slice(1)} Bed
-                          {stay.checkInAdjustment !== 0 && ` • CI ${stay.checkInAdjustment > 0 ? `+${stay.checkInAdjustment}h` : `${stay.checkInAdjustment}h`}`} {/* Shortened */} 
-                          {stay.checkOutAdjustment !== 0 && ` • CO ${stay.checkOutAdjustment > 0 ? `+${stay.checkOutAdjustment}h` : `${stay.checkOutAdjustment}h`}`} {/* Shortened */} 
-                        </div>
-                      </div>
                       <div style={{ 
-                        fontSize: savedStaySubFontSize, // Adjusted
-                        color: '#000', 
-                        backgroundColor: '#f0f0f0',
-                        padding: '8px', // Adjusted
-                        borderRadius: '6px',
-                        marginTop: '8px'
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        gap: '4px',
+                            flex: '0 0 auto'
                       }}>
-                        <div className="summary-line" style={{ 
-                          display: 'flex', 
-                          flexDirection: 'column',
-                          gap: '3px' // Adjusted
-                        }}>
-                          <div style={{ 
-                            display: 'flex', 
-                            justifyContent: 'space-between',
-                            borderBottom: '1px solid #ddd',
-                            paddingBottom: '3px', // Adjusted
-                            marginBottom: '3px' // Adjusted
-                          }}>
-                            <span>Base ({stay.nights}n):</span> {/* Shortened */} 
-                            <span>${stay.basePrice.toFixed(2)}</span>
-                          </div>
-                          {stay.details.daysBreakdown.map((day, idx) => (
-                            <div key={idx} style={{ 
-                              display: 'flex', 
-                              justifyContent: 'space-between',
-                              fontSize: subItemFontSize, // Adjusted
-                              color: '#444'
-                            }}>
-                              <span>{day.day}:</span>
-                              <span>${day.basePrice.toFixed(2)}</span>
-                            </div>
-                          ))}
-                        </div>
-                        {stay.tax > 0 && (
-                          <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px', marginTop: '6px' }}> {/* Adjusted */}
-                            <span>Tax (15%):</span>
-                            <span>${stay.tax.toFixed(2)}</span>
-                          </div>
-                        )}
-                        {stay.extraHoursCheckIn > 0 && (
-                          <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}> {/* Adjusted */}
-                            <span>CI Hours ({stay.checkInAdjustment > 0 ? `+${stay.checkInAdjustment}h` : `${Math.abs(stay.checkInAdjustment)}h`}):</span> {/* Shortened */} 
-                            <span>${stay.extraHoursCheckIn.toFixed(2)}</span>
-                          </div>
-                        )}
-                        {stay.extraHoursCheckOut > 0 && (
-                          <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}> {/* Adjusted */}
-                            <span>CO Hours ({stay.checkOutAdjustment > 0 ? `+${stay.checkOutAdjustment}h` : `${Math.abs(stay.checkOutAdjustment)}h`}):</span> {/* Shortened */} 
-                            <span>${stay.extraHoursCheckOut.toFixed(2)}</span>
-                          </div>
-                        )}
+                        <span 
+                          className="stay-number"
+                          style={{ 
+                            fontWeight: 'bold', 
+                                fontSize: savedStayFontSize, // Adjusted
+                            color: '#001f5c',
+                                whiteSpace: 'nowrap'
+                          }}
+                        >
+                          Stay #{index+ 1}
+                        </span>
+                        <button
+                              style={{ // Adjusted button styles
+                            background: '#001f5c',
+                            border: 'none',
+                            color: '#fff',
+                            cursor: 'pointer',
+                            padding: '2px 4px',
+                                fontSize: buttonFontSize,
+                            borderRadius: '3px',
+                            fontWeight: '500',
+                            textTransform: 'uppercase',
+                            minWidth: '28px',
+                                justifyContent: 'center'
+                          }}
+                          onClick={() => {
+                            // Set all the form fields to this stay's values
+                            setCheckInDate(new Date(stay.checkIn));
+                            setCheckOutDate(new Date(stay.checkOut));
+                            setHasJacuzziOvernight(stay.hasJacuzzi);
+                            setOvernightSmoking(stay.smoking);
+                            setOvernightPayment(stay.payment);
+                            setOvernightExtraRate(stay.extraRate);
+                            setOvernightExtraHours(stay.checkInAdjustment);
+                            setOvernightCheckoutExtraHours(stay.checkOutAdjustment);
+                            setBedType(stay.bedType);
+                            // Remove this stay
+                            removeSavedStay(stay.id);
+                          }}
+                        >
+                          Edit
+                        </button>
+                      </div>
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                          flex: '1',
+                            justifyContent: 'flex-end'
+                      }}>
+                        <span 
+                          className="stay-price"
+                          style={{ 
+                            fontWeight: 'bold', 
+                            color: '#001f5c',
+                                fontSize: savedStayPriceFontSize, // Adjusted
+                              marginLeft: 'auto'
+                          }}
+                        >
+                          ${stay.price.toFixed(2)}
+                        </span>
+                        <button 
+                          className="remove-button"
+                          onClick={() => removeSavedStay(stay.id)}
+                              style={{ // Adjusted button styles
+                            background: '#dc3545',
+                            border: 'none',
+                            color: '#fff',
+                                fontSize: removeButtonFontSize,
+                            cursor: 'pointer',
+                            padding: '3px 6px',
+                            borderRadius: '4px',
+                            fontWeight: '500',
+                              marginLeft: '4px'
+                          }}
+                        >
+                          Remove
+                        </button>
                       </div>
                     </div>
-                  ))}
-                  
-                  <div className="summary-line total" style={{ 
-                    marginTop: '15px', // Adjusted
-                    borderTop: '2px solid #001f5c',
-                    paddingTop: '10px', // Adjusted
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    fontSize: totalSectionFontSize, // Adjusted
-                    fontWeight: 'bold'
+                        <div style={{ fontSize: savedStayFontSize, color: '#000' }}> {/* Adjusted */}
+                      {stay.checkInDay} ({stay.checkIn.toLocaleDateString()}) to {stay.checkOutDay} ({stay.checkOut.toLocaleDateString()})
+                    </div>
+                        <div style={{ fontSize: savedStayFontSize, color: '#000', marginTop: '4px' }}> {/* Adjusted */}
+                      {stay.nights} {stay.nights === 1 ? 'night' : 'nights'}
+                      {stay.hasJacuzzi ? ' • Jacuzzi' : ''}
+                      {' • '}{stay.bedType.charAt(0).toUpperCase() + stay.bedType.slice(1)} Bed
+                          {stay.checkInAdjustment !== 0 && ` • CI ${stay.checkInAdjustment > 0 ? `+${stay.checkInAdjustment}h` : `${stay.checkInAdjustment}h`}`} {/* Shortened */} 
+                          {stay.checkOutAdjustment !== 0 && ` • CO ${stay.checkOutAdjustment > 0 ? `+${stay.checkOutAdjustment}h` : `${stay.checkOutAdjustment}h`}`} {/* Shortened */} 
+                    </div>
+                  </div>
+                  <div style={{ 
+                        fontSize: savedStaySubFontSize, // Adjusted
+                    color: '#000', 
+                    backgroundColor: '#f0f0f0',
+                        padding: '8px', // Adjusted
+                    borderRadius: '6px',
+                    marginTop: '8px'
                   }}>
-                    <span style={{ color: '#001f5c' }}>Total Price:</span>
-                    <span style={{ color: '#001f5c', fontSize: totalValueFontSize }}> {/* Adjusted */} 
-                      ${totalStaysPrice.toFixed(2)}
-                    </span>
+                    <div className="summary-line" style={{ 
+                      display: 'flex', 
+                      flexDirection: 'column',
+                          gap: '3px' // Adjusted
+                    }}>
+                      <div style={{ 
+                        display: 'flex', 
+                        justifyContent: 'space-between',
+                        borderBottom: '1px solid #ddd',
+                            paddingBottom: '3px', // Adjusted
+                            marginBottom: '3px' // Adjusted
+                      }}>
+                            <span>Base ({stay.nights}n):</span> {/* Shortened */} 
+                        <span>${stay.basePrice.toFixed(2)}</span>
+                      </div>
+                      {stay.details.daysBreakdown.map((day, idx) => (
+                        <div key={idx} style={{ 
+                          display: 'flex', 
+                          justifyContent: 'space-between',
+                              fontSize: subItemFontSize, // Adjusted
+                          color: '#444'
+                        }}>
+                          <span>{day.day}:</span>
+                          <span>${day.basePrice.toFixed(2)}</span>
+                        </div>
+                      ))}
+                    </div>
+                    {stay.tax > 0 && (
+                          <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px', marginTop: '6px' }}> {/* Adjusted */}
+                        <span>Tax (15%):</span>
+                        <span>${stay.tax.toFixed(2)}</span>
+                      </div>
+                    )}
+                    {stay.extraHoursCheckIn > 0 && (
+                          <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}> {/* Adjusted */}
+                            <span>CI Hours ({stay.checkInAdjustment > 0 ? `+${stay.checkInAdjustment}h` : `${Math.abs(stay.checkInAdjustment)}h`}):</span> {/* Shortened */} 
+                        <span>${stay.extraHoursCheckIn.toFixed(2)}</span>
+                      </div>
+                    )}
+                    {stay.extraHoursCheckOut > 0 && (
+                          <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}> {/* Adjusted */}
+                            <span>CO Hours ({stay.checkOutAdjustment > 0 ? `+${stay.checkOutAdjustment}h` : `${Math.abs(stay.checkOutAdjustment)}h`}):</span> {/* Shortened */} 
+                        <span>${stay.extraHoursCheckOut.toFixed(2)}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
-              )}
-
-              {savedStays.length === 0 && (
-                <p style={{ 
-                  textAlign: 'center', 
-                  color: '#000', 
-                  padding: '20px', // Adjusted
-                  backgroundColor: '#f8f9fa',
-                  borderRadius: '6px',
-                  fontSize: itemFontSize // Adjusted
-                }}>
-                  Select dates and click "Add Stay" to begin adding stays
-                </p>
-              )}
+              ))}
+              
+              <div className="summary-line total" style={{ 
+                    marginTop: '15px', // Adjusted
+                borderTop: '2px solid #001f5c',
+                    paddingTop: '10px', // Adjusted
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                    fontSize: totalSectionFontSize, // Adjusted
+                fontWeight: 'bold'
+              }}>
+                <span style={{ color: '#001f5c' }}>Total Price:</span>
+                    <span style={{ color: '#001f5c', fontSize: totalValueFontSize }}> {/* Adjusted */} 
+                  ${totalStaysPrice.toFixed(2)}
+                </span>
+              </div>
             </div>
-          );
-      }
+          )}
+
+          {savedStays.length === 0 && (
+            <p style={{ 
+              textAlign: 'center', 
+              color: '#000', 
+                  padding: '20px', // Adjusted
+              backgroundColor: '#f8f9fa',
+              borderRadius: '6px',
+                  fontSize: itemFontSize // Adjusted
+            }}>
+              Select dates and click "Add Stay" to begin adding stays
+            </p>
+          )}
+        </div>
+      );
+    }
 
       // Logic for single overnight stay (used in modal and potentially old overnight tab)
-      if (!checkInDate || !checkOutDate) {
+    if (!checkInDate || !checkOutDate) {
         return <p style={{ fontSize: itemFontSize }}>Please select check-in and check-out dates.</p>;
-      }
+    }
 
-      const pricing = calculateOvernightPrice();
-      const totalPrice = pricing.totalPrice;
-      const totalNights = pricing.nights;
+    const pricing = calculateOvernightPrice();
+    const totalPrice = pricing.totalPrice;
+    const totalNights = pricing.nights;
 
-      return (
+    return (
         <div className="price-summary" style={{ 
           padding: isModal ? '5px 0' : '15px', // Reduced padding for modal
           fontSize: itemFontSize 
@@ -834,78 +843,83 @@ function App() {
             Price Summary
           </h3>
           
-          <div className="summary-section">
+        <div className="summary-section">
             <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: isModal ? '3px' : '4px' }}>
               <span>Duration:</span>
               <span>{pricing.nights} {pricing.nights === 1 ? 'Night' : 'Nights'}</span>
-            </div>
-            
-            {totalNights === 7 && (
+          </div>
+          
+          {totalNights === 7 && (
               <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: isModal ? '3px' : '4px' }}>
                 <span>Weekly Rate:</span>
-                <span>${(() => {
-                  let baseRate = hasJacuzziOvernight ? 695 : 675;
-                  if (bedType === 'king') {
+              <span>${(() => {
+                let baseRate = hasJacuzziOvernight ? 695 : 675;
+                if (bedType === 'king') {
                     baseRate += (5 * 7); 
-                  } else if (bedType === 'double') {
+                } else if (bedType === 'double') {
                     baseRate += (10 * 7);
-                  }
-                  return baseRate.toFixed(2);
-                })()}</span>
-              </div>
-            )}
-            
-            {totalNights !== 7 && (
-              <>
-                {pricing.daysBreakdown.map((day, index) => (
+                }
+                return baseRate.toFixed(2);
+              })()}</span>
+            </div>
+          )}
+          
+          {totalNights !== 7 && (
+            <>
+              {pricing.daysBreakdown.map((day, index) => (
                   <div key={index} className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: isModal ? '2px' : '4px', fontSize: subItemFontSize, color: '#444' }}>
-                    <span>{day.day}:</span>
-                    <span>${day.basePrice.toFixed(2)}</span>
-                  </div>
-                ))}
+                  <span>{day.day}:</span>
+                  <span>${day.basePrice.toFixed(2)}</span>
+                </div>
+              ))}
                 <div className="summary-line" style={{ borderTop: '1px solid #eee', marginTop: isModal ? '4px' : '8px', paddingTop: isModal ? '4px' : '8px', display: 'flex', justifyContent: 'space-between', marginBottom: isModal ? '3px' : '4px' }}>
                   <span>Total Base:</span>
-                  <span>${pricing.totalBasePrice.toFixed(2)}</span>
-                </div>
-              </>
-            )}
-            
+                <span>${pricing.totalBasePrice.toFixed(2)}</span>
+              </div>
+            </>
+          )}
+          
             {totalNights < 7 && pricing.taxAmount > 0 && (
               <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: isModal ? '3px' : '4px' }}>
-                <span>Tax (15%):</span>
-                <span>${pricing.taxAmount.toFixed(2)}</span>
-              </div>
-            )}
-            
+              <span>Tax (15%):</span>
+              <span>${pricing.taxAmount.toFixed(2)}</span>
+            </div>
+          )}
+          
             {overnightExtraHours !== 0 && pricing.extraHoursCheckInCost > 0 && (
               <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: isModal ? '3px' : '4px' }}>
                 <span>CI Hours ({overnightExtraHours > 0 ? `+${overnightExtraHours}h` : `${Math.abs(overnightExtraHours)}h`}):</span>
-                <span>${pricing.extraHoursCheckInCost.toFixed(2)}</span>
-              </div>
-            )}
-            
+              <span>${pricing.extraHoursCheckInCost.toFixed(2)}</span>
+            </div>
+          )}
+          
             {overnightCheckoutExtraHours !== 0 && pricing.extraHoursCheckOutCost > 0 && (
               <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: isModal ? '3px' : '4px' }}>
                 <span>CO Hours ({overnightCheckoutExtraHours > 0 ? `+${overnightCheckoutExtraHours}h` : `${Math.abs(overnightCheckoutExtraHours)}h`}):</span>
-                <span>${pricing.extraHoursCheckOutCost.toFixed(2)}</span>
-              </div>
-            )}
-            
-            <div className="summary-line total" style={{ borderTop: '1px solid #aaa', marginTop: isModal ? '6px' : '8px', paddingTop: isModal ? '6px' : '8px', display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', fontSize: totalFontSize }}>
-              <span>Total Price:</span>
-              <span>${totalPrice.toFixed(2)}</span>
+              <span>${pricing.extraHoursCheckOutCost.toFixed(2)}</span>
             </div>
+          )}
+          
+            <div className="summary-line total" style={{ borderTop: '1px solid #aaa', marginTop: isModal ? '6px' : '8px', paddingTop: isModal ? '6px' : '8px', display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', fontSize: totalFontSize }}>
+            <span>Total Price:</span>
+            <span>${totalPrice.toFixed(2)}</span>
           </div>
         </div>
-      );
+      </div>
+    );
     }
     return null; // Return null if not the right tab and modal isn't open
-  }; 
+  };
   
   // Add a function to handle price updates
   const handlePriceUpdate = () => {
     // Increment the counter to force a UI refresh
     setPriceUpdateCounter(prev => prev + 1);
+    
+    // Update short stay calculations if needed
+    if (activeTab === 'short') {
+      calculatePrice();
+    }
     
     // Recalculate prices for any saved stays
     const updatedStays = savedStays.map(stay => {
@@ -946,6 +960,7 @@ function App() {
     // Update total price of all stays
     const newTotalPrice = updatedStays.reduce((sum, stay) => sum + stay.price, 0);
     setTotalStaysPrice(newTotalPrice);
+    
     // Show confirmation message, hide after 15 seconds
     setShowConfirmation(true);
     setTimeout(() => setShowConfirmation(false), 15000);
@@ -1174,7 +1189,7 @@ function App() {
   const [selectedRooms, setSelectedRooms] = useState([]);
   const [changeStatusMode, setChangeStatusMode] = useState(false);
   const [showChangeStatusModal, setShowChangeStatusModal] = useState(false);
-  const [openBookingModal, setOpenBookingModal] = useState(null); // Track which room has booking modal open
+  // const [openBookingModal, setOpenBookingModal] = useState(null); // Disabled - No longer using booking modal
   
   // Authentication state
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -1840,7 +1855,7 @@ function App() {
             <h2 className="section-header">Short Stay</h2>
             
             <div className="option-group" style={{ maxWidth: '500px', margin: '0 auto 20px auto' }}>
-              <label className="section-subheader">Daily Room Prices</label>
+              <label className="section-subheader">Check-in & Check-out Times</label>
               
               {/* Daily Room Prices */}
               <div style={{ 
@@ -1854,18 +1869,15 @@ function App() {
                 boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
               }}>
                 <div style={{ 
-                  textAlign: 'center',
+                  fontWeight: 'bold',
                   color: '#333',
-                  padding: '4px 8px',
-                  borderRadius: '6px',
-                  backgroundColor: 'rgba(255,255,255,0.5)'
+                  textAlign: 'center'
                 }}>
-                  <div style={{ fontWeight: 'bold', marginBottom: '2px' }}>Standard</div>
+                  Standard
                   {(() => {
                     const now = new Date();
                     const day = now.getDay(); // 0 is Sunday, 6 is Saturday
                     let basePrice;
-                    
                     if (day === 5) { // Friday
                       basePrice = prices.friday.withoutJacuzzi;
                     } else if (day === 0 || day === 6) { // Weekend (Sunday or Saturday)
@@ -1873,32 +1885,28 @@ function App() {
                     } else { // Weekday
                       basePrice = prices.weekday.withoutJacuzzi;
                     }
-                    
                     const tax = basePrice * 0.15;
                     const total = basePrice + tax;
-                    
                     return (
-                      <>
-                        <div style={{ fontSize: '12px', color: '#555' }}>Base: ${basePrice.toFixed(2)}</div>
-                        <div style={{ fontSize: '12px', color: '#555' }}>Tax: ${tax.toFixed(2)}</div>
-                        <div style={{ fontWeight: 'bold', color: '#333' }}>Total: ${total.toFixed(2)}</div>
-                      </>
+                      <div style={{ fontWeight: 'normal', fontSize: '13px', marginTop: '4px' }}>
+                        <div>Base: ${basePrice.toFixed(2)}</div>
+                        <div>Tax: ${tax.toFixed(2)}</div>
+                        <div style={{ marginTop: '2px', paddingTop: '2px' }}>Total: ${total.toFixed(2)}</div>
+                      </div>
                     );
                   })()}
                 </div>
+                <div style={{ borderLeft: '2px solid #e0cfa4', height: '50px' }}></div> {/* Divider */}
                 <div style={{ 
-                  textAlign: 'center',
+                  fontWeight: 'bold',
                   color: '#333',
-                  padding: '4px 8px',
-                  borderRadius: '6px',
-                  backgroundColor: 'rgba(255,255,255,0.5)'
+                  textAlign: 'center'
                 }}>
-                  <div style={{ fontWeight: 'bold', marginBottom: '2px' }}>Jacuzzi</div>
+                  Jacuzzi
                   {(() => {
                     const now = new Date();
                     const day = now.getDay(); // 0 is Sunday, 6 is Saturday
                     let basePrice;
-                    
                     if (day === 5) { // Friday
                       basePrice = prices.friday.withJacuzzi;
                     } else if (day === 0 || day === 6) { // Weekend (Sunday or Saturday)
@@ -1906,16 +1914,14 @@ function App() {
                     } else { // Weekday
                       basePrice = prices.weekday.withJacuzzi;
                     }
-                    
                     const tax = basePrice * 0.15;
                     const total = basePrice + tax;
-                    
                     return (
-                      <>
-                        <div style={{ fontSize: '12px', color: '#555' }}>Base: ${basePrice.toFixed(2)}</div>
-                        <div style={{ fontSize: '12px', color: '#555' }}>Tax: ${tax.toFixed(2)}</div>
-                        <div style={{ fontWeight: 'bold', color: '#333' }}>Total: ${total.toFixed(2)}</div>
-                      </>
+                      <div style={{ fontWeight: 'normal', fontSize: '13px', marginTop: '4px' }}>
+                        <div>Base: ${basePrice.toFixed(2)}</div>
+                        <div>Tax: ${tax.toFixed(2)}</div>
+                        <div style={{ marginTop: '2px', paddingTop: '2px' }}>Total: ${total.toFixed(2)}</div>
+                      </div>
                     );
                   })()}
                 </div>
@@ -1923,13 +1929,13 @@ function App() {
               
               <div className="time-section">
                 <div className="check-time">
-                  <label>Check-in @:</label>
-                  <span>{currentTime}</span>
+                  <label style={{ color: '#0606f5' }}>Check-in @</label>
+                  <span style={{ color: '#0606f5' }}>{currentTime}</span>
                 </div>
                 
                 <div className="check-time">
-                  <label>Check-out @:</label>
-                  <span>{checkoutTime}</span>
+                  <label style={{ color: '#0606f5' }}>Check-out @</label>
+                  <span style={{ color: '#0606f5' }}>{checkoutTime}</span>
                 </div>
                 
                 <div className="extra-hours">
@@ -1965,28 +1971,6 @@ function App() {
                       onChange={() => setHasJacuzzi(true)}
                     />
                     With Jacuzzi
-                  </label>
-                </div>
-              </div>
-              
-              <div className="option-group">
-                <label>Smoking Preference:</label>
-                <div className="radio-group">
-                  <label>
-                    <input
-                      type="radio"
-                      checked={!isSmoking}
-                      onChange={() => setIsSmoking(false)}
-                    />
-                    Non-Smoking
-                  </label>
-                  <label>
-                    <input
-                      type="radio"
-                      checked={isSmoking}
-                      onChange={() => setIsSmoking(true)}
-                    />
-                    Smoking
                   </label>
                 </div>
               </div>
@@ -2039,19 +2023,19 @@ function App() {
             <div className="price-summary">
               <div className="summary-line">
                 <span>Base Price (4 hours):</span>
-                <span>${hasJacuzzi ? '90.00' : '60.00'}</span>
+                <span>${(hasJacuzzi ? shortStayPrices.baseRate.withJacuzzi : shortStayPrices.baseRate.withoutJacuzzi).toFixed(2)}</span>
               </div>
               
               {paymentMethod === 'credit' && (
                 <div className="summary-line">
                   <span>Tax (15%)</span>
-                  <span>${((hasJacuzzi ? 90 : 60) * 0.15).toFixed(2)}</span>
+                  <span>${((hasJacuzzi ? shortStayPrices.baseRate.withJacuzzi : shortStayPrices.baseRate.withoutJacuzzi) * 0.15).toFixed(2)}</span>
                 </div>
               )}
               
               <div className="summary-line">
                 <span>Extra Hours Cost:</span>
-                <span>${(extraHours * extraHourRate).toFixed(2)}</span>
+                <span>${(extraHours * (extraHourRate === 15 ? shortStayPrices.extraHourRate.regular : shortStayPrices.extraHourRate.discounted)).toFixed(2)}</span>
               </div>
               
               <div className="summary-line total-hours">
@@ -2199,28 +2183,6 @@ function App() {
                       Queen 2 Beds
                     </label>
                   )}
-                </div>
-              </div>
-              
-              <div className="option-group">
-                <label>Smoking Preference:</label>
-                <div className="radio-group">
-                  <label>
-                    <input
-                      type="radio"
-                      checked={!overnightSmoking}
-                      onChange={() => setOvernightSmoking(false)}
-                    />
-                    Non-Smoking
-                  </label>
-                  <label>
-                    <input
-                      type="radio"
-                      checked={overnightSmoking}
-                      onChange={() => setOvernightSmoking(true)}
-                    />
-                    Smoking
-                  </label>
                 </div>
               </div>
               
@@ -2421,28 +2383,6 @@ function App() {
                       Queen 2 Beds
                     </label>
                   )}
-                </div>
-              </div>
-              
-              <div className="option-group">
-                <label>Smoking Preference:</label>
-                <div className="radio-group">
-                  <label>
-                    <input
-                      type="radio"
-                      checked={!overnightSmoking}
-                      onChange={() => setOvernightSmoking(false)}
-                    />
-                    Non-Smoking
-                  </label>
-                  <label>
-                    <input
-                      type="radio"
-                      checked={overnightSmoking}
-                      onChange={() => setOvernightSmoking(true)}
-                    />
-                    Smoking
-                  </label>
                 </div>
               </div>
               
@@ -2941,7 +2881,33 @@ function App() {
                                     <button
                                       onClick={(e) => {
                                         e.stopPropagation(); // Prevent triggering the room card click
-                                        setOpenBookingModal(room.number);
+                                        // Instead of showing alert, navigate to Multiple Nights tab
+                                        // alert(`Room ${room.number} is ready to book`);
+                                        
+                                        // Navigate to Multiple Nights tab
+                                        setActiveTab('multiple');
+                                        
+                                        // Pre-populate some settings based on the room
+                                        setHasJacuzziOvernight(room.type === 'jacuzzi');
+                                        setBedType(room.beds || 'queen');
+                                        setOvernightSmoking(room.smoking || false);
+                                        
+                                        // Set today and tomorrow as default dates if not already set
+                                        if (!checkInDate) {
+                                          const today = new Date();
+                                          today.setHours(15, 0, 0, 0); // 3:00 PM today
+                                          setCheckInDate(today);
+                                          
+                                          if (!checkOutDate) {
+                                            const tomorrow = new Date(today);
+                                            tomorrow.setDate(tomorrow.getDate() + 1);
+                                            tomorrow.setHours(11, 0, 0, 0); // 11:00 AM tomorrow
+                                            setCheckOutDate(tomorrow);
+                                          }
+                                        }
+                                        
+                                        // Scroll to the top of the page to show the Multi-stay tab
+                                        window.scrollTo({top: 0, behavior: 'smooth'});
                                       }}
                                       style={{
                                         backgroundColor: '#001f5c', // Dark blue
@@ -3256,7 +3222,33 @@ function App() {
                                     <button
                                       onClick={(e) => {
                                         e.stopPropagation(); // Prevent triggering the room card click
-                                        setOpenBookingModal(room.number);
+                                        // Instead of showing alert, navigate to Multiple Nights tab
+                                        // alert(`Room ${room.number} is ready to book`);
+                                        
+                                        // Navigate to Multiple Nights tab
+                                        setActiveTab('multiple');
+                                        
+                                        // Pre-populate some settings based on the room
+                                        setHasJacuzziOvernight(room.type === 'jacuzzi');
+                                        setBedType(room.beds || 'queen');
+                                        setOvernightSmoking(room.smoking || false);
+                                        
+                                        // Set today and tomorrow as default dates if not already set
+                                        if (!checkInDate) {
+                                          const today = new Date();
+                                          today.setHours(15, 0, 0, 0); // 3:00 PM today
+                                          setCheckInDate(today);
+                                          
+                                          if (!checkOutDate) {
+                                            const tomorrow = new Date(today);
+                                            tomorrow.setDate(tomorrow.getDate() + 1);
+                                            tomorrow.setHours(11, 0, 0, 0); // 11:00 AM tomorrow
+                                            setCheckOutDate(tomorrow);
+                                          }
+                                        }
+                                        
+                                        // Scroll to the top of the page to show the Multi-stay tab
+                                        window.scrollTo({top: 0, behavior: 'smooth'});
                                       }}
                                       style={{
                                         backgroundColor: '#001f5c', // Dark blue
@@ -3494,236 +3486,352 @@ function App() {
                 boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
                 margin: '20px 0'
               }}>
-                <div style={{ 
+                <h3 style={{ 
+                  color: '#001f5c',
+                  borderBottom: '2px solid #001f5c',
+                  paddingBottom: '10px',
+                  marginBottom: '15px'
+                }}>Short Stay Prices</h3>
+
+                <div className="price-input-group" style={{ 
                   display: 'flex', 
-                  gap: '20px',
-                  flexWrap: 'wrap'
+                  flexDirection: 'column',
+                  gap: '10px',
+                  marginBottom: '30px'
                 }}>
-                  {/* Regular Room Prices Section */}
-                  <div className="option-group" style={{ 
-                    flex: '1',
-                    minWidth: '300px',
-                    backgroundColor: '#f8f8f8',
-                    padding: '15px',
-                    borderRadius: '8px'
-                  }}>
-                    <h3 style={{ 
-                      color: '#001f5c', 
-                      borderBottom: '2px solid #001f5c',
-                      paddingBottom: '10px',
-                      marginBottom: '15px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '10px'
-                    }}>
-                      Regular Room Prices 
-                      <span style={{ fontSize: '20px' }}>🚭/🚬</span>
-                    </h3>
-                    <div className="price-input-group" style={{ 
-                      display: 'flex', 
-                      flexDirection: 'column',
-                      gap: '10px'
-                    }}>
-                      <div className="summary-line">
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                          <span style={{ fontWeight: 'bold', minWidth: '120px' }}>Weekday:</span>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                            <span style={{ 
-                              fontSize: '14px',
-                              fontFamily: 'monospace',
-                              lineHeight: 1
-                            }}>$</span>
-                            <input 
-                              type="number" 
-                              value={prices.weekday.withoutJacuzzi} 
-                              onChange={(e) => setPrices({
-                                ...prices,
-                                weekday: { ...prices.weekday, withoutJacuzzi: parseFloat(e.target.value) }
-                              })} 
-                              style={{ 
-                                width: '80px', 
-                                padding: '4px',
-                                border: '1px solid #ccc',
-                                borderRadius: '4px',
-                                fontSize: '14px',
-                                fontFamily: 'monospace',
-                                lineHeight: 1
-                              }}
-                            />
-                          </div>
+                  {/* Base Rate */}
+                  <div className="summary-line">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <span style={{ fontWeight: 'bold', minWidth: '120px' }}>Base Rate (4h):</span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                          <span style={{ fontSize: '14px' }}>Regular: $</span>
+                          <input 
+                            type="number" 
+                            value={shortStayPrices.baseRate.withoutJacuzzi} 
+                            onChange={(e) => setShortStayPrices({
+                              ...shortStayPrices,
+                              baseRate: { ...shortStayPrices.baseRate, withoutJacuzzi: parseFloat(e.target.value) }
+                            })} 
+                            style={{ 
+                              width: '80px', 
+                              padding: '4px',
+                              border: '1px solid #ccc',
+                              borderRadius: '4px',
+                              fontSize: '14px'
+                            }}
+                          />
                         </div>
-                      </div>
-                      <div className="summary-line">
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                          <span style={{ fontWeight: 'bold', minWidth: '120px' }}>Friday:</span>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                            <span style={{ 
-                              fontSize: '14px',
-                              fontFamily: 'monospace',
-                              lineHeight: 1
-                            }}>$</span>
-                            <input 
-                              type="number" 
-                              value={prices.friday.withoutJacuzzi} 
-                              onChange={(e) => setPrices({
-                                ...prices,
-                                friday: { ...prices.friday, withoutJacuzzi: parseFloat(e.target.value) }
-                              })} 
-                              style={{ 
-                                width: '80px', 
-                                padding: '4px',
-                                border: '1px solid #ccc',
-                                borderRadius: '4px',
-                                fontSize: '14px',
-                                fontFamily: 'monospace',
-                                lineHeight: 1
-                              }}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="summary-line">
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                          <span style={{ fontWeight: 'bold', minWidth: '120px' }}>Weekend:</span>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                            <span style={{ 
-                              fontSize: '14px',
-                              fontFamily: 'monospace',
-                              lineHeight: 1
-                            }}>$</span>
-                            <input 
-                              type="number" 
-                              value={prices.weekend.withoutJacuzzi} 
-                              onChange={(e) => setPrices({
-                                ...prices,
-                                weekend: { ...prices.weekend, withoutJacuzzi: parseFloat(e.target.value) }
-                              })} 
-                              style={{ 
-                                width: '80px', 
-                                padding: '4px',
-                                border: '1px solid #ccc',
-                                borderRadius: '4px',
-                                fontSize: '14px',
-                                fontFamily: 'monospace',
-                                lineHeight: 1
-                              }}
-                            />
-                          </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                          <span style={{ fontSize: '14px' }}>Jacuzzi: $</span>
+                          <input 
+                            type="number" 
+                            value={shortStayPrices.baseRate.withJacuzzi} 
+                            onChange={(e) => setShortStayPrices({
+                              ...shortStayPrices,
+                              baseRate: { ...shortStayPrices.baseRate, withJacuzzi: parseFloat(e.target.value) }
+                            })} 
+                            style={{ 
+                              width: '80px', 
+                              padding: '4px',
+                              border: '1px solid #ccc',
+                              borderRadius: '4px',
+                              fontSize: '14px'
+                            }}
+                          />
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* Jacuzzi Room Prices Section */}
-                  <div className="option-group" style={{ 
-                    flex: '1',
-                    minWidth: '300px',
-                    backgroundColor: '#f8f8f8',
-                    padding: '15px',
-                    borderRadius: '8px'
+                  {/* Extra Hour Rate */}
+                  <div className="summary-line">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <span style={{ fontWeight: 'bold', minWidth: '120px' }}>Extra Hour:</span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                          <span style={{ fontSize: '14px' }}>Regular: $</span>
+                          <input 
+                            type="number" 
+                            value={shortStayPrices.extraHourRate.regular} 
+                            onChange={(e) => setShortStayPrices({
+                              ...shortStayPrices,
+                              extraHourRate: { ...shortStayPrices.extraHourRate, regular: parseFloat(e.target.value) }
+                            })} 
+                            style={{ 
+                              width: '80px', 
+                              padding: '4px',
+                              border: '1px solid #ccc',
+                              borderRadius: '4px',
+                              fontSize: '14px'
+                            }}
+                          />
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                          <span style={{ fontSize: '14px' }}>Discounted: $</span>
+                          <input 
+                            type="number" 
+                            value={shortStayPrices.extraHourRate.discounted} 
+                            onChange={(e) => setShortStayPrices({
+                              ...shortStayPrices,
+                              extraHourRate: { ...shortStayPrices.extraHourRate, discounted: parseFloat(e.target.value) }
+                            })} 
+                            style={{ 
+                              width: '80px', 
+                              padding: '4px',
+                              border: '1px solid #ccc',
+                              borderRadius: '4px',
+                              fontSize: '14px'
+                            }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <h3 style={{ 
+                  color: '#001f5c',
+                  borderBottom: '2px solid #001f5c',
+                  paddingBottom: '10px',
+                  marginBottom: '15px'
+                }}>Overnight Stay Prices</h3>
+
+                <div className="price-input-group" style={{ 
+                  display: 'flex', 
+                  flexDirection: 'column',
+                  gap: '10px'
+                }}>
+                  <div style={{ 
+                    display: 'flex', 
+                    gap: '20px',
+                    flexWrap: 'wrap'
                   }}>
-                    <h3 style={{ 
-                      color: '#001f5c', 
-                      borderBottom: '2px solid #001f5c',
-                      paddingBottom: '10px',
-                      marginBottom: '15px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '10px'
+                    {/* Regular Room Prices Section */}
+                    <div className="option-group" style={{ 
+                      flex: '1',
+                      minWidth: '300px',
+                      backgroundColor: '#f8f8f8',
+                      padding: '15px',
+                      borderRadius: '8px'
                     }}>
-                      Jacuzzi Room Prices 
-                      <span style={{ fontSize: '20px' }}>🛁</span>
-                    </h3>
-                    <div className="price-input-group" style={{ 
-                      display: 'flex', 
-                      flexDirection: 'column',
-                      gap: '10px'
-                    }}>
-                      <div className="summary-line">
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                          <span style={{ fontWeight: 'bold', minWidth: '120px' }}>Weekday:</span>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                            <span style={{ 
-                              fontSize: '14px',
-                              fontFamily: 'monospace',
-                              lineHeight: 1
-                            }}>$</span>
-                            <input 
-                              type="number" 
-                              value={prices.weekday.withJacuzzi} 
-                              onChange={(e) => setPrices({
-                                ...prices,
-                                weekday: { ...prices.weekday, withJacuzzi: parseFloat(e.target.value) }
-                              })} 
-                              style={{ 
-                                width: '80px', 
-                                padding: '4px',
-                                border: '1px solid #ccc',
-                                borderRadius: '4px',
+                      <h3 style={{ 
+                        color: '#001f5c',
+                        borderBottom: '2px solid #001f5c',
+                        paddingBottom: '10px',
+                        marginBottom: '15px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '10px'
+                      }}>
+                        Regular Room Prices 
+                        <span style={{ fontSize: '20px' }}>🚭/🚬</span>
+                      </h3>
+                      <div className="price-input-group" style={{ 
+                        display: 'flex', 
+                        flexDirection: 'column',
+                        gap: '10px'
+                      }}>
+                        <div className="summary-line">
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <span style={{ fontWeight: 'bold', minWidth: '120px' }}>Weekday:</span>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                              <span style={{ 
                                 fontSize: '14px',
                                 fontFamily: 'monospace',
                                 lineHeight: 1
-                              }}
-                            />
+                              }}>$</span>
+                              <input 
+                                type="number" 
+                                value={prices.weekday.withoutJacuzzi} 
+                                onChange={(e) => setPrices({
+                                  ...prices,
+                                  weekday: { ...prices.weekday, withoutJacuzzi: parseFloat(e.target.value) }
+                                })} 
+                                style={{ 
+                                  width: '80px', 
+                                  padding: '4px',
+                                  border: '1px solid #ccc',
+                                  borderRadius: '4px',
+                                  fontSize: '14px',
+                                  fontFamily: 'monospace',
+                                  lineHeight: 1
+                                }}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="summary-line">
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <span style={{ fontWeight: 'bold', minWidth: '120px' }}>Friday:</span>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                              <span style={{ 
+                                fontSize: '14px',
+                                fontFamily: 'monospace',
+                                lineHeight: 1
+                              }}>$</span>
+                              <input 
+                                type="number" 
+                                value={prices.friday.withoutJacuzzi} 
+                                onChange={(e) => setPrices({
+                                  ...prices,
+                                  friday: { ...prices.friday, withoutJacuzzi: parseFloat(e.target.value) }
+                                })} 
+                                style={{ 
+                                  width: '80px', 
+                                  padding: '4px',
+                                  border: '1px solid #ccc',
+                                  borderRadius: '4px',
+                                  fontSize: '14px',
+                                  fontFamily: 'monospace',
+                                  lineHeight: 1
+                                }}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="summary-line">
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <span style={{ fontWeight: 'bold', minWidth: '120px' }}>Weekend:</span>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                              <span style={{ 
+                                fontSize: '14px',
+                                fontFamily: 'monospace',
+                                lineHeight: 1
+                              }}>$</span>
+                              <input 
+                                type="number" 
+                                value={prices.weekend.withoutJacuzzi} 
+                                onChange={(e) => setPrices({
+                                  ...prices,
+                                  weekend: { ...prices.weekend, withoutJacuzzi: parseFloat(e.target.value) }
+                                })} 
+                                style={{ 
+                                  width: '80px', 
+                                  padding: '4px',
+                                  border: '1px solid #ccc',
+                                  borderRadius: '4px',
+                                  fontSize: '14px',
+                                  fontFamily: 'monospace',
+                                  lineHeight: 1
+                                }}
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
-                      <div className="summary-line">
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                          <span style={{ fontWeight: 'bold', minWidth: '120px' }}>Friday:</span>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                            <span style={{ 
-                              fontSize: '14px',
-                              fontFamily: 'monospace',
-                              lineHeight: 1
-                            }}>$</span>
-                            <input 
-                              type="number" 
-                              value={prices.friday.withJacuzzi} 
-                              onChange={(e) => setPrices({
-                                ...prices,
-                                friday: { ...prices.friday, withJacuzzi: parseFloat(e.target.value) }
-                              })} 
-                              style={{ 
-                                width: '80px', 
-                                padding: '4px',
-                                border: '1px solid #ccc',
-                                borderRadius: '4px',
+                    </div>
+
+                    {/* Jacuzzi Room Prices Section */}
+                    <div className="option-group" style={{ 
+                      flex: '1',
+                      minWidth: '300px',
+                      backgroundColor: '#f8f8f8',
+                      padding: '15px',
+                      borderRadius: '8px'
+                    }}>
+                      <h3 style={{ 
+                        color: '#001f5c',
+                        borderBottom: '2px solid #001f5c',
+                        paddingBottom: '10px',
+                        marginBottom: '15px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '10px'
+                      }}>
+                        Jacuzzi Room Prices 
+                        <span style={{ fontSize: '20px' }}>🛁</span>
+                      </h3>
+                      <div className="price-input-group" style={{ 
+                        display: 'flex', 
+                        flexDirection: 'column',
+                        gap: '10px'
+                      }}>
+                        <div className="summary-line">
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <span style={{ fontWeight: 'bold', minWidth: '120px' }}>Weekday:</span>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                              <span style={{ 
                                 fontSize: '14px',
                                 fontFamily: 'monospace',
                                 lineHeight: 1
-                                
-                              }}
-                            />
+                              }}>$</span>
+                              <input 
+                                type="number" 
+                                value={prices.weekday.withJacuzzi} 
+                                onChange={(e) => setPrices({
+                                  ...prices,
+                                  weekday: { ...prices.weekday, withJacuzzi: parseFloat(e.target.value) }
+                                })} 
+                                style={{ 
+                                  width: '80px', 
+                                  padding: '4px',
+                                  border: '1px solid #ccc',
+                                  borderRadius: '4px',
+                                  fontSize: '14px',
+                                  fontFamily: 'monospace',
+                                  lineHeight: 1
+                                }}
+                              />
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div className="summary-line">
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                          <span style={{ fontWeight: 'bold', minWidth: '120px' }}>Weekend:</span>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                            <span style={{ 
-                              fontSize: '14px',
-                              fontFamily: 'monospace',
-                              lineHeight: 1
-                            }}>$</span>
-                            <input 
-                              type="number" 
-                              value={prices.weekend.withJacuzzi} 
-                              onChange={(e) => setPrices({
-                                ...prices,
-                                weekend: { ...prices.weekend, withJacuzzi: parseFloat(e.target.value) }
-                              })} 
-                              style={{ 
-                                width: '80px', 
-                                padding: '4px',
-                                border: '1px solid #ccc',
-                                borderRadius: '4px',
+                        <div className="summary-line">
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <span style={{ fontWeight: 'bold', minWidth: '120px' }}>Friday:</span>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                              <span style={{ 
                                 fontSize: '14px',
                                 fontFamily: 'monospace',
                                 lineHeight: 1
-                              }}
-                            />
+                              }}>$</span>
+                              <input 
+                                type="number" 
+                                value={prices.friday.withJacuzzi} 
+                                onChange={(e) => setPrices({
+                                  ...prices,
+                                  friday: { ...prices.friday, withJacuzzi: parseFloat(e.target.value) }
+                                })} 
+                                style={{ 
+                                  width: '80px', 
+                                  padding: '4px',
+                                  border: '1px solid #ccc',
+                                  borderRadius: '4px',
+                                  fontSize: '14px',
+                                  fontFamily: 'monospace',
+                                  lineHeight: 1
+                                }}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="summary-line">
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <span style={{ fontWeight: 'bold', minWidth: '120px' }}>Weekend:</span>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                              <span style={{ 
+                                fontSize: '14px',
+                                fontFamily: 'monospace',
+                                lineHeight: 1
+                              }}>$</span>
+                              <input 
+                                type="number" 
+                                value={prices.weekend.withJacuzzi} 
+                                onChange={(e) => setPrices({
+                                  ...prices,
+                                  weekend: { ...prices.weekend, withJacuzzi: parseFloat(e.target.value) }
+                                })} 
+                                style={{ 
+                                  width: '80px', 
+                                  padding: '4px',
+                                  border: '1px solid #ccc',
+                                  borderRadius: '4px',
+                                  fontSize: '14px',
+                                  fontFamily: 'monospace',
+                                  lineHeight: 1
+                                }}
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -3969,428 +4077,8 @@ function App() {
         onLogin={handleLogin}
       />
 
-      {/* Booking Modal */}
-      {openBookingModal && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          zIndex: 1000
-        }}>
-          <div style={{
-            backgroundColor: 'white',
-            borderRadius: '8px',
-            padding: '15px', // Reduced padding
-            maxWidth: '700px', // Slightly reduced max width
-            width: '90%',
-            maxHeight: '90vh', // Increased max height slightly
-            display: 'flex',
-            flexDirection: 'column',
-            overflow: 'hidden'
-          }}>
-            <div style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginBottom: '10px', // Reduced margin
-              borderBottom: '1px solid #eee',
-              paddingBottom: '8px' // Reduced padding
-            }}>
-              <h2 style={{ margin: 0, fontSize: '18px' }}> {/* Reduced font size */}
-                Book Room {openBookingModal}
-                {(() => {
-                  // Find room info
-                  let roomInfo = null;
-                  const groundFloorRoom = rooms.groundFloor.find(room => room.number === openBookingModal);
-                  const firstFloorRoom = rooms.firstFloor.find(room => room.number === openBookingModal);
-                  roomInfo = groundFloorRoom || firstFloorRoom;
-                  
-                  if (roomInfo) {
-                    return (
-                      <span style={{ 
-                        fontSize: '12px', // Reduced font size
-                        fontWeight: 'normal', 
-                        backgroundColor: '#f0f0f0',
-                        padding: '2px 6px', // Reduced padding
-                        borderRadius: '4px',
-                        marginLeft: '8px' // Reduced margin
-                      }}>
-                        {/* Room Type and Bed Type Before Smoking Status */} 
-                        {roomInfo.type === 'jacuzzi' ? '🛁 Jacuzzi' : '🛏️ Standard'} • 
-                        {roomInfo.beds === 'king' ? ' 👑 King' : roomInfo.beds === 'double' ? ' 👥 Double Queen' : ' 👤 Queen'} • 
-                        {roomInfo.smoking ? ' 🚬 Smoking' : ' 🚭 Non-Smoking'}
-                        {roomInfo.handicap ? ' • ♿ Handicap' : ''}
-                      </span>
-                    );
-                  }
-                  return null;
-                })()}
-              </h2>
-              <button 
-                onClick={() => setOpenBookingModal(null)}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  fontSize: '20px', // Reduced font size
-                  cursor: 'pointer'
-                }}
-              >
-                &times;
-              </button>
-            </div>
-            
-            <div style={{
-              flex: 1,
-              overflowY: 'auto',
-              padding: '0 5px' // Reduced padding
-            }}>
-              {/* Multiple Nights Tab Content */}
-              <div style={{ backgroundColor: '#e6e0f3', padding: '10px', borderRadius: '8px' }}> {/* Reduced padding */}
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', marginBottom: '10px' }}> {/* Reduced gap/margin */}
-                  <h3 className="section-header" style={{ margin: 0, fontSize: '16px' }}>Book Multiple Nights</h3> {/* Reduced font size */}
-                </div>
-                
-                <div className="overnight-dates" style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}> {/* Reduced gap */}
-                  <div className="date-picker-container" style={{ flex: 1, minWidth: '280px' }}>
-                    <label style={{ fontSize: '13px', marginBottom: '3px' }}>Check-in Date:</label> {/* Reduced font size/margin */}
-                    <DatePicker
-                      selected={checkInDate}
-                      onChange={handleCheckInChange}
-                      dateFormat="MM/dd/yy h:mm aa"
-                      // Allow selection of past dates
-                      // minDate={new Date()}
-                      className="date-picker compact-datepicker" // Added class for specific styling
-                      showTimeSelect={false}
-                      timeFormat="HH:mm"
-                      timeIntervals={60}
-                      timeCaption="Time"
-                      onFocus={e => e.target.blur()}
-                      onKeyDown={e => e.preventDefault()}
-                    />
-                    <span className="calendar-icon" style={{ fontSize: '14px' }}>📅</span> {/* Reduced font size */}
-                    <span className="time-note" style={{ fontSize: '11px' }}>Std: 3 PM</span> {/* Reduced font size */}
-                    
-                    <div className="extra-hours-overnight" style={{ marginTop: '5px' }}>
-                      <label style={{ fontSize: '12px' }}>Hour Adj:</label> {/* Reduced font size */}
-                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}> {/* Reduced gap */}
-                        <div className="hours-control">
-                          <button className="minus-btn compact-btn" onClick={() => handleOvernightExtraHoursChange(-1)}>-</button> {/* Added class */} 
-                          <span style={{ fontSize: '12px' }}>{overnightExtraHours}</span> {/* Reduced font size */}
-                          <button className="plus-btn compact-btn" onClick={() => handleOvernightExtraHoursChange(1)}>+</button> {/* Added class */} 
-                        </div>
-                        <span className="hours-note" style={{ fontSize: '11px', color: '#00308F', fontWeight: 'bold' }}> {/* Reduced font size */}
-                          {overnightExtraHours < 0 
-                            ? `${Math.abs(overnightExtraHours)}hr early (${new Date(new Date().setHours(15 + overnightExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})})` 
-                            : overnightExtraHours > 0 
-                            ? `${overnightExtraHours}hr late (${new Date(new Date().setHours(15 + overnightExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})})` 
-                            : 'Standard'}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="date-picker-container" style={{ flex: 1, minWidth: '280px' }}>
-                    <label style={{ fontSize: '13px', marginBottom: '3px' }}>Check-out Date:</label> {/* Reduced font size/margin */}
-                    <DatePicker
-                      selected={checkOutDate}
-                      onChange={handleCheckOutChange}
-                      dateFormat="MM/dd/yy h:mm aa"
-                      // Allow selection of any date including past dates
-                      // minDate={checkInDate}
-                      className="date-picker compact-datepicker" // Added class
-                      showTimeSelect={false}
-                      timeFormat="HH:mm"
-                      timeIntervals={60}
-                      timeCaption="Time"
-                      onFocus={e => e.target.blur()}
-                      onKeyDown={e => e.preventDefault()}
-                    />
-                    <span className="calendar-icon" style={{ fontSize: '14px' }}>📅</span> {/* Reduced font size */}
-                    <span className="time-note" style={{ fontSize: '11px' }}>Std: 11 AM</span> {/* Reduced font size */}
-                    
-                    <div className="extra-hours-overnight" style={{ marginTop: '5px' }}>
-                      <label style={{ fontSize: '12px' }}>Hour Adj:</label> {/* Reduced font size */}
-                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}> {/* Reduced gap */}
-                        <div className="hours-control">
-                          <button className="minus-btn compact-btn" onClick={() => handleCheckoutExtraHoursChange(-1)}>-</button> {/* Added class */} 
-                          <span style={{ fontSize: '12px' }}>{overnightCheckoutExtraHours}</span> {/* Reduced font size */}
-                          <button className="plus-btn compact-btn" onClick={() => handleCheckoutExtraHoursChange(1)}>+</button> {/* Added class */} 
-                        </div>
-                        <span className="hours-note" style={{ fontSize: '11px', color: '#00308F', fontWeight: 'bold' }}> {/* Reduced font size */}
-                          {overnightCheckoutExtraHours < 0 
-                            ? `${Math.abs(overnightCheckoutExtraHours)}hr early (${new Date(new Date().setHours(11 + overnightCheckoutExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})})` 
-                            : overnightCheckoutExtraHours > 0 
-                            ? `${overnightCheckoutExtraHours}hr late (${new Date(new Date().setHours(11 + overnightCheckoutExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})})` 
-                            : 'Standard'}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="room-options" style={{ marginBottom: '10px', marginTop: '10px', display: 'flex', flexWrap: 'wrap', gap: '10px 15px' }}> {/* Reduced margin/gap */}
-                  {/* Room Type Option Group */}
-                  <div className="option-group">
-                    <label style={{ fontSize: '13px' }}>Room Type:</label>
-                    <div className="radio-group compact-radio-group">
-                      <label>
-                        <input
-                          type="radio"
-                          checked={!hasJacuzziOvernight}
-                          onChange={() => setHasJacuzziOvernight(false)}
-                        />
-                        Std
-                      </label>
-                      <label>
-                        <input
-                          type="radio"
-                          checked={hasJacuzziOvernight}
-                          onChange={() => setHasJacuzziOvernight(true)}
-                        />
-                        Jacuzzi
-                      </label>
-                    </div>
-                  </div>
-                  
-                  {/* Bed Type Option Group */}
-                  <div className="option-group">
-                    <label style={{ fontSize: '13px' }}>Bed Type:</label>
-                    <div className="radio-group compact-radio-group">
-                      <label>
-                        <input
-                          type="radio"
-                          checked={bedType === 'queen'}
-                          onChange={() => setBedType('queen')}
-                        />
-                        Queen
-                      </label>
-                      <label>
-                        <input
-                          type="radio"
-                          checked={bedType === 'king'}
-                          onChange={() => setBedType('king')}
-                        />
-                        King
-                      </label>
-                      <label>
-                        <input
-                          type="radio"
-                          checked={bedType === 'double'}
-                          onChange={() => setBedType('double')}
-                        />
-                        Queen 2 Beds
-                      </label>
-                    </div>
-                  </div>
-                  
-                  <div className="option-group">
-                    <label style={{ fontSize: '13px' }}>Smoking:</label>
-                    <div className="radio-group compact-radio-group">
-                      <label>
-                        <input
-                          type="radio"
-                          checked={!overnightSmoking}
-                          onChange={() => setOvernightSmoking(false)}
-                        />
-                        Non
-                      </label>
-                      <label>
-                        <input
-                          type="radio"
-                          checked={overnightSmoking}
-                          onChange={() => setOvernightSmoking(true)}
-                        />
-                        Yes
-                      </label>
-                    </div>
-                  </div>
-                  
-                  <div className="option-group">
-                    <label style={{ fontSize: '13px' }}>Payment:</label>
-                    <div className="radio-group compact-radio-group">
-                      <label>
-                        <input
-                          type="radio"
-                          value="cash"
-                          checked={overnightPayment === 'cash'}
-                          onChange={() => setOvernightPayment('cash')}
-                        />
-                        Cash
-                      </label>
-                      <label>
-                        <input
-                          type="radio"
-                          value="credit"
-                          checked={overnightPayment === 'credit'}
-                          onChange={() => setOvernightPayment('credit')}
-                        />
-                        Credit
-                      </label>
-                    </div>
-                  </div>
-                  
-                  <div className="option-group">
-                    <label style={{ fontSize: '13px' }}>Extra Hr Rate:</label>
-                    <div className="radio-group compact-radio-group">
-                      <label>
-                        <input
-                          type="radio"
-                          checked={overnightExtraRate === 15}
-                          onChange={() => setOvernightExtraRate(15)}
-                        />
-                        $15
-                      </label>
-                      <label>
-                        <input
-                          type="radio"
-                          checked={overnightExtraRate === 10}
-                          onChange={() => setOvernightExtraRate(10)}
-                        />
-                        $10
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Price Summary (now uses compact styles via render function) */}
-                <div className="compact-price-summary"> 
-                  {renderOvernightStayPriceSummary()} 
-                </div>
-              </div>
-            </div>
-            
-            <div style={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-              marginTop: '15px', // Reduced margin
-              gap: '8px' // Reduced gap
-            }}>
-              <button
-                onClick={() => setOpenBookingModal(null)}
-                style={{
-                  padding: '6px 12px', // Reduced padding
-                  borderRadius: '4px',
-                  border: '1px solid #ddd',
-                  backgroundColor: '#f5f5f5',
-                  cursor: 'pointer',
-                  fontSize: '13px' // Reduced font size
-                }}
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => {
-                  // Add the current stay to saved stays
-                  const roomInfo = rooms.groundFloor.find(room => room.number === openBookingModal) || 
-                                  rooms.firstFloor.find(room => room.number === openBookingModal);
-                  
-                  if (roomInfo && checkInDate && checkOutDate) {
-                    // Calculate nights between the dates
-                    const oneDay = 24 * 60 * 60 * 1000;
-                    const nights = Math.round(Math.abs((checkOutDate - checkInDate) / oneDay));
-                    
-                    if (nights > 0) {
-                      // Use the existing overnight price calculation for consistency
-                      const pricing = calculateOvernightPrice();
-                      
-                      // Get day names for display
-                      const checkInDay = checkInDate.toLocaleDateString('en-US', { weekday: 'short' });
-                      const checkOutDay = checkOutDate.toLocaleDateString('en-US', { weekday: 'short' });
-                      
-                      // Room type matches the selected room's type
-                      const hasJacuzzi = roomInfo.type === 'jacuzzi';
-                      
-                      // Create new stay object
-                      const newStay = {
-                        id: Date.now(), // Unique ID
-                        checkIn: new Date(checkInDate),
-                        checkOut: new Date(checkOutDate),
-                        checkInDay,
-                        checkOutDay,
-                        nights,
-                        hasJacuzzi,
-                        smoking: overnightSmoking,
-                        payment: overnightPayment,
-                        extraRate: overnightExtraRate,
-                        bedType: roomInfo.beds || 'queen',
-                        checkInAdjustment: overnightExtraHours,
-                        checkOutAdjustment: overnightCheckoutExtraHours,
-                        price: pricing.totalPrice,
-                        basePrice: pricing.totalBasePrice,
-                        tax: pricing.taxAmount,
-                        extraHoursCheckIn: pricing.extraHoursCheckInCost,
-                        extraHoursCheckOut: pricing.extraHoursCheckOutCost,
-                        details: {
-                          daysBreakdown: pricing.daysBreakdown
-                        }
-                      };
-                      
-                      // Add to saved stays
-                      setSavedStays(prevStays => [...prevStays, newStay]);
-                      
-                      // Update price total
-                      setTotalStaysPrice(prevTotal => prevTotal + pricing.totalPrice);
-                      
-                      // Reset the form to prepare for another entry
-                      resetOvernightStay();
-                      
-                      // Close the modal
-                      setOpenBookingModal(null);
-                      
-                      // Show notification
-                      alert(`Stay for Room ${openBookingModal} has been added!`);
-                    } else {
-                      alert('Please select valid check-in and check-out dates with at least one night stay.');
-                    }
-                  } else {
-                    alert('Please select valid check-in and check-out dates.');
-                  }
-                }}
-                style={{
-                  padding: '6px 12px', // Reduced padding
-                  borderRadius: '4px',
-                  border: 'none',
-                  backgroundColor: '#3498db', // Blue color for Add Stay
-                  color: 'white',
-                  cursor: 'pointer',
-                  fontWeight: 'bold',
-                  fontSize: '13px' // Reduced font size
-                }}
-              >
-                +Add Stay
-              </button>
-              <button
-                onClick={() => {
-                  // Handle booking confirmation
-                  alert(`Room ${openBookingModal} booked successfully!`);
-                  setOpenBookingModal(null);
-                  
-                  // Optionally: Update room status to occupied
-                  // ... (existing commented out logic) ...
-                }}
-                style={{
-                  padding: '6px 12px', // Reduced padding
-                  borderRadius: '4px',
-                  border: 'none',
-                  backgroundColor: '#4CAF50',
-                  color: 'white',
-                  cursor: 'pointer',
-                  fontWeight: 'bold',
-                  fontSize: '13px' // Reduced font size
-                }}
-              >
-                Confirm Booking
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Remove Booking Modal - Keep only a comment for future reference */}
+      {/* Booking Modal code was previously here. Removed as per requirement. */}
     </div>
   );
 }
