@@ -38,53 +38,54 @@ function App() {
     // Default initial state if nothing in localStorage
     return {
       groundFloor: [
-        { number: "101", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
-        { number: "102", type: "standard", beds: "queen", status: "available", smoking: true, handicap: false },
-        { number: "103", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
-        { number: "104", type: "standard", beds: "queen", status: "available", smoking: true, handicap: false },
-        { number: "105", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
-        { number: "106", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
-        { number: "107", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
-        { number: "108", type: "standard", beds: "queen", status: "available", smoking: false, handicap: true },
-        { number: "109", type: "jacuzzi", beds: "queen", status: "available", smoking: false, handicap: false },
-        { number: "110", type: "jacuzzi", beds: "queen", status: "available", smoking: true, handicap: false },
-        { number: "111", type: "jacuzzi", beds: "queen", status: "available", smoking: false, handicap: false },
-        { number: "112", type: "jacuzzi", beds: "queen", status: "available", smoking: true, handicap: false },
-        { number: "114", type: "standard", beds: "queen", status: "available", smoking: false},
-        { number: "119", type: "jacuzzi", beds: "queen", status: "available", smoking: true, handicap: false, onlineBookingOnly: true }
+        { number: "101", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "102", type: "standard", beds: "Queen", status: "available", smoking: true, handicap: false },
+        { number: "103", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "104", type: "standard", beds: "Queen", status: "available", smoking: true, handicap: false },
+        { number: "105", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "106", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "107", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "108", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: true },
+        { number: "109", type: "jacuzzi", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "110", type: "jacuzzi", beds: "Queen", status: "available", smoking: true, handicap: false },
+        { number: "111", type: "jacuzzi", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "112", type: "jacuzzi", beds: "Queen", status: "available", smoking: true, handicap: false },
+        { number: "114", type: "standard", beds: "Queen", status: "available", smoking: false},
+        { number: "119", type: "jacuzzi", beds: "Queen", status: "available", smoking: true, handicap: false, onlineBookingOnly: true }
       ],
       firstFloor: [
-        { number: "200", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
-        { number: "201", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
-        { number: "202", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
-        { number: "203", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
-        { number: "204", type: "standard", beds: "queen", status: "available", smoking: true, handicap: true },
-        { number: "205", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
-        { number: "206", type: "standard", beds: "queen", status: "available", smoking: true, handicap: false },
-        { number: "207", type: "standard", beds: "double", status: "available", smoking: true, handicap: false },
-        { number: "208", type: "jacuzzi", beds: "king", status: "available", smoking: false, handicap: false },
-        { number: "209", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
-        { number: "210", type: "jacuzzi", beds: "king", status: "available", smoking: true, handicap: false },
-        { number: "211", type: "standard", beds: "king", status: "available", smoking: true, handicap: false },
-        { number: "212", type: "standard", beds: "king", status: "available", smoking: false, handicap: false },
-        { number: "214", type: "jacuzzi", beds: "king", status: "available", smoking: false, handicap: false },
-        { number: "215", type: "standard", beds: "double", status: "available", smoking: false, handicap: true },
-        { number: "216", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
-        { number: "217", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
-        { number: "218", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
-        { number: "219", type: "standard", beds: "double", status: "available", smoking: true, handicap: false },
-        { number: "220", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
-        { number: "221", type: "standard", beds: "king", status: "available", smoking: false, handicap: false },
-        { number: "222", type: "standard", beds: "king", status: "available", smoking: false, handicap: false },
-        { number: "223", type: "standard", beds: "king", status: "available", smoking: false, handicap: false },
-        { number: "224", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
-        { number: "225", type: "standard", beds: "king", status: "available", smoking: false, handicap: false }
+        { number: "200", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "201", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "202", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "203", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "204", type: "standard", beds: "Queen", status: "available", smoking: true, handicap: true },
+        { number: "205", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "206", type: "standard", beds: "Queen", status: "available", smoking: true, handicap: false },
+        { number: "207", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: true, handicap: false },
+        { number: "208", type: "jacuzzi", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "209", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "210", type: "jacuzzi", beds: "King", status: "available", smoking: true, handicap: false },
+        { number: "211", type: "standard", beds: "King", status: "available", smoking: true, handicap: false },
+        { number: "212", type: "standard", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "214", type: "jacuzzi", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "215", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: true },
+        { number: "216", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "217", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "218", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "219", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: true, handicap: false },
+        { number: "220", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "221", type: "standard", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "222", type: "standard", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "223", type: "standard", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "224", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "225", type: "standard", beds: "King", status: "available", smoking: false, handicap: false }
       ]
     };
   });
   
   // UI state
   const [activeTab, setActiveTab] = useState('short');
+  const [showPriceChangeModal, setShowPriceChangeModal] = useState(false);
   
   // Overnight stay state
   const [overnightSmoking, setOvernightSmoking] = useState(false);
@@ -93,7 +94,7 @@ function App() {
   const [overnightExtraHours, setOvernightExtraHours] = useState(0);
   const [overnightCheckoutExtraHours, setOvernightCheckoutExtraHours] = useState(0);
   const [hasJacuzziOvernight, setHasJacuzziOvernight] = useState(false);
-  const [bedType, setBedType] = useState('queen');
+  const [bedType, setBedType] = useState('Queen');
   
   // Multiple overnight stays management
   const [savedStays, setSavedStays] = useState([]);
@@ -131,47 +132,47 @@ function App() {
     // Reset rooms with the updated configuration
     const updatedRooms = {
       groundFloor: [
-        { number: "101", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
-        { number: "102", type: "standard", beds: "queen", status: "available", smoking: true, handicap: false },
-        { number: "103", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
-        { number: "104", type: "standard", beds: "queen", status: "available", smoking: true, handicap: false },
-        { number: "105", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
-        { number: "106", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
-        { number: "107", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
-        { number: "108", type: "standard", beds: "queen", status: "available", smoking: false, handicap: true },
-        { number: "109", type: "jacuzzi", beds: "queen", status: "available", smoking: false, handicap: false },
-        { number: "110", type: "jacuzzi", beds: "queen", status: "available", smoking: true, handicap: false },
-        { number: "111", type: "jacuzzi", beds: "queen", status: "available", smoking: false, handicap: false },
-        { number: "112", type: "jacuzzi", beds: "queen", status: "available", smoking: true, handicap: false },
-        { number: "114", type: "standard", beds: "queen", status: "available", smoking: false},
-        { number: "119", type: "jacuzzi", beds: "queen", status: "available", smoking: true, handicap: false, onlineBookingOnly: true }
+        { number: "101", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "102", type: "standard", beds: "Queen", status: "available", smoking: true, handicap: false },
+        { number: "103", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "104", type: "standard", beds: "Queen", status: "available", smoking: true, handicap: false },
+        { number: "105", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "106", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "107", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "108", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: true },
+        { number: "109", type: "jacuzzi", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "110", type: "jacuzzi", beds: "Queen", status: "available", smoking: true, handicap: false },
+        { number: "111", type: "jacuzzi", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "112", type: "jacuzzi", beds: "Queen", status: "available", smoking: true, handicap: false },
+        { number: "114", type: "standard", beds: "Queen", status: "available", smoking: false},
+        { number: "119", type: "jacuzzi", beds: "Queen", status: "available", smoking: true, handicap: false, onlineBookingOnly: true }
       ],
       firstFloor: [
-        { number: "200", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
-        { number: "201", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
-        { number: "202", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
-        { number: "203", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
-        { number: "204", type: "standard", beds: "queen", status: "available", smoking: true, handicap: true },
-        { number: "205", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
-        { number: "206", type: "standard", beds: "queen", status: "available", smoking: true, handicap: false },
-        { number: "207", type: "standard", beds: "double", status: "available", smoking: true, handicap: false },
-        { number: "208", type: "jacuzzi", beds: "king", status: "available", smoking: false, handicap: false },
-        { number: "209", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
-        { number: "210", type: "jacuzzi", beds: "king", status: "available", smoking: true, handicap: false },
-        { number: "211", type: "standard", beds: "king", status: "available", smoking: true, handicap: false },
-        { number: "212", type: "standard", beds: "king", status: "available", smoking: false, handicap: false },
-        { number: "214", type: "jacuzzi", beds: "king", status: "available", smoking: false, handicap: false },
-        { number: "215", type: "standard", beds: "double", status: "available", smoking: false, handicap: true },
-        { number: "216", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
-        { number: "217", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
-        { number: "218", type: "standard", beds: "double", status: "available", smoking: false, handicap: false },
-        { number: "219", type: "standard", beds: "double", status: "available", smoking: true, handicap: false },
-        { number: "220", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
-        { number: "221", type: "standard", beds: "king", status: "available", smoking: false, handicap: false },
-        { number: "222", type: "standard", beds: "king", status: "available", smoking: false, handicap: false },
-        { number: "223", type: "standard", beds: "king", status: "available", smoking: false, handicap: false },
-        { number: "224", type: "standard", beds: "queen", status: "available", smoking: false, handicap: false },
-        { number: "225", type: "standard", beds: "king", status: "available", smoking: false, handicap: false }
+        { number: "200", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "201", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "202", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "203", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "204", type: "standard", beds: "Queen", status: "available", smoking: true, handicap: true },
+        { number: "205", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "206", type: "standard", beds: "Queen", status: "available", smoking: true, handicap: false },
+        { number: "207", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: true, handicap: false },
+        { number: "208", type: "jacuzzi", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "209", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "210", type: "jacuzzi", beds: "King", status: "available", smoking: true, handicap: false },
+        { number: "211", type: "standard", beds: "King", status: "available", smoking: true, handicap: false },
+        { number: "212", type: "standard", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "214", type: "jacuzzi", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "215", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: true },
+        { number: "216", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "217", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "218", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "219", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: true, handicap: false },
+        { number: "220", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "221", type: "standard", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "222", type: "standard", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "223", type: "standard", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "224", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "225", type: "standard", beds: "King", status: "available", smoking: false, handicap: false }
       ]
     };
     
@@ -297,8 +298,8 @@ function App() {
       // Add bed type adjustment for 7 nights
       if (bedType === 'king') {
         totalBasePrice += (5 * 7); // $5 extra per night for King
-      } else if (bedType === 'double') {
-        totalBasePrice += (10 * 7); // $10 extra per night for Double
+      } else if (bedType === 'Queen 2 Beds') {
+        totalBasePrice += (10 * 7); // $10 extra per night for Queen 2 Beds
       }
     } else {
       // Regular pricing for non-7-night stays
@@ -373,8 +374,8 @@ function App() {
       // Add bed type price adjustment
       if (bedType === 'king') {
         dayBasePrice += 5; // King bed is $5 more
-      } else if (bedType === 'double') {
-        dayBasePrice += 10; // Double bed is $10 more
+      } else if (bedType === 'Queen 2 Beds') {
+        dayBasePrice += 10; // Queen 2 Beds bed is $10 more
       }
       
       // Add to pricing totals
@@ -440,26 +441,21 @@ function App() {
 
   // Update resetForm function
   const resetForm = () => {
-    if (activeTab === 'changePrice') {
       // Reset prices to default values
       setPrices({
         weekday: { withoutJacuzzi: 105, withJacuzzi: 120 },
         friday: { withoutJacuzzi: 139, withJacuzzi: 159 },
         weekend: { withoutJacuzzi: 139, withJacuzzi: 169 }
       });
-      // Reset short stay prices to default values
-      setShortStayPrices({
-        baseRate: { withoutJacuzzi: 45, withJacuzzi: 55 },
-        extraHourRate: { regular: 15, discounted: 10 }
-      });
-      // Update all calculations with new prices
-      handlePriceUpdate();
-      return;
-    }
     
-    // If in rooms tab, reload the page to force refresh room data
-    if (activeTab === 'rooms') {
-      // Clear localStorage
+    // Reset short stay prices to default values
+    setShortStayPrices({
+      baseRate: { withoutJacuzzi: 45, withJacuzzi: 55 },
+      extraHourRate: { regular: 15, discounted: 10 }
+    });
+    
+    // Clear localStorage for room data if needed
+    if (window.confirm("Do you want to reset all room statuses?")) {
       localStorage.removeItem('roomsData');
       window.location.reload();
       return;
@@ -470,16 +466,14 @@ function App() {
     setHasJacuzzi(false);
     setPaymentMethod('cash');
     setExtraHourRate(15);
-    setIsSmoking(false);
     
     // Reset overnight stay options
-    setOvernightSmoking(false);
     setOvernightPayment('cash');
     setOvernightExtraRate(15);
     setOvernightExtraHours(0);
     setOvernightCheckoutExtraHours(0);
     setHasJacuzziOvernight(false);
-    setBedType('queen');
+    setBedType('Queen');
     
     // Reset dates to defaults
     const defaultCheckIn = new Date();
@@ -498,6 +492,9 @@ function App() {
     
     // Update current time
     updateCurrentDateTime();
+    
+    // Update all calculations with new prices
+    handlePriceUpdate();
   };
   
   // Reset overnight stay
@@ -544,7 +541,7 @@ function App() {
     setOvernightCheckoutExtraHours(0);
     setHasJacuzziOvernight(false);
     setOvernightSmoking(false);
-    setBedType('queen');
+    setBedType('Queen');
     
     // Reset dates to defaults
     const today = new Date();
@@ -570,42 +567,27 @@ function App() {
   
   // Price summary section for overnight stays
   const renderOvernightStayPriceSummary = () => {
-    if (activeTab === 'multiple' || false) { // Removed reference to openBookingModal
-      const currentPricing = calculateOvernightPrice();
-      
-      // Define compact styles conditionally
-      const isModal = false; // Previously was checking openBookingModal
-      const summaryPadding = isModal ? '10px' : '20px';
-      const headerFontSize = isModal ? '14px' : '18px';
-      const itemFontSize = isModal ? '12px' : '14px';
-      const subItemFontSize = isModal ? '11px' : '12px';
-      const totalFontSize = isModal ? '14px' : '18px';
-      const sectionMargin = isModal ? '10px 0' : '20px 0';
-      const savedStayPadding = isModal ? '10px' : '15px';
-      const savedStayMargin = isModal ? '10px' : '15px';
-      const savedStayFontSize = isModal ? '12px' : '14px';
-      const savedStaySubFontSize = isModal ? '11px' : '13px';
-      const savedStayPriceFontSize = isModal ? '14px' : '16px';
-      const buttonFontSize = isModal ? '9px' : '10px';
-      const removeButtonFontSize = isModal ? '10px' : '12px';
-      const totalSectionFontSize = isModal ? '16px' : '18px';
-      const totalValueFontSize = isModal ? '18px' : '20px';
+    // If check-in and check-out dates are not set, show basic message
+    if (!checkInDate || !checkOutDate) {
+      return <p style={{ fontSize: '14px' }}>Please select check-in and check-out dates.</p>;
+    }
 
-      if (activeTab === 'multiple' && !isModal) { // Logic for the main multiple stays tab
+    const pricing = calculateOvernightPrice();
+    
       return (
         <div className="price-summary" style={{ 
           backgroundColor: '#fff',
-              padding: summaryPadding,
+        padding: '15px',
           borderRadius: '8px',
           boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-              margin: sectionMargin
+        margin: '15px 0'
         }}>
           <h3 style={{ 
             color: '#001f5c',
             borderBottom: '2px solid #001f5c',
             paddingBottom: '10px',
                 marginBottom: '15px',
-                fontSize: headerFontSize
+          fontSize: '16px'
           }}>Price Summary</h3>
 
           {/* Saved Stays Section */}
@@ -613,8 +595,8 @@ function App() {
             <div className="saved-stays-section">
               {savedStays.map((stay, index) => (
                 <div key={stay.id} className="saved-stay" style={{ 
-                      marginBottom: savedStayMargin, 
-                      padding: savedStayPadding, 
+                marginBottom: '15px', 
+                padding: '15px', 
                   backgroundColor: '#f8f9fa', 
                   borderRadius: '8px',
                   position: 'relative',
@@ -641,21 +623,21 @@ function App() {
                           className="stay-number"
                           style={{ 
                             fontWeight: 'bold', 
-                                fontSize: savedStayFontSize, // Adjusted
+                          fontSize: '14px',
                             color: '#001f5c',
                                 whiteSpace: 'nowrap'
                           }}
                         >
-                          Stay #{index+ 1}
+                        Stay #{index+1}
                         </span>
                         <button
-                              style={{ // Adjusted button styles
+                        style={{
                             background: '#001f5c',
                             border: 'none',
                             color: '#fff',
                             cursor: 'pointer',
                             padding: '2px 4px',
-                                fontSize: buttonFontSize,
+                          fontSize: '10px',
                             borderRadius: '3px',
                             fontWeight: '500',
                             textTransform: 'uppercase',
@@ -667,7 +649,6 @@ function App() {
                             setCheckInDate(new Date(stay.checkIn));
                             setCheckOutDate(new Date(stay.checkOut));
                             setHasJacuzziOvernight(stay.hasJacuzzi);
-                            setOvernightSmoking(stay.smoking);
                             setOvernightPayment(stay.payment);
                             setOvernightExtraRate(stay.extraRate);
                             setOvernightExtraHours(stay.checkInAdjustment);
@@ -692,7 +673,7 @@ function App() {
                           style={{ 
                             fontWeight: 'bold', 
                             color: '#001f5c',
-                                fontSize: savedStayPriceFontSize, // Adjusted
+                          fontSize: '16px',
                               marginLeft: 'auto'
                           }}
                         >
@@ -701,11 +682,11 @@ function App() {
                         <button 
                           className="remove-button"
                           onClick={() => removeSavedStay(stay.id)}
-                              style={{ // Adjusted button styles
+                        style={{
                             background: '#dc3545',
                             border: 'none',
                             color: '#fff',
-                                fontSize: removeButtonFontSize,
+                          fontSize: '12px',
                             cursor: 'pointer',
                             padding: '3px 6px',
                             borderRadius: '4px',
@@ -717,45 +698,45 @@ function App() {
                         </button>
                       </div>
                     </div>
-                        <div style={{ fontSize: savedStayFontSize, color: '#000' }}> {/* Adjusted */}
+                  <div style={{ fontSize: '14px', color: '#000' }}>
                       {stay.checkInDay} ({stay.checkIn.toLocaleDateString()}) to {stay.checkOutDay} ({stay.checkOut.toLocaleDateString()})
                     </div>
-                        <div style={{ fontSize: savedStayFontSize, color: '#000', marginTop: '4px' }}> {/* Adjusted */}
+                  <div style={{ fontSize: '14px', color: '#000', marginTop: '4px' }}>
                       {stay.nights} {stay.nights === 1 ? 'night' : 'nights'}
                       {stay.hasJacuzzi ? ' • Jacuzzi' : ''}
                       {' • '}{stay.bedType.charAt(0).toUpperCase() + stay.bedType.slice(1)} Bed
-                          {stay.checkInAdjustment !== 0 && ` • CI ${stay.checkInAdjustment > 0 ? `+${stay.checkInAdjustment}h` : `${stay.checkInAdjustment}h`}`} {/* Shortened */} 
-                          {stay.checkOutAdjustment !== 0 && ` • CO ${stay.checkOutAdjustment > 0 ? `+${stay.checkOutAdjustment}h` : `${stay.checkOutAdjustment}h`}`} {/* Shortened */} 
+                    {stay.checkInAdjustment !== 0 && ` • CI ${stay.checkInAdjustment > 0 ? `+${stay.checkInAdjustment}h` : `${stay.checkInAdjustment}h`}`}
+                    {stay.checkOutAdjustment !== 0 && ` • CO ${stay.checkOutAdjustment > 0 ? `+${stay.checkOutAdjustment}h` : `${stay.checkOutAdjustment}h`}`}
                     </div>
                   </div>
                   <div style={{ 
-                        fontSize: savedStaySubFontSize, // Adjusted
+                  fontSize: '13px',
                     color: '#000', 
                     backgroundColor: '#f0f0f0',
-                        padding: '8px', // Adjusted
+                  padding: '8px',
                     borderRadius: '6px',
                     marginTop: '8px'
                   }}>
                     <div className="summary-line" style={{ 
                       display: 'flex', 
                       flexDirection: 'column',
-                          gap: '3px' // Adjusted
+                    gap: '3px'
                     }}>
                       <div style={{ 
                         display: 'flex', 
                         justifyContent: 'space-between',
                         borderBottom: '1px solid #ddd',
-                            paddingBottom: '3px', // Adjusted
-                            marginBottom: '3px' // Adjusted
+                      paddingBottom: '3px',
+                      marginBottom: '3px'
                       }}>
-                            <span>Base ({stay.nights}n):</span> {/* Shortened */} 
+                      <span>Base ({stay.nights}n):</span>
                         <span>${stay.basePrice.toFixed(2)}</span>
                       </div>
                       {stay.details.daysBreakdown.map((day, idx) => (
                         <div key={idx} style={{ 
                           display: 'flex', 
                           justifyContent: 'space-between',
-                              fontSize: subItemFontSize, // Adjusted
+                        fontSize: '12px',
                           color: '#444'
                         }}>
                           <span>{day.day}:</span>
@@ -764,20 +745,20 @@ function App() {
                       ))}
                     </div>
                     {stay.tax > 0 && (
-                          <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px', marginTop: '6px' }}> {/* Adjusted */}
+                    <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px', marginTop: '6px' }}>
                         <span>Tax (15%):</span>
                         <span>${stay.tax.toFixed(2)}</span>
                       </div>
                     )}
                     {stay.extraHoursCheckIn > 0 && (
-                          <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}> {/* Adjusted */}
-                            <span>CI Hours ({stay.checkInAdjustment > 0 ? `+${stay.checkInAdjustment}h` : `${Math.abs(stay.checkInAdjustment)}h`}):</span> {/* Shortened */} 
+                    <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}>
+                      <span>CI Hours ({stay.checkInAdjustment > 0 ? `+${stay.checkInAdjustment}h` : `${Math.abs(stay.checkInAdjustment)}h`}):</span>
                         <span>${stay.extraHoursCheckIn.toFixed(2)}</span>
                       </div>
                     )}
                     {stay.extraHoursCheckOut > 0 && (
-                          <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}> {/* Adjusted */}
-                            <span>CO Hours ({stay.checkOutAdjustment > 0 ? `+${stay.checkOutAdjustment}h` : `${Math.abs(stay.checkOutAdjustment)}h`}):</span> {/* Shortened */} 
+                    <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}>
+                      <span>CO Hours ({stay.checkOutAdjustment > 0 ? `+${stay.checkOutAdjustment}h` : `${Math.abs(stay.checkOutAdjustment)}h`}):</span>
                         <span>${stay.extraHoursCheckOut.toFixed(2)}</span>
                       </div>
                     )}
@@ -786,77 +767,38 @@ function App() {
               ))}
               
               <div className="summary-line total" style={{ 
-                    marginTop: '15px', // Adjusted
+              marginTop: '15px',
                 borderTop: '2px solid #001f5c',
-                    paddingTop: '10px', // Adjusted
+              paddingTop: '10px',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                    fontSize: totalSectionFontSize, // Adjusted
+              fontSize: '18px',
                 fontWeight: 'bold'
               }}>
                 <span style={{ color: '#001f5c' }}>Total Price:</span>
-                    <span style={{ color: '#001f5c', fontSize: totalValueFontSize }}> {/* Adjusted */} 
+              <span style={{ color: '#001f5c', fontSize: '20px' }}>
                   ${totalStaysPrice.toFixed(2)}
                 </span>
               </div>
             </div>
           )}
 
-          {savedStays.length === 0 && (
-            <p style={{ 
-              textAlign: 'center', 
-              color: '#000', 
-                  padding: '20px', // Adjusted
-              backgroundColor: '#f8f9fa',
-              borderRadius: '6px',
-                  fontSize: itemFontSize // Adjusted
-            }}>
-              Select dates and click "Add Stay" to begin adding stays
-            </p>
-          )}
-        </div>
-      );
-    }
-
-      // Logic for single overnight stay (used in modal and potentially old overnight tab)
-    if (!checkInDate || !checkOutDate) {
-        return <p style={{ fontSize: itemFontSize }}>Please select check-in and check-out dates.</p>;
-    }
-
-    const pricing = calculateOvernightPrice();
-    const totalPrice = pricing.totalPrice;
-    const totalNights = pricing.nights;
-
-    return (
-        <div className="price-summary" style={{ 
-          padding: isModal ? '5px 0' : '15px', // Reduced padding for modal
-          fontSize: itemFontSize 
-        }}>
-          <h3 style={{ 
-            fontSize: headerFontSize, 
-            color: '#001f5c', 
-            borderBottom: isModal ? '1px solid #ccc' : '2px solid #001f5c', 
-            paddingBottom: isModal ? '5px' : '10px', 
-            marginBottom: isModal ? '8px' : '15px'
-          }}>
-            Price Summary
-          </h3>
-          
-        <div className="summary-section">
-            <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: isModal ? '3px' : '4px' }}>
+        {savedStays.length === 0 && pricing && (
+          <>
+            <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
               <span>Duration:</span>
               <span>{pricing.nights} {pricing.nights === 1 ? 'Night' : 'Nights'}</span>
           </div>
           
-          {totalNights === 7 && (
-              <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: isModal ? '3px' : '4px' }}>
+            {pricing.nights === 7 && (
+              <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
                 <span>Weekly Rate:</span>
               <span>${(() => {
                 let baseRate = hasJacuzziOvernight ? 695 : 675;
                 if (bedType === 'king') {
                     baseRate += (5 * 7); 
-                } else if (bedType === 'double') {
+                } else if (bedType === 'Queen 2 Beds') {
                     baseRate += (10 * 7);
                 }
                 return baseRate.toFixed(2);
@@ -864,51 +806,63 @@ function App() {
             </div>
           )}
           
-          {totalNights !== 7 && (
+            {pricing.nights !== 7 && (
             <>
               {pricing.daysBreakdown.map((day, index) => (
-                  <div key={index} className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: isModal ? '2px' : '4px', fontSize: subItemFontSize, color: '#444' }}>
+                  <div key={index} className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', fontSize: '12px', color: '#444' }}>
                   <span>{day.day}:</span>
                   <span>${day.basePrice.toFixed(2)}</span>
                 </div>
               ))}
-                <div className="summary-line" style={{ borderTop: '1px solid #eee', marginTop: isModal ? '4px' : '8px', paddingTop: isModal ? '4px' : '8px', display: 'flex', justifyContent: 'space-between', marginBottom: isModal ? '3px' : '4px' }}>
+                <div className="summary-line" style={{ borderTop: '1px solid #eee', marginTop: '8px', paddingTop: '8px', display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
                   <span>Total Base:</span>
                 <span>${pricing.totalBasePrice.toFixed(2)}</span>
               </div>
             </>
           )}
           
-            {totalNights < 7 && pricing.taxAmount > 0 && (
-              <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: isModal ? '3px' : '4px' }}>
+            {pricing.nights < 7 && pricing.taxAmount > 0 && (
+              <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
               <span>Tax (15%):</span>
               <span>${pricing.taxAmount.toFixed(2)}</span>
             </div>
           )}
           
             {overnightExtraHours !== 0 && pricing.extraHoursCheckInCost > 0 && (
-              <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: isModal ? '3px' : '4px' }}>
+              <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
                 <span>CI Hours ({overnightExtraHours > 0 ? `+${overnightExtraHours}h` : `${Math.abs(overnightExtraHours)}h`}):</span>
               <span>${pricing.extraHoursCheckInCost.toFixed(2)}</span>
             </div>
           )}
           
             {overnightCheckoutExtraHours !== 0 && pricing.extraHoursCheckOutCost > 0 && (
-              <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: isModal ? '3px' : '4px' }}>
+              <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
                 <span>CO Hours ({overnightCheckoutExtraHours > 0 ? `+${overnightCheckoutExtraHours}h` : `${Math.abs(overnightCheckoutExtraHours)}h`}):</span>
               <span>${pricing.extraHoursCheckOutCost.toFixed(2)}</span>
             </div>
           )}
           
-            <div className="summary-line total" style={{ borderTop: '1px solid #aaa', marginTop: isModal ? '6px' : '8px', paddingTop: isModal ? '6px' : '8px', display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', fontSize: totalFontSize }}>
+            <div className="summary-line total" style={{ borderTop: '1px solid #aaa', marginTop: '8px', paddingTop: '8px', display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', fontSize: '16px' }}>
             <span>Total Price:</span>
-            <span>${totalPrice.toFixed(2)}</span>
+              <span>${pricing.totalPrice.toFixed(2)}</span>
           </div>
-        </div>
+          </>
+        )}
+        
+        {savedStays.length === 0 && !pricing && (
+          <p style={{ 
+            textAlign: 'center', 
+            color: '#000', 
+            padding: '20px', 
+            backgroundColor: '#f8f9fa',
+            borderRadius: '6px',
+            fontSize: '14px'
+          }}>
+            Select dates and click "Add Stay" to begin adding stays
+          </p>
+        )}
       </div>
     );
-    }
-    return null; // Return null if not the right tab and modal isn't open
   };
   
   // Add a function to handle price updates
@@ -916,10 +870,8 @@ function App() {
     // Increment the counter to force a UI refresh
     setPriceUpdateCounter(prev => prev + 1);
     
-    // Update short stay calculations if needed
-    if (activeTab === 'short') {
-      calculatePrice();
-    }
+    // Update short stay calculations
+    calculatePrice();
     
     // Recalculate prices for any saved stays
     const updatedStays = savedStays.map(stay => {
@@ -938,7 +890,7 @@ function App() {
       // Add bed type adjustment
       if (stay.bedType === 'king') {
         basePrice += 5;
-      } else if (stay.bedType === 'double') {
+      } else if (stay.bedType === 'Queen 2 Beds') {
         basePrice += 10;
       }
       
@@ -1025,7 +977,7 @@ function App() {
         // Add bed type adjustment for 7 nights
         if (room.beds === 'king') {
           totalBasePrice += (5 * 7);
-        } else if (room.beds === 'double') {
+        } else if (room.beds === 'Queen 2 Beds') {
           totalBasePrice += (10 * 7);
         }
       } else {
@@ -1048,7 +1000,7 @@ function App() {
           // Add bed type price adjustment
           if (room.beds === 'king') {
             dayBasePrice += 5;
-          } else if (room.beds === 'double') {
+          } else if (room.beds === 'Queen 2 Beds') {
             dayBasePrice += 10;
           }
           
@@ -1091,7 +1043,7 @@ function App() {
         // Add bed type adjustment for 7 nights
         if (room.beds === 'king') {
           totalBasePrice += (5 * 7);
-        } else if (room.beds === 'double') {
+        } else if (room.beds === 'Queen 2 Beds') {
           totalBasePrice += (10 * 7);
         }
       } else {
@@ -1115,7 +1067,7 @@ function App() {
           // Add bed type price adjustment
           if (room.beds === 'king') {
             dayBasePrice += 5;
-          } else if (room.beds === 'double') {
+          } else if (room.beds === 'Queen 2 Beds') {
             dayBasePrice += 10;
           }
           
@@ -1159,7 +1111,7 @@ function App() {
       // Add bed type adjustment
       if (room.beds === 'king') {
         basicPrice += 5;
-      } else if (room.beds === 'double') {
+      } else if (room.beds === 'Queen 2 Beds') {
         basicPrice += 10;
       }
 
@@ -1263,12 +1215,12 @@ function App() {
           return !room.smoking;
         case 'smoking':
           return room.smoking;
-        case 'queen':
-          return room.beds === 'queen';
-        case 'king':
-          return room.beds === 'king';
-        case 'double':
-          return room.beds === 'double';
+        case 'Queen':
+          return room.beds === 'Queen';
+        case 'King':
+          return room.beds === 'King';
+        case 'Queen 2 Beds':
+          return room.beds === 'Queen 2 Beds';
         case 'jacuzzi':
           return room.type === 'jacuzzi';
         case 'available':
@@ -1784,665 +1736,541 @@ function App() {
     localStorage.removeItem('isAuthenticated');
   };
   
+  // Function to clear only the Short Stay section
+  const clearShortStay = () => {
+    // Reset short stay options
+    setExtraHours(0);
+    setHasJacuzzi(false);
+    setPaymentMethod('cash');
+    setExtraHourRate(15);
+    
+    // Update current time
+    updateCurrentDateTime();
+  };
+  
+  // Function to clear only the Multiple Nights section
+  const clearMultipleNights = () => {
+    // Reset overnight stay options
+    setOvernightPayment('cash');
+    setOvernightExtraRate(15);
+    setOvernightExtraHours(0);
+    setOvernightCheckoutExtraHours(0);
+    setHasJacuzziOvernight(false);
+    setBedType('Queen');
+    
+    // Reset dates to defaults
+    const defaultCheckIn = new Date();
+    defaultCheckIn.setHours(15, 0, 0, 0);
+    
+    const defaultCheckOut = new Date(defaultCheckIn);
+    defaultCheckOut.setDate(defaultCheckOut.getDate() + 1);
+    defaultCheckOut.setHours(11, 0, 0, 0);
+    
+    setCheckInDate(defaultCheckIn);
+    setCheckOutDate(defaultCheckOut);
+    
+    // Clear saved stays
+    setSavedStays([]);
+    setTotalStaysPrice(0);
+  };
+  
+  // Add style element for room cards
+  useEffect(() => {
+    // Add custom styles for room cards
+    const styleElement = document.createElement('style');
+    styleElement.innerHTML = `
+      .room-card {
+        padding: 10px !important;
+        border-radius: 6px !important;
+        text-align: center !important;
+        cursor: pointer !important;
+        color: white !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+        transition: all 0.2s ease !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+      }
+      
+      .room-card.available {
+        background-color: #4CAF50 !important; /* Nicer green */
+      }
+      
+      .room-card.occupied {
+        background-color: #E53935 !important; /* Red */
+      }
+      
+      .room-card.cleared {
+        background-color: #FFA726 !important; /* Orange */
+      }
+      
+      .room-card:hover {
+        transform: scale(1.05) !important;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+      }
+    `;
+    document.head.appendChild(styleElement);
+    
+    // Clean up on component unmount
+    return () => {
+      document.head.removeChild(styleElement);
+    };
+  }, []);
+  
   return (
     <div className="App">
       <div className="hotel-calculator">
-        <div className="header">
-          <h1>
+        <div className="header" style={{
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: '10px', // Reduced gap to bring elements closer to title
+          padding: '10px 20px', 
+          borderBottom: '1px solid #eee' 
+        }}>
+          <h1 style={{ margin: 0, fontSize: '24px', whiteSpace: 'nowrap' }}> 
             Price Calculator
-            <span style={{ 
-              marginLeft: '10px', 
-              fontSize: '16px', 
-              backgroundColor: '#f0f0f0', 
-              padding: '4px 8px', 
-              borderRadius: '4px',
+          </h1>
+          
+          {/* Calendar Display */}
+          <span style={{ 
+            fontSize: '16px', 
+            backgroundColor: '#f0f0f0', 
+            padding: '6px 12px', 
+            borderRadius: '6px',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '5px',
+            whiteSpace: 'nowrap' // Prevent calendar text wrapping
+          }}>
+            📅 {currentDate} <span style={{...dayStyle, marginLeft: '3px'}}>{currentDay}</span>
+          </span>
+          
+          {/* Price Display - Re-added background and border */}
+          <span style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            backgroundColor: '#fffbe5', // Light yellow background
+            padding: '6px 12px', 
+            borderRadius: '6px', 
+            gap: '15px', 
+            border: '1px solid #e0cfa4' // Subtle border
+          }}>
+            {/* Standard Price Section */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                <div style={{ fontSize: '12px', color: '#555', marginBottom: '2px' }}>Standard</div>
+                {
+                  // Calculate Standard prices
+                  (() => {
+                    const now = new Date();
+                    const day = now.getDay();
+                    let basePrice;
+                    if (day === 5) basePrice = prices.friday.withoutJacuzzi;
+                    else if (day === 0 || day === 6) basePrice = prices.weekend.withoutJacuzzi;
+                    else basePrice = prices.weekday.withoutJacuzzi;
+                    const tax = basePrice * 0.15;
+                    const total = basePrice + tax;
+                    return (
+                      <span style={{ fontSize: '14px', fontWeight: 'bold', color: '#001f5c', whiteSpace: 'nowrap' }}> {/* Added nowrap */}
+                        ${total.toFixed(2)}
+                        <span style={{ fontSize: '10px', fontWeight: 'normal', color: '#666', marginLeft: '4px' }}>
+                          (Base ${basePrice.toFixed(2)} + Tax ${tax.toFixed(2)})
+                        </span>
+                      </span>
+                    );
+                  })()
+                }
+              </div>
+            </div>
+
+            {/* Divider */}
+            <div style={{ borderLeft: '1px solid #d0d9e3', height: '30px' }}></div>
+
+            {/* Jacuzzi Price Section */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ fontSize: '18px' }}>🛁</span> {/* Jacuzzi Icon */}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                <div style={{ fontSize: '12px', color: '#555', marginBottom: '2px' }}>Jacuzzi</div>
+                {
+                  // Calculate Jacuzzi prices
+                  (() => {
+                    const now = new Date();
+                    const day = now.getDay();
+                    let basePrice;
+                    if (day === 5) basePrice = prices.friday.withJacuzzi;
+                    else if (day === 0 || day === 6) basePrice = prices.weekend.withJacuzzi;
+                    else basePrice = prices.weekday.withJacuzzi;
+                    const tax = basePrice * 0.15;
+                    const total = basePrice + tax;
+                    return (
+                       <span style={{ fontSize: '14px', fontWeight: 'bold', color: '#001f5c', whiteSpace: 'nowrap' }}> {/* Added nowrap */}
+                        ${total.toFixed(2)}
+                        <span style={{ fontSize: '10px', fontWeight: 'normal', color: '#666', marginLeft: '4px' }}>
+                          (Base ${basePrice.toFixed(2)} + Tax ${tax.toFixed(2)})
+                        </span>
+                      </span>
+                    );
+                  })()
+                }
+              </div>
+            </div>
+          </span>
+          
+          {/* Price Change Button */}
+          <button
+            onClick={() => setShowPriceChangeModal(true)}
+            style={{
+              backgroundColor: '#001f5c',
+              color: 'white',
+              border: 'none',
+              borderRadius: '6px', 
+              padding: '8px 15px', 
+              cursor: 'pointer',
+              fontSize: '14px',
               display: 'inline-flex',
               alignItems: 'center',
-              boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
-            }}>
-              📅 {new Date().toLocaleDateString()} - {currentDay}
-            </span>
-          </h1>
-          <button className="clear-button" onClick={resetForm}>Clear</button>
-        </div>
-        
-        <div className="stay-tabs">
-          <button 
-            className={`tab-button ${activeTab === 'short' ? 'active' : ''}`} 
-            onClick={() => setActiveTab('short')}
-            style={{
-              backgroundColor: activeTab === 'short' ? '#6495ED' : '#001f5c',
-              color: '#ffffff'
+              gap: '5px',
+              marginLeft: 'auto' // Push button to the far right
             }}
           >
-            Short Stay
-          </button>
-          <button 
-            className={`tab-button ${activeTab === 'multiple' ? 'active' : ''}`} 
-            onClick={() => setActiveTab('multiple')}
-            style={{
-              backgroundColor: activeTab === 'multiple' ? '#6495ED' : '#001f5c',
-              color: '#ffffff'
-            }}
-          >
-            Multiple Nights
-          </button>
-          <button 
-            className={`tab-button ${activeTab === 'rooms' ? 'active' : ''}`} 
-            onClick={() => setActiveTab('rooms')}
-            style={{
-              backgroundColor: activeTab === 'rooms' ? '#6495ED' : '#001f5c',
-              color: '#ffffff'
-            }}
-          >
-            Rooms
-          </button>
-          <button 
-            className={`tab-button ${activeTab === 'changePrice' ? 'active' : ''}`} 
-            onClick={() => setActiveTab('changePrice')}
-            style={{
-              backgroundColor: activeTab === 'changePrice' ? '#6495ED' : '#001f5c',
-              color: '#ffffff'
-            }}
-          >
-            Change Price
+            <span>💰</span> Price Change
           </button>
         </div>
         
-        <div className="stay-sections">
-          <div className={`short-stay-section ${activeTab === 'short' ? 'active' : ''}`}
-            style={{ backgroundColor: '#f0fff0' }}>
-            <h2 className="section-header">Short Stay</h2>
-            
-            <div className="option-group" style={{ maxWidth: '500px', margin: '0 auto 20px auto' }}>
-              <label className="section-subheader">Check-in & Check-out Times</label>
-              
-              {/* Daily Room Prices */}
-              <div style={{ 
-                display: 'flex', 
-                justifyContent: 'center', 
-                marginBottom: '15px', 
-                gap: '15px',
-                backgroundColor: '#fffbe5', /* Light yellow background */
-                padding: '8px 15px',
-                borderRadius: '8px',
-                boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
-              }}>
-                <div style={{ 
-                  fontWeight: 'bold',
-                  color: '#333',
-                  textAlign: 'center'
-                }}>
-                  Standard
-                  {(() => {
-                    const now = new Date();
-                    const day = now.getDay(); // 0 is Sunday, 6 is Saturday
-                    let basePrice;
-                    if (day === 5) { // Friday
-                      basePrice = prices.friday.withoutJacuzzi;
-                    } else if (day === 0 || day === 6) { // Weekend (Sunday or Saturday)
-                      basePrice = prices.weekend.withoutJacuzzi;
-                    } else { // Weekday
-                      basePrice = prices.weekday.withoutJacuzzi;
-                    }
-                    const tax = basePrice * 0.15;
-                    const total = basePrice + tax;
-                    return (
-                      <div style={{ fontWeight: 'normal', fontSize: '13px', marginTop: '4px' }}>
-                        <div>Base: ${basePrice.toFixed(2)}</div>
-                        <div>Tax: ${tax.toFixed(2)}</div>
-                        <div style={{ marginTop: '2px', paddingTop: '2px' }}>Total: ${total.toFixed(2)}</div>
-                      </div>
-                    );
-                  })()}
-                </div>
-                <div style={{ borderLeft: '2px solid #e0cfa4', height: '50px' }}></div> {/* Divider */}
-                <div style={{ 
-                  fontWeight: 'bold',
-                  color: '#333',
-                  textAlign: 'center'
-                }}>
-                  Jacuzzi
-                  {(() => {
-                    const now = new Date();
-                    const day = now.getDay(); // 0 is Sunday, 6 is Saturday
-                    let basePrice;
-                    if (day === 5) { // Friday
-                      basePrice = prices.friday.withJacuzzi;
-                    } else if (day === 0 || day === 6) { // Weekend (Sunday or Saturday)
-                      basePrice = prices.weekend.withJacuzzi;
-                    } else { // Weekday
-                      basePrice = prices.weekday.withJacuzzi;
-                    }
-                    const tax = basePrice * 0.15;
-                    const total = basePrice + tax;
-                    return (
-                      <div style={{ fontWeight: 'normal', fontSize: '13px', marginTop: '4px' }}>
-                        <div>Base: ${basePrice.toFixed(2)}</div>
-                        <div>Tax: ${tax.toFixed(2)}</div>
-                        <div style={{ marginTop: '2px', paddingTop: '2px' }}>Total: ${total.toFixed(2)}</div>
-                      </div>
-                    );
-                  })()}
-                </div>
-              </div>
-              
-              <div className="time-section">
-                <div className="check-time">
-                  <label style={{ color: '#0606f5' }}>Check-in @</label>
-                  <span style={{ color: '#0606f5' }}>{currentTime}</span>
-                </div>
-                
-                <div className="check-time">
-                  <label style={{ color: '#0606f5' }}>Check-out @</label>
-                  <span style={{ color: '#0606f5' }}>{checkoutTime}</span>
-                </div>
-                
-                <div className="extra-hours">
-                  <label>Extra Hours:</label>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px' }}>
-                    <div className="hours-control">
-                      <button className="minus-btn" onClick={() => handleExtraHoursChange(-1)}>-</button>
-                      <span>{extraHours}</span>
-                      <button className="plus-btn" onClick={() => handleExtraHoursChange(1)}>+</button>
-                    </div>
-                    <span className="hours-note" style={{ color: '#00308F', fontWeight: 'bold' }}>Total: {4 + extraHours} hours</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="room-options">
-              <div className="option-group">
-                <label>Room Type:</label>
-                <div className="radio-group">
-                  <label>
-                    <input
-                      type="radio"
-                      checked={!hasJacuzzi}
-                      onChange={() => setHasJacuzzi(false)}
-                    />
-                    No Jacuzzi
-                  </label>
-                  <label>
-                    <input
-                      type="radio"
-                      checked={hasJacuzzi}
-                      onChange={() => setHasJacuzzi(true)}
-                    />
-                    With Jacuzzi
-                  </label>
-                </div>
-              </div>
-              
-              <div className="option-group">
-                <label>Payment Method:</label>
-                <div className="radio-group">
-                  <label>
-                    <input
-                      type="radio"
-                      checked={paymentMethod === 'cash'}
-                      onChange={() => setPaymentMethod('cash')}
-                    />
-                    Cash
-                  </label>
-                  <label>
-                    <input
-                      type="radio"
-                      checked={paymentMethod === 'credit'}
-                      onChange={() => setPaymentMethod('credit')}
-                    />
-                    Credit Card
-                  </label>
-                </div>
-              </div>
-              
-              <div className="option-group">
-                <label>Extra Hour Rate:</label>
-                <div className="radio-group">
-                  <label>
-                    <input
-                      type="radio"
-                      checked={extraHourRate === 15}
-                      onChange={() => setExtraHourRate(15)}
-                    />
-                    $15/hour
-                  </label>
-                  <label>
-                    <input
-                      type="radio"
-                      checked={extraHourRate === 10}
-                      onChange={() => setExtraHourRate(10)}
-                    />
-                    $10/hour
-                  </label>
-                </div>
-              </div>
-            </div>
-            
-            <div className="price-summary">
-              <div className="summary-line">
-                <span>Base Price (4 hours):</span>
-                <span>${(hasJacuzzi ? shortStayPrices.baseRate.withJacuzzi : shortStayPrices.baseRate.withoutJacuzzi).toFixed(2)}</span>
-              </div>
-              
-              {paymentMethod === 'credit' && (
-                <div className="summary-line">
-                  <span>Tax (15%)</span>
-                  <span>${((hasJacuzzi ? shortStayPrices.baseRate.withJacuzzi : shortStayPrices.baseRate.withoutJacuzzi) * 0.15).toFixed(2)}</span>
-                </div>
-              )}
-              
-              <div className="summary-line">
-                <span>Extra Hours Cost:</span>
-                <span>${(extraHours * (extraHourRate === 15 ? shortStayPrices.extraHourRate.regular : shortStayPrices.extraHourRate.discounted)).toFixed(2)}</span>
-              </div>
-              
-              <div className="summary-line total-hours">
-                <span>Total Hours:</span>
-                <span>4 + {extraHours} = {4 + extraHours} hours</span>
-              </div>
-              
-              <div className="summary-line total">
-                <span>Total Price:</span>
-                <span>${totalPrice.toFixed(2)}</span>
-              </div>
-            </div>
-          </div>
+        {/* Replace tabs and conditional rendering with grid layout */}
+        <div className="full-page-layout" style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gridTemplateRows: 'auto auto',
+          gap: '15px',
+          gridTemplateAreas: `
+            "shortstay multinight"
+            "groundfloor firstfloor"
+          `
+        }}>
+          {/* Short Stay Section - Top Left */}
+          <div style={{ 
+  gridArea: 'shortstay', 
+  backgroundColor: '#e6f2ff',
+  padding: '8px 12px 5px 12px', // Minimal bottom padding
+  borderRadius: '8px', 
+  display: 'flex', 
+  flexDirection: 'column', 
+  gap: '8px' // Keep main gap small
+}}>
+  {/* Header */} 
+  <div style={{ 
+    display: 'flex', 
+    justifyContent: 'space-between', 
+    alignItems: 'center', 
+    backgroundColor: '#001f5c',
+    padding: '8px 8px', 
+    borderRadius: '6px',
+    color: 'white',
+    marginBottom: '5px' // Further reduced margin
+  }}>
+    <h2 className="section-header" style={{ margin: 0, borderBottom: 'none', color: 'white', fontSize: '16px' }}>Short Stay</h2>
+    <button 
+      onClick={clearShortStay}
+      style={{ 
+        backgroundColor: '#f44336',
+        padding: '4px 10px', 
+        fontSize: '12px', 
+        color: 'white',
+        border: 'none',
+        borderRadius: '4px', 
+        cursor: 'pointer'
+       }} 
+    >
+      Clear
+    </button>
+  </div>
+  
+  {/* Row 1: Time and Extra Hours */} 
+  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '5px', marginBottom: '5px' /* Reduced margin */ }}> {/* Check-in & Check-out Group */} 
+    <div style={{ display: 'flex', gap: '10px' }}> {/* Reduced gap */} 
+      <div className="check-time" style={{ textAlign: 'left' }}>
+        <label style={{ color: '#0606f5', fontSize: '11px', display: 'block', marginBottom: '0px' }}>Check-in @</label> {/* No margin */} 
+        <span style={{ color: '#0606f5', fontSize: '12px', fontWeight: '500', lineHeight: '1.2' }}>{currentTime}</span> {/* Reduced line height */} 
+      </div>
+      <div className="check-time" style={{ textAlign: 'left' }}>
+        <label style={{ color: '#0606f5', fontSize: '11px', display: 'block', marginBottom: '0px' }}>Check-out @</label> {/* No margin */} 
+        <span style={{ color: '#0606f5', fontSize: '12px', fontWeight: '500', lineHeight: '1.2' }}>{checkoutTime}</span> {/* Reduced line height */} 
+      </div>
+    </div>
+    
+    {/* Extra Hours */} 
+    <div className="extra-hours" style={{ textAlign: 'center' }}> 
+      <label style={{ fontSize: '11px', fontWeight: 'bold', display: 'block', marginBottom: '2px' }}>Extra Hours:</label> 
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '2px' }}> 
+        <button 
+          className="minus-btn" 
+          onClick={() => handleExtraHoursChange(-1)} 
+          style={{ 
+            padding: '0', // Remove padding for exact sizing
+            width: '24px', 
+            height: '24px', 
+            borderRadius: '50%', 
+            border: 'none', 
+            backgroundColor: '#E53935', 
+            color: 'white', 
+            fontSize: '16px', 
+            fontWeight: 'bold', 
+            cursor: 'pointer',
+            lineHeight: '24px' // Center symbol vertically
+          }}
+        >-</button> 
+        <span style={{ fontSize: '16px', fontWeight: 'bold', minWidth: '20px', textAlign: 'center' }}>{extraHours}</span> 
+        <button 
+          className="plus-btn" 
+          onClick={() => handleExtraHoursChange(1)} 
+          style={{ 
+            padding: '0',
+            width: '24px', 
+            height: '24px', 
+            borderRadius: '50%', 
+            border: 'none', 
+            backgroundColor: '#4CAF50', 
+            color: 'white', 
+            fontSize: '16px', 
+            fontWeight: 'bold', 
+            cursor: 'pointer',
+            lineHeight: '24px'
+          }}
+        >+</button> 
+      </div>
+      <span className="hours-note" style={{ color: '#00308F', fontWeight: 'bold', fontSize: '10px', lineHeight: '1.1' }}>(Total: {4 + extraHours}hr)</span> {/* Smaller font/line height */} 
+    </div>
+  </div>
+
+  {/* Row 2: Options */} 
+  <div style={{ 
+    display: 'flex', 
+    justifyContent: 'space-around', 
+    alignItems: 'flex-start', 
+    gap: '8px', // Reduced gap 
+    borderTop: '1px solid #ccc', 
+    borderBottom: '1px solid #ccc', 
+    padding: '5px 0' // Reduced padding
+  }}>
+    {/* Room Type Box */} 
+    <div style={{ 
+      backgroundColor: 'white', 
+      padding: '5px 10px', // Reduced padding 
+      borderRadius: '8px', 
+      border: '1px solid #ccc', 
+      textAlign: 'center', 
+      boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
+    }}>
+      <label style={{ fontSize: '11px', fontWeight: 'bold', display: 'block', marginBottom: '3px' }}>Room Type</label> 
+      <div style={{ display: 'inline-flex', borderRadius: '4px', overflow: 'hidden', border: '1px solid #001f5c' }}>
+        <button onClick={() => setHasJacuzzi(false)} style={{ padding: '4px 10px', fontSize: '12px', border: 'none', backgroundColor: !hasJacuzzi ? '#001f5c' : 'white', color: !hasJacuzzi ? 'white' : '#001f5c', cursor: 'pointer' }}>No Jacuzzi</button>
+        <button onClick={() => setHasJacuzzi(true)} style={{ padding: '4px 10px', fontSize: '12px', border: 'none', borderLeft: '1px solid #001f5c', backgroundColor: hasJacuzzi ? '#001f5c' : 'white', color: hasJacuzzi ? 'white' : '#001f5c', cursor: 'pointer' }}>Jacuzzi</button>
+      </div>
+    </div>
+    {/* Payment Box */} 
+    <div style={{ 
+      backgroundColor: 'white', 
+      padding: '5px 10px', // Reduced padding
+      borderRadius: '8px', 
+      border: '1px solid #ccc', 
+      textAlign: 'center', 
+      boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
+    }}>
+      <label style={{ fontSize: '11px', fontWeight: 'bold', display: 'block', marginBottom: '3px' }}>Payment</label> 
+      <div style={{ display: 'inline-flex', borderRadius: '4px', overflow: 'hidden', border: '1px solid #001f5c' }}>
+        <button onClick={() => setPaymentMethod('cash')} style={{ padding: '4px 10px', fontSize: '12px', border: 'none', backgroundColor: paymentMethod === 'cash' ? '#001f5c' : 'white', color: paymentMethod === 'cash' ? 'white' : '#001f5c', cursor: 'pointer' }}>Cash</button>
+        <button onClick={() => setPaymentMethod('credit')} style={{ padding: '4px 10px', fontSize: '12px', border: 'none', borderLeft: '1px solid #001f5c', backgroundColor: paymentMethod === 'credit' ? '#001f5c' : 'white', color: paymentMethod === 'credit' ? 'white' : '#001f5c', cursor: 'pointer' }}>Credit</button>
+      </div>
+    </div>
+    {/* Extra Rate Box */} 
+    <div style={{ 
+      backgroundColor: 'white', 
+      padding: '5px 10px', // Reduced padding
+      borderRadius: '8px', 
+      border: '1px solid #ccc', 
+      textAlign: 'center', 
+      boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
+    }}>
+      <label style={{ fontSize: '11px', fontWeight: 'bold', display: 'block', marginBottom: '3px' }}>Extra Rate</label> 
+      <div style={{ display: 'inline-flex', borderRadius: '4px', overflow: 'hidden', border: '1px solid #001f5c' }}>
+        <button onClick={() => setExtraHourRate(15)} style={{ padding: '4px 10px', fontSize: '12px', border: 'none', backgroundColor: extraHourRate === 15 ? '#001f5c' : 'white', color: extraHourRate === 15 ? 'white' : '#001f5c', cursor: 'pointer' }}>$15/hr</button>
+        <button onClick={() => setExtraHourRate(10)} style={{ padding: '4px 10px', fontSize: '12px', border: 'none', borderLeft: '1px solid #001f5c', backgroundColor: extraHourRate === 10 ? '#001f5c' : 'white', color: extraHourRate === 10 ? 'white' : '#001f5c', cursor: 'pointer' }}>$10/hr</button>
+      </div>
+    </div>
+  </div>
+
+  {/* Price Summary */} 
+  <div className="price-summary" style={{ marginTop: '5px', padding: '5px', backgroundColor: '#f8f9fa', borderRadius: '4px', border: '1px solid #eee' }}> {/* Reduced margin/padding */} 
+     {/* Summary Lines - Ensure minimal margins/padding */} 
+     <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '1px' }}>
+        <span>Base (4hr):</span>
+        <span>${(hasJacuzzi ? shortStayPrices.baseRate.withJacuzzi : shortStayPrices.baseRate.withoutJacuzzi).toFixed(2)}</span>
+      </div>
+      {paymentMethod === 'credit' && (
+        <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '1px' }}>
+          <span>Tax (15%):</span>
+          <span>${((hasJacuzzi ? shortStayPrices.baseRate.withJacuzzi : shortStayPrices.baseRate.withoutJacuzzi) * 0.15).toFixed(2)}</span>
+        </div>
+      )}
+      <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '1px' }}>
+        <span>Extra Hrs ({extraHours}):</span>
+        <span>${(extraHours * (extraHourRate === 15 ? shortStayPrices.extraHourRate.regular : shortStayPrices.extraHourRate.discounted)).toFixed(2)}</span>
+      </div>
+      <div className="summary-line total" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', fontWeight: 'bold', color: '#001f5c', borderTop: '1px solid #ccc', marginTop: '3px', paddingTop: '3px' }}> {/* Reduced font/margins/padding */}
+        <span>Total Price:</span>
+        <span>${totalPrice.toFixed(2)}</span>
+      </div>
+  </div>
+</div>
           
-          <div className={`overnight-stay-section ${activeTab === 'overnight' ? 'active' : ''}`}>
-            <h2 className="section-header">Overnight Stay</h2>
-            
-            <div className="overnight-dates">
-              <div className="date-picker-container">
-                <label>Check-in Date:</label>
-                <DatePicker
-                  selected={checkInDate}
-                  onChange={handleCheckInChange}
-                  dateFormat="MMMM d, yyyy h:mm aa"
-                  // Allow selection of past dates 
-                  // minDate={new Date()}
-                  className="date-picker"
-                  showTimeSelect={false}
-                  timeFormat="HH:mm"
-                  timeIntervals={60}
-                  timeCaption="Time"
-                  onFocus={e => e.target.blur()}
-                  onKeyDown={e => e.preventDefault()}
-                />
-                <span className="calendar-icon">📅</span>
-                <span className="time-note">Standard check-in: 3:00 PM</span>
-                
-                <div className="extra-hours-overnight">
-                  <label>Hour Adjustment:</label>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px' }}>
-                    <div className="hours-control">
-                      <button className="minus-btn" onClick={() => handleOvernightExtraHoursChange(-1)}>-</button>
-                      <span>{overnightExtraHours}</span>
-                      <button className="plus-btn" onClick={() => handleOvernightExtraHoursChange(1)}>+</button>
-                    </div>
-                    <span className="hours-note" style={{ color: '#00308F', fontWeight: 'bold' }}>
-                      {overnightExtraHours < 0 
-                        ? `${Math.abs(overnightExtraHours)} hrs before (${new Date(new Date().setHours(15 + overnightExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})})` 
-                        : overnightExtraHours > 0 
-                        ? `${overnightExtraHours} hrs after (${new Date(new Date().setHours(15 + overnightExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})})` 
-                        : 'Standard time (3:00 PM)'}
-                    </span>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="date-picker-container">
-                <label>Check-out Date:</label>
-                <DatePicker
-                  selected={checkOutDate}
-                  onChange={handleCheckOutChange}
-                  dateFormat="MM/dd/yy h:mm aa"
-                  // Allow any date including past dates
-                  // minDate={checkInDate}
-                  className="date-picker compact-datepicker" // Added class for specific styling
-                  showTimeSelect={false}
-                  timeFormat="HH:mm"
-                  timeIntervals={60}
-                  timeCaption="Time"
-                  onFocus={e => e.target.blur()}
-                  onKeyDown={e => e.preventDefault()}
-                />
-                <span className="calendar-icon">📅</span>
-                <span className="time-note">Standard check-out: 11:00 AM</span>
-                
-                <div className="extra-hours-overnight">
-                  <label>Hour Adjustment:</label>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px' }}>
-                    <div className="hours-control">
-                      <button className="minus-btn" onClick={() => handleCheckoutExtraHoursChange(-1)}>-</button>
-                      <span>{overnightCheckoutExtraHours}</span>
-                      <button className="plus-btn" onClick={() => handleCheckoutExtraHoursChange(1)}>+</button>
-                    </div>
-                    <span className="hours-note" style={{ color: '#00308F', fontWeight: 'bold' }}>
-                      {overnightCheckoutExtraHours < 0 
-                        ? `${Math.abs(overnightCheckoutExtraHours)} hrs before (${new Date(new Date().setHours(11 + overnightCheckoutExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})})` 
-                        : overnightCheckoutExtraHours > 0 
-                        ? `${overnightCheckoutExtraHours} hrs after (${new Date(new Date().setHours(11 + overnightCheckoutExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})})` 
-                        : 'Standard time (11:00 AM)'}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="room-options">
-              <div className="option-group">
-                <label>Room Type:</label>
-                <div className="radio-group">
-                  <label>
-                    <input
-                      type="radio"
-                      checked={!hasJacuzziOvernight}
-                      onChange={() => setHasJacuzziOvernight(false)}
-                    />
-                    No Jacuzzi
-                  </label>
-                  <label>
-                    <input
-                      type="radio"
-                      checked={hasJacuzziOvernight}
-                      onChange={() => setHasJacuzziOvernight(true)}
-                    />
-                    With Jacuzzi
-                  </label>
-                </div>
-              </div>
-              
-              <div className="option-group">
-                <label>Bed Type:</label>
-                <div className="radio-group">
-                  <label>
-                    <input
-                      type="radio"
-                      checked={bedType === 'queen'}
-                      onChange={() => setBedType('queen')}
-                    />
-                    Queen Bed
-                  </label>
-                  <label>
-                    <input
-                      type="radio"
-                      checked={bedType === 'king'}
-                      onChange={() => setBedType('king')}
-                    />
-                    King Bed
-                  </label>
-                  {!hasJacuzziOvernight && (
-                    <label>
-                      <input
-                        type="radio"
-                        checked={bedType === 'double'}
-                        onChange={() => setBedType('double')}
-                      />
-                      Queen 2 Beds
-                    </label>
-                  )}
-                </div>
-              </div>
-              
-              <div className="option-group">
-                <label>Payment Method:</label>
-                <div className="radio-group">
-                  <label>
-                    <input
-                      type="radio"
-                      value="cash"
-                      checked={overnightPayment === 'cash'}
-                      onChange={() => setOvernightPayment('cash')}
-                    />
-                    Cash
-                  </label>
-                  <label>
-                    <input
-                      type="radio"
-                      value="credit"
-                      checked={overnightPayment === 'credit'}
-                      onChange={() => setOvernightPayment('credit')}
-                    />
-                    Credit Card
-                  </label>
-                </div>
-              </div>
-              
-              <div className="option-group">
-                <label>Extra Hour Rate:</label>
-                <div className="radio-group">
-                  <label>
-                    <input
-                      type="radio"
-                      checked={overnightExtraRate === 15}
-                      onChange={() => setOvernightExtraRate(15)}
-                    />
-                    $15/hour
-                  </label>
-                  <label>
-                    <input
-                      type="radio"
-                      checked={overnightExtraRate === 10}
-                      onChange={() => setOvernightExtraRate(10)}
-                    />
-                    $10/hour
-                  </label>
-                </div>
-              </div>
-            </div>
-            
-            {renderOvernightStayPriceSummary()}
+          {/* Multiple Nights Section - Top Right */}
+          <div style={{ 
+  gridArea: 'multinight', 
+  backgroundColor: '#e6f2ff', // Light blue background
+  padding: '10px 15px', // Reduced padding
+  borderRadius: '8px',
+  display: 'flex',
+  flexDirection: 'column'
+}}>
+  {/* Header */} 
+  <div style={{ 
+    display: 'flex', 
+    justifyContent: 'space-between', 
+    alignItems: 'center', 
+    marginBottom: '10px',
+    backgroundColor: '#001f5c',
+    padding: '6px 10px', // Reduced header padding
+    borderRadius: '6px',
+    color: 'white' 
+  }}>
+    <h2 className="section-header" style={{ margin: 0, color: 'white', fontSize: '16px' }}>Multiple Nights</h2> {/* Smaller font */} 
+    <button 
+      className="add-more-button"
+      onClick={() => resetOvernightStay()}
+      style={{ /* Existing styles */ padding: '4px 8px', fontSize: '12px' }} /* Reduced padding/font */
+    >
+      <span style={{ fontSize: '14px' }}>+</span> Add Stay
+    </button>
+  </div>
+  
+  {/* Dates and Hour Adjustments - Using Grid */} 
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '10px' }}>
+    {/* Check-in Column */}
+    <div className="date-picker-container" style={{ display: 'flex', flexDirection: 'column' }}>
+      <label style={{ fontSize: '12px', fontWeight: 'bold', marginBottom: '2px' }}>Check-in Date:</label>
+      <DatePicker
+        selected={checkInDate}
+        onChange={handleCheckInChange}
+        dateFormat="MM/dd/yy"
+        className="date-picker compact-datepicker" // Added class for potential CSS targeting
+        showTimeSelect={false}
+        popperPlacement="bottom-start"
+        calendarClassName="compact-calendar" // Added class for potential CSS targeting
+      />
+      <div className="extra-hours-overnight" style={{ marginTop: '5px' }}>
+        <label style={{ fontSize: '12px', marginBottom: '2px', display: 'block' }}>Hour Adj:</label> 
+        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}> 
+          <div className="hours-control" style={{ display: 'flex', alignItems: 'center', gap: '5px' }}> 
+            <button className="minus-btn" onClick={() => handleOvernightExtraHoursChange(-1)} style={{ padding: '2px 6px'}}>-</button> 
+            <span style={{ fontSize: '13px', fontWeight: 'bold', minWidth: '15px', textAlign: 'center' }}>{overnightExtraHours}</span> 
+            <button className="plus-btn" onClick={() => handleOvernightExtraHoursChange(1)} style={{ padding: '2px 6px'}}>+</button> 
           </div>
-
-          {/* Multiple Nights Section */}
-          <div 
-            className={`overnight-stay-section ${activeTab === 'multiple' ? 'active' : ''}`}
-            style={{
-              backgroundColor: '#e6e0f3'
-            }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
-              <h2 className="section-header">Multiple Nights</h2>
-              <button 
-                className="add-more-button"
-                onClick={() => resetOvernightStay()}
-              >
-                <span>+</span> Add Stay
-              </button>
-            </div>
-            
-            <div className="overnight-dates">
-              <div className="date-picker-container">
-                <label>Check-in Date:</label>
-                <DatePicker
-                  selected={checkInDate}
-                  onChange={handleCheckInChange}
-                  dateFormat="MM/dd/yy h:mm aa"
-                  // Allow selection of past dates
-                  // minDate={new Date()}
-                  className="date-picker compact-datepicker" // Added class for specific styling
-                  showTimeSelect={false}
-                  timeFormat="HH:mm"
-                  timeIntervals={60}
-                  timeCaption="Time"
-                  onFocus={e => e.target.blur()}
-                  onKeyDown={e => e.preventDefault()}
-                />
-                <span className="calendar-icon" style={{ fontSize: '14px' }}>📅</span>
-                <span className="time-note" style={{ fontSize: '11px' }}>Std: 3 PM</span>
-                
-                <div className="extra-hours-overnight">
-                  <label>Hour Adjustment:</label>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px' }}>
-                    <div className="hours-control">
-                      <button className="minus-btn" onClick={() => handleOvernightExtraHoursChange(-1)}>-</button>
-                      <span>{overnightExtraHours}</span>
-                      <button className="plus-btn" onClick={() => handleOvernightExtraHoursChange(1)}>+</button>
-                    </div>
-                    <span className="hours-note" style={{ color: '#00308F', fontWeight: 'bold' }}>
-                      {overnightExtraHours < 0 
-                        ? `${Math.abs(overnightExtraHours)} hr early (${new Date(new Date().setHours(15 + overnightExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})})` 
-                        : overnightExtraHours > 0 
-                        ? `${overnightExtraHours} hr late (${new Date(new Date().setHours(15 + overnightExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})})` 
-                        : 'Standard time (3:00 PM)'}
-                    </span>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="date-picker-container">
-                <label>Check-out Date:</label>
-                <DatePicker
-                  selected={checkOutDate}
-                  onChange={handleCheckOutChange}
-                  dateFormat="MM/dd/yy h:mm aa"
-                  // Allow any date including past dates
-                  // minDate={checkInDate}
-                  className="date-picker compact-datepicker" // Added class
-                  showTimeSelect={false}
-                  timeFormat="HH:mm"
-                  timeIntervals={60}
-                  timeCaption="Time"
-                  onFocus={e => e.target.blur()}
-                  onKeyDown={e => e.preventDefault()}
-                />
-                <span className="calendar-icon" style={{ fontSize: '14px' }}>📅</span> {/* Reduced font size */}
-                <span className="time-note" style={{ fontSize: '11px' }}>Std: 11 AM</span> {/* Reduced font size */}
-                
-                <div className="extra-hours-overnight">
-                  <label>Hour Adjustment:</label>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px' }}> {/* Reduced gap */}
-                    <div className="hours-control">
-                      <button className="minus-btn" onClick={() => handleCheckoutExtraHoursChange(-1)}>-</button> {/* Added class */} 
-                      <span style={{ fontSize: '12px' }}>{overnightCheckoutExtraHours}</span> {/* Reduced font size */}
-                      <button className="plus-btn" onClick={() => handleCheckoutExtraHoursChange(1)}>+</button> {/* Added class */} 
-                    </div>
-                    <span className="hours-note" style={{ fontSize: '11px', color: '#00308F', fontWeight: 'bold' }}> {/* Reduced font size */}
-                      {overnightCheckoutExtraHours < 0 
-                        ? `${Math.abs(overnightCheckoutExtraHours)}hr early (${new Date(new Date().setHours(11 + overnightCheckoutExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})})` 
-                        : overnightCheckoutExtraHours > 0 
-                        ? `${overnightCheckoutExtraHours}hr late (${new Date(new Date().setHours(11 + overnightCheckoutExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})})` 
-                        : 'Standard'}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="room-options">
-              <div className="option-group">
-                <label>Room Type:</label>
-                <div className="radio-group">
-                  <label>
-                    <input
-                      type="radio"
-                      checked={!hasJacuzziOvernight}
-                      onChange={() => setHasJacuzziOvernight(false)}
-                    />
-                    No Jacuzzi
-                  </label>
-                  <label>
-                    <input
-                      type="radio"
-                      checked={hasJacuzziOvernight}
-                      onChange={() => setHasJacuzziOvernight(true)}
-                    />
-                    With Jacuzzi
-                  </label>
-                </div>
-              </div>
-              
-              <div className="option-group">
-                <label>Bed Type:</label>
-                <div className="radio-group">
-                  <label>
-                    <input
-                      type="radio"
-                      checked={bedType === 'queen'}
-                      onChange={() => setBedType('queen')}
-                    />
-                    Queen Bed
-                  </label>
-                  <label>
-                    <input
-                      type="radio"
-                      checked={bedType === 'king'}
-                      onChange={() => setBedType('king')}
-                    />
-                    King Bed
-                  </label>
-                  {!hasJacuzziOvernight && (
-                    <label>
-                      <input
-                        type="radio"
-                        checked={bedType === 'double'}
-                        onChange={() => setBedType('double')}
-                      />
-                      Queen 2 Beds
-                    </label>
-                  )}
-                </div>
-              </div>
-              
-              <div className="option-group">
-                <label>Payment Method:</label>
-                <div className="radio-group">
-                  <label>
-                    <input
-                      type="radio"
-                      value="cash"
-                      checked={overnightPayment === 'cash'}
-                      onChange={() => setOvernightPayment('cash')}
-                    />
-                    Cash
-                  </label>
-                  <label>
-                    <input
-                      type="radio"
-                      value="credit"
-                      checked={overnightPayment === 'credit'}
-                      onChange={() => setOvernightPayment('credit')}
-                    />
-                    Credit Card
-                  </label>
-                </div>
-              </div>
-              
-              <div className="option-group">
-                <label>Extra Hour Rate:</label>
-                <div className="radio-group">
-                  <label>
-                    <input
-                      type="radio"
-                      checked={overnightExtraRate === 15}
-                      onChange={() => setOvernightExtraRate(15)}
-                    />
-                    $15/hour
-                  </label>
-                  <label>
-                    <input
-                      type="radio"
-                      checked={overnightExtraRate === 10}
-                      onChange={() => setOvernightExtraRate(10)}
-                    />
-                    $10/hour
-                  </label>
-                </div>
-              </div>
-            </div>
-            
-            {renderOvernightStayPriceSummary()}
+          <span className="hours-note" style={{ color: '#00308F', fontSize: '11px', whiteSpace: 'nowrap' }}> 
+            {/* Time calculation - kept compact */}
+            {overnightExtraHours !== 0 ? `(${new Date(new Date().setHours(15 + overnightExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})})` : '(3PM)'}
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    {/* Check-out Column */} 
+    <div className="date-picker-container" style={{ display: 'flex', flexDirection: 'column' }}>
+      <label style={{ fontSize: '12px', fontWeight: 'bold', marginBottom: '2px' }}>Check-out Date:</label>
+      <DatePicker
+        selected={checkOutDate}
+        onChange={handleCheckOutChange}
+        dateFormat="MM/dd/yy"
+        className="date-picker compact-datepicker"
+        showTimeSelect={false}
+        popperPlacement="bottom-start"
+        calendarClassName="compact-calendar"
+      />
+      <div className="extra-hours-overnight" style={{ marginTop: '5px' }}>
+        <label style={{ fontSize: '12px', marginBottom: '2px', display: 'block' }}>Hour Adj:</label>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}> 
+          <div className="hours-control" style={{ display: 'flex', alignItems: 'center', gap: '5px' }}> 
+            <button className="minus-btn" onClick={() => handleCheckoutExtraHoursChange(-1)} style={{ padding: '2px 6px'}}>-</button> 
+            <span style={{ fontSize: '13px', fontWeight: 'bold', minWidth: '15px', textAlign: 'center' }}>{overnightCheckoutExtraHours}</span> 
+            <button className="plus-btn" onClick={() => handleCheckoutExtraHoursChange(1)} style={{ padding: '2px 6px'}}>+</button> 
           </div>
+          <span className="hours-note" style={{ color: '#00308F', fontSize: '11px', whiteSpace: 'nowrap' }}> 
+            {/* Time calculation - kept compact */}
+            {overnightCheckoutExtraHours !== 0 ? `(${new Date(new Date().setHours(11 + overnightCheckoutExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})})` : '(11AM)'}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  {/* Options - Using Grid */}
+  <div style={{ 
+    display: 'grid', 
+    gridTemplateColumns: 'repeat(2, 1fr)', // Two columns for options
+    gap: '10px 15px',
+    borderTop: '1px solid #ccc',
+    paddingTop: '10px'
+  }}>
+    {/* Column 1: Room Type & Bed Type */}
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <div className="option-group"> 
+        <label style={{ fontSize: '12px', fontWeight: 'bold' }}>Room Type:</label> 
+        <div className="radio-group" style={{ display: 'flex', flexDirection: 'column', gap: '2px'}}> 
+          <label style={{ fontSize: '12px' }}><input type="radio" style={{ marginRight: '3px' }} checked={!hasJacuzziOvernight} onChange={() => setHasJacuzziOvernight(false)} /> No Jacuzzi</label>
+          <label style={{ fontSize: '12px' }}><input type="radio" style={{ marginRight: '3px' }} checked={hasJacuzziOvernight} onChange={() => setHasJacuzziOvernight(true)} /> With Jacuzzi</label>
+        </div>
+      </div>
+      <div className="option-group"> 
+        <label style={{ fontSize: '12px', fontWeight: 'bold' }}>Bed Type:</label> 
+        <div className="radio-group" style={{ display: 'flex', flexDirection: 'column', gap: '2px'}}> 
+          <label style={{ fontSize: '12px' }}><input type="radio" style={{ marginRight: '3px' }} checked={bedType === 'Queen'} onChange={() => setBedType('Queen')} /> Queen</label>
+          <label style={{ fontSize: '12px' }}><input type="radio" style={{ marginRight: '3px' }} checked={bedType === 'King'} onChange={() => setBedType('King')} /> King</label>
+          {!hasJacuzziOvernight && (
+            <label style={{ fontSize: '12px' }}><input type="radio" style={{ marginRight: '3px' }} checked={bedType === 'Queen 2 Beds'} onChange={() => setBedType('Queen 2 Beds')} /> Queen 2 Beds</label>
+          )}
+        </div>
+      </div>
+    </div>
+    
+    {/* Column 2: Payment & Extra Rate */}
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <div className="option-group"> 
+        <label style={{ fontSize: '12px', fontWeight: 'bold' }}>Payment:</label> 
+        <div className="radio-group" style={{ display: 'flex', flexDirection: 'column', gap: '2px'}}> 
+          <label style={{ fontSize: '12px' }}><input type="radio" style={{ marginRight: '3px' }} value="cash" checked={overnightPayment === 'cash'} onChange={() => setOvernightPayment('cash')} /> Cash</label>
+          <label style={{ fontSize: '12px' }}><input type="radio" style={{ marginRight: '3px' }} value="credit" checked={overnightPayment === 'credit'} onChange={() => setOvernightPayment('credit')} /> Credit Card</label>
+        </div>
+      </div>
+      <div className="option-group"> 
+        <label style={{ fontSize: '12px', fontWeight: 'bold' }}>Extra Rate:</label> 
+        <div className="radio-group" style={{ display: 'flex', flexDirection: 'column', gap: '2px'}}> 
+          <label style={{ fontSize: '12px' }}><input type="radio" style={{ marginRight: '3px' }} checked={overnightExtraRate === 15} onChange={() => setOvernightExtraRate(15)} /> $15/hr</label>
+          <label style={{ fontSize: '12px' }}><input type="radio" style={{ marginRight: '3px' }} checked={overnightExtraRate === 10} onChange={() => setOvernightExtraRate(10)} /> $10/hr</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  {/* Render Price Summary - Takes remaining space */}
+  <div style={{ marginTop: 'auto', paddingTop: '10px' }}> {/* Pushes summary down */}
+     {renderOvernightStayPriceSummary()} 
+  </div> 
+</div>
 
-          {/* Rooms Section */}
-          {activeTab === 'rooms' && (
-            <div className="rooms-section" style={{ 
-              backgroundColor: '#f5f5f5',
-              padding: '20px'
-            }}>
-              <h2 className="section-header">Room Status</h2>
+          {/* Ground Floor Section - Bottom Left */}
+          <div style={{ gridArea: 'groundfloor', backgroundColor: '#f5f5f5', padding: '20px', borderRadius: '8px' }}>
+            <h2 className="section-header">Ground Floor</h2>
               
               {/* Admin status and logout */}
               {isAuthenticated && (
@@ -2477,1401 +2305,331 @@ function App() {
               )}
               
               {/* Room Filters */}
-              <div className="room-filters" style={{
-                backgroundColor: '#fff',
-                padding: '20px',
-                borderRadius: '8px',
-                marginBottom: '20px',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-              }}>
-                <div className="filter-group" style={{
+            <div className="room-filters" style={{
+              display: 'flex',
+              gap: '6px', // Further reduced gap
+              marginBottom: '15px',
+              padding: '8px', // Slightly reduced container padding
+              backgroundColor: '#f0f0f0',
+              borderRadius: '6px',
+              justifyContent: 'flex-start', // Align to start
+              flexWrap: 'nowrap', 
+              overflowX: 'auto' 
+            }}>
+              {/* All Button */}
+              <button 
+                onClick={() => handleFilterClick('all')}
+                style={{
+                  backgroundColor: selectedFilters.length === 0 ? '#001f5c' : '#ffffff',
+                  color: selectedFilters.length === 0 ? '#ffffff' : '#333333',
+                  border: selectedFilters.length === 0 ? 'none' : '1px solid #cccccc',
+                  borderRadius: '20px',
+                  padding: '4px 10px', // Further reduced padding
+                  fontWeight: selectedFilters.length === 0 ? 'bold' : 'normal',
+                  cursor: 'pointer',
+                  fontSize: '12px', // Further reduced font size
+                  transition: 'all 0.2s ease',
+                  boxShadow: selectedFilters.length === 0 ? '0 2px 4px rgba(0,0,0,0.2)' : 'none'
+                }}
+              >
+                All
+              </button>
+              {/* Available Button */}
+              <button 
+                onClick={() => handleFilterClick('available')}
+                style={{
+                  backgroundColor: selectedFilters.includes('available') ? '#4CAF50' : '#ffffff',
+                  color: selectedFilters.includes('available') ? '#ffffff' : '#333333',
+                  border: selectedFilters.includes('available') ? 'none' : '1px solid #cccccc',
+                  borderRadius: '20px',
+                  padding: '4px 10px', // Further reduced padding
+                  fontWeight: selectedFilters.includes('available') ? 'bold' : 'normal',
+                  cursor: 'pointer',
+                  fontSize: '12px', // Further reduced font size
+                  transition: 'all 0.2s ease',
+                  boxShadow: selectedFilters.includes('available') ? '0 2px 4px rgba(0,0,0,0.2)' : 'none'
+                }}
+              >
+                Available
+              </button>
+              {/* Jacuzzi Button */}
+              <button 
+                onClick={() => handleFilterClick('jacuzzi')}
+                style={{
+                  backgroundColor: selectedFilters.includes('jacuzzi') ? '#2196F3' : '#ffffff',
+                  color: selectedFilters.includes('jacuzzi') ? '#ffffff' : '#333333',
+                  border: selectedFilters.includes('jacuzzi') ? 'none' : '1px solid #cccccc',
+                  borderRadius: '20px',
+                  padding: '4px 10px', // Further reduced padding
+                  fontWeight: selectedFilters.includes('jacuzzi') ? 'bold' : 'normal',
+                  cursor: 'pointer',
+                  fontSize: '12px', // Further reduced font size
+                  transition: 'all 0.2s ease',
+                  boxShadow: selectedFilters.includes('jacuzzi') ? '0 2px 4px rgba(0,0,0,0.2)' : 'none',
                   display: 'flex',
-                  gap: '10px',
-                  justifyContent: 'flex-start',
-                  flexWrap: 'wrap'
-                }}>
-                  <button
-                    onClick={() => handleFilterClick('all')}
-                    style={{
-                      padding: '8px 16px',
-                      borderRadius: '20px',
-                      border: 'none',
-                      backgroundColor: selectedFilters.length === 0 && !changeStatusMode ? '#001f5c' : '#f0f0f0',
-                      color: selectedFilters.length === 0 && !changeStatusMode ? '#fff' : '#333',
-                      cursor: 'pointer',
-                      fontSize: '14px',
-                      fontWeight: selectedFilters.length === 0 && !changeStatusMode ? 'bold' : 'normal',
-                      transition: 'all 0.3s ease',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '6px'
-                    }}
-                  >
-                    <span style={{ fontSize: '16px' }}>🏠</span>
-                    All Rooms
-                  </button>
-                  
-                  {/* Change Status Filter */}
-                  <button
-                    onClick={() => handleFilterClick('change-status')}
-                    style={{
-                      padding: '8px 16px',
-                      borderRadius: '20px',
-                      border: 'none',
-                      backgroundColor: '#9ee589',
-                      color: '#333',
-                      cursor: 'pointer',
-                      fontSize: '14px',
-                      fontWeight: 'normal',
-                      transition: 'all 0.3s ease',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '6px'
-                    }}
-                  >
-                    <span style={{ fontSize: '16px' }}>🔄</span>
-                    Change Room Status
-                  </button>
-                  
-                  {/* Clear All Rooms Status Button */}
-                  <button
-                    onClick={(e) => {
-                      // Check authentication before clearing all rooms
-                      if (isAuthenticated) {
-                        clearAllRoomStatus();
-                      } else {
-                        setShowLoginModal(true);
-                      }
-                    }}
-                    style={{
-                      padding: '8px 16px',
-                      borderRadius: '20px',
-                      border: 'none',
-                      backgroundColor: '#f0f0f0',
-                      color: '#333',
-                      cursor: 'pointer',
-                      fontSize: '14px',
-                      fontWeight: 'normal',
-                      transition: 'all 0.3s ease',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '6px'
-                    }}
-                  >
-                    <span style={{ fontSize: '16px' }}>🗑️</span>
-                    Clear all rooms status
-                  </button>
-                  
-                  {/* Status Filters */}
-                  <button
-                    onClick={() => handleFilterClick('available')}
-                    style={{
-                      padding: '8px 16px',
-                      borderRadius: '20px',
-                      border: 'none',
-                      backgroundColor: selectedFilters.includes('available') ? '#001f5c' : '#f0f0f0',
-                      color: selectedFilters.includes('available') ? '#fff' : '#333',
-                      cursor: 'pointer',
-                      fontSize: '14px',
-                      fontWeight: selectedFilters.includes('available') ? 'bold' : 'normal',
-                      transition: 'all 0.3s ease',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '6px'
-                    }}
-                  >
-                    <span style={{ fontSize: '16px' }}>✅</span>
-                    Available
-                  </button>
-                  <button
-                    onClick={() => handleFilterClick('occupied')}
-                    style={{
-                      padding: '8px 16px',
-                      borderRadius: '20px',
-                      border: 'none',
-                      backgroundColor: selectedFilters.includes('occupied') ? '#001f5c' : '#f0f0f0',
-                      color: selectedFilters.includes('occupied') ? '#fff' : '#333',
-                      cursor: 'pointer',
-                      fontSize: '14px',
-                      fontWeight: selectedFilters.includes('occupied') ? 'bold' : 'normal',
-                      transition: 'all 0.3s ease',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '6px'
-                    }}
-                  >
-                    <span style={{ fontSize: '16px' }}>🚫</span>
-                    Occupied
-                  </button>
-                  
-                  {/* Room Type Filters */}
-                  <button
-                    onClick={() => handleFilterClick('jacuzzi')}
-                    style={{
-                      padding: '8px 16px',
-                      borderRadius: '20px',
-                      border: 'none',
-                      backgroundColor: selectedFilters.includes('jacuzzi') ? '#001f5c' : '#f0f0f0',
-                      color: selectedFilters.includes('jacuzzi') ? '#fff' : '#333',
-                      cursor: 'pointer',
-                      fontSize: '14px',
-                      fontWeight: selectedFilters.includes('jacuzzi') ? 'bold' : 'normal',
-                      transition: 'all 0.3s ease',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '6px'
-                    }}
-                  >
-                    <span style={{ fontSize: '16px' }}>🛁</span>
-                    Jacuzzi
-                  </button>
-                  
-                  {/* Handicap Accessible Filter */}
-                  <button
-                    onClick={() => handleFilterClick('handicap')}
-                    style={{
-                      padding: '8px 16px',
-                      borderRadius: '20px',
-                      border: 'none',
-                      backgroundColor: selectedFilters.includes('handicap') ? '#001f5c' : '#f0f0f0',
-                      color: selectedFilters.includes('handicap') ? '#fff' : '#333',
-                      cursor: 'pointer',
-                      fontSize: '14px',
-                      fontWeight: selectedFilters.includes('handicap') ? 'bold' : 'normal',
-                      transition: 'all 0.3s ease',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '6px'
-                    }}
-                  >
-                    <span style={{ fontSize: '16px' }}>♿</span>
-                    Handicap
-                  </button>
-                  
-                  {/* Online Booking Only Filter */}
-                  <button
-                    onClick={() => handleFilterClick('online-booking-only')}
-                    style={{
-                      padding: '8px 16px',
-                      borderRadius: '20px',
-                      border: 'none',
-                      backgroundColor: selectedFilters.includes('online-booking-only') ? '#001f5c' : '#f0f0f0',
-                      color: selectedFilters.includes('online-booking-only') ? '#fff' : '#333',
-                      cursor: 'pointer',
-                      fontSize: '14px',
-                      fontWeight: selectedFilters.includes('online-booking-only') ? 'bold' : 'normal',
-                      transition: 'all 0.3s ease',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '6px'
-                    }}
-                  >
-                    <span style={{ fontSize: '16px' }}>🌐</span>
-                    Online Booking Only
-                  </button>
-                  
-                  {/* Smoking Filters */}
-                  <button
-                    onClick={() => handleFilterClick('non-smoking')}
-                    style={{
-                      padding: '8px 16px',
-                      borderRadius: '20px',
-                      border: 'none',
-                      backgroundColor: selectedFilters.includes('non-smoking') ? '#001f5c' : '#f0f0f0',
-                      color: selectedFilters.includes('non-smoking') ? '#fff' : '#333',
-                      cursor: 'pointer',
-                      fontSize: '14px',
-                      fontWeight: selectedFilters.includes('non-smoking') ? 'bold' : 'normal',
-                      transition: 'all 0.3s ease',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '6px'
-                    }}
-                  >
-                    <span style={{ fontSize: '16px' }}>🚭</span>
-                    Non-Smoking
-                  </button>
-                  <button
-                    onClick={() => handleFilterClick('smoking')}
-                    style={{
-                      padding: '8px 16px',
-                      borderRadius: '20px',
-                      border: 'none',
-                      backgroundColor: selectedFilters.includes('smoking') ? '#001f5c' : '#f0f0f0',
-                      color: selectedFilters.includes('smoking') ? '#fff' : '#333',
-                      cursor: 'pointer',
-                      fontSize: '14px',
-                      fontWeight: selectedFilters.includes('smoking') ? 'bold' : 'normal',
-                      transition: 'all 0.3s ease',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '6px'
-                    }}
-                  >
-                    <span style={{ fontSize: '16px' }}>🚬</span>
-                    Smoking
-                  </button>
-                  
-                  {/* Bed Type Filters */}
-                  <button
-                    onClick={() => handleFilterClick('queen')}
-                    style={{
-                      padding: '8px 16px',
-                      borderRadius: '20px',
-                      border: 'none',
-                      backgroundColor: selectedFilters.includes('queen') ? '#001f5c' : '#f0f0f0',
-                      color: selectedFilters.includes('queen') ? '#fff' : '#333',
-                      cursor: 'pointer',
-                      fontSize: '14px',
-                      fontWeight: selectedFilters.includes('queen') ? 'bold' : 'normal',
-                      transition: 'all 0.3s ease',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '6px'
-                    }}
-                  >
-                    <span style={{ fontSize: '16px' }}>🛏️</span>
-                    Queen Bed
-                  </button>
-                  <button
-                    onClick={() => handleFilterClick('king')}
-                    style={{
-                      padding: '8px 16px',
-                      borderRadius: '20px',
-                      border: 'none',
-                      backgroundColor: selectedFilters.includes('king') ? '#001f5c' : '#f0f0f0',
-                      color: selectedFilters.includes('king') ? '#fff' : '#333',
-                      cursor: 'pointer',
-                      fontSize: '14px',
-                      fontWeight: selectedFilters.includes('king') ? 'bold' : 'normal',
-                      transition: 'all 0.3s ease',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '6px'
-                    }}
-                  >
-                    <span style={{ fontSize: '16px' }}>👑</span>
-                    King Bed
-                  </button>
-                  <button
-                    onClick={() => handleFilterClick('double')}
-                    style={{
-                      padding: '8px 16px',
-                      borderRadius: '20px',
-                      border: 'none',
-                      backgroundColor: selectedFilters.includes('double') ? '#001f5c' : '#f0f0f0',
-                      color: selectedFilters.includes('double') ? '#fff' : '#333',
-                      cursor: 'pointer',
-                      fontSize: '14px',
-                      fontWeight: selectedFilters.includes('double') ? 'bold' : 'normal',
-                      transition: 'all 0.3s ease',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '6px'
-                    }}
-                  >
-                    <span style={{ fontSize: '16px' }}>👥</span>
-                    Queen 2 Beds
-                  </button>
-                </div>
-              </div>
+                  alignItems: 'center',
+                  gap: '3px' // Further reduced icon gap
+                }}
+              >
+                <span style={{ fontSize: selectedFilters.includes('jacuzzi') ? '14px' : '12px' }}>🛁</span> Jacuzzi
+              </button>
+              {/* Smoking Button */}
+              <button 
+                onClick={() => handleFilterClick('smoking')}
+                style={{
+                  backgroundColor: selectedFilters.includes('smoking') ? '#FF9800' : '#ffffff',
+                  color: selectedFilters.includes('smoking') ? '#ffffff' : '#333333',
+                  border: selectedFilters.includes('smoking') ? 'none' : '1px solid #cccccc',
+                  borderRadius: '20px',
+                  padding: '4px 10px', // Further reduced padding
+                  fontWeight: selectedFilters.includes('smoking') ? 'bold' : 'normal',
+                  cursor: 'pointer',
+                  fontSize: '12px', // Further reduced font size
+                  transition: 'all 0.2s ease',
+                  boxShadow: selectedFilters.includes('smoking') ? '0 2px 4px rgba(0,0,0,0.2)' : 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '3px' // Further reduced icon gap
+                }}
+              >
+                <span style={{ fontSize: selectedFilters.includes('smoking') ? '14px' : '12px' }}>🚬</span> Smoking
+              </button>
+              {/* Non-Smoking Button */}
+              <button 
+                onClick={() => handleFilterClick('non-smoking')}
+                style={{
+                  backgroundColor: selectedFilters.includes('non-smoking') ? '#78909C' : '#ffffff', // Blue Gray
+                  color: selectedFilters.includes('non-smoking') ? '#ffffff' : '#333333',
+                  border: selectedFilters.includes('non-smoking') ? 'none' : '1px solid #cccccc',
+                  borderRadius: '20px',
+                  padding: '4px 10px', // Further reduced padding
+                  fontWeight: selectedFilters.includes('non-smoking') ? 'bold' : 'normal',
+                  cursor: 'pointer',
+                  fontSize: '12px', // Further reduced font size
+                  transition: 'all 0.2s ease',
+                  boxShadow: selectedFilters.includes('non-smoking') ? '0 2px 4px rgba(0,0,0,0.2)' : 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '3px' // Further reduced icon gap
+                }}
+              >
+                <span style={{ fontSize: selectedFilters.includes('non-smoking') ? '14px' : '12px' }}>🚭</span> Non-Smoking
+              </button>
+              {/* Handicap Button */}
+              <button 
+                onClick={() => handleFilterClick('handicap')}
+                style={{
+                  backgroundColor: selectedFilters.includes('handicap') ? '#9C27B0' : '#ffffff',
+                  color: selectedFilters.includes('handicap') ? '#ffffff' : '#333333',
+                  border: selectedFilters.includes('handicap') ? 'none' : '1px solid #cccccc',
+                  borderRadius: '20px',
+                  padding: '4px 10px', // Further reduced padding
+                  fontWeight: selectedFilters.includes('handicap') ? 'bold' : 'normal',
+                  cursor: 'pointer',
+                  fontSize: '12px', // Further reduced font size
+                  transition: 'all 0.2s ease',
+                  boxShadow: selectedFilters.includes('handicap') ? '0 2px 4px rgba(0,0,0,0.2)' : 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '3px' // Further reduced icon gap
+                }}
+              >
+                <span style={{ fontSize: selectedFilters.includes('handicap') ? '14px' : '12px' }}>♿</span> Handicap
+              </button>
+              {/* Queen Button */}
+              <button 
+                onClick={() => handleFilterClick('Queen')}
+                style={{
+                  backgroundColor: selectedFilters.includes('Queen') ? '#03A9F4' : '#ffffff', // Light Blue
+                  color: selectedFilters.includes('Queen') ? '#ffffff' : '#333333',
+                  border: selectedFilters.includes('Queen') ? 'none' : '1px solid #cccccc',
+                  borderRadius: '20px',
+                  padding: '4px 10px', // Further reduced padding
+                  fontWeight: selectedFilters.includes('Queen') ? 'bold' : 'normal',
+                  cursor: 'pointer',
+                  fontSize: '12px', // Further reduced font size
+                  transition: 'all 0.2s ease',
+                  boxShadow: selectedFilters.includes('Queen') ? '0 2px 4px rgba(0,0,0,0.2)' : 'none'
+                }}
+              >
+                Queen
+              </button>
+              {/* King Button */}
+              <button 
+                onClick={() => handleFilterClick('King')}
+                style={{
+                  backgroundColor: selectedFilters.includes('King') ? '#673AB7' : '#ffffff', // Deep Purple
+                  color: selectedFilters.includes('King') ? '#ffffff' : '#333333',
+                  border: selectedFilters.includes('King') ? 'none' : '1px solid #cccccc',
+                  borderRadius: '20px',
+                  padding: '4px 10px', // Further reduced padding
+                  fontWeight: selectedFilters.includes('King') ? 'bold' : 'normal',
+                  cursor: 'pointer',
+                  fontSize: '12px', // Further reduced font size
+                  transition: 'all 0.2s ease',
+                  boxShadow: selectedFilters.includes('King') ? '0 2px 4px rgba(0,0,0,0.2)' : 'none'
+                }}
+              >
+                King
+              </button>
+              {/* Queen 2 Beds Button */}
+              <button 
+                onClick={() => handleFilterClick('Queen 2 Beds')}
+                style={{
+                  backgroundColor: selectedFilters.includes('Queen 2 Beds') ? '#009688' : '#ffffff', // Teal
+                  color: selectedFilters.includes('Queen 2 Beds') ? '#ffffff' : '#333333',
+                  border: selectedFilters.includes('Queen 2 Beds') ? 'none' : '1px solid #cccccc',
+                  borderRadius: '20px',
+                  padding: '4px 10px', // Further reduced padding
+                  fontWeight: selectedFilters.includes('Queen 2 Beds') ? 'bold' : 'normal',
+                  cursor: 'pointer',
+                  fontSize: '12px', // Further reduced font size
+                  transition: 'all 0.2s ease',
+                  boxShadow: selectedFilters.includes('Queen 2 Beds') ? '0 2px 4px rgba(0,0,0,0.2)' : 'none',
+                  whiteSpace: 'nowrap', // Prevent wrapping
+                }}
+              >
+                Queen 2 Beds
+              </button>
+            </div>
 
-              {/* Ground Floor Accordion */}
-              <div className="floor-accordion" style={{
-                marginBottom: '20px'
-              }}>
-                <button
-                  onClick={() => setGroundFloorExpanded(!groundFloorExpanded)}
-                  style={{
-                    width: '100%',
-                    padding: '15px',
-                    backgroundColor: '#001f5c',
-                    color: '#fff',
-                    border: 'none',
-                    borderRadius: groundFloorExpanded ? '8px 8px 0 0' : '8px',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    fontSize: '16px',
-                    fontWeight: 'bold',
-                    transition: 'border-radius 0.3s ease'
-                  }}
-                >
-                  <span>Ground Floor (Rooms 101-119)</span>
-                  <span style={{ 
-                    transition: 'transform 0.3s ease',
-                    transform: groundFloorExpanded ? 'rotate(180deg)' : 'none'
-                  }}>▼</span>
-                </button>
-                
-                {groundFloorExpanded && (
-                  <div className="rooms-grid" style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-                    gap: '20px',
-                    padding: '20px',
-                    backgroundColor: '#fff',
-                    borderRadius: '0 0 8px 8px'
-                  }}>
+            {/* Ground Floor Rooms */}
+            <div className="rooms-grid">
                     {rooms.groundFloor
                       .filter(filterRoom)
                       .map(room => (
                         <div key={room.number} 
-                            className={`room-card ${room.status === 'available' ? '' : room.status === 'cleared' ? 'cleared' : 'occupied'}`}
+                    className={`room-card ${room.status === 'available' ? 'available' : room.status === 'cleared' ? 'cleared' : 'occupied'}`}
                             onClick={() => handleRoomCardClick('groundFloor', room.number)}
-                            style={{
-                              backgroundColor: room.status === 'cleared' ? '#e0e0e0' : undefined,
-                              borderColor: room.status === 'cleared' ? '#c0c0c0' : undefined,
-                              padding: '8px', // Reduced padding
-                              minHeight: 'auto' // Remove minimum height
-                            }}
-                          >
-                            {/* Room details - restructured as flex layout */}
-                            <div className="room-detail" style={{ display: 'flex' }}>
-                              {/* Left side - Room information */}
-                              <div style={{ 
-                                flex: '1', 
-                                minWidth: '0', 
-                                paddingBottom: '10px' 
-                              }}>
-                              <div className="room-number">
-                                Room {room.number}
-                                <span 
-                                  className={`clock-icon ${checkoutAlerts[room.number] ? 'shaking' : ''}`}
-                                  style={{ 
-                                    marginLeft: '8px', 
-                                    cursor: 'pointer',
-                                    display: 'inline-flex',
-                                    alignItems: 'center'
-                                  }}
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                      // Verify user is authenticated before setting time or dismissing alerts
-                                      if (!isAuthenticated) {
-                                        setShowLoginModal(true);
-                                        return;
-                                      }
-                                    if (checkoutAlerts[room.number]) {
-                                      dismissCheckoutAlert(room.number);
-                                    } else {
-                                      setOpenTimePickerRoom(openTimePickerRoom === room.number ? null : room.number);
-                                    }
-                                  }}
-                                >
-                                    <span role="img" aria-label="clock" style={{ fontSize: '16px' }}>⏰</span>
-                                  {roomSchedules[room.number]?.checkoutTime && (
-                                    <span style={{ 
-                                        fontSize: '11px', 
-                                        marginLeft: '3px',
-                                      color: '#007bff',
-                                      fontWeight: 'bold'
-                                    }}>
-                                      {new Date(roomSchedules[room.number].checkoutTime).toLocaleTimeString([], {
-                                        hour: 'numeric',
-                                        minute: '2-digit',
-                                        hour12: true
-                                      })}
-                                    </span>
-                                  )}
-                                </span>
-                                  
-                                  {/* Book button - small, dark blue */}
-                                  {room.status === 'available' && (
-                                    <button
-                                      onClick={(e) => {
-                                        e.stopPropagation(); // Prevent triggering the room card click
-                                        // Instead of showing alert, navigate to Multiple Nights tab
-                                        // alert(`Room ${room.number} is ready to book`);
-                                        
-                                        // Navigate to Multiple Nights tab
-                                        setActiveTab('multiple');
-                                        
-                                        // Pre-populate some settings based on the room
-                                        setHasJacuzziOvernight(room.type === 'jacuzzi');
-                                        setBedType(room.beds || 'queen');
-                                        setOvernightSmoking(room.smoking || false);
-                                        
-                                        // Set today and tomorrow as default dates if not already set
-                                        if (!checkInDate) {
-                                          const today = new Date();
-                                          today.setHours(15, 0, 0, 0); // 3:00 PM today
-                                          setCheckInDate(today);
-                                          
-                                          if (!checkOutDate) {
-                                            const tomorrow = new Date(today);
-                                            tomorrow.setDate(tomorrow.getDate() + 1);
-                                            tomorrow.setHours(11, 0, 0, 0); // 11:00 AM tomorrow
-                                            setCheckOutDate(tomorrow);
-                                          }
-                                        }
-                                        
-                                        // Scroll to the top of the page to show the Multi-stay tab
-                                        window.scrollTo({top: 0, behavior: 'smooth'});
-                                      }}
-                                      style={{
-                                        backgroundColor: '#001f5c', // Dark blue
-                                        color: 'white',
-                                        border: 'none',
-                                        padding: '3px 7px', // Smaller
-                                        borderRadius: '3px',
-                                        cursor: 'pointer',
-                                        marginLeft: '6px',
-                                        fontSize: '9px',
-                                        fontWeight: 'bold'
-                                      }}
-                                    >
-                                      Book
-                                    </button>
-                                  )}
-                                  
-                                <button 
-                                  className="reset-button"
-                                    onClick={(e) => {
-                                      // Check authentication before resetting room price
-                                      if (isAuthenticated) {
-                                        resetRoomPrice(e, room.number);
-                                      } else {
-                                        e.stopPropagation();
-                                        setShowLoginModal(true);
-                                      }
-                                    }}
-                                  style={{
-                                      marginLeft: '6px',
-                                      fontSize: '9px',
-                                      padding: '1px 5px',
-                                      borderRadius: '3px',
-                                    cursor: 'pointer'
-                                  }}
-                                >
-                                  Clear
-                                </button>
-                              </div>
-                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '3px', marginTop: '3px', marginBottom: '5px' }}>
-                                  <div className="room-status" style={{
-                                    display: 'inline-block',
-                                    padding: '1px 5px',
-                                    borderRadius: '3px',
-                                    fontSize: '11px',
-                                    backgroundColor: room.status === 'available' ? '#90ee90' : 
-                                            room.status === 'cleared' ? '#c0c0c0' : '#ffb6c1',
-                                    color: room.status === 'available' ? '#006400' : 
-                                          room.status === 'cleared' ? '#505050' : '#8b0000'
-                                  }}>
-                                    {room.status === 'available' ? 'Available' : 
-                                     room.status === 'cleared' ? 'Cleared' : 'Occupied'}
-                                  </div>
-                                  {room.type === 'jacuzzi' && <div style={{ padding: '1px 5px', borderRadius: '3px', fontSize: '11px', backgroundColor: '#e0f7fa', color: '#006064' }}>🛁 Jacuzzi</div>}
-                                </div>
-                                <div style={{ fontSize: '11px', marginTop: '3px' }}>
-                                  {room.beds === 'queen' ? '👑 Queen Bed' : room.beds === 'king' ? '👑 King Bed' : '🛏️ Queen 2 Beds'}
-                                  {room.handicap && <span style={{ marginLeft: '5px' }}>♿ Handicap</span>}
-                                  {room.smoking ? 
-                                    <span style={{ marginLeft: '5px', padding: '1px 5px', borderRadius: '3px', backgroundColor: '#ffebee', color: '#b71c1c', fontSize: '10px' }}>🚬 Smoking</span> : 
-                                    <span style={{ marginLeft: '5px', padding: '1px 5px', borderRadius: '3px', backgroundColor: '#e8f5e9', color: '#1b5e20', fontSize: '10px' }}>🚭 Non-Smoking</span>
-                                  }
-                                  {room.onlineBookingOnly && <span style={{ marginLeft: '5px', backgroundColor: '#ffd700', color: '#000', padding: '0px 3px', borderRadius: '3px', fontSize: '10px', fontWeight: 'bold' }}>🌐 Online</span>}
-                                </div>
-                              </div>
-                              
-                              {/* Right side - Price information */}
-                              <div style={{ 
-                                width: '80px',
-                                borderLeft: '1px solid #e0e0e0',
-                                marginLeft: '5px',
-                                paddingLeft: '5px',
-                                paddingTop: '8px',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                justifyContent: 'center'
-                              }}>
-                                {(() => {
-                                  // Determine today's pricing based on day of week
-                                  const now = new Date();
-                                  const day = now.getDay(); // 0 is Sunday, 6 is Saturday
-                                  
-                                  let basePrice;
-                                  if (day === 5) { // Friday
-                                    basePrice = room.type === 'jacuzzi' ? prices.friday.withJacuzzi : prices.friday.withoutJacuzzi;
-                                  } else if (day === 0 || day === 6) { // Weekend (Sunday or Saturday)
-                                    basePrice = room.type === 'jacuzzi' ? prices.weekend.withJacuzzi : prices.weekend.withoutJacuzzi;
-                                  } else { // Weekday
-                                    basePrice = room.type === 'jacuzzi' ? prices.weekday.withJacuzzi : prices.weekday.withoutJacuzzi;
-                                  }
-                                  
-                                  const taxAmount = basePrice * 0.15;
-                                  const totalPrice = basePrice + taxAmount;
-                                  
-                                  return (
-                                    <>
-                                      <div style={{ 
-                                        display: 'flex', 
-                                        justifyContent: 'space-between',
-                                        fontWeight: 'bold',
-                                        fontSize: '11px',
-                                      }}>
-                                        <span>Rate:</span>
-                                        <span>${basePrice.toFixed(2)}</span>
-                                      </div>
-                                      <div style={{ 
-                                        display: 'flex', 
-                                        justifyContent: 'space-between',
-                                        fontSize: '10px',
-                                        color: '#666'
-                                      }}>
-                                        <span>Tax:</span>
-                                        <span>${taxAmount.toFixed(2)}</span>
-                                      </div>
-                                      <div style={{ 
-                                        display: 'flex', 
-                                        justifyContent: 'space-between',
-                                        marginTop: '2px',
-                                        paddingTop: '2px',
-                                        borderTop: '1px dashed #ddd',
-                                        fontWeight: 'bold',
-                                        fontSize: '12px',
-                                        color: '#001f5c'
-                                      }}>
-                                        <span>Total:</span>
-                                        <span>${totalPrice.toFixed(2)}</span>
-                                      </div>
-                                    </>
-                                  );
-                                })()}
-                              </div>
-                            </div>
-                              
-                              {/* Checkout Alert Message */}
-                              {checkoutAlerts[room.number] && (
-                                <div 
-                                  className="checkout-alert"
-                                  style={{
-                                    backgroundColor: '#ff6b6b',
-                                    color: 'white',
-                                  padding: '8px 10px',
-                                    borderRadius: '4px',
-                                  marginTop: '6px',
-                                    fontWeight: 'bold',
-                                    animation: 'shake 0.82s cubic-bezier(.36,.07,.19,.97) both infinite',
-                                    transform: 'translate3d(0, 0, 0)',
-                                    backfaceVisibility: 'hidden',
-                                    perspective: '1000px',
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center',
-                                    boxShadow: '0 3px 6px rgba(0,0,0,0.2)',
-                                  border: '1px solid #ff4d4d',
-                                  fontSize: '11px'
-                                  }}
-                                >
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                  <span style={{ fontSize: '16px' }}>⏰</span>
-                                    <span>Checkout time for Room {room.number}</span>
-                                  </div>
-                                  <button
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                    // Check authentication before dismissing alert
-                                    if (isAuthenticated) {
-                                      dismissCheckoutAlert(room.number);
-                                    } else {
-                                      setShowLoginModal(true);
-                                    }
-                                    }}
-                                    style={{
-                                      backgroundColor: 'white',
-                                      color: '#ff6b6b',
-                                      border: 'none',
-                                      borderRadius: '50%',
-                                    width: '18px',
-                                    height: '18px',
-                                      display: 'flex',
-                                      alignItems: 'center',
-                                      justifyContent: 'center',
-                                    fontSize: '12px',
-                                      cursor: 'pointer',
-                                      fontWeight: 'bold'
-                                    }}
-                                  >
-                                    ✕
-                                  </button>
-                                </div>
-                              )}
-                            
-                            {/* Time Picker for Checkout - Manual Input */}
-                            {openTimePickerRoom === room.number && (
-                              <div 
-                                onClick={(e) => e.stopPropagation()}
-                                style={{
-                                  marginBottom: '8px',
-                                  padding: '10px',
-                                  backgroundColor: '#f0f0f0',
-                                  borderRadius: '6px',
-                                  boxShadow: '0 2px 5px rgba(0,0,0,0.1)'
-                                }}
-                              >
-                                {/* Time picker content kept as is */}
-                              </div>
-                            )}
+                  >
+                    <div style={{ fontWeight: 'bold', marginBottom: '5px' }}>Room {room.number}</div>
+                    <div>{room.beds}</div>
+                    {room.type === 'jacuzzi' && <span>🛁</span>}
+                    {room.smoking ? <span>🚬</span> : <span>🚭</span>}
+                    {room.handicap && <span>♿</span>}
                           </div>
                       ))}
                   </div>
-                )}
               </div>
 
-              {/* First Floor Accordion */}
-              <div className="floor-accordion">
-                <button
-                  onClick={() => setFirstFloorExpanded(!firstFloorExpanded)}
-                  style={{
-                    width: '100%',
-                    padding: '15px',
-                    backgroundColor: '#001f5c',
-                    color: '#fff',
-                    border: 'none',
-                    borderRadius: firstFloorExpanded ? '8px 8px 0 0' : '8px',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    fontSize: '16px',
-                    fontWeight: 'bold',
-                    transition: 'border-radius 0.3s ease'
-                  }}
-                >
-                  <span>First Floor (Rooms 200-225)</span>
-                  <span style={{ 
-                    transition: 'transform 0.3s ease',
-                    transform: firstFloorExpanded ? 'rotate(180deg)' : 'none'
-                  }}>▼</span>
-                </button>
-                
-                {firstFloorExpanded && (
-                  <div className="rooms-grid" style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-                    gap: '20px',
-                    padding: '20px',
-                    backgroundColor: '#fff',
-                    borderRadius: '0 0 8px 8px'
-                  }}>
+          {/* First Floor Section - Bottom Right */}
+          <div style={{ gridArea: 'firstfloor', backgroundColor: '#f5f5f5', padding: '20px', borderRadius: '8px' }}>
+            <h2 className="section-header">First Floor</h2>
+            
+            {/* First Floor Rooms */}
+            <div className="rooms-grid">
                     {rooms.firstFloor
                       .filter(filterRoom)
                       .map(room => (
                         <div key={room.number} 
-                            className={`room-card ${room.status === 'available' ? '' : room.status === 'cleared' ? 'cleared' : 'occupied'}`}
+                    className={`room-card ${room.status === 'available' ? 'available' : room.status === 'cleared' ? 'cleared' : 'occupied'}`}
                             onClick={() => handleRoomCardClick('firstFloor', room.number)}
-                            style={{
-                              backgroundColor: room.status === 'cleared' ? '#e0e0e0' : undefined,
-                              borderColor: room.status === 'cleared' ? '#c0c0c0' : undefined,
-                              padding: '8px', // Reduced padding
-                              minHeight: 'auto' // Remove minimum height
-                            }}
-                          >
-                            {/* Room details - restructured as flex layout */}
-                            <div className="room-detail" style={{ display: 'flex' }}>
-                              {/* Left side - Room information */}
-                              <div style={{ 
-                                flex: '1', 
-                                minWidth: '0', 
-                                paddingBottom: '10px' 
-                              }}>
-                              <div className="room-number">
-                                Room {room.number}
-                                <span 
-                                  className={`clock-icon ${checkoutAlerts[room.number] ? 'shaking' : ''}`}
-                                  style={{ 
-                                    marginLeft: '8px', 
-                                    cursor: 'pointer',
-                                    display: 'inline-flex',
-                                    alignItems: 'center'
-                                  }}
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                      // Verify user is authenticated before setting time or dismissing alerts
-                                      if (!isAuthenticated) {
-                                        setShowLoginModal(true);
-                                        return;
-                                      }
-                                    if (checkoutAlerts[room.number]) {
-                                      dismissCheckoutAlert(room.number);
-                                    } else {
-                                      setOpenTimePickerRoom(openTimePickerRoom === room.number ? null : room.number);
-                                    }
-                                  }}
-                                >
-                                    <span role="img" aria-label="clock" style={{ fontSize: '16px' }}>⏰</span>
-                                  {roomSchedules[room.number]?.checkoutTime && (
-                                    <span style={{ 
-                                        fontSize: '11px', 
-                                        marginLeft: '3px',
-                                      color: '#007bff',
-                                      fontWeight: 'bold'
-                                    }}>
-                                      {new Date(roomSchedules[room.number].checkoutTime).toLocaleTimeString([], {
-                                        hour: 'numeric',
-                                        minute: '2-digit',
-                                        hour12: true
-                                      })}
-                                    </span>
-                                  )}
-                                </span>
-                                  
-                                  {/* Book button - now before Clear button */}
-                                  {room.status === 'available' && (
-                                    <button
-                                      onClick={(e) => {
-                                        e.stopPropagation(); // Prevent triggering the room card click
-                                        // Instead of showing alert, navigate to Multiple Nights tab
-                                        // alert(`Room ${room.number} is ready to book`);
-                                        
-                                        // Navigate to Multiple Nights tab
-                                        setActiveTab('multiple');
-                                        
-                                        // Pre-populate some settings based on the room
-                                        setHasJacuzziOvernight(room.type === 'jacuzzi');
-                                        setBedType(room.beds || 'queen');
-                                        setOvernightSmoking(room.smoking || false);
-                                        
-                                        // Set today and tomorrow as default dates if not already set
-                                        if (!checkInDate) {
-                                          const today = new Date();
-                                          today.setHours(15, 0, 0, 0); // 3:00 PM today
-                                          setCheckInDate(today);
-                                          
-                                          if (!checkOutDate) {
-                                            const tomorrow = new Date(today);
-                                            tomorrow.setDate(tomorrow.getDate() + 1);
-                                            tomorrow.setHours(11, 0, 0, 0); // 11:00 AM tomorrow
-                                            setCheckOutDate(tomorrow);
-                                          }
-                                        }
-                                        
-                                        // Scroll to the top of the page to show the Multi-stay tab
-                                        window.scrollTo({top: 0, behavior: 'smooth'});
-                                      }}
-                                      style={{
-                                        backgroundColor: '#001f5c', // Dark blue
-                                        color: 'white',
-                                        border: 'none',
-                                        padding: '1px 5px', // Smaller
-                                        borderRadius: '3px',
-                                        cursor: 'pointer',
-                                        marginLeft: '6px',
-                                        fontSize: '9px',
-                                        fontWeight: 'bold'
-                                      }}
-                                    >
-                                      Book
-                                    </button>
-                                  )}
-                                  
-                                <button 
-                                  className="reset-button"
-                                    onClick={(e) => {
-                                      // Check authentication before resetting room price
-                                      if (isAuthenticated) {
-                                        resetRoomPrice(e, room.number);
-                                      } else {
-                                        e.stopPropagation();
-                                        setShowLoginModal(true);
-                                      }
-                                    }}
-                                  style={{
-                                      marginLeft: '6px',
-                                      fontSize: '9px',
-                                      padding: '1px 5px',
-                                      borderRadius: '3px',
-                                    cursor: 'pointer'
-                                  }}
-                                >
-                                  Clear
-                                </button>
-                              </div>
-                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '3px', marginTop: '3px', marginBottom: '5px' }}>
-                                  <div className="room-status" style={{
-                                    display: 'inline-block',
-                                    padding: '1px 5px',
-                                    borderRadius: '3px',
-                                    fontSize: '11px',
-                                    backgroundColor: room.status === 'available' ? '#90ee90' : 
-                                            room.status === 'cleared' ? '#c0c0c0' : '#ffb6c1',
-                                    color: room.status === 'available' ? '#006400' : 
-                                          room.status === 'cleared' ? '#505050' : '#8b0000'
-                                  }}>
-                                    {room.status === 'available' ? 'Available' : 
-                                     room.status === 'cleared' ? 'Cleared' : 'Occupied'}
-                                  </div>
-                                  {room.type === 'jacuzzi' && <div style={{ padding: '1px 5px', borderRadius: '3px', fontSize: '11px', backgroundColor: '#e0f7fa', color: '#006064' }}>🛁 Jacuzzi</div>}
-                                </div>
-                                <div style={{ fontSize: '11px', marginTop: '3px' }}>
-                                  {room.beds === 'queen' ? '👑 Queen Bed' : room.beds === 'king' ? '👑 King Bed' : '🛏️ Queen 2 Beds'}
-                                  {room.handicap && <span style={{ marginLeft: '5px' }}>♿ Handicap</span>}
-                                  {room.smoking ? 
-                                    <span style={{ marginLeft: '5px', padding: '1px 5px', borderRadius: '3px', backgroundColor: '#ffebee', color: '#b71c1c', fontSize: '10px' }}>🚬 Smoking</span> : 
-                                    <span style={{ marginLeft: '5px', padding: '1px 5px', borderRadius: '3px', backgroundColor: '#e8f5e9', color: '#1b5e20', fontSize: '10px' }}>🚭 Non-Smoking</span>
-                                  }
-                                  {room.onlineBookingOnly && <span style={{ marginLeft: '5px', backgroundColor: '#ffd700', color: '#000', padding: '0px 3px', borderRadius: '3px', fontSize: '10px', fontWeight: 'bold' }}>🌐 Online</span>}
-                                </div>
-                              </div>
-                              
-                              {/* Right side - Price information */}
-                              <div style={{ 
-                                width: '80px',
-                                borderLeft: '1px solid #e0e0e0',
-                                marginLeft: '5px',
-                                paddingLeft: '5px',
-                                paddingTop: '15px',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                justifyContent: 'center'
-                              }}>
-                                {(() => {
-                                  // Determine today's pricing based on day of week
-                                  const now = new Date();
-                                  const day = now.getDay(); // 0 is Sunday, 6 is Saturday
-                                  
-                                  let basePrice;
-                                  if (day === 5) { // Friday
-                                    basePrice = room.type === 'jacuzzi' ? prices.friday.withJacuzzi : prices.friday.withoutJacuzzi;
-                                  } else if (day === 0 || day === 6) { // Weekend (Sunday or Saturday)
-                                    basePrice = room.type === 'jacuzzi' ? prices.weekend.withJacuzzi : prices.weekend.withoutJacuzzi;
-                                  } else { // Weekday
-                                    basePrice = room.type === 'jacuzzi' ? prices.weekday.withJacuzzi : prices.weekday.withoutJacuzzi;
-                                  }
-                                  
-                                  const taxAmount = basePrice * 0.15;
-                                  const totalPrice = basePrice + taxAmount;
-                                  
-                                  return (
-                                    <>
-                                      <div style={{ 
-                                        display: 'flex', 
-                                        justifyContent: 'space-between',
-                                        fontWeight: 'bold',
-                                        fontSize: '11px',
-                                      }}>
-                                        <span>Rate:</span>
-                                        <span>${basePrice.toFixed(2)}</span>
-                                      </div>
-                                      <div style={{ 
-                                        display: 'flex', 
-                                        justifyContent: 'space-between',
-                                        fontSize: '10px',
-                                        color: '#666'
-                                      }}>
-                                        <span>Tax:</span>
-                                        <span>${taxAmount.toFixed(2)}</span>
-                                      </div>
-                                      <div style={{ 
-                                        display: 'flex', 
-                                        justifyContent: 'space-between',
-                                        marginTop: '2px',
-                                        paddingTop: '2px',
-                                        borderTop: '1px dashed #ddd',
-                                        fontWeight: 'bold',
-                                        fontSize: '12px',
-                                        color: '#001f5c'
-                                      }}>
-                                        <span>Total:</span>
-                                        <span>${totalPrice.toFixed(2)}</span>
-                                      </div>
-                                    </>
-                                  );
-                                })()}
-                              </div>
-                            </div>
-                              
-                              {/* Checkout Alert Message */}
-                              {checkoutAlerts[room.number] && (
-                                <div 
-                                  className="checkout-alert"
-                                  style={{
-                                    backgroundColor: '#ff6b6b',
-                                    color: 'white',
-                                  padding: '8px 10px',
-                                    borderRadius: '4px',
-                                  marginTop: '6px',
-                                    fontWeight: 'bold',
-                                    animation: 'shake 0.82s cubic-bezier(.36,.07,.19,.97) both infinite',
-                                    transform: 'translate3d(0, 0, 0)',
-                                    backfaceVisibility: 'hidden',
-                                    perspective: '1000px',
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center',
-                                    boxShadow: '0 3px 6px rgba(0,0,0,0.2)',
-                                  border: '1px solid #ff4d4d',
-                                  fontSize: '11px'
-                                  }}
-                                >
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                  <span style={{ fontSize: '16px' }}>⏰</span>
-                                    <span>Checkout time for Room {room.number}</span>
-                                  </div>
-                                  <button
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                    // Check authentication before dismissing alert
-                                    if (isAuthenticated) {
-                                      dismissCheckoutAlert(room.number);
-                                    } else {
-                                      setShowLoginModal(true);
-                                    }
-                                    }}
-                                    style={{
-                                      backgroundColor: 'white',
-                                      color: '#ff6b6b',
-                                      border: 'none',
-                                      borderRadius: '50%',
-                                    width: '18px',
-                                    height: '18px',
-                                      display: 'flex',
-                                      alignItems: 'center',
-                                      justifyContent: 'center',
-                                    fontSize: '12px',
-                                      cursor: 'pointer',
-                                      fontWeight: 'bold'
-                                    }}
-                                  >
-                                    ✕
-                                  </button>
-                                </div>
-                              )}
-                            
-                            {/* Time Picker for Checkout - Manual Input */}
-                            {openTimePickerRoom === room.number && (
-                              <div 
-                                onClick={(e) => e.stopPropagation()}
-                                style={{
-                                  marginBottom: '8px',
-                                  padding: '10px',
-                                  backgroundColor: '#f0f0f0',
-                                  borderRadius: '6px',
-                                  boxShadow: '0 2px 5px rgba(0,0,0,0.1)'
-                                }}
-                              >
-                                {/* Time picker content kept as is */}
-                              </div>
-                            )}
-                          </div>
-                      ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-
-          {/* Change Price Tab */}
-          {activeTab === 'changePrice' && (
-            <div className={`change-price-section ${activeTab === 'changePrice' ? 'active' : ''}`}
-              style={{ backgroundColor: '#f5f5f5' }}>
-              {showConfirmation && (
-                <div style={{
-                  color: 'darkgreen',
-                  textAlign: 'center',
-                  margin: '10px 0',
-                  fontWeight: 'bold',
-                  fontSize: '18px'
-                }}>
-                  Prices updated successfully!
-                </div>
-              )}
-              <h2 className="section-header">Room Price Settings</h2>
-              
-              <div className="price-summary" style={{ 
-                backgroundColor: '#fff',
-                padding: '20px',
-                borderRadius: '8px',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                margin: '20px 0'
-              }}>
-                <h3 style={{ 
-                  color: '#001f5c',
-                  borderBottom: '2px solid #001f5c',
-                  paddingBottom: '10px',
-                  marginBottom: '15px'
-                }}>Short Stay Prices</h3>
-
-                <div className="price-input-group" style={{ 
-                  display: 'flex', 
-                  flexDirection: 'column',
-                  gap: '10px',
-                  marginBottom: '30px'
-                }}>
-                  {/* Base Rate */}
-                  <div className="summary-line">
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <span style={{ fontWeight: 'bold', minWidth: '120px' }}>Base Rate (4h):</span>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <span style={{ fontSize: '14px' }}>Regular: $</span>
-                          <input 
-                            type="number" 
-                            value={shortStayPrices.baseRate.withoutJacuzzi} 
-                            onChange={(e) => setShortStayPrices({
-                              ...shortStayPrices,
-                              baseRate: { ...shortStayPrices.baseRate, withoutJacuzzi: parseFloat(e.target.value) }
-                            })} 
-                            style={{ 
-                              width: '80px', 
-                              padding: '4px',
-                              border: '1px solid #ccc',
-                              borderRadius: '4px',
-                              fontSize: '14px'
-                            }}
-                          />
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <span style={{ fontSize: '14px' }}>Jacuzzi: $</span>
-                          <input 
-                            type="number" 
-                            value={shortStayPrices.baseRate.withJacuzzi} 
-                            onChange={(e) => setShortStayPrices({
-                              ...shortStayPrices,
-                              baseRate: { ...shortStayPrices.baseRate, withJacuzzi: parseFloat(e.target.value) }
-                            })} 
-                            style={{ 
-                              width: '80px', 
-                              padding: '4px',
-                              border: '1px solid #ccc',
-                              borderRadius: '4px',
-                              fontSize: '14px'
-                            }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Extra Hour Rate */}
-                  <div className="summary-line">
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <span style={{ fontWeight: 'bold', minWidth: '120px' }}>Extra Hour:</span>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <span style={{ fontSize: '14px' }}>Regular: $</span>
-                          <input 
-                            type="number" 
-                            value={shortStayPrices.extraHourRate.regular} 
-                            onChange={(e) => setShortStayPrices({
-                              ...shortStayPrices,
-                              extraHourRate: { ...shortStayPrices.extraHourRate, regular: parseFloat(e.target.value) }
-                            })} 
-                            style={{ 
-                              width: '80px', 
-                              padding: '4px',
-                              border: '1px solid #ccc',
-                              borderRadius: '4px',
-                              fontSize: '14px'
-                            }}
-                          />
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <span style={{ fontSize: '14px' }}>Discounted: $</span>
-                          <input 
-                            type="number" 
-                            value={shortStayPrices.extraHourRate.discounted} 
-                            onChange={(e) => setShortStayPrices({
-                              ...shortStayPrices,
-                              extraHourRate: { ...shortStayPrices.extraHourRate, discounted: parseFloat(e.target.value) }
-                            })} 
-                            style={{ 
-                              width: '80px', 
-                              padding: '4px',
-                              border: '1px solid #ccc',
-                              borderRadius: '4px',
-                              fontSize: '14px'
-                            }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <h3 style={{ 
-                  color: '#001f5c',
-                  borderBottom: '2px solid #001f5c',
-                  paddingBottom: '10px',
-                  marginBottom: '15px'
-                }}>Overnight Stay Prices</h3>
-
-                <div className="price-input-group" style={{ 
-                  display: 'flex', 
-                  flexDirection: 'column',
-                  gap: '10px'
-                }}>
-                  <div style={{ 
-                    display: 'flex', 
-                    gap: '20px',
-                    flexWrap: 'wrap'
-                  }}>
-                    {/* Regular Room Prices Section */}
-                    <div className="option-group" style={{ 
-                      flex: '1',
-                      minWidth: '300px',
-                      backgroundColor: '#f8f8f8',
-                      padding: '15px',
-                      borderRadius: '8px'
-                    }}>
-                      <h3 style={{ 
-                        color: '#001f5c',
-                        borderBottom: '2px solid #001f5c',
-                        paddingBottom: '10px',
-                        marginBottom: '15px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '10px'
-                      }}>
-                        Regular Room Prices 
-                        <span style={{ fontSize: '20px' }}>🚭/🚬</span>
-                      </h3>
-                      <div className="price-input-group" style={{ 
-                        display: 'flex', 
-                        flexDirection: 'column',
-                        gap: '10px'
-                      }}>
-                        <div className="summary-line">
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                            <span style={{ fontWeight: 'bold', minWidth: '120px' }}>Weekday:</span>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                              <span style={{ 
-                                fontSize: '14px',
-                                fontFamily: 'monospace',
-                                lineHeight: 1
-                              }}>$</span>
-                              <input 
-                                type="number" 
-                                value={prices.weekday.withoutJacuzzi} 
-                                onChange={(e) => setPrices({
-                                  ...prices,
-                                  weekday: { ...prices.weekday, withoutJacuzzi: parseFloat(e.target.value) }
-                                })} 
-                                style={{ 
-                                  width: '80px', 
-                                  padding: '4px',
-                                  border: '1px solid #ccc',
-                                  borderRadius: '4px',
-                                  fontSize: '14px',
-                                  fontFamily: 'monospace',
-                                  lineHeight: 1
-                                }}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="summary-line">
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                            <span style={{ fontWeight: 'bold', minWidth: '120px' }}>Friday:</span>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                              <span style={{ 
-                                fontSize: '14px',
-                                fontFamily: 'monospace',
-                                lineHeight: 1
-                              }}>$</span>
-                              <input 
-                                type="number" 
-                                value={prices.friday.withoutJacuzzi} 
-                                onChange={(e) => setPrices({
-                                  ...prices,
-                                  friday: { ...prices.friday, withoutJacuzzi: parseFloat(e.target.value) }
-                                })} 
-                                style={{ 
-                                  width: '80px', 
-                                  padding: '4px',
-                                  border: '1px solid #ccc',
-                                  borderRadius: '4px',
-                                  fontSize: '14px',
-                                  fontFamily: 'monospace',
-                                  lineHeight: 1
-                                }}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="summary-line">
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                            <span style={{ fontWeight: 'bold', minWidth: '120px' }}>Weekend:</span>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                              <span style={{ 
-                                fontSize: '14px',
-                                fontFamily: 'monospace',
-                                lineHeight: 1
-                              }}>$</span>
-                              <input 
-                                type="number" 
-                                value={prices.weekend.withoutJacuzzi} 
-                                onChange={(e) => setPrices({
-                                  ...prices,
-                                  weekend: { ...prices.weekend, withoutJacuzzi: parseFloat(e.target.value) }
-                                })} 
-                                style={{ 
-                                  width: '80px', 
-                                  padding: '4px',
-                                  border: '1px solid #ccc',
-                                  borderRadius: '4px',
-                                  fontSize: '14px',
-                                  fontFamily: 'monospace',
-                                  lineHeight: 1
-                                }}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Jacuzzi Room Prices Section */}
-                    <div className="option-group" style={{ 
-                      flex: '1',
-                      minWidth: '300px',
-                      backgroundColor: '#f8f8f8',
-                      padding: '15px',
-                      borderRadius: '8px'
-                    }}>
-                      <h3 style={{ 
-                        color: '#001f5c',
-                        borderBottom: '2px solid #001f5c',
-                        paddingBottom: '10px',
-                        marginBottom: '15px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '10px'
-                      }}>
-                        Jacuzzi Room Prices 
-                        <span style={{ fontSize: '20px' }}>🛁</span>
-                      </h3>
-                      <div className="price-input-group" style={{ 
-                        display: 'flex', 
-                        flexDirection: 'column',
-                        gap: '10px'
-                      }}>
-                        <div className="summary-line">
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                            <span style={{ fontWeight: 'bold', minWidth: '120px' }}>Weekday:</span>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                              <span style={{ 
-                                fontSize: '14px',
-                                fontFamily: 'monospace',
-                                lineHeight: 1
-                              }}>$</span>
-                              <input 
-                                type="number" 
-                                value={prices.weekday.withJacuzzi} 
-                                onChange={(e) => setPrices({
-                                  ...prices,
-                                  weekday: { ...prices.weekday, withJacuzzi: parseFloat(e.target.value) }
-                                })} 
-                                style={{ 
-                                  width: '80px', 
-                                  padding: '4px',
-                                  border: '1px solid #ccc',
-                                  borderRadius: '4px',
-                                  fontSize: '14px',
-                                  fontFamily: 'monospace',
-                                  lineHeight: 1
-                                }}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="summary-line">
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                            <span style={{ fontWeight: 'bold', minWidth: '120px' }}>Friday:</span>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                              <span style={{ 
-                                fontSize: '14px',
-                                fontFamily: 'monospace',
-                                lineHeight: 1
-                              }}>$</span>
-                              <input 
-                                type="number" 
-                                value={prices.friday.withJacuzzi} 
-                                onChange={(e) => setPrices({
-                                  ...prices,
-                                  friday: { ...prices.friday, withJacuzzi: parseFloat(e.target.value) }
-                                })} 
-                                style={{ 
-                                  width: '80px', 
-                                  padding: '4px',
-                                  border: '1px solid #ccc',
-                                  borderRadius: '4px',
-                                  fontSize: '14px',
-                                  fontFamily: 'monospace',
-                                  lineHeight: 1
-                                }}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="summary-line">
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                            <span style={{ fontWeight: 'bold', minWidth: '120px' }}>Weekend:</span>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                              <span style={{ 
-                                fontSize: '14px',
-                                fontFamily: 'monospace',
-                                lineHeight: 1
-                              }}>$</span>
-                              <input 
-                                type="number" 
-                                value={prices.weekend.withJacuzzi} 
-                                onChange={(e) => setPrices({
-                                  ...prices,
-                                  weekend: { ...prices.weekend, withJacuzzi: parseFloat(e.target.value) }
-                                })} 
-                                style={{ 
-                                  width: '80px', 
-                                  padding: '4px',
-                                  border: '1px solid #ccc',
-                                  borderRadius: '4px',
-                                  fontSize: '14px',
-                                  fontFamily: 'monospace',
-                                  lineHeight: 1
-                                }}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div style={{ 
-                  textAlign: 'center', 
-                  marginTop: '20px',
-                  borderTop: '2px solid #001f5c',
-                  paddingTop: '20px'
-                }}>
-                  <button 
-                    className="edit-price-btn" 
-                    onClick={handlePriceUpdate}
-                    style={{ 
-                      backgroundColor: '#001f5c',
-                      padding: '12px 30px',
-                      fontSize: '16px',
-                      fontWeight: 'bold',
-                      borderRadius: '8px',
-                      boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                      color: '#fff',
-                      border: 'none',
-                      cursor: 'pointer',
-                      transition: 'all 0.3s ease'
-                    }}
                   >
-                    Update Prices
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
+                    <div style={{ fontWeight: 'bold', marginBottom: '5px' }}>Room {room.number}</div>
+                    <div>{room.beds}</div>
+                    {room.type === 'jacuzzi' && <span>🛁</span>}
+                    {room.smoking ? <span>🚬</span> : <span>🚭</span>}
+                    {room.handicap && <span>♿</span>}
+                              </div>
+                ))}
+                                  </div>
+                                </div>
+                                </div>
+                              </div>
+                              
+      {/* Add Price Change Modal (already added) */}
 
       {/* Change Status Modal */}
       {showChangeStatusModal && (
+                                      <div style={{ 
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                                        display: 'flex', 
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 1000
+        }}>
+                                      <div style={{ 
+            backgroundColor: 'white',
+            padding: '20px',
+            borderRadius: '8px',
+            width: '90%',
+            maxWidth: '500px',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)'
+          }}>
+            <h2 style={{
+              color: '#001f5c',
+              borderBottom: '2px solid #001f5c',
+              paddingBottom: '10px',
+              marginBottom: '15px'
+            }}>
+              Change Room Status
+            </h2>
+            
+                                      <div style={{ 
+                                        display: 'flex', 
+                                        justifyContent: 'space-between',
+              borderTop: '1px solid #eee',
+              paddingTop: '15px'
+            }}>
+              <div>
+                <span style={{ fontWeight: 'bold' }}>{selectedRooms.length}</span> rooms selected
+                                      </div>
+              <div>
+                <button
+                  onClick={() => {
+                    setShowChangeStatusModal(false);
+                    setSelectedRooms([]);
+                  }}
+                                  style={{
+                    padding: '8px 16px',
+                                    borderRadius: '4px',
+                    border: '1px solid #ddd',
+                    backgroundColor: '#f5f5f5',
+                    marginRight: '10px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Cancel
+                </button>
+                                  <button
+                  onClick={() => {
+                    changeSelectedRoomsStatus();
+                    setShowChangeStatusModal(false);
+                                    }}
+                                    style={{
+                    padding: '8px 16px',
+                    borderRadius: '4px',
+                                      border: 'none',
+                    backgroundColor: '#28a745',
+                    color: 'white',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Change status to available
+                                  </button>
+                                </div>
+                              </div>
+                          </div>
+                  </div>
+                )}
+      
+      {/* Login Modal */}
+      <LoginModal 
+        isOpen={showLoginModal}
+        onClose={() => {
+          setShowLoginModal(false);
+          setPendingRoomAction(null);
+        }}
+        onLogin={handleLogin}
+      />
+
+      {/* Price Change Modal */}
+      {showPriceChangeModal && (
         <div style={{
           position: 'fixed',
           top: 0,
@@ -3886,201 +2644,399 @@ function App() {
         }}>
           <div style={{
             backgroundColor: 'white',
-            borderRadius: '8px',
             padding: '20px',
-            maxWidth: '600px',
+            borderRadius: '8px',
             width: '90%',
-            maxHeight: '80vh',
-            display: 'flex',
-            flexDirection: 'column'
+            maxWidth: '950px', // Increased width for more space
+            maxHeight: '90vh',
+            overflowY: 'auto',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)'
           }}>
-            <div style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginBottom: '20px'
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'space-between', 
+              alignItems: 'center', 
+              marginBottom: '10px'
             }}>
-              <h2 style={{ margin: 0 }}>Change Room Status</h2>
+              <h2 style={{ margin: 0, fontSize: '24px', fontWeight: 'bold' }}>Price Change</h2>
               <button 
-                onClick={() => {
-                  setShowChangeStatusModal(false);
-                  setSelectedRooms([]);
-                }}
+                onClick={() => setShowPriceChangeModal(false)}
                 style={{
-                  background: 'none',
+                  backgroundColor: 'transparent',
                   border: 'none',
+                  cursor: 'pointer',
                   fontSize: '24px',
-                  cursor: 'pointer'
+                  fontWeight: 'bold'
                 }}
               >
-                &times;
+                ×
               </button>
-    </div>
-            
-            <div style={{
-              overflowY: 'auto',
-              flex: 1,
-              marginBottom: '20px'
-            }}>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))',
-                gap: '10px'
-              }}>
-                {/* Ground Floor Rooms */}
-                {rooms.groundFloor.map(room => (
-                  <div key={`modal-${room.number}`} style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    padding: '8px',
-                    borderRadius: '4px',
-                    border: '1px solid #ddd',
-                    cursor: 'pointer',
-                    backgroundColor: selectedRooms.includes(room.number) ? '#e6f7ff' : 'white',
-                  }} onClick={() => handleRoomSelection(room.number)}>
-                    <div style={{
-                      width: '18px',
-                      height: '18px',
-                      borderRadius: '50%',
-                      border: '2px solid #001f5c',
-                      marginRight: '10px',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      backgroundColor: selectedRooms.includes(room.number) ? '#001f5c' : 'white'
-                    }}>
-                      {selectedRooms.includes(room.number) && (
-                        <div style={{ 
-                          width: '10px', 
-                          height: '10px', 
-                          borderRadius: '50%', 
-                          backgroundColor: 'white' 
-                        }}></div>
-                      )}
-                    </div>
-                    <div>
-                      <div style={{ fontWeight: 'bold' }}>{room.number}</div>
-                      <div style={{ 
-                        fontSize: '12px',
-                        color: room.status === 'available' ? 'green' : 
-                               room.status === 'cleared' ? '#505050' : 'red'
-                      }}>
-                        {room.status === 'available' ? 'Available' : 
-                         room.status === 'cleared' ? 'Cleared' : 'Occupied'}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                
-                {/* First Floor Rooms */}
-                {rooms.firstFloor.map(room => (
-                  <div key={`modal-${room.number}`} style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    padding: '8px',
-                    borderRadius: '4px',
-                    border: '1px solid #ddd',
-                    cursor: 'pointer',
-                    backgroundColor: selectedRooms.includes(room.number) ? '#e6f7ff' : 'white',
-                  }} onClick={() => handleRoomSelection(room.number)}>
-                    <div style={{
-                      width: '18px',
-                      height: '18px',
-                      borderRadius: '50%',
-                      border: '2px solid #001f5c',
-                      marginRight: '10px',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      backgroundColor: selectedRooms.includes(room.number) ? '#001f5c' : 'white'
-                    }}>
-                      {selectedRooms.includes(room.number) && (
-                        <div style={{ 
-                          width: '10px', 
-                          height: '10px', 
-                          borderRadius: '50%', 
-                          backgroundColor: 'white' 
-                        }}></div>
-                      )}
-                    </div>
-                    <div>
-                      <div style={{ fontWeight: 'bold' }}>{room.number}</div>
-                      <div style={{ 
-                        fontSize: '12px',
-                        color: room.status === 'available' ? 'green' : 
-                               room.status === 'cleared' ? '#505050' : 'red'
-                      }}>
-                        {room.status === 'available' ? 'Available' : 
-                         room.status === 'cleared' ? 'Cleared' : 'Occupied'}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
             
-            <div style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              borderTop: '1px solid #eee',
-              paddingTop: '15px'
+            <div style={{ borderBottom: '1px solid #001f5c', marginBottom: '20px' }}></div>
+            
+            {showConfirmation && (
+              <div style={{ 
+                color: 'darkgreen',
+                textAlign: 'center',
+                margin: '10px 0 20px',
+                fontWeight: 'bold',
+                fontSize: '16px',
+                backgroundColor: '#d4edda',
+                padding: '10px',
+                borderRadius: '4px'
+              }}>
+                Prices updated successfully!
+              </div>
+            )}
+            
+            <div style={{ 
+              display: 'grid',
+              gridTemplateColumns: 'repeat(2, 1fr)',
+              gap: '20px',
+              marginBottom: '20px'
             }}>
-              <div>
-                <span style={{ fontWeight: 'bold' }}>{selectedRooms.length}</span> rooms selected
+              {/* Short Stay Prices */}
+              <div style={{ 
+                backgroundColor: '#f5f5f5',
+                padding: '20px',
+                borderRadius: '8px'
+              }}>
+                <h3 style={{ 
+                  textAlign: 'center',
+                  color: '#001f5c',
+                  borderBottom: '2px solid #001f5c',
+                  paddingBottom: '10px',
+                  marginTop: '0',
+                  marginBottom: '20px',
+                  fontSize: '20px'
+                }}>Short Stay Prices</h3>
+
+                <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 0' }}> {/* Changed vertical spacing from 25px to 0 */}
+                  <tbody>
+                    <tr>
+                      {/* Increased width for label column */}
+                      <td style={{ fontWeight: 'bold', width: '130px', verticalAlign: 'middle', whiteSpace: 'nowrap' }}>Base Rate:</td>
+                      <td>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <span style={{ whiteSpace: 'nowrap', minWidth: '80px' }}>Regular: $</span>
+                          <input 
+                            type="number" 
+                            value={shortStayPrices.baseRate.withoutJacuzzi} 
+                            onChange={(e) => setShortStayPrices({
+                              ...shortStayPrices,
+                              baseRate: { ...shortStayPrices.baseRate, withoutJacuzzi: parseFloat(e.target.value) }
+                            })} 
+                            style={{ 
+                              width: '80px', // Adjusted width slightly
+                              padding: '8px',
+                              border: '1px solid #ccc',
+                              borderRadius: '4px',
+                              fontSize: '16px',
+                              marginLeft: '5px'
+                            }}
+                          />
+                        </div>
+                      </td>
+                      {/* Added paddingLeft for spacing */}
+                      <td style={{ paddingLeft: '20px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <span style={{ whiteSpace: 'nowrap', minWidth: '80px' }}>Jacuzzi: $</span>
+                          <input 
+                            type="number" 
+                            value={shortStayPrices.baseRate.withJacuzzi} 
+                            onChange={(e) => setShortStayPrices({
+                              ...shortStayPrices,
+                              baseRate: { ...shortStayPrices.baseRate, withJacuzzi: parseFloat(e.target.value) }
+                            })} 
+                            style={{ 
+                              width: '80px', // Adjusted width slightly
+                              padding: '8px',
+                              border: '1px solid #ccc',
+                              borderRadius: '4px',
+                              fontSize: '16px',
+                              marginLeft: '5px'
+                            }}
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      {/* Increased width for label column */}
+                      <td style={{ fontWeight: 'bold', width: '130px', verticalAlign: 'middle', whiteSpace: 'nowrap' }}>Extra Hour:</td>
+                      {/* Added paddingLeft to this cell */}
+                      <td style={{ paddingLeft: '6px' }}> 
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <span style={{ whiteSpace: 'nowrap', minWidth: '80px' }}>Regular: $</span>
+                          <input 
+                            type="number" 
+                            value={shortStayPrices.extraHourRate.regular} 
+                            onChange={(e) => setShortStayPrices({
+                              ...shortStayPrices,
+                              extraHourRate: { ...shortStayPrices.extraHourRate, regular: parseFloat(e.target.value) }
+                            })} 
+                            style={{ 
+                              width: '80px', // Adjusted width slightly
+                              padding: '8px',
+                              border: '1px solid #ccc',
+                              borderRadius: '4px',
+                              fontSize: '16px',
+                              marginLeft: '5px'
+                            }}
+                          />
+                        </div>
+                      </td>
+                      {/* Added paddingLeft for spacing */}
+                      <td style={{ paddingLeft: '20px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <span style={{ whiteSpace: 'nowrap', minWidth: '95px' }}>Discounted: $</span>
+                          <input 
+                            type="number" 
+                            value={shortStayPrices.extraHourRate.discounted} 
+                            onChange={(e) => setShortStayPrices({
+                              ...shortStayPrices,
+                              extraHourRate: { ...shortStayPrices.extraHourRate, discounted: parseFloat(e.target.value) }
+                            })} 
+                            style={{ 
+                              width: '80px', // Adjusted width slightly
+                              padding: '8px',
+                              border: '1px solid #ccc',
+                              borderRadius: '4px',
+                              fontSize: '16px',
+                              marginLeft: '5px'
+                            }}
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div>
-                <button
-                  onClick={() => {
-                    setShowChangeStatusModal(false);
-                    setSelectedRooms([]);
-                  }}
-                  style={{
-                    padding: '8px 16px',
-                    borderRadius: '4px',
-                    border: '1px solid #ddd',
-                    backgroundColor: '#f5f5f5',
-                    marginRight: '10px',
-                    cursor: 'pointer'
-                  }}
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={() => {
-                    changeSelectedRoomsStatus();
-                    setShowChangeStatusModal(false);
-                  }}
-                  style={{
-                    padding: '8px 16px',
-                    borderRadius: '4px',
-                    border: 'none',
-                    backgroundColor: '#28a745',
-                    color: 'white',
-                    cursor: 'pointer'
-                  }}
-                >
-                  Change status to available
-                </button>
+
+              {/* Regular Room Prices */}
+              <div style={{
+                backgroundColor: '#f5f5f5',
+                padding: '20px',
+                borderRadius: '8px'
+              }}>
+                <h3 style={{ 
+                  textAlign: 'center',
+                  color: '#001f5c', 
+                  borderBottom: '2px solid #001f5c',
+                  paddingBottom: '10px',
+                  marginTop: '0',
+                  marginBottom: '20px',
+                  fontSize: '20px'
+                }}>
+                  Regular Room
+                </h3>
+                <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 15px' }}>
+                  <tbody>
+                    <tr>
+                      <td style={{ fontWeight: 'bold', width: '120px', verticalAlign: 'middle' }}>Weekday:</td>
+                      <td>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <span style={{ marginRight: '8px' }}>$</span>
+                          <input 
+                            type="number" 
+                            value={prices.weekday.withoutJacuzzi} 
+                            onChange={(e) => setPrices({
+                              ...prices,
+                              weekday: { ...prices.weekday, withoutJacuzzi: parseFloat(e.target.value) }
+                            })} 
+                            style={{ 
+                              width: '100px',
+                              padding: '8px',
+                              border: '1px solid #ccc',
+                              borderRadius: '4px',
+                              fontSize: '16px'
+                            }}
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{ fontWeight: 'bold', width: '120px', verticalAlign: 'middle' }}>Friday:</td>
+                      <td>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <span style={{ marginRight: '8px' }}>$</span>
+                          <input 
+                            type="number" 
+                            value={prices.friday.withoutJacuzzi} 
+                            onChange={(e) => setPrices({
+                              ...prices,
+                              friday: { ...prices.friday, withoutJacuzzi: parseFloat(e.target.value) }
+                            })} 
+                            style={{ 
+                              width: '100px',
+                              padding: '8px',
+                              border: '1px solid #ccc',
+                              borderRadius: '4px',
+                              fontSize: '16px'
+                            }}
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{ fontWeight: 'bold', width: '120px', verticalAlign: 'middle' }}>Weekend:</td>
+                      <td>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <span style={{ marginRight: '8px' }}>$</span>
+                          <input 
+                            type="number" 
+                            value={prices.weekend.withoutJacuzzi} 
+                            onChange={(e) => setPrices({
+                              ...prices,
+                              weekend: { ...prices.weekend, withoutJacuzzi: parseFloat(e.target.value) }
+                            })} 
+                            style={{ 
+                              width: '100px',
+                              padding: '8px',
+                              border: '1px solid #ccc',
+                              borderRadius: '4px',
+                              fontSize: '16px'
+                            }}
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
+            </div>
+
+            {/* Jacuzzi Room Prices */}
+            <div style={{ 
+              backgroundColor: '#f5f5f5',
+              padding: '20px',
+              borderRadius: '8px',
+              marginBottom: '30px'
+            }}>
+              <h3 style={{ 
+                textAlign: 'center',
+                color: '#001f5c', 
+                borderBottom: '2px solid #001f5c',
+                paddingBottom: '10px',
+                marginTop: '0',
+                marginBottom: '20px',
+                fontSize: '20px'
+              }}>
+                Jacuzzi Room
+              </h3>
+              <table style={{ width: '100%', tableLayout: 'fixed' }}> {/* Use fixed table layout */} 
+                <tbody>
+                  <tr>
+                    {/* Adjusted padding and label width */}
+                    <td style={{ width: '33.33%', padding: '0 5px 0 0' }}> 
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <span style={{ fontWeight: 'bold', width: '90px', whiteSpace: 'nowrap' }}>Weekday:</span>
+                        <span style={{ marginRight: '8px' }}>$</span>
+                        <input 
+                          type="number" 
+                          value={prices.weekday.withJacuzzi} 
+                          onChange={(e) => setPrices({
+                            ...prices,
+                            weekday: { ...prices.weekday, withJacuzzi: parseFloat(e.target.value) }
+                          })} 
+                          style={{ 
+                            width: '100%', // Use full width within cell
+                            padding: '8px',
+                            border: '1px solid #ccc',
+                            borderRadius: '4px',
+                            fontSize: '16px'
+                          }}
+                        />
+                      </div>
+                    </td>
+                    {/* Adjusted padding and label width */}
+                    <td style={{ width: '33.33%', padding: '0 5px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <span style={{ fontWeight: 'bold', width: '90px', whiteSpace: 'nowrap' }}>Friday:</span>
+                        <span style={{ marginRight: '8px' }}>$</span>
+                        <input 
+                          type="number" 
+                          value={prices.friday.withJacuzzi} 
+                          onChange={(e) => setPrices({
+                            ...prices,
+                            friday: { ...prices.friday, withJacuzzi: parseFloat(e.target.value) }
+                          })} 
+                          style={{ 
+                            width: '100%', // Use full width within cell
+                            padding: '8px',
+                            border: '1px solid #ccc',
+                            borderRadius: '4px',
+                            fontSize: '16px'
+                          }}
+                        />
+                      </div>
+                    </td>
+                    {/* Adjusted padding and label width */}
+                    <td style={{ width: '33.33%', padding: '0 0 0 5px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <span style={{ fontWeight: 'bold', width: '90px', whiteSpace: 'nowrap' }}>Weekend:</span>
+                        <span style={{ marginRight: '8px' }}>$</span>
+                        <input 
+                          type="number" 
+                          value={prices.weekend.withJacuzzi} 
+                          onChange={(e) => setPrices({
+                            ...prices,
+                            weekend: { ...prices.weekend, withJacuzzi: parseFloat(e.target.value) }
+                          })} 
+                          style={{ 
+                            width: '100%', // Use full width within cell
+                            padding: '8px',
+                            border: '1px solid #ccc',
+                            borderRadius: '4px',
+                            fontSize: '16px'
+                          }}
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div style={{ 
+              textAlign: 'center'
+            }}>
+              <button 
+                onClick={() => {
+                  handlePriceUpdate();
+                  setShowPriceChangeModal(false);
+                }}
+                style={{ 
+                  backgroundColor: '#001f5c',
+                  padding: '12px 30px',
+                  fontSize: '16px',
+                  fontWeight: 'bold',
+                  borderRadius: '5px',
+                  color: '#fff',
+                  border: 'none',
+                  cursor: 'pointer',
+                  width: '200px'
+                }}
+              >
+                Update Prices
+              </button>
             </div>
           </div>
         </div>
       )}
-      
-      {/* Login Modal */}
-      <LoginModal 
-        isOpen={showLoginModal}
-        onClose={() => {
-          setShowLoginModal(false);
-          setPendingRoomAction(null);
-        }}
-        onLogin={handleLogin}
-      />
-
-      {/* Remove Booking Modal - Keep only a comment for future reference */}
-      {/* Booking Modal code was previously here. Removed as per requirement. */}
     </div>
   );
 }
+
+// Helper function to render the rooms section
+const renderRoomsSection = () => (
+  <div className="rooms-section" style={{ 
+    backgroundColor: '#f5f5f5',
+            padding: '20px',
+  }}>
+    {/* ... Content of the rooms section (Header, Filters, Accordions) ... */}
+    {/* This includes the h2, filters, ground floor, first floor divs */}
+    </div>
+  );
 
 export default App;

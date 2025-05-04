@@ -1,17 +1,18 @@
 /* Base styles */
 .App {
   font-family: Arial, sans-serif;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 /* Hotel calculator */
 .hotel-calculator {
+  width: 100%;
   background-color: #f8f8f8;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  box-shadow: none;
+  padding-bottom: 20px;
 }
 
 /* Header section */
@@ -19,9 +20,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 15px;
+  padding: 15px 20px;
   background-color: #fff;
   border-bottom: 1px solid #eee;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .header h1 {
@@ -852,86 +854,78 @@
   perspective: 1000px;
 }
 
-/* Room cards and grid */
-.room-grid {
+/* Room filters */
+.room-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.room-filters button {
+  padding: 6px 15px;
+  border-radius: 20px;
+  border: none;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.room-filters button:first-child {
+  background-color: #001f5c;
+  color: white;
+  font-weight: bold;
+}
+
+.room-filters button:hover {
+  background-color: #ddd;
+}
+
+/* Rooms grid */
+.rooms-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 15px;
-  padding: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .room-card {
-  background-color: #e6f7e6; /* Light green background for available rooms */
+  padding: 10px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  padding: 15px;
+  font-size: 13px;
   cursor: pointer;
-  transition: box-shadow 0.2s;
-  border: 1px solid #90ee90; /* Green border for available rooms */
+  text-align: center;
+  transition: transform 0.2s;
+  min-height: 70px;
   display: flex;
   flex-direction: column;
-  position: relative; /* enable absolute positioning of inner elements */
+  align-items: center;
+}
+
+.room-card.available {
+  background-color: #90ee90 !important;
 }
 
 .room-card.occupied {
-  background-color: #fff0f0;
-  border-color: #ffb6c1;
+  background-color: #ffb6c1 !important;
+}
+
+.room-card.cleared {
+  background-color: #e0e0e0 !important;
 }
 
 .room-card:hover {
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  transform: scale(1.05);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.room-detail {
-  margin-bottom: 10px;
-}
-
-.room-number {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 4px;
-}
-
-.room-status {
-  display: inline-block;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 12px;
-  margin-bottom: 6px;
-  background-color: #90ee90;
-  color: #006400;
-}
-
-.room-card.occupied .room-status {
-  background-color: #ffb6c1;
-  color: #8b0000;
-}
-
-.room-feature, .room-beds, .room-smoking {
-  font-size: 13px;
-  color: #666;
-  margin-bottom: 3px;
-}
-
-.room-handicap {
-  font-size: 13px;
-  color: #666;
-  margin-bottom: 3px;
-}
-
-.reminder-button {
-  margin-top: 6px;
-  background-color: #e0e0e0;
-  border: none;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.reminder-button:hover {
-  background-color: #d0d0d0;
+.room-card span {
+  margin: 2px;
+  font-size: 14px;
 }
 
 /* Accordion styles */
@@ -1103,5 +1097,88 @@
    .change-price-section .option-group {
      min-width: 90%; /* Take most width when stacked */
      flex-basis: auto;
+  }
+}
+
+/* Add styles for the full-page layout */
+.full-page-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 20px;
+  grid-template-areas: 
+    "shortstay multinight"
+    "groundfloor firstfloor"
+    "pricechange pricechange";
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #f0f0f0;
+}
+
+.full-page-layout > div {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+/* Section headers */
+.section-header {
+  color: #001f5c;
+  margin-top: 0;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #001f5c;
+  padding-bottom: 8px;
+  font-size: 20px;
+}
+
+/* Room cards */
+.room-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.room-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Room status colors */
+.room-card.available {
+  background-color: #90ee90 !important;
+}
+
+.room-card.occupied {
+  background-color: #ffb6c1 !important;
+}
+
+.room-card.cleared {
+  background-color: #e0e0e0 !important;
+}
+
+/* Responsive layout for smaller screens */
+@media (max-width: 1024px) {
+  .full-page-layout {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+      "shortstay multinight"
+      "groundfloor firstfloor"
+      "pricechange pricechange";
+    gap: 15px;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .full-page-layout {
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "shortstay"
+      "multinight"
+      "groundfloor"
+      "firstfloor"
+      "pricechange";
+    gap: 15px;
+    padding: 10px;
   }
 }
