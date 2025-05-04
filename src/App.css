@@ -18,58 +18,356 @@
 /* Header section */
 .header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 15px;
   padding: 15px 20px;
-  background-color: #fff;
-  border-bottom: 1px solid #eee;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(145deg, #ffffff, #f8f9fa);
+  border-bottom: none;
+  box-shadow: 0 4px 20px rgba(0, 31, 92, 0.08);
+  border-radius: 16px;
+  margin-bottom: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #2c3e50, #4776E6);
+  border-radius: 0;
 }
 
 .header h1 {
   margin: 0;
   font-size: 24px;
-  color: #333;
+  color: #2d3748;
+  white-space: nowrap;
+  font-weight: 700;
 }
 
-.date-display {
+/* Calendar Display */
+.header span[style*="background: #ffffff"] {
+  background: #ffffff !important;
+  padding: 8px 14px !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+  border: none !important;
+  transition: all 0.2s ease !important;
+}
+
+.header span[style*="background: #ffffff"]:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Price Change Button */
+.header button {
+  background: linear-gradient(90deg, #4776E6, #8E54E9) !important;
+  border-radius: 30px !important;
+  box-shadow: 0 2px 8px rgba(71, 118, 230, 0.3) !important;
+  padding: 10px 18px !important;
+  transition: all 0.2s ease !important;
+  border: none !important;
+  color: white !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+}
+
+.header button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(71, 118, 230, 0.4) !important;
+}
+
+/* Update Ground Floor and First Floor sections */
+div[style*="gridArea: 'groundfloor'"], 
+div[style*="gridArea: 'firstfloor'"] {
+  background: linear-gradient(145deg, #ffffff, #f5f8ff) !important;
+  padding: 18px !important;
+  border-radius: 16px !important;
+  border: none !important;
+  box-shadow: 0 4px 20px rgba(0, 31, 92, 0.08) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+div[style*="gridArea: 'groundfloor'"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #FF416C, #FF4B2B);
+  border-radius: 0;
+  z-index: 1;
+}
+
+div[style*="gridArea: 'firstfloor'"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #FC5C7D, #6A82FB);
+  border-radius: 0;
+  z-index: 1;
+}
+
+/* Update section headers */
+div[style*="gridArea: 'groundfloor'"] h2,
+div[style*="gridArea: 'firstfloor'"] h2 {
+  color: #2d3748 !important;
+  border-bottom: 2px solid #e9ecef !important;
+  padding-bottom: 12px !important;
+  margin-top: 5px !important;
+  margin-bottom: 15px !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  position: relative !important;
+}
+
+div[style*="gridArea: 'groundfloor'"] h2::after,
+div[style*="gridArea: 'firstfloor'"] h2::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 60px;
+  height: 2px;
+}
+
+div[style*="gridArea: 'groundfloor'"] h2::after {
+  background: linear-gradient(90deg, #FF416C, #FF4B2B);
+}
+
+div[style*="gridArea: 'firstfloor'"] h2::after {
+  background: linear-gradient(90deg, #FC5C7D, #6A82FB);
+}
+
+/* Update room filters */
+.room-filters {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  gap: 8px;
+  margin-bottom: 15px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.6) !important;
+  border-radius: 12px !important;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.02) !important;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
-.date-icon {
-  font-size: 20px;
-  background-color: #001f5c; /* Darker blue */
-  color: white;
-  width: 28px;
-  height: 28px;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-}
-
-.day-name {
-  font-weight: bold;
-}
-
-/* Friday and Weekend styling is handled in the JavaScript component */
-
-.clear-button {
-  background-color: #f44336; /* Red */
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
+.room-filters button {
+  padding: 8px 16px !important;
+  border-radius: 30px !important;
+  border: none !important;
+  background-color: #f8f9fa !important;
   cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #6c757d !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
 }
 
-.clear-button:hover {
-  background-color: #d32f2f; /* Darker red on hover */
+.room-filters button:hover {
+  background-color: #e9ecef !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Style for the "All" button */
+.room-filters button:first-child {
+  background: linear-gradient(90deg, #2c3e50, #4776E6) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 6px rgba(71, 118, 230, 0.3) !important;
+}
+
+/* Available filter */
+.room-filters button[onclick*="'available'"] {
+  background: linear-gradient(90deg, #4CAF50, #2E7D32) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 6px rgba(76, 175, 80, 0.3) !important;
+}
+
+/* Jacuzzi filter */
+.room-filters button[onclick*="'jacuzzi'"] {
+  background: linear-gradient(90deg, #2196F3, #0D47A1) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 6px rgba(33, 150, 243, 0.3) !important;
+}
+
+/* Smoking filter */
+.room-filters button[onclick*="'smoking'"] {
+  background: linear-gradient(90deg, #FF9800, #E65100) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 6px rgba(255, 152, 0, 0.3) !important;
+}
+
+/* Non-Smoking filter */
+.room-filters button[onclick*="'non-smoking'"] {
+  background: linear-gradient(90deg, #78909C, #455A64) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 6px rgba(120, 144, 156, 0.3) !important;
+}
+
+/* Handicap filter */
+.room-filters button[onclick*="'handicap'"] {
+  background: linear-gradient(90deg, #9C27B0, #6A1B9A) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 6px rgba(156, 39, 176, 0.3) !important;
+}
+
+/* Queen filter */
+.room-filters button[onclick*="'Queen'"] {
+  background: linear-gradient(90deg, #03A9F4, #0277BD) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 6px rgba(3, 169, 244, 0.3) !important;
+}
+
+/* King filter */
+.room-filters button[onclick*="'King'"] {
+  background: linear-gradient(90deg, #673AB7, #4527A0) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 6px rgba(103, 58, 183, 0.3) !important;
+}
+
+/* Queen 2 Beds filter */
+.room-filters button[onclick*="'Queen 2 Beds'"] {
+  background: linear-gradient(90deg, #009688, #00695C) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 6px rgba(0, 150, 136, 0.3) !important;
+}
+
+/* Update rooms grid */
+.rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)) !important;
+  gap: 12px !important;
+  background: rgba(255, 255, 255, 0.6) !important;
+  padding: 15px !important;
+  border-radius: 12px !important;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.02) !important;
+}
+
+/* Update room cards */
+.room-card {
+  padding: 12px !important;
+  border-radius: 10px !important;
+  font-size: 13px !important;
+  cursor: pointer !important;
+  text-align: center !important;
+  transition: all 0.3s ease !important;
+  min-height: 70px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+}
+
+.room-card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15) !important;
+}
+
+.room-card.available {
+  background: linear-gradient(135deg, #4CAF50, #2E7D32) !important;
+}
+
+.room-card.occupied {
+  background: linear-gradient(135deg, #FF416C, #FF4B2B) !important;
+}
+
+.room-card.cleared {
+  background: linear-gradient(135deg, #FFA726, #EF6C00) !important;
+}
+
+.room-card div:first-child {
+  font-weight: bold !important;
+  margin-bottom: 6px !important;
+  font-size: 15px !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+}
+
+.room-card div:nth-child(2) {
+  font-size: 13px !important;
+  margin-bottom: 4px !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+}
+
+.room-card span {
+  font-size: 16px !important;
+  margin: 0 2px !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Modal styling */
+div[style*="position: 'fixed'"][style*="backgroundColor: 'rgba(0, 0, 0, 0.5)'"] > div[style*="backgroundColor: 'white'"] {
+  background: linear-gradient(145deg, #ffffff, #f5f8ff) !important;
+  padding: 25px !important;
+  border-radius: 16px !important;
+  border: none !important;
+  box-shadow: 0 10px 30px rgba(0, 31, 92, 0.15) !important;
+}
+
+/* Price Change Modal header */
+div[style*="position: 'fixed'"][style*="backgroundColor: 'rgba(0, 0, 0, 0.5)'"] h2 {
+  color: #2d3748 !important;
+  font-size: 24px !important;
+  font-weight: 700 !important;
+}
+
+/* Price change button in modal */
+div[style*="position: 'fixed'"][style*="backgroundColor: 'rgba(0, 0, 0, 0.5)'"] button[style*="backgroundColor: '#001f5c'"] {
+  background: linear-gradient(90deg, #4776E6, #8E54E9) !important;
+  padding: 12px 30px !important;
+  border-radius: 30px !important;
+  box-shadow: 0 4px 10px rgba(71, 118, 230, 0.3) !important;
+  transition: all 0.2s ease !important;
+}
+
+div[style*="position: 'fixed'"][style*="backgroundColor: 'rgba(0, 0, 0, 0.5)'"] button[style*="backgroundColor: '#001f5c'"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 15px rgba(71, 118, 230, 0.4) !important;
+}
+
+/* Modal grid layout */
+div[style*="position: 'fixed'"][style*="backgroundColor: 'rgba(0, 0, 0, 0.5)'"] div[style*="display: 'grid'"] > div {
+  background-color: #ffffff !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 15px rgba(0, 31, 92, 0.08) !important;
+  padding: 25px !important;
+}
+
+/* Modal inputs */
+div[style*="position: 'fixed'"][style*="backgroundColor: 'rgba(0, 0, 0, 0.5)'"] input {
+  border-radius: 8px !important;
+  border: 1px solid #e1e5eb !important;
+  transition: all 0.2s ease !important;
+}
+
+div[style*="position: 'fixed'"][style*="backgroundColor: 'rgba(0, 0, 0, 0.5)'"] input:focus {
+  border-color: #4776E6 !important;
+  box-shadow: 0 0 0 3px rgba(71, 118, 230, 0.2) !important;
+  outline: none !important;
 }
 
 /* Tab navigation */
@@ -117,9 +415,27 @@
 
 /* Short stay section */
 .short-stay-section {
-  background-color: #e8f5e9; /* Light green color */
-  padding: 15px;
-  display: none;
+  background: linear-gradient(145deg, #ffffff, #f5f8ff);
+  padding: 18px;
+  border-radius: 16px;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 0 4px 20px rgba(0, 31, 92, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.short-stay-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #4776E6, #8E54E9);
+  border-radius: 0;
 }
 
 .short-stay-section.active {
@@ -189,46 +505,43 @@
 
 /* Extra hours control */
 .extra-hours {
+  flex: 0 0 auto;
+  background: #ffffff;
+  padding: 12px 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
-  flex: 1;
-  min-width: 120px;
 }
 
 .extra-hours label {
-  font-weight: bold;
-  font-size: 14px;
-  margin-bottom: 2px;
-  color: #001f5c;
+  font-size: 11px;
+  font-weight: 600;
+  color: #6c757d;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.hours-control {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background-color: #fff;
-  padding: 5px 8px;
-  border-radius: 20px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.hours-control span {
-  min-width: 24px;
-  text-align: center;
-  font-size: 16px;
+.hours-note {
+  color: #6c757d;
+  font-size: 11px;
   font-weight: 500;
+  margin-top: 4px;
 }
 
 .minus-btn, .plus-btn {
+  padding: 0;
   width: 28px;
   height: 28px;
   border-radius: 50%;
   border: none;
-  font-weight: bold;
+  color: white;
   font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
+  line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -236,13 +549,13 @@
 }
 
 .minus-btn {
-  background-color: #f44336; /* Red */
-  color: white;
+  background: linear-gradient(135deg, #FF416C, #FF4B2B);
+  box-shadow: 0 2px 6px rgba(255, 75, 43, 0.3);
 }
 
 .plus-btn {
-  background-color: #4caf50; /* Green */
-  color: white;
+  background: linear-gradient(135deg, #11998e, #38ef7d);
+  box-shadow: 0 2px 6px rgba(56, 239, 125, 0.3);
 }
 
 .minus-btn:hover, .plus-btn:hover {
@@ -287,31 +600,51 @@
 
 /* Price summary */
 .price-summary {
-  background-color: #f0f0f0; /* Light grey */
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  border: 1px solid #ccc;
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  border: none;
 }
 
-.summary-line {
+.price-summary h3 {
+  color: #2d3748;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 12px;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.price-summary .summary-line {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #64748b;
 }
 
-.total-hours {
-  font-weight: bold;
-  padding-top: 10px;
-  border-top: 1px solid #eee;
+.price-summary .summary-line span:last-child {
+  font-weight: 600;
+  color: #4776E6;
 }
 
-.total {
-  font-weight: bold;
+.price-summary .summary-line.total {
+  border-top: 2px solid #e9ecef;
+  margin-top: 12px;
+  padding-top: 12px;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.price-summary .summary-line.total span {
+  color: #2d3748;
+}
+
+.price-summary .summary-line.total span:last-child {
+  color: #4776E6;
   font-size: 18px;
-  padding-top: 10px;
-  border-top: 1px solid #eee;
-  color: #001f5c; /* Darker Blue */
 }
 
 /* Overnight dates section */
@@ -1181,4 +1514,431 @@
     gap: 15px;
     padding: 10px;
   }
+}
+
+/* Add styles for Short Stay and Multiple Nights sections */
+.short-stay-section, .multi-night-section {
+  background: linear-gradient(145deg, #ffffff, #f5f8ff);
+  padding: 18px;
+  border-radius: 16px;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 0 4px 20px rgba(0, 31, 92, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.short-stay-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #4776E6, #8E54E9);
+  border-radius: 0;
+}
+
+.multi-night-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #11998e, #38ef7d);
+  border-radius: 0;
+}
+
+.section-controls-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+  margin-bottom: 15px;
+}
+
+.date-time-display {
+  display: flex;
+  gap: 20px;
+  background: #ffffff;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  flex: 1;
+}
+
+.date-time-display .check-time {
+  padding: 0 5px;
+}
+
+.date-time-display .check-time label {
+  color: #6c757d;
+  font-size: 11px;
+  display: block;
+  margin-bottom: 3px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.date-time-display .check-time span {
+  color: #2d3748;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.options-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  gap: 15px;
+  border: none;
+  padding: 12px 0;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.02);
+}
+
+.option-box {
+  background: #ffffff;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: none;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  flex: 1;
+  transition: transform 0.2s ease;
+}
+
+.option-box:hover {
+  transform: translateY(-2px);
+}
+
+.option-box label {
+  font-size: 12px;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 8px;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.segmented-control {
+  display: inline-flex;
+  border-radius: 30px;
+  overflow: hidden;
+  border: 1px solid #e9ecef;
+  background: #f8f9fa;
+  padding: 3px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.segmented-control button {
+  padding: 8px 12px;
+  font-size: 13px;
+  border: none;
+  background: transparent;
+  color: #6c757d;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 25px;
+  flex: 1;
+  font-weight: 500;
+}
+
+.segmented-control button:not(:first-child) {
+  border-left: none;
+}
+
+.segmented-control button.active {
+  background: #4776E6;
+  color: white;
+  box-shadow: 0 2px 8px rgba(71, 118, 230, 0.3);
+}
+
+.short-stay-section .segmented-control button.active {
+  background: linear-gradient(90deg, #4776E6, #8E54E9);
+}
+
+.multi-night-section .segmented-control button.active {
+  background: linear-gradient(90deg, #11998e, #38ef7d);
+}
+
+.extra-hours {
+  flex: 0 0 auto;
+  background: #ffffff;
+  padding: 12px 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.extra-hours label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6c757d;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.hours-note {
+  color: #6c757d;
+  font-size: 11px;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+.minus-btn, .plus-btn {
+  padding: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.minus-btn {
+  background: linear-gradient(135deg, #FF416C, #FF4B2B);
+  box-shadow: 0 2px 6px rgba(255, 75, 43, 0.3);
+}
+
+.plus-btn {
+  background: linear-gradient(135deg, #11998e, #38ef7d);
+  box-shadow: 0 2px 6px rgba(56, 239, 125, 0.3);
+}
+
+.minus-btn:hover, .plus-btn:hover {
+  transform: scale(1.1);
+}
+
+.multi-night-section .date-picker-container {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  flex: 1;
+}
+
+.multi-night-section .date-picker-container > label {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.react-datepicker__input-container input {
+  border-radius: 8px !important;
+  border: 1px solid #e1e5eb !important;
+  padding: 8px 12px !important;
+  font-size: 14px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.multi-night-section .extra-hours-overnight {
+  margin-top: 12px;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 12px;
+}
+
+.multi-night-section .extra-hours-overnight > label {
+  font-size: 12px;
+  margin-bottom: 6px;
+  display: block;
+  font-weight: 600;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.multi-night-section .extra-hours-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+}
+
+.multi-night-section .hours-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f8f9fa;
+  padding: 4px 8px;
+  border-radius: 30px;
+}
+
+.multi-night-section .hours-control span {
+  font-size: 14px;
+  font-weight: 600;
+  min-width: 25px;
+  text-align: center;
+  color: #2d3748;
+}
+
+.multi-night-section .hours-note {
+  color: #6c757d;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.multi-night-section .options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  border-top: none;
+  padding-top: 5px;
+}
+
+.multi-night-section .options-column {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.multi-night-section .price-summary-container {
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+.price-summary {
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  border: none;
+}
+
+.price-summary h3 {
+  color: #2d3748;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 12px;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.price-summary .summary-line {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.price-summary .summary-line span:last-child {
+  font-weight: 600;
+  color: #4776E6;
+}
+
+.price-summary .summary-line.total {
+  border-top: 2px solid #e9ecef;
+  margin-top: 12px;
+  padding-top: 12px;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.price-summary .summary-line.total span {
+  color: #2d3748;
+}
+
+.price-summary .summary-line.total span:last-child {
+  color: #4776E6;
+  font-size: 18px;
+}
+
+/* Header styling for both sections */
+.short-stay-section div[style*="display: flex"][style*="justify-content: space-between"],
+.multi-night-section div[style*="display: flex"][style*="justify-content: space-between"] {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(90deg, #2c3e50, #4776E6);
+  padding: 10px 15px;
+  border-radius: 12px;
+  color: white;
+  margin-bottom: 15px;
+}
+
+.short-stay-section div[style*="display: flex"][style*="justify-content: space-between"] h2, 
+.multi-night-section div[style*="display: flex"][style*="justify-content: space-between"] h2 {
+  margin: 0;
+  color: white;
+  font-size: 16px;
+  border-bottom: none;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Button styling for headers */
+.short-stay-section div[style*="display: flex"][style*="justify-content: space-between"] button,
+.multi-night-section div[style*="display: flex"][style*="justify-content: space-between"] button {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.short-stay-section div[style*="display: flex"][style*="justify-content: space-between"] button:hover,
+.multi-night-section div[style*="display: flex"][style*="justify-content: space-between"] button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Add a subtle pattern to the background */
+.short-stay-section, .multi-night-section {
+  position: relative;
+  z-index: 1;
+}
+
+.short-stay-section::after, .multi-night-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(71, 118, 230, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(142, 84, 233, 0.05) 0%, transparent 50%);
+  z-index: -1;
+  border-radius: 16px;
+}
+
+.multi-night-section::after {
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(17, 153, 142, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(56, 239, 125, 0.05) 0%, transparent 50%);
 }

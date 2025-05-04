@@ -576,18 +576,20 @@ function App() {
     
       return (
         <div className="price-summary" style={{ 
-          backgroundColor: '#fff',
-        padding: '15px',
+          backgroundColor: '#2c3e50',
+          background: 'linear-gradient(135deg, #2c3e50, #4776E6)',
+          padding: '15px',
           borderRadius: '8px',
           boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-        margin: '15px 0'
+          margin: '15px 0',
+          color: 'white'
         }}>
           <h3 style={{ 
-            color: '#001f5c',
-            borderBottom: '2px solid #001f5c',
+            color: 'white',
+            borderBottom: '2px solid rgba(255,255,255,0.3)',
             paddingBottom: '10px',
-                marginBottom: '15px',
-          fontSize: '16px'
+            marginBottom: '15px',
+            fontSize: '16px'
           }}>Price Summary</h3>
 
           {/* Saved Stays Section */}
@@ -595,12 +597,13 @@ function App() {
             <div className="saved-stays-section">
               {savedStays.map((stay, index) => (
                 <div key={stay.id} className="saved-stay" style={{ 
-                marginBottom: '15px', 
-                padding: '15px', 
-                  backgroundColor: '#f8f9fa', 
+                  marginBottom: '15px', 
+                  padding: '15px', 
+                  background: 'linear-gradient(135deg, #304b68, #4776E6)',
                   borderRadius: '8px',
                   position: 'relative',
-                  border: '1px solid #e0e0e0'
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  color: 'white'
                 }}>
                   <div style={{ marginBottom: '10px' }}>
                     <div style={{ 
@@ -608,41 +611,41 @@ function App() {
                       justifyContent: 'space-between', 
                       alignItems: 'center', 
                       marginBottom: '8px',
-                      borderBottom: '1px solid #e0e0e0',
+                      borderBottom: '1px solid rgba(255,255,255,0.2)',
                       paddingBottom: '8px',
-                        flexWrap: 'nowrap',
-                        gap: '10px'
+                      flexWrap: 'nowrap',
+                      gap: '10px'
                     }}>
                       <div style={{ 
                         display: 'flex', 
                         alignItems: 'center', 
                         gap: '4px',
-                            flex: '0 0 auto'
+                        flex: '0 0 auto'
                       }}>
                         <span 
                           className="stay-number"
                           style={{ 
                             fontWeight: 'bold', 
-                          fontSize: '14px',
-                            color: '#001f5c',
-                                whiteSpace: 'nowrap'
+                            fontSize: '14px',
+                            color: 'white',
+                            whiteSpace: 'nowrap'
                           }}
                         >
-                        Stay #{index+1}
+                          Stay #{index+1}
                         </span>
                         <button
-                        style={{
-                            background: '#001f5c',
+                          style={{
+                            background: 'rgba(255,255,255,0.2)',
                             border: 'none',
                             color: '#fff',
                             cursor: 'pointer',
                             padding: '2px 4px',
-                          fontSize: '10px',
+                            fontSize: '10px',
                             borderRadius: '3px',
                             fontWeight: '500',
                             textTransform: 'uppercase',
                             minWidth: '28px',
-                                justifyContent: 'center'
+                            justifyContent: 'center'
                           }}
                           onClick={() => {
                             // Set all the form fields to this stay's values
@@ -665,16 +668,16 @@ function App() {
                         display: 'flex',
                         alignItems: 'center',
                         gap: '8px',
-                          flex: '1',
-                            justifyContent: 'flex-end'
+                        flex: '1',
+                        justifyContent: 'flex-end'
                       }}>
                         <span 
                           className="stay-price"
                           style={{ 
                             fontWeight: 'bold', 
-                            color: '#001f5c',
-                          fontSize: '16px',
-                              marginLeft: 'auto'
+                            color: 'white',
+                            fontSize: '16px',
+                            marginLeft: 'auto'
                           }}
                         >
                           ${stay.price.toFixed(2)}
@@ -682,84 +685,84 @@ function App() {
                         <button 
                           className="remove-button"
                           onClick={() => removeSavedStay(stay.id)}
-                        style={{
+                          style={{
                             background: '#dc3545',
                             border: 'none',
                             color: '#fff',
-                          fontSize: '12px',
+                            fontSize: '12px',
                             cursor: 'pointer',
                             padding: '3px 6px',
                             borderRadius: '4px',
                             fontWeight: '500',
-                              marginLeft: '4px'
+                            marginLeft: '4px'
                           }}
                         >
                           Remove
                         </button>
                       </div>
                     </div>
-                  <div style={{ fontSize: '14px', color: '#000' }}>
+                    <div style={{ fontSize: '14px', color: 'white' }}>
                       {stay.checkInDay} ({stay.checkIn.toLocaleDateString()}) to {stay.checkOutDay} ({stay.checkOut.toLocaleDateString()})
                     </div>
-                  <div style={{ fontSize: '14px', color: '#000', marginTop: '4px' }}>
+                    <div style={{ fontSize: '14px', color: 'white', marginTop: '4px' }}>
                       {stay.nights} {stay.nights === 1 ? 'night' : 'nights'}
                       {stay.hasJacuzzi ? ' • Jacuzzi' : ''}
                       {' • '}{stay.bedType.charAt(0).toUpperCase() + stay.bedType.slice(1)} Bed
-                    {stay.checkInAdjustment !== 0 && ` • CI ${stay.checkInAdjustment > 0 ? `+${stay.checkInAdjustment}h` : `${stay.checkInAdjustment}h`}`}
-                    {stay.checkOutAdjustment !== 0 && ` • CO ${stay.checkOutAdjustment > 0 ? `+${stay.checkOutAdjustment}h` : `${stay.checkOutAdjustment}h`}`}
+                      {stay.checkInAdjustment !== 0 && ` • CI ${stay.checkInAdjustment > 0 ? `+${stay.checkInAdjustment}h` : `${stay.checkInAdjustment}h`}`}
+                      {stay.checkOutAdjustment !== 0 && ` • CO ${stay.checkOutAdjustment > 0 ? `+${stay.checkOutAdjustment}h` : `${stay.checkOutAdjustment}h`}`}
                     </div>
                   </div>
                   <div style={{ 
-                  fontSize: '13px',
-                    color: '#000', 
-                    backgroundColor: '#f0f0f0',
-                  padding: '8px',
+                    fontSize: '13px',
+                    color: 'white', 
+                    backgroundColor: 'rgba(255,255,255,0.1)',
+                    padding: '8px',
                     borderRadius: '6px',
                     marginTop: '8px'
                   }}>
                     <div className="summary-line" style={{ 
                       display: 'flex', 
                       flexDirection: 'column',
-                    gap: '3px'
+                      gap: '3px'
                     }}>
                       <div style={{ 
                         display: 'flex', 
                         justifyContent: 'space-between',
-                        borderBottom: '1px solid #ddd',
-                      paddingBottom: '3px',
-                      marginBottom: '3px'
+                        borderBottom: '1px solid rgba(255,255,255,0.2)',
+                        paddingBottom: '3px',
+                        marginBottom: '3px'
                       }}>
-                      <span>Base ({stay.nights}n):</span>
-                        <span>${stay.basePrice.toFixed(2)}</span>
+                        <span style={{ color: 'white' }}>Base ({stay.nights}n):</span>
+                        <span style={{ color: 'white', fontWeight: '600' }}>${stay.basePrice.toFixed(2)}</span>
                       </div>
                       {stay.details.daysBreakdown.map((day, idx) => (
                         <div key={idx} style={{ 
                           display: 'flex', 
                           justifyContent: 'space-between',
-                        fontSize: '12px',
-                          color: '#444'
+                          fontSize: '12px',
+                          color: 'rgba(255,255,255,0.8)'
                         }}>
-                          <span>{day.day}:</span>
-                          <span>${day.basePrice.toFixed(2)}</span>
+                          <span style={{ color: 'white' }}>{day.day}:</span>
+                          <span style={{ color: 'white' }}>${day.basePrice.toFixed(2)}</span>
                         </div>
                       ))}
                     </div>
                     {stay.tax > 0 && (
-                    <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px', marginTop: '6px' }}>
-                        <span>Tax (15%):</span>
-                        <span>${stay.tax.toFixed(2)}</span>
+                      <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px', marginTop: '6px' }}>
+                        <span style={{ color: 'white' }}>Tax (15%):</span>
+                        <span style={{ color: 'white', fontWeight: '600' }}>${stay.tax.toFixed(2)}</span>
                       </div>
                     )}
                     {stay.extraHoursCheckIn > 0 && (
-                    <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}>
-                      <span>CI Hours ({stay.checkInAdjustment > 0 ? `+${stay.checkInAdjustment}h` : `${Math.abs(stay.checkInAdjustment)}h`}):</span>
-                        <span>${stay.extraHoursCheckIn.toFixed(2)}</span>
+                      <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}>
+                        <span style={{ color: 'white' }}>CI Hours ({stay.checkInAdjustment > 0 ? `+${stay.checkInAdjustment}h` : `${Math.abs(stay.checkInAdjustment)}h`}):</span>
+                        <span style={{ color: 'white', fontWeight: '600' }}>${stay.extraHoursCheckIn.toFixed(2)}</span>
                       </div>
                     )}
                     {stay.extraHoursCheckOut > 0 && (
-                    <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}>
-                      <span>CO Hours ({stay.checkOutAdjustment > 0 ? `+${stay.checkOutAdjustment}h` : `${Math.abs(stay.checkOutAdjustment)}h`}):</span>
-                        <span>${stay.extraHoursCheckOut.toFixed(2)}</span>
+                      <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}>
+                        <span style={{ color: 'white' }}>CO Hours ({stay.checkOutAdjustment > 0 ? `+${stay.checkOutAdjustment}h` : `${Math.abs(stay.checkOutAdjustment)}h`}):</span>
+                        <span style={{ color: 'white', fontWeight: '600' }}>${stay.extraHoursCheckOut.toFixed(2)}</span>
                       </div>
                     )}
                   </div>
@@ -767,94 +770,94 @@ function App() {
               ))}
               
               <div className="summary-line total" style={{ 
-              marginTop: '15px',
-                borderTop: '2px solid #001f5c',
-              paddingTop: '10px',
+                marginTop: '15px',
+                borderTop: '2px solid rgba(255,255,255,0.3)',
+                paddingTop: '10px',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-              fontSize: '18px',
+                fontSize: '18px',
                 fontWeight: 'bold'
               }}>
-                <span style={{ color: '#001f5c' }}>Total Price:</span>
-              <span style={{ color: '#001f5c', fontSize: '20px' }}>
+                <span style={{ color: 'white' }}>Total Price:</span>
+                <span style={{ color: 'white', fontSize: '20px' }}>
                   ${totalStaysPrice.toFixed(2)}
                 </span>
               </div>
             </div>
           )}
 
-        {savedStays.length === 0 && pricing && (
-          <>
-            <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-              <span>Duration:</span>
-              <span>{pricing.nights} {pricing.nights === 1 ? 'Night' : 'Nights'}</span>
-          </div>
-          
-            {pricing.nights === 7 && (
-              <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                <span>Weekly Rate:</span>
-              <span>${(() => {
-                let baseRate = hasJacuzziOvernight ? 695 : 675;
-                if (bedType === 'king') {
-                    baseRate += (5 * 7); 
-                } else if (bedType === 'Queen 2 Beds') {
-                    baseRate += (10 * 7);
-                }
-                return baseRate.toFixed(2);
-              })()}</span>
-            </div>
-          )}
-          
-            {pricing.nights !== 7 && (
+          {savedStays.length === 0 && pricing && (
             <>
-              {pricing.daysBreakdown.map((day, index) => (
-                  <div key={index} className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', fontSize: '12px', color: '#444' }}>
-                  <span>{day.day}:</span>
-                  <span>${day.basePrice.toFixed(2)}</span>
-                </div>
-              ))}
-                <div className="summary-line" style={{ borderTop: '1px solid #eee', marginTop: '8px', paddingTop: '8px', display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                  <span>Total Base:</span>
-                <span>${pricing.totalBasePrice.toFixed(2)}</span>
+              <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                <span style={{ color: 'white' }}>Duration:</span>
+                <span style={{ color: 'white' }}>{pricing.nights} {pricing.nights === 1 ? 'Night' : 'Nights'}</span>
               </div>
-            </>
-          )}
-          
-            {pricing.nights < 7 && pricing.taxAmount > 0 && (
-              <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-              <span>Tax (15%):</span>
-              <span>${pricing.taxAmount.toFixed(2)}</span>
-            </div>
-          )}
-          
-            {overnightExtraHours !== 0 && pricing.extraHoursCheckInCost > 0 && (
-              <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                <span>CI Hours ({overnightExtraHours > 0 ? `+${overnightExtraHours}h` : `${Math.abs(overnightExtraHours)}h`}):</span>
-              <span>${pricing.extraHoursCheckInCost.toFixed(2)}</span>
-            </div>
-          )}
-          
-            {overnightCheckoutExtraHours !== 0 && pricing.extraHoursCheckOutCost > 0 && (
-              <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                <span>CO Hours ({overnightCheckoutExtraHours > 0 ? `+${overnightCheckoutExtraHours}h` : `${Math.abs(overnightCheckoutExtraHours)}h`}):</span>
-              <span>${pricing.extraHoursCheckOutCost.toFixed(2)}</span>
-            </div>
-          )}
-          
-            <div className="summary-line total" style={{ borderTop: '1px solid #aaa', marginTop: '8px', paddingTop: '8px', display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', fontSize: '16px' }}>
-            <span>Total Price:</span>
-              <span>${pricing.totalPrice.toFixed(2)}</span>
-          </div>
+            
+              {pricing.nights === 7 && (
+                <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                  <span style={{ color: 'white' }}>Weekly Rate:</span>
+                  <span style={{ color: 'white', fontWeight: '600' }}>${(() => {
+                    let baseRate = hasJacuzziOvernight ? 695 : 675;
+                    if (bedType === 'king') {
+                      baseRate += (5 * 7); 
+                    } else if (bedType === 'Queen 2 Beds') {
+                      baseRate += (10 * 7);
+                    }
+                    return baseRate.toFixed(2);
+                  })()}</span>
+                </div>
+              )}
+            
+              {pricing.nights !== 7 && (
+                <>
+                  {pricing.daysBreakdown.map((day, index) => (
+                    <div key={index} className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', fontSize: '12px', color: 'rgba(255,255,255,0.8)' }}>
+                      <span style={{ color: 'white' }}>{day.day}:</span>
+                      <span style={{ color: 'white' }}>${day.basePrice.toFixed(2)}</span>
+                    </div>
+                  ))}
+                  <div className="summary-line" style={{ borderTop: '1px solid rgba(255,255,255,0.3)', marginTop: '8px', paddingTop: '8px', display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                    <span style={{ color: 'white' }}>Total Base:</span>
+                    <span style={{ color: 'white', fontWeight: '600' }}>${pricing.totalBasePrice.toFixed(2)}</span>
+                  </div>
+                </>
+              )}
+            
+              {pricing.nights < 7 && pricing.taxAmount > 0 && (
+                <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                  <span style={{ color: 'white' }}>Tax (15%):</span>
+                  <span style={{ color: 'white', fontWeight: '600' }}>${pricing.taxAmount.toFixed(2)}</span>
+                </div>
+              )}
+            
+              {overnightExtraHours !== 0 && pricing.extraHoursCheckInCost > 0 && (
+                <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                  <span style={{ color: 'white' }}>CI Hours ({overnightExtraHours > 0 ? `+${overnightExtraHours}h` : `${Math.abs(overnightExtraHours)}h`}):</span>
+                  <span style={{ color: 'white', fontWeight: '600' }}>${pricing.extraHoursCheckInCost.toFixed(2)}</span>
+                </div>
+              )}
+            
+              {overnightCheckoutExtraHours !== 0 && pricing.extraHoursCheckOutCost > 0 && (
+                <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                  <span style={{ color: 'white' }}>CO Hours ({overnightCheckoutExtraHours > 0 ? `+${overnightCheckoutExtraHours}h` : `${Math.abs(overnightCheckoutExtraHours)}h`}):</span>
+                  <span style={{ color: 'white', fontWeight: '600' }}>${pricing.extraHoursCheckOutCost.toFixed(2)}</span>
+                </div>
+              )}
+            
+              <div className="summary-line total" style={{ borderTop: '1px solid rgba(255,255,255,0.3)', marginTop: '8px', paddingTop: '8px', display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', fontSize: '16px' }}>
+                <span style={{ color: 'white' }}>Total Price:</span>
+                <span style={{ color: 'white', fontWeight: '700' }}>${pricing.totalPrice.toFixed(2)}</span>
+              </div>
           </>
         )}
         
         {savedStays.length === 0 && !pricing && (
           <p style={{ 
             textAlign: 'center', 
-            color: '#000', 
+            color: 'white', 
             padding: '20px', 
-            backgroundColor: '#f8f9fa',
+            backgroundColor: 'rgba(255,255,255,0.1)',
             borderRadius: '6px',
             fontSize: '14px'
           }}>
@@ -1780,34 +1783,67 @@ function App() {
     const styleElement = document.createElement('style');
     styleElement.innerHTML = `
       .room-card {
-        padding: 10px !important;
-        border-radius: 6px !important;
+        padding: 15px !important;
+        border-radius: 12px !important;
         text-align: center !important;
         cursor: pointer !important;
         color: white !important;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
-        transition: all 0.2s ease !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15) !important;
+        transition: all 0.3s ease !important;
         display: flex !important;
         flex-direction: column !important;
         justify-content: center !important;
         align-items: center !important;
+        position: relative !important;
+        overflow: hidden !important;
+        min-height: 90px !important;
+      }
+      
+      .room-card::before {
+        content: '' !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        pointer-events: none !important;
+        transform: translateX(-100%) !important;
+        transition: transform 0.5s ease !important;
+      }
+      
+      .room-card:hover::before {
+        transform: translateX(0) !important;
       }
       
       .room-card.available {
-        background-color: #4CAF50 !important; /* Nicer green */
+        background: linear-gradient(135deg, #43a047, #2E7D32) !important;
       }
       
       .room-card.occupied {
-        background-color: #E53935 !important; /* Red */
+        background: linear-gradient(135deg, #e53935, #c62828) !important;
       }
       
       .room-card.cleared {
-        background-color: #FFA726 !important; /* Orange */
+        background: linear-gradient(135deg, #fb8c00, #ef6c00) !important;
       }
       
       .room-card:hover {
-        transform: scale(1.05) !important;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+        transform: translateY(-5px) !important;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.25) !important;
+      }
+      
+      .room-card .room-number {
+        font-size: 16px !important;
+        font-weight: bold !important;
+        margin-bottom: 8px !important;
+      }
+      
+      .room-card .room-features {
+        display: flex !important;
+        gap: 6px !important;
+        margin-top: 5px !important;
+        font-size: 14px !important;
       }
     `;
     document.head.appendChild(styleElement);
@@ -1824,42 +1860,74 @@ function App() {
         <div className="header" style={{
           display: 'flex', 
           alignItems: 'center', 
-          gap: '10px', // Reduced gap to bring elements closer to title
-          padding: '10px 20px', 
-          borderBottom: '1px solid #eee' 
+          gap: '15px', 
+          padding: '20px 25px', 
+          borderRadius: '16px',
+          background: 'linear-gradient(145deg, #001f5c, #1a447b)',
+          boxShadow: '0 8px 32px rgba(0, 31, 92, 0.25)',
+          marginBottom: '20px',
+          position: 'relative',
+          overflow: 'hidden'
         }}>
-          <h1 style={{ margin: 0, fontSize: '24px', whiteSpace: 'nowrap' }}> 
+          {/* Background pattern */}
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+            backgroundImage: 'radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 15%), radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 15%)',
+            opacity: 0.8
+          }}></div>
+          
+          <h1 style={{ 
+            margin: 0, 
+            fontSize: '28px', 
+            whiteSpace: 'nowrap',
+            color: 'white',
+            fontWeight: '700',
+            position: 'relative',
+            textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+            zIndex: 1
+          }}> 
             Price Calculator
           </h1>
           
           {/* Calendar Display */}
           <span style={{ 
             fontSize: '16px', 
-            backgroundColor: '#f0f0f0', 
-            padding: '6px 12px', 
-            borderRadius: '6px',
+            background: 'rgba(255, 255, 255, 0.15)', 
+            padding: '10px 16px', 
+            borderRadius: '50px',
             display: 'inline-flex',
             alignItems: 'center',
-            gap: '5px',
-            whiteSpace: 'nowrap' // Prevent calendar text wrapping
+            gap: '8px',
+            whiteSpace: 'nowrap',
+            backdropFilter: 'blur(5px)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            color: 'white',
+            zIndex: 1
           }}>
-            📅 {currentDate} <span style={{...dayStyle, marginLeft: '3px'}}>{currentDay}</span>
+            <span style={{ fontSize: '20px' }}>📅</span> {currentDate} <span style={{ color: '#FF9F43', fontWeight: '700', marginLeft: '3px', textShadow: '0 1px 2px rgba(0,0,0,0.2)' }}>{currentDay}</span>
           </span>
           
-          {/* Price Display - Re-added background and border */}
+          {/* Price Display */}
           <span style={{
             display: 'inline-flex',
             alignItems: 'center',
-            backgroundColor: '#fffbe5', // Light yellow background
-            padding: '6px 12px', 
-            borderRadius: '6px', 
-            gap: '15px', 
-            border: '1px solid #e0cfa4' // Subtle border
+            background: 'rgba(255, 255, 255, 0.15)',
+            padding: '15px 20px', 
+            borderRadius: '16px', 
+            gap: '20px',
+            backdropFilter: 'blur(5px)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            color: 'white',
+            zIndex: 1
           }}>
             {/* Standard Price Section */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                <div style={{ fontSize: '12px', color: '#555', marginBottom: '2px' }}>Standard</div>
+                <div style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.8)', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.8px', fontWeight: '600' }}>Standard</div>
                 {
                   // Calculate Standard prices
                   (() => {
@@ -1872,9 +1940,9 @@ function App() {
                     const tax = basePrice * 0.15;
                     const total = basePrice + tax;
                     return (
-                      <span style={{ fontSize: '14px', fontWeight: 'bold', color: '#001f5c', whiteSpace: 'nowrap' }}> {/* Added nowrap */}
+                      <span style={{ fontSize: '16px', fontWeight: 'bold', color: 'white', whiteSpace: 'nowrap' }}>
                         ${total.toFixed(2)}
-                        <span style={{ fontSize: '10px', fontWeight: 'normal', color: '#666', marginLeft: '4px' }}>
+                        <span style={{ fontSize: '11px', fontWeight: 'normal', color: 'rgba(255, 255, 255, 0.7)', marginLeft: '4px' }}>
                           (Base ${basePrice.toFixed(2)} + Tax ${tax.toFixed(2)})
                         </span>
                       </span>
@@ -1885,13 +1953,13 @@ function App() {
             </div>
 
             {/* Divider */}
-            <div style={{ borderLeft: '1px solid #d0d9e3', height: '30px' }}></div>
+            <div style={{ borderLeft: '1px solid rgba(255, 255, 255, 0.2)', height: '30px' }}></div>
 
             {/* Jacuzzi Price Section */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ fontSize: '18px' }}>🛁</span> {/* Jacuzzi Icon */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <span style={{ fontSize: '20px' }}>🛁</span> {/* Jacuzzi Icon */}
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                <div style={{ fontSize: '12px', color: '#555', marginBottom: '2px' }}>Jacuzzi</div>
+                <div style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.8)', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.8px', fontWeight: '600' }}>Jacuzzi</div>
                 {
                   // Calculate Jacuzzi prices
                   (() => {
@@ -1904,9 +1972,9 @@ function App() {
                     const tax = basePrice * 0.15;
                     const total = basePrice + tax;
                     return (
-                       <span style={{ fontSize: '14px', fontWeight: 'bold', color: '#001f5c', whiteSpace: 'nowrap' }}> {/* Added nowrap */}
+                       <span style={{ fontSize: '16px', fontWeight: 'bold', color: 'white', whiteSpace: 'nowrap' }}>
                         ${total.toFixed(2)}
-                        <span style={{ fontSize: '10px', fontWeight: 'normal', color: '#666', marginLeft: '4px' }}>
+                        <span style={{ fontSize: '11px', fontWeight: 'normal', color: 'rgba(255, 255, 255, 0.7)', marginLeft: '4px' }}>
                           (Base ${basePrice.toFixed(2)} + Tax ${tax.toFixed(2)})
                         </span>
                       </span>
@@ -1921,20 +1989,32 @@ function App() {
           <button
             onClick={() => setShowPriceChangeModal(true)}
             style={{
-              backgroundColor: '#001f5c',
+              background: 'linear-gradient(90deg, #FF416C, #FF4B2B)',
               color: 'white',
               border: 'none',
-              borderRadius: '6px', 
-              padding: '8px 15px', 
+              borderRadius: '50px', 
+              padding: '12px 24px', 
               cursor: 'pointer',
               fontSize: '14px',
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '5px',
-              marginLeft: 'auto' // Push button to the far right
+              gap: '8px',
+              marginLeft: 'auto',
+              boxShadow: '0 4px 15px rgba(255, 65, 108, 0.3)',
+              transition: 'all 0.2s ease',
+              fontWeight: '600',
+              zIndex: 1
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 6px 20px rgba(255, 65, 108, 0.5)';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 4px 15px rgba(255, 65, 108, 0.3)';
             }}
           >
-            <span>💰</span> Price Change
+            <span style={{ fontSize: '16px' }}>💰</span> Price Change
           </button>
         </div>
         
@@ -1950,327 +2030,402 @@ function App() {
           `
         }}>
           {/* Short Stay Section - Top Left */}
-          <div style={{ 
-  gridArea: 'shortstay', 
-  backgroundColor: '#e6f2ff',
-  padding: '8px 12px 5px 12px', // Minimal bottom padding
-  borderRadius: '8px', 
-  display: 'flex', 
-  flexDirection: 'column', 
-  gap: '8px' // Keep main gap small
-}}>
-  {/* Header */} 
-  <div style={{ 
-    display: 'flex', 
-    justifyContent: 'space-between', 
-    alignItems: 'center', 
-    backgroundColor: '#001f5c',
-    padding: '8px 8px', 
-    borderRadius: '6px',
-    color: 'white',
-    marginBottom: '5px' // Further reduced margin
-  }}>
-    <h2 className="section-header" style={{ margin: 0, borderBottom: 'none', color: 'white', fontSize: '16px' }}>Short Stay</h2>
-    <button 
-      onClick={clearShortStay}
-      style={{ 
-        backgroundColor: '#f44336',
-        padding: '4px 10px', 
-        fontSize: '12px', 
-        color: 'white',
-        border: 'none',
-        borderRadius: '4px', 
-        cursor: 'pointer'
-       }} 
-    >
-      Clear
-    </button>
-  </div>
-  
-  {/* Row 1: Time and Extra Hours */} 
-  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '5px', marginBottom: '5px' /* Reduced margin */ }}> {/* Check-in & Check-out Group */} 
-    <div style={{ display: 'flex', gap: '10px' }}> {/* Reduced gap */} 
-      <div className="check-time" style={{ textAlign: 'left' }}>
-        <label style={{ color: '#0606f5', fontSize: '11px', display: 'block', marginBottom: '0px' }}>Check-in @</label> {/* No margin */} 
-        <span style={{ color: '#0606f5', fontSize: '12px', fontWeight: '500', lineHeight: '1.2' }}>{currentTime}</span> {/* Reduced line height */} 
-      </div>
-      <div className="check-time" style={{ textAlign: 'left' }}>
-        <label style={{ color: '#0606f5', fontSize: '11px', display: 'block', marginBottom: '0px' }}>Check-out @</label> {/* No margin */} 
-        <span style={{ color: '#0606f5', fontSize: '12px', fontWeight: '500', lineHeight: '1.2' }}>{checkoutTime}</span> {/* Reduced line height */} 
-      </div>
-    </div>
-    
-    {/* Extra Hours */} 
-    <div className="extra-hours" style={{ textAlign: 'center' }}> 
-      <label style={{ fontSize: '11px', fontWeight: 'bold', display: 'block', marginBottom: '2px' }}>Extra Hours:</label> 
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '2px' }}> 
-        <button 
-          className="minus-btn" 
-          onClick={() => handleExtraHoursChange(-1)} 
-          style={{ 
-            padding: '0', // Remove padding for exact sizing
-            width: '24px', 
-            height: '24px', 
-            borderRadius: '50%', 
-            border: 'none', 
-            backgroundColor: '#E53935', 
-            color: 'white', 
-            fontSize: '16px', 
-            fontWeight: 'bold', 
-            cursor: 'pointer',
-            lineHeight: '24px' // Center symbol vertically
-          }}
-        >-</button> 
-        <span style={{ fontSize: '16px', fontWeight: 'bold', minWidth: '20px', textAlign: 'center' }}>{extraHours}</span> 
-        <button 
-          className="plus-btn" 
-          onClick={() => handleExtraHoursChange(1)} 
-          style={{ 
-            padding: '0',
-            width: '24px', 
-            height: '24px', 
-            borderRadius: '50%', 
-            border: 'none', 
-            backgroundColor: '#4CAF50', 
-            color: 'white', 
-            fontSize: '16px', 
-            fontWeight: 'bold', 
-            cursor: 'pointer',
-            lineHeight: '24px'
-          }}
-        >+</button> 
-      </div>
-      <span className="hours-note" style={{ color: '#00308F', fontWeight: 'bold', fontSize: '10px', lineHeight: '1.1' }}>(Total: {4 + extraHours}hr)</span> {/* Smaller font/line height */} 
-    </div>
-  </div>
+          <div className="short-stay-section" style={{ 
+            gridArea: 'shortstay',
+            backgroundImage: 'linear-gradient(120deg, #f6f8fb 0%, #e9f2ff 100%)', 
+            backgroundSize: 'cover',
+            boxShadow: '0 8px 30px rgba(0, 31, 92, 0.12)',
+            border: '1px solid rgba(255, 255, 255, 0.6)',
+            position: 'relative',
+            overflow: 'hidden'
+          }}> 
+            {/* Header */} 
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'space-between', 
+              alignItems: 'center', 
+              background: 'linear-gradient(90deg, #4776E6, #8E54E9)',
+              padding: '12px 15px', 
+              borderRadius: '10px',
+              color: 'white',
+              marginBottom: '15px',
+              boxShadow: '0 4px 15px rgba(71, 118, 230, 0.2)'
+            }}>
+              <h2 className="section-header" style={{ margin: 0, borderBottom: 'none', color: 'white', fontSize: '16px', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '700' }}>Short Stay</h2>
+              <button 
+                onClick={clearShortStay}
+                style={{ 
+                  background: 'rgba(255,255,255,0.15)',
+                  padding: '6px 12px', 
+                  fontSize: '12px', 
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '20px', 
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  backdropFilter: 'blur(5px)'
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.25)';
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                Clear
+              </button>
+            </div>
+            
+            {/* Row 1: Time and Extra Hours */} 
+            <div className="section-controls-row"> 
+              {/* Check-in & Check-out Group */} 
+              <div className="date-time-display"> 
+                <div className="check-time"> 
+                  <label>Check-in @</label>
+                  <span>{currentTime}</span>
+                </div>
+                <div className="check-time"> 
+                  <label>Check-out @</label>
+                  <span>{checkoutTime}</span>
+                </div>
+              </div>
+              
+              {/* Extra Hours */} 
+              <div className="extra-hours"> 
+                <label>Extra Hours:</label> 
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '2px' }}> 
+                  <button 
+                    className="minus-btn" 
+                    onClick={() => handleExtraHoursChange(-1)} 
+                    style={{ 
+                      padding: '0', // Remove padding for exact sizing
+                      width: '24px', 
+                      height: '24px', 
+                      borderRadius: '50%', 
+                      border: 'none', 
+                      backgroundColor: '#E53935', 
+                      color: 'white', 
+                      fontSize: '16px', 
+                      fontWeight: 'bold', 
+                      cursor: 'pointer',
+                      lineHeight: '24px' // Center symbol vertically
+                    }}
+                  >-</button> 
+                  <span style={{ fontSize: '16px', fontWeight: 'bold', minWidth: '20px', textAlign: 'center' }}>{extraHours}</span> 
+                  <button 
+                    className="plus-btn" 
+                    onClick={() => handleExtraHoursChange(1)} 
+                    style={{ 
+                      padding: '0',
+                      width: '24px', 
+                      height: '24px', 
+                      borderRadius: '50%', 
+                      border: 'none', 
+                      backgroundColor: '#4CAF50', 
+                      color: 'white', 
+                      fontSize: '16px', 
+                      fontWeight: 'bold', 
+                      cursor: 'pointer',
+                      lineHeight: '24px'
+                    }}
+                  >+</button> 
+                </div>
+                <span className="hours-note" style={{ color: '#00308F', fontWeight: 'bold', fontSize: '10px', lineHeight: '1.1' }}>(Total: {4 + extraHours}hr)</span> {/* Smaller font/line height */} 
+              </div>
+            </div>
 
-  {/* Row 2: Options */} 
-  <div style={{ 
-    display: 'flex', 
-    justifyContent: 'space-around', 
-    alignItems: 'flex-start', 
-    gap: '8px', // Reduced gap 
-    borderTop: '1px solid #ccc', 
-    borderBottom: '1px solid #ccc', 
-    padding: '5px 0' // Reduced padding
-  }}>
-    {/* Room Type Box */} 
-    <div style={{ 
-      backgroundColor: 'white', 
-      padding: '5px 10px', // Reduced padding 
-      borderRadius: '8px', 
-      border: '1px solid #ccc', 
-      textAlign: 'center', 
-      boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
-    }}>
-      <label style={{ fontSize: '11px', fontWeight: 'bold', display: 'block', marginBottom: '3px' }}>Room Type</label> 
-      <div style={{ display: 'inline-flex', borderRadius: '4px', overflow: 'hidden', border: '1px solid #001f5c' }}>
-        <button onClick={() => setHasJacuzzi(false)} style={{ padding: '4px 10px', fontSize: '12px', border: 'none', backgroundColor: !hasJacuzzi ? '#001f5c' : 'white', color: !hasJacuzzi ? 'white' : '#001f5c', cursor: 'pointer' }}>No Jacuzzi</button>
-        <button onClick={() => setHasJacuzzi(true)} style={{ padding: '4px 10px', fontSize: '12px', border: 'none', borderLeft: '1px solid #001f5c', backgroundColor: hasJacuzzi ? '#001f5c' : 'white', color: hasJacuzzi ? 'white' : '#001f5c', cursor: 'pointer' }}>Jacuzzi</button>
-      </div>
-    </div>
-    {/* Payment Box */} 
-    <div style={{ 
-      backgroundColor: 'white', 
-      padding: '5px 10px', // Reduced padding
-      borderRadius: '8px', 
-      border: '1px solid #ccc', 
-      textAlign: 'center', 
-      boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
-    }}>
-      <label style={{ fontSize: '11px', fontWeight: 'bold', display: 'block', marginBottom: '3px' }}>Payment</label> 
-      <div style={{ display: 'inline-flex', borderRadius: '4px', overflow: 'hidden', border: '1px solid #001f5c' }}>
-        <button onClick={() => setPaymentMethod('cash')} style={{ padding: '4px 10px', fontSize: '12px', border: 'none', backgroundColor: paymentMethod === 'cash' ? '#001f5c' : 'white', color: paymentMethod === 'cash' ? 'white' : '#001f5c', cursor: 'pointer' }}>Cash</button>
-        <button onClick={() => setPaymentMethod('credit')} style={{ padding: '4px 10px', fontSize: '12px', border: 'none', borderLeft: '1px solid #001f5c', backgroundColor: paymentMethod === 'credit' ? '#001f5c' : 'white', color: paymentMethod === 'credit' ? 'white' : '#001f5c', cursor: 'pointer' }}>Credit</button>
-      </div>
-    </div>
-    {/* Extra Rate Box */} 
-    <div style={{ 
-      backgroundColor: 'white', 
-      padding: '5px 10px', // Reduced padding
-      borderRadius: '8px', 
-      border: '1px solid #ccc', 
-      textAlign: 'center', 
-      boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
-    }}>
-      <label style={{ fontSize: '11px', fontWeight: 'bold', display: 'block', marginBottom: '3px' }}>Extra Rate</label> 
-      <div style={{ display: 'inline-flex', borderRadius: '4px', overflow: 'hidden', border: '1px solid #001f5c' }}>
-        <button onClick={() => setExtraHourRate(15)} style={{ padding: '4px 10px', fontSize: '12px', border: 'none', backgroundColor: extraHourRate === 15 ? '#001f5c' : 'white', color: extraHourRate === 15 ? 'white' : '#001f5c', cursor: 'pointer' }}>$15/hr</button>
-        <button onClick={() => setExtraHourRate(10)} style={{ padding: '4px 10px', fontSize: '12px', border: 'none', borderLeft: '1px solid #001f5c', backgroundColor: extraHourRate === 10 ? '#001f5c' : 'white', color: extraHourRate === 10 ? 'white' : '#001f5c', cursor: 'pointer' }}>$10/hr</button>
-      </div>
-    </div>
-  </div>
+            {/* Row 2: Options */} 
+            <div className="options-row"> 
+              {/* Room Type Box */} 
+              <div className="option-box"> 
+                <label>Room Type</label> 
+                <div className="segmented-control"> 
+                  <button onClick={() => setHasJacuzzi(false)} className={!hasJacuzzi ? 'active' : ''}>No Jacuzzi</button>
+                  <button onClick={() => setHasJacuzzi(true)} className={hasJacuzzi ? 'active' : ''}>Jacuzzi</button>
+                </div>
+              </div>
+              {/* Payment Box */} 
+              <div className="option-box"> 
+                <label>Payment</label> 
+                <div className="segmented-control"> 
+                  <button onClick={() => setPaymentMethod('cash')} className={paymentMethod === 'cash' ? 'active' : ''}>Cash</button>
+                  <button onClick={() => setPaymentMethod('credit')} className={paymentMethod === 'credit' ? 'active' : ''}>Credit</button>
+                </div>
+              </div>
+              {/* Extra Rate Box */} 
+              <div className="option-box"> 
+                <label>Extra Rate</label> 
+                <div className="segmented-control"> 
+                  <button onClick={() => setExtraHourRate(15)} className={extraHourRate === 15 ? 'active' : ''}>$15/hr</button>
+                  <button onClick={() => setExtraHourRate(10)} className={extraHourRate === 10 ? 'active' : ''}>$10/hr</button>
+                </div>
+              </div>
+            </div>
 
-  {/* Price Summary */} 
-  <div className="price-summary" style={{ marginTop: '5px', padding: '5px', backgroundColor: '#f8f9fa', borderRadius: '4px', border: '1px solid #eee' }}> {/* Reduced margin/padding */} 
-     {/* Summary Lines - Ensure minimal margins/padding */} 
-     <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '1px' }}>
-        <span>Base (4hr):</span>
-        <span>${(hasJacuzzi ? shortStayPrices.baseRate.withJacuzzi : shortStayPrices.baseRate.withoutJacuzzi).toFixed(2)}</span>
-      </div>
-      {paymentMethod === 'credit' && (
-        <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '1px' }}>
-          <span>Tax (15%):</span>
-          <span>${((hasJacuzzi ? shortStayPrices.baseRate.withJacuzzi : shortStayPrices.baseRate.withoutJacuzzi) * 0.15).toFixed(2)}</span>
-        </div>
-      )}
-      <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '1px' }}>
-        <span>Extra Hrs ({extraHours}):</span>
-        <span>${(extraHours * (extraHourRate === 15 ? shortStayPrices.extraHourRate.regular : shortStayPrices.extraHourRate.discounted)).toFixed(2)}</span>
-      </div>
-      <div className="summary-line total" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', fontWeight: 'bold', color: '#001f5c', borderTop: '1px solid #ccc', marginTop: '3px', paddingTop: '3px' }}> {/* Reduced font/margins/padding */}
-        <span>Total Price:</span>
-        <span>${totalPrice.toFixed(2)}</span>
-      </div>
-  </div>
-</div>
+            {/* Price Summary */} 
+            <div className="price-summary" style={{ marginTop: '5px', padding: '5px', backgroundColor: '#2c3e50', borderRadius: '4px', border: '1px solid #eee', background: 'linear-gradient(135deg, #2c3e50, #4776E6)' }}> 
+               {/* Summary Lines - Ensure minimal margins/padding */} 
+               <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '1px' }}>
+                  <span style={{ color: 'white' }}>Base (4hr):</span>
+                  <span style={{ color: 'white', fontWeight: '600' }}>${(hasJacuzzi ? shortStayPrices.baseRate.withJacuzzi : shortStayPrices.baseRate.withoutJacuzzi).toFixed(2)}</span>
+                </div>
+                {paymentMethod === 'credit' && (
+                  <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '1px' }}>
+                    <span style={{ color: 'white' }}>Tax (15%):</span>
+                    <span style={{ color: 'white', fontWeight: '600' }}>${((hasJacuzzi ? shortStayPrices.baseRate.withJacuzzi : shortStayPrices.baseRate.withoutJacuzzi) * 0.15).toFixed(2)}</span>
+                  </div>
+                )}
+                <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '1px' }}>
+                  <span style={{ color: 'white' }}>Extra Hrs ({extraHours}):</span>
+                  <span style={{ color: 'white', fontWeight: '600' }}>${(extraHours * (extraHourRate === 15 ? shortStayPrices.extraHourRate.regular : shortStayPrices.extraHourRate.discounted)).toFixed(2)}</span>
+                </div>
+                <div className="summary-line total" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', fontWeight: 'bold', color: 'white', borderTop: '1px solid rgba(255,255,255,0.3)', marginTop: '3px', paddingTop: '3px' }}> 
+                  <span style={{ color: 'white' }}>Total Price:</span>
+                  <span style={{ color: 'white', fontWeight: '700' }}>${totalPrice.toFixed(2)}</span>
+                </div>
+            </div>
+          </div>
           
           {/* Multiple Nights Section - Top Right */}
-          <div style={{ 
-  gridArea: 'multinight', 
-  backgroundColor: '#e6f2ff', // Light blue background
-  padding: '10px 15px', // Reduced padding
-  borderRadius: '8px',
-  display: 'flex',
-  flexDirection: 'column'
-}}>
-  {/* Header */} 
-  <div style={{ 
-    display: 'flex', 
-    justifyContent: 'space-between', 
-    alignItems: 'center', 
-    marginBottom: '10px',
-    backgroundColor: '#001f5c',
-    padding: '6px 10px', // Reduced header padding
-    borderRadius: '6px',
-    color: 'white' 
-  }}>
-    <h2 className="section-header" style={{ margin: 0, color: 'white', fontSize: '16px' }}>Multiple Nights</h2> {/* Smaller font */} 
-    <button 
-      className="add-more-button"
-      onClick={() => resetOvernightStay()}
-      style={{ /* Existing styles */ padding: '4px 8px', fontSize: '12px' }} /* Reduced padding/font */
-    >
-      <span style={{ fontSize: '14px' }}>+</span> Add Stay
-    </button>
-  </div>
-  
-  {/* Dates and Hour Adjustments - Using Grid */} 
-  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '10px' }}>
-    {/* Check-in Column */}
-    <div className="date-picker-container" style={{ display: 'flex', flexDirection: 'column' }}>
-      <label style={{ fontSize: '12px', fontWeight: 'bold', marginBottom: '2px' }}>Check-in Date:</label>
-      <DatePicker
-        selected={checkInDate}
-        onChange={handleCheckInChange}
-        dateFormat="MM/dd/yy"
-        className="date-picker compact-datepicker" // Added class for potential CSS targeting
-        showTimeSelect={false}
-        popperPlacement="bottom-start"
-        calendarClassName="compact-calendar" // Added class for potential CSS targeting
-      />
-      <div className="extra-hours-overnight" style={{ marginTop: '5px' }}>
-        <label style={{ fontSize: '12px', marginBottom: '2px', display: 'block' }}>Hour Adj:</label> 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}> 
-          <div className="hours-control" style={{ display: 'flex', alignItems: 'center', gap: '5px' }}> 
-            <button className="minus-btn" onClick={() => handleOvernightExtraHoursChange(-1)} style={{ padding: '2px 6px'}}>-</button> 
-            <span style={{ fontSize: '13px', fontWeight: 'bold', minWidth: '15px', textAlign: 'center' }}>{overnightExtraHours}</span> 
-            <button className="plus-btn" onClick={() => handleOvernightExtraHoursChange(1)} style={{ padding: '2px 6px'}}>+</button> 
+          <div className="multi-night-section" style={{ 
+            gridArea: 'multinight', 
+            backgroundImage: 'linear-gradient(120deg, #f6f8fb 0%, #e5f5ef 100%)',
+            backgroundSize: 'cover',
+            boxShadow: '0 8px 30px rgba(0, 31, 92, 0.12)',
+            border: '1px solid rgba(255, 255, 255, 0.6)',
+            position: 'relative',
+            overflow: 'hidden'
+          }}> 
+            {/* Header */} 
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'space-between', 
+              alignItems: 'center', 
+              marginBottom: '15px',
+              background: 'linear-gradient(90deg, #11998e, #38ef7d)',
+              padding: '12px 15px',
+              borderRadius: '10px',
+              color: 'white',
+              boxShadow: '0 4px 15px rgba(17, 153, 142, 0.2)'
+            }}>
+              <h2 className="section-header" style={{ margin: 0, color: 'white', fontSize: '16px', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '700' }}>Multiple Nights</h2>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <button 
+                  className="add-more-button"
+                  onClick={() => resetOvernightStay()}
+                  style={{ 
+                    background: 'rgba(255,255,255,0.15)',
+                    padding: '6px 12px', 
+                    fontSize: '12px', 
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '20px',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '5px',
+                    transition: 'all 0.2s ease',
+                    backdropFilter: 'blur(5px)'
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.25)';
+                    e.currentTarget.style.transform = 'translateY(-1px)';
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
+                >
+                  <span style={{ fontSize: '14px' }}>+</span> Add Stay
+                </button>
+                {/* Add Clear Button */}
+                <button 
+                  onClick={clearMultipleNights}
+                  style={{ 
+                    background: 'rgba(255,255,255,0.15)',
+                    padding: '6px 12px', 
+                    fontSize: '12px', 
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '20px', 
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    backdropFilter: 'blur(5px)'
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.25)';
+                    e.currentTarget.style.transform = 'translateY(-1px)';
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
+                >
+                  Clear
+                </button>
+              </div>
+            </div>
+            
+            {/* Dates and Hour Adjustments - Using Grid */} 
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '15px' }}> {/* Increased gaps/margin */}
+              {/* Check-in Column */} 
+              <div className="date-picker-container"> 
+                <label>Check-in Date:</label>
+                <DatePicker
+                  selected={checkInDate}
+                  onChange={handleCheckInChange}
+                  dateFormat="MM/dd/yy"
+                  className="date-picker compact-datepicker"
+                  showTimeSelect={false}
+                  popperPlacement="bottom-start"
+                  calendarClassName="compact-calendar"
+                />
+                <div className="extra-hours-overnight"> 
+                  <label>Hour Adj:</label>
+                  <div className="extra-hours-controls"> 
+                    <div className="hours-control"> 
+                      <button className="minus-btn" onClick={() => handleOvernightExtraHoursChange(-1)}>-</button> 
+                      <span>{overnightExtraHours}</span> 
+                      <button className="plus-btn" onClick={() => handleOvernightExtraHoursChange(1)}>+</button> 
+                    </div>
+                    <span className="hours-note"> 
+                      {/* Time calculation - kept compact */}
+                      {overnightExtraHours !== 0 ? `(${new Date(new Date().setHours(15 + overnightExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})})` : '(3PM)'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Check-out Column */} 
+              <div className="date-picker-container"> 
+                <label>Check-out Date:</label>
+                <DatePicker
+                  selected={checkOutDate}
+                  onChange={handleCheckOutChange}
+                  dateFormat="MM/dd/yy"
+                  className="date-picker compact-datepicker"
+                  showTimeSelect={false}
+                  popperPlacement="bottom-start"
+                  calendarClassName="compact-calendar"
+                />
+                <div className="extra-hours-overnight"> 
+                  <label>Hour Adj:</label>
+                  <div className="extra-hours-controls"> 
+                    <div className="hours-control"> 
+                      <button className="minus-btn" onClick={() => handleCheckoutExtraHoursChange(-1)}>-</button> 
+                      <span>{overnightCheckoutExtraHours}</span> 
+                      <button className="plus-btn" onClick={() => handleCheckoutExtraHoursChange(1)}>+</button> 
+                    </div>
+                    <span className="hours-note"> 
+                      {/* Time calculation - kept compact */}
+                      {overnightCheckoutExtraHours !== 0 ? `(${new Date(new Date().setHours(11 + overnightCheckoutExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})})` : '(11AM)'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Options - Using Grid */}
+            <div className="options-grid"> 
+              {/* Column 1: Room Type & Bed Type */}
+              <div className="options-column"> 
+                {/* Room Type Box */}
+                <div className="option-box"> 
+                  <label>Room Type</label> 
+                  <div className="segmented-control"> 
+                    <button onClick={() => setHasJacuzziOvernight(false)} className={!hasJacuzziOvernight ? 'active' : ''}>No Jacuzzi</button> 
+                    <button onClick={() => setHasJacuzziOvernight(true)} className={hasJacuzziOvernight ? 'active' : ''}>Jacuzzi</button> 
+                  </div>
+                </div>
+                {/* Bed Type Box */}
+                <div className="option-box"> 
+                  <label>Bed Type</label> 
+                  <div className="segmented-control"> 
+                    <button onClick={() => setBedType('Queen')} className={bedType === 'Queen' ? 'active' : ''}>Queen</button> 
+                    <button onClick={() => setBedType('King')} className={bedType === 'King' ? 'active' : ''}>King</button> 
+                    {!hasJacuzziOvernight && (
+                      <button onClick={() => setBedType('Queen 2 Beds')} className={bedType === 'Queen 2 Beds' ? 'active' : ''}>Queen 2 Beds</button> /* Added transition */
+                    )}
+                  </div>
+                </div>
+              </div>
+              
+              {/* Column 2: Payment & Extra Rate */}
+              <div className="options-column"> 
+                {/* Payment Box */}
+                <div className="option-box"> 
+                  <label>Payment</label> 
+                  <div className="segmented-control"> 
+                    <button onClick={() => setOvernightPayment('cash')} className={overnightPayment === 'cash' ? 'active' : ''}>Cash</button> 
+                    <button onClick={() => setOvernightPayment('credit')} className={overnightPayment === 'credit' ? 'active' : ''}>Credit Card</button> 
+                  </div>
+                </div>
+                {/* Extra Rate Box */}
+                <div className="option-box"> 
+                  <label>Extra Rate</label> 
+                  <div className="segmented-control"> 
+                    <button onClick={() => setOvernightExtraRate(15)} className={overnightExtraRate === 15 ? 'active' : ''}>$15/hr</button> 
+                    <button onClick={() => setOvernightExtraRate(10)} className={overnightExtraRate === 10 ? 'active' : ''}>$10/hr</button> 
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Render Price Summary - Takes remaining space */}
+            <div className="price-summary-container"> 
+               {renderOvernightStayPriceSummary()} 
+            </div> 
           </div>
-          <span className="hours-note" style={{ color: '#00308F', fontSize: '11px', whiteSpace: 'nowrap' }}> 
-            {/* Time calculation - kept compact */}
-            {overnightExtraHours !== 0 ? `(${new Date(new Date().setHours(15 + overnightExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})})` : '(3PM)'}
-          </span>
-        </div>
-      </div>
-    </div>
-    
-    {/* Check-out Column */} 
-    <div className="date-picker-container" style={{ display: 'flex', flexDirection: 'column' }}>
-      <label style={{ fontSize: '12px', fontWeight: 'bold', marginBottom: '2px' }}>Check-out Date:</label>
-      <DatePicker
-        selected={checkOutDate}
-        onChange={handleCheckOutChange}
-        dateFormat="MM/dd/yy"
-        className="date-picker compact-datepicker"
-        showTimeSelect={false}
-        popperPlacement="bottom-start"
-        calendarClassName="compact-calendar"
-      />
-      <div className="extra-hours-overnight" style={{ marginTop: '5px' }}>
-        <label style={{ fontSize: '12px', marginBottom: '2px', display: 'block' }}>Hour Adj:</label>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}> 
-          <div className="hours-control" style={{ display: 'flex', alignItems: 'center', gap: '5px' }}> 
-            <button className="minus-btn" onClick={() => handleCheckoutExtraHoursChange(-1)} style={{ padding: '2px 6px'}}>-</button> 
-            <span style={{ fontSize: '13px', fontWeight: 'bold', minWidth: '15px', textAlign: 'center' }}>{overnightCheckoutExtraHours}</span> 
-            <button className="plus-btn" onClick={() => handleCheckoutExtraHoursChange(1)} style={{ padding: '2px 6px'}}>+</button> 
-          </div>
-          <span className="hours-note" style={{ color: '#00308F', fontSize: '11px', whiteSpace: 'nowrap' }}> 
-            {/* Time calculation - kept compact */}
-            {overnightCheckoutExtraHours !== 0 ? `(${new Date(new Date().setHours(11 + overnightCheckoutExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})})` : '(11AM)'}
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  {/* Options - Using Grid */}
-  <div style={{ 
-    display: 'grid', 
-    gridTemplateColumns: 'repeat(2, 1fr)', // Two columns for options
-    gap: '10px 15px',
-    borderTop: '1px solid #ccc',
-    paddingTop: '10px'
-  }}>
-    {/* Column 1: Room Type & Bed Type */}
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-      <div className="option-group"> 
-        <label style={{ fontSize: '12px', fontWeight: 'bold' }}>Room Type:</label> 
-        <div className="radio-group" style={{ display: 'flex', flexDirection: 'column', gap: '2px'}}> 
-          <label style={{ fontSize: '12px' }}><input type="radio" style={{ marginRight: '3px' }} checked={!hasJacuzziOvernight} onChange={() => setHasJacuzziOvernight(false)} /> No Jacuzzi</label>
-          <label style={{ fontSize: '12px' }}><input type="radio" style={{ marginRight: '3px' }} checked={hasJacuzziOvernight} onChange={() => setHasJacuzziOvernight(true)} /> With Jacuzzi</label>
-        </div>
-      </div>
-      <div className="option-group"> 
-        <label style={{ fontSize: '12px', fontWeight: 'bold' }}>Bed Type:</label> 
-        <div className="radio-group" style={{ display: 'flex', flexDirection: 'column', gap: '2px'}}> 
-          <label style={{ fontSize: '12px' }}><input type="radio" style={{ marginRight: '3px' }} checked={bedType === 'Queen'} onChange={() => setBedType('Queen')} /> Queen</label>
-          <label style={{ fontSize: '12px' }}><input type="radio" style={{ marginRight: '3px' }} checked={bedType === 'King'} onChange={() => setBedType('King')} /> King</label>
-          {!hasJacuzziOvernight && (
-            <label style={{ fontSize: '12px' }}><input type="radio" style={{ marginRight: '3px' }} checked={bedType === 'Queen 2 Beds'} onChange={() => setBedType('Queen 2 Beds')} /> Queen 2 Beds</label>
-          )}
-        </div>
-      </div>
-    </div>
-    
-    {/* Column 2: Payment & Extra Rate */}
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-      <div className="option-group"> 
-        <label style={{ fontSize: '12px', fontWeight: 'bold' }}>Payment:</label> 
-        <div className="radio-group" style={{ display: 'flex', flexDirection: 'column', gap: '2px'}}> 
-          <label style={{ fontSize: '12px' }}><input type="radio" style={{ marginRight: '3px' }} value="cash" checked={overnightPayment === 'cash'} onChange={() => setOvernightPayment('cash')} /> Cash</label>
-          <label style={{ fontSize: '12px' }}><input type="radio" style={{ marginRight: '3px' }} value="credit" checked={overnightPayment === 'credit'} onChange={() => setOvernightPayment('credit')} /> Credit Card</label>
-        </div>
-      </div>
-      <div className="option-group"> 
-        <label style={{ fontSize: '12px', fontWeight: 'bold' }}>Extra Rate:</label> 
-        <div className="radio-group" style={{ display: 'flex', flexDirection: 'column', gap: '2px'}}> 
-          <label style={{ fontSize: '12px' }}><input type="radio" style={{ marginRight: '3px' }} checked={overnightExtraRate === 15} onChange={() => setOvernightExtraRate(15)} /> $15/hr</label>
-          <label style={{ fontSize: '12px' }}><input type="radio" style={{ marginRight: '3px' }} checked={overnightExtraRate === 10} onChange={() => setOvernightExtraRate(10)} /> $10/hr</label>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  {/* Render Price Summary - Takes remaining space */}
-  <div style={{ marginTop: 'auto', paddingTop: '10px' }}> {/* Pushes summary down */}
-     {renderOvernightStayPriceSummary()} 
-  </div> 
-</div>
 
           {/* Ground Floor Section - Bottom Left */}
-          <div style={{ gridArea: 'groundfloor', backgroundColor: '#f5f5f5', padding: '20px', borderRadius: '8px' }}>
-            <h2 className="section-header">Ground Floor</h2>
+          <div style={{ 
+            gridArea: 'groundfloor', 
+            background: 'linear-gradient(135deg, #f9e7e7, #fff1f1)',
+            backgroundSize: 'cover',
+            padding: '20px', 
+            borderRadius: '16px',
+            boxShadow: '0 8px 30px rgba(0, 31, 92, 0.12)',
+            border: '1px solid rgba(255, 255, 255, 0.6)',
+            position: 'relative',
+            overflow: 'hidden'
+          }}>
+            <div style={{ 
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              bottom: 0,
+              left: 0,
+              backgroundImage: 'radial-gradient(circle at 10% 20%, rgba(255, 65, 108, 0.03) 0%, transparent 20%), radial-gradient(circle at 90% 80%, rgba(255, 75, 43, 0.03) 0%, transparent 20%)',
+              opacity: 1
+            }}></div>
+            
+            <div style={{ 
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '6px',
+              background: 'linear-gradient(90deg, #FF416C, #FF4B2B)',
+              borderRadius: '16px 16px 0 0'
+            }}></div>
+            
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'space-between', 
+              alignItems: 'center', 
+              background: 'linear-gradient(90deg, #FF416C, #FF4B2B)',
+              padding: '12px 15px', 
+              borderRadius: '12px',
+              color: 'white',
+              marginBottom: '15px',
+              boxShadow: '0 4px 15px rgba(255, 65, 108, 0.2)',
+              position: 'relative',
+              zIndex: 1
+            }}>
+              <h2 className="section-header" style={{ margin: 0, borderBottom: 'none', color: 'white', fontSize: '16px', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '700' }}>Ground Floor</h2>
+            </div>
               
               {/* Admin status and logout */}
               {isAuthenticated && (
@@ -2278,25 +2433,42 @@ function App() {
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  marginBottom: '10px'
+                  marginBottom: '15px',
+                  padding: '10px',
+                  background: 'linear-gradient(145deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7))',
+                  borderRadius: '10px',
+                  boxShadow: '0 2px 10px rgba(0,0,0,0.05)'
                 }}>
                   <span style={{ 
-                    color: '#28a745',
+                    color: '#10b981',
                     fontWeight: 'bold',
-                    marginRight: '10px'
+                    marginRight: '15px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px'
                   }}>
-                    Admin Mode Active
+                    <span style={{ fontSize: '16px' }}>✓</span> Admin Mode Active
                   </span>
                   <button
                     onClick={handleLogout}
                     style={{
-                      padding: '5px 10px',
-                      borderRadius: '4px',
+                      background: 'linear-gradient(145deg, #f87171, #ef4444)',
+                      padding: '6px 12px',
+                      borderRadius: '20px',
                       border: 'none',
-                      backgroundColor: '#dc3545',
+                      boxShadow: '0 2px 6px rgba(239, 68, 68, 0.3)',
                       color: 'white',
                       fontSize: '13px',
-                      cursor: 'pointer'
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-1px)';
+                      e.currentTarget.style.boxShadow = '0 4px 8px rgba(239, 68, 68, 0.4)';
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 2px 6px rgba(239, 68, 68, 0.3)';
                     }}
                   >
                     Logout
@@ -2304,32 +2476,40 @@ function App() {
                 </div>
               )}
               
+              {/* Room Filters Title - REMOVED */}
+              
               {/* Room Filters */}
             <div className="room-filters" style={{
               display: 'flex',
-              gap: '6px', // Further reduced gap
+              gap: '10px',
               marginBottom: '15px',
-              padding: '8px', // Slightly reduced container padding
-              backgroundColor: '#f0f0f0',
-              borderRadius: '6px',
-              justifyContent: 'flex-start', // Align to start
-              flexWrap: 'nowrap', 
-              overflowX: 'auto' 
+              padding: '15px', 
+              background: 'linear-gradient(145deg, rgba(255,255,255,0.85), rgba(255,245,245,0.7))',
+              borderRadius: '12px',
+              justifyContent: 'flex-start',
+              flexWrap: 'wrap', 
+              overflowX: 'auto',
+              boxShadow: 'inset 0 1px 5px rgba(0,0,0,0.05), 0 2px 10px rgba(255, 65, 108, 0.1)',
+              border: '1px solid rgba(255,255,255,0.6)',
+              position: 'relative',
+              zIndex: 2
             }}>
               {/* All Button */}
               <button 
                 onClick={() => handleFilterClick('all')}
                 style={{
-                  backgroundColor: selectedFilters.length === 0 ? '#001f5c' : '#ffffff',
-                  color: selectedFilters.length === 0 ? '#ffffff' : '#333333',
-                  border: selectedFilters.length === 0 ? 'none' : '1px solid #cccccc',
-                  borderRadius: '20px',
-                  padding: '4px 10px', // Further reduced padding
-                  fontWeight: selectedFilters.length === 0 ? 'bold' : 'normal',
+                  backgroundColor: selectedFilters.length === 0 ? '#304B82' : '#f8f9fa',
+                  color: selectedFilters.length === 0 ? '#ffffff' : '#4a5568',
+                  border: `1px solid ${selectedFilters.length === 0 ? '#304B82' : '#e2e8f0'}`,
+                  borderRadius: '50px',
+                  padding: '8px 20px',
+                  fontWeight: '600',
                   cursor: 'pointer',
-                  fontSize: '12px', // Further reduced font size
+                  fontSize: '14px',
                   transition: 'all 0.2s ease',
-                  boxShadow: selectedFilters.length === 0 ? '0 2px 4px rgba(0,0,0,0.2)' : 'none'
+                  boxShadow: selectedFilters.length === 0 ? '0 2px 6px rgba(48, 75, 130, 0.3)' : 'none',
+                  position: 'relative',
+                  zIndex: 2
                 }}
               >
                 All
@@ -2338,16 +2518,18 @@ function App() {
               <button 
                 onClick={() => handleFilterClick('available')}
                 style={{
-                  backgroundColor: selectedFilters.includes('available') ? '#4CAF50' : '#ffffff',
-                  color: selectedFilters.includes('available') ? '#ffffff' : '#333333',
-                  border: selectedFilters.includes('available') ? 'none' : '1px solid #cccccc',
-                  borderRadius: '20px',
-                  padding: '4px 10px', // Further reduced padding
-                  fontWeight: selectedFilters.includes('available') ? 'bold' : 'normal',
+                  backgroundColor: selectedFilters.includes('available') ? '#10B981' : '#f8f9fa',
+                  color: selectedFilters.includes('available') ? '#ffffff' : '#4a5568',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: '50px',
+                  padding: '8px 20px',
+                  fontWeight: '600',
                   cursor: 'pointer',
-                  fontSize: '12px', // Further reduced font size
+                  fontSize: '14px',
                   transition: 'all 0.2s ease',
-                  boxShadow: selectedFilters.includes('available') ? '0 2px 4px rgba(0,0,0,0.2)' : 'none'
+                  boxShadow: selectedFilters.includes('available') ? '0 2px 6px rgba(16, 185, 129, 0.3)' : 'none',
+                  position: 'relative',
+                  zIndex: 2
                 }}
               >
                 Available
@@ -2356,100 +2538,110 @@ function App() {
               <button 
                 onClick={() => handleFilterClick('jacuzzi')}
                 style={{
-                  backgroundColor: selectedFilters.includes('jacuzzi') ? '#2196F3' : '#ffffff',
-                  color: selectedFilters.includes('jacuzzi') ? '#ffffff' : '#333333',
-                  border: selectedFilters.includes('jacuzzi') ? 'none' : '1px solid #cccccc',
-                  borderRadius: '20px',
-                  padding: '4px 10px', // Further reduced padding
-                  fontWeight: selectedFilters.includes('jacuzzi') ? 'bold' : 'normal',
+                  backgroundColor: selectedFilters.includes('jacuzzi') ? '#38BDF8' : '#f8f9fa',
+                  color: selectedFilters.includes('jacuzzi') ? '#ffffff' : '#4a5568',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: '50px',
+                  padding: '8px 20px',
+                  fontWeight: '600',
                   cursor: 'pointer',
-                  fontSize: '12px', // Further reduced font size
+                  fontSize: '14px',
                   transition: 'all 0.2s ease',
-                  boxShadow: selectedFilters.includes('jacuzzi') ? '0 2px 4px rgba(0,0,0,0.2)' : 'none',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '3px' // Further reduced icon gap
+                  gap: '6px',
+                  boxShadow: selectedFilters.includes('jacuzzi') ? '0 2px 6px rgba(56, 189, 248, 0.3)' : 'none',
+                  position: 'relative',
+                  zIndex: 2
                 }}
               >
-                <span style={{ fontSize: selectedFilters.includes('jacuzzi') ? '14px' : '12px' }}>🛁</span> Jacuzzi
+                <span style={{ fontSize: '16px' }}>🛁</span> Jacuzzi
               </button>
               {/* Smoking Button */}
               <button 
                 onClick={() => handleFilterClick('smoking')}
                 style={{
-                  backgroundColor: selectedFilters.includes('smoking') ? '#FF9800' : '#ffffff',
-                  color: selectedFilters.includes('smoking') ? '#ffffff' : '#333333',
-                  border: selectedFilters.includes('smoking') ? 'none' : '1px solid #cccccc',
-                  borderRadius: '20px',
-                  padding: '4px 10px', // Further reduced padding
-                  fontWeight: selectedFilters.includes('smoking') ? 'bold' : 'normal',
+                  backgroundColor: selectedFilters.includes('smoking') ? '#F97316' : '#f8f9fa',
+                  color: selectedFilters.includes('smoking') ? '#ffffff' : '#4a5568',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: '50px',
+                  padding: '8px 20px',
+                  fontWeight: '600',
                   cursor: 'pointer',
-                  fontSize: '12px', // Further reduced font size
+                  fontSize: '14px',
                   transition: 'all 0.2s ease',
-                  boxShadow: selectedFilters.includes('smoking') ? '0 2px 4px rgba(0,0,0,0.2)' : 'none',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '3px' // Further reduced icon gap
+                  gap: '6px',
+                  boxShadow: selectedFilters.includes('smoking') ? '0 2px 6px rgba(249, 115, 22, 0.3)' : 'none',
+                  position: 'relative',
+                  zIndex: 2
                 }}
               >
-                <span style={{ fontSize: selectedFilters.includes('smoking') ? '14px' : '12px' }}>🚬</span> Smoking
+                <span style={{ fontSize: '16px' }}>🚬</span> Smoking
               </button>
               {/* Non-Smoking Button */}
               <button 
                 onClick={() => handleFilterClick('non-smoking')}
                 style={{
-                  backgroundColor: selectedFilters.includes('non-smoking') ? '#78909C' : '#ffffff', // Blue Gray
-                  color: selectedFilters.includes('non-smoking') ? '#ffffff' : '#333333',
-                  border: selectedFilters.includes('non-smoking') ? 'none' : '1px solid #cccccc',
-                  borderRadius: '20px',
-                  padding: '4px 10px', // Further reduced padding
-                  fontWeight: selectedFilters.includes('non-smoking') ? 'bold' : 'normal',
+                  backgroundColor: selectedFilters.includes('non-smoking') ? '#64748B' : '#f8f9fa',
+                  color: selectedFilters.includes('non-smoking') ? '#ffffff' : '#4a5568',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: '50px',
+                  padding: '8px 20px',
+                  fontWeight: '600',
                   cursor: 'pointer',
-                  fontSize: '12px', // Further reduced font size
+                  fontSize: '14px',
                   transition: 'all 0.2s ease',
-                  boxShadow: selectedFilters.includes('non-smoking') ? '0 2px 4px rgba(0,0,0,0.2)' : 'none',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '3px' // Further reduced icon gap
+                  gap: '6px',
+                  boxShadow: selectedFilters.includes('non-smoking') ? '0 2px 6px rgba(100, 116, 139, 0.3)' : 'none',
+                  position: 'relative',
+                  zIndex: 2
                 }}
               >
-                <span style={{ fontSize: selectedFilters.includes('non-smoking') ? '14px' : '12px' }}>🚭</span> Non-Smoking
+                <span style={{ fontSize: '16px' }}>🚭</span> Non-Smoking
               </button>
               {/* Handicap Button */}
               <button 
                 onClick={() => handleFilterClick('handicap')}
                 style={{
-                  backgroundColor: selectedFilters.includes('handicap') ? '#9C27B0' : '#ffffff',
-                  color: selectedFilters.includes('handicap') ? '#ffffff' : '#333333',
-                  border: selectedFilters.includes('handicap') ? 'none' : '1px solid #cccccc',
-                  borderRadius: '20px',
-                  padding: '4px 10px', // Further reduced padding
-                  fontWeight: selectedFilters.includes('handicap') ? 'bold' : 'normal',
+                  backgroundColor: selectedFilters.includes('handicap') ? '#8B5CF6' : '#f8f9fa',
+                  color: selectedFilters.includes('handicap') ? '#ffffff' : '#4a5568',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: '50px',
+                  padding: '8px 20px',
+                  fontWeight: '600',
                   cursor: 'pointer',
-                  fontSize: '12px', // Further reduced font size
+                  fontSize: '14px',
                   transition: 'all 0.2s ease',
-                  boxShadow: selectedFilters.includes('handicap') ? '0 2px 4px rgba(0,0,0,0.2)' : 'none',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '3px' // Further reduced icon gap
+                  gap: '6px',
+                  boxShadow: selectedFilters.includes('handicap') ? '0 2px 6px rgba(139, 92, 246, 0.3)' : 'none',
+                  position: 'relative',
+                  zIndex: 2
                 }}
               >
-                <span style={{ fontSize: selectedFilters.includes('handicap') ? '14px' : '12px' }}>♿</span> Handicap
+                <span style={{ fontSize: '16px' }}>♿</span> Handicap
               </button>
               {/* Queen Button */}
               <button 
                 onClick={() => handleFilterClick('Queen')}
                 style={{
-                  backgroundColor: selectedFilters.includes('Queen') ? '#03A9F4' : '#ffffff', // Light Blue
-                  color: selectedFilters.includes('Queen') ? '#ffffff' : '#333333',
-                  border: selectedFilters.includes('Queen') ? 'none' : '1px solid #cccccc',
-                  borderRadius: '20px',
-                  padding: '4px 10px', // Further reduced padding
-                  fontWeight: selectedFilters.includes('Queen') ? 'bold' : 'normal',
+                  backgroundColor: selectedFilters.includes('Queen') ? '#EC4899' : '#f8f9fa',
+                  color: selectedFilters.includes('Queen') ? '#ffffff' : '#4a5568',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: '50px',
+                  padding: '8px 20px',
+                  fontWeight: '600',
                   cursor: 'pointer',
-                  fontSize: '12px', // Further reduced font size
+                  fontSize: '14px',
                   transition: 'all 0.2s ease',
-                  boxShadow: selectedFilters.includes('Queen') ? '0 2px 4px rgba(0,0,0,0.2)' : 'none'
+                  boxShadow: selectedFilters.includes('Queen') ? '0 2px 6px rgba(236, 72, 153, 0.3)' : 'none',
+                  position: 'relative',
+                  zIndex: 2
                 }}
               >
                 Queen
@@ -2458,16 +2650,18 @@ function App() {
               <button 
                 onClick={() => handleFilterClick('King')}
                 style={{
-                  backgroundColor: selectedFilters.includes('King') ? '#673AB7' : '#ffffff', // Deep Purple
-                  color: selectedFilters.includes('King') ? '#ffffff' : '#333333',
-                  border: selectedFilters.includes('King') ? 'none' : '1px solid #cccccc',
-                  borderRadius: '20px',
-                  padding: '4px 10px', // Further reduced padding
-                  fontWeight: selectedFilters.includes('King') ? 'bold' : 'normal',
+                  backgroundColor: selectedFilters.includes('King') ? '#6366F1' : '#f8f9fa',
+                  color: selectedFilters.includes('King') ? '#ffffff' : '#4a5568',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: '50px',
+                  padding: '8px 20px',
+                  fontWeight: '600',
                   cursor: 'pointer',
-                  fontSize: '12px', // Further reduced font size
+                  fontSize: '14px',
                   transition: 'all 0.2s ease',
-                  boxShadow: selectedFilters.includes('King') ? '0 2px 4px rgba(0,0,0,0.2)' : 'none'
+                  boxShadow: selectedFilters.includes('King') ? '0 2px 6px rgba(99, 102, 241, 0.3)' : 'none',
+                  position: 'relative',
+                  zIndex: 2
                 }}
               >
                 King
@@ -2476,17 +2670,19 @@ function App() {
               <button 
                 onClick={() => handleFilterClick('Queen 2 Beds')}
                 style={{
-                  backgroundColor: selectedFilters.includes('Queen 2 Beds') ? '#009688' : '#ffffff', // Teal
-                  color: selectedFilters.includes('Queen 2 Beds') ? '#ffffff' : '#333333',
-                  border: selectedFilters.includes('Queen 2 Beds') ? 'none' : '1px solid #cccccc',
-                  borderRadius: '20px',
-                  padding: '4px 10px', // Further reduced padding
-                  fontWeight: selectedFilters.includes('Queen 2 Beds') ? 'bold' : 'normal',
+                  backgroundColor: selectedFilters.includes('Queen 2 Beds') ? '#0EA5E9' : '#f8f9fa',
+                  color: selectedFilters.includes('Queen 2 Beds') ? '#ffffff' : '#4a5568',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: '50px',
+                  padding: '8px 20px',
+                  fontWeight: '600',
                   cursor: 'pointer',
-                  fontSize: '12px', // Further reduced font size
+                  fontSize: '14px',
                   transition: 'all 0.2s ease',
-                  boxShadow: selectedFilters.includes('Queen 2 Beds') ? '0 2px 4px rgba(0,0,0,0.2)' : 'none',
-                  whiteSpace: 'nowrap', // Prevent wrapping
+                  whiteSpace: 'nowrap',
+                  boxShadow: selectedFilters.includes('Queen 2 Beds') ? '0 2px 6px rgba(14, 165, 233, 0.3)' : 'none',
+                  position: 'relative',
+                  zIndex: 2
                 }}
               >
                 Queen 2 Beds
@@ -2494,44 +2690,105 @@ function App() {
             </div>
 
             {/* Ground Floor Rooms */}
-            <div className="rooms-grid">
+            <div className="rooms-grid" style={{
+              position: 'relative',
+              zIndex: 2
+            }}>
                     {rooms.groundFloor
                       .filter(filterRoom)
                       .map(room => (
                         <div key={room.number} 
-                    className={`room-card ${room.status === 'available' ? 'available' : room.status === 'cleared' ? 'cleared' : 'occupied'}`}
+                            className={`room-card ${room.status === 'available' ? 'available' : room.status === 'cleared' ? 'cleared' : 'occupied'}`}
                             onClick={() => handleRoomCardClick('groundFloor', room.number)}
-                  >
-                    <div style={{ fontWeight: 'bold', marginBottom: '5px' }}>Room {room.number}</div>
-                    <div>{room.beds}</div>
-                    {room.type === 'jacuzzi' && <span>🛁</span>}
-                    {room.smoking ? <span>🚬</span> : <span>🚭</span>}
-                    {room.handicap && <span>♿</span>}
+                        >
+                          <div className="room-number">Room {room.number}</div>
+                          <div>{room.beds}</div>
+                          <div className="room-features">
+                            {room.type === 'jacuzzi' && <span>🛁</span>}
+                            {room.smoking ? <span>🚬</span> : <span>🚭</span>}
+                            {room.handicap && <span>♿</span>}
                           </div>
+                        </div>
                       ))}
                   </div>
               </div>
 
           {/* First Floor Section - Bottom Right */}
-          <div style={{ gridArea: 'firstfloor', backgroundColor: '#f5f5f5', padding: '20px', borderRadius: '8px' }}>
-            <h2 className="section-header">First Floor</h2>
+          <div style={{ 
+            gridArea: 'firstfloor', 
+            background: 'linear-gradient(135deg, #eff1fe, #e6ecff)',
+            backgroundSize: 'cover',
+            padding: '20px', 
+            borderRadius: '16px',
+            boxShadow: '0 8px 30px rgba(0, 31, 92, 0.12)',
+            border: '1px solid rgba(255, 255, 255, 0.6)',
+            position: 'relative',
+            overflow: 'hidden'
+          }}>
+            <div style={{ 
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              bottom: 0,
+              left: 0,
+              backgroundImage: 'radial-gradient(circle at 20% 30%, rgba(106, 130, 251, 0.04) 0%, transparent 25%), radial-gradient(circle at 85% 80%, rgba(252, 92, 125, 0.03) 0%, transparent 20%)',
+              opacity: 1
+            }}></div>
+            
+            <div style={{ 
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '6px',
+              background: 'linear-gradient(90deg, #FC5C7D, #6A82FB)',
+              borderRadius: '16px 16px 0 0'
+            }}></div>
+            
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'space-between', 
+              alignItems: 'center', 
+              background: 'linear-gradient(90deg, #FC5C7D, #6A82FB)',
+              padding: '12px 15px', 
+              borderRadius: '12px',
+              color: 'white',
+              marginBottom: '15px',
+              boxShadow: '0 4px 15px rgba(252, 92, 125, 0.2)',
+              position: 'relative',
+              zIndex: 1
+            }}>
+              <h2 className="section-header" style={{ margin: 0, borderBottom: 'none', color: 'white', fontSize: '16px', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '700' }}>First Floor</h2>
+            </div>
+            
+            {/* Room Filters Title - REMOVED */}
             
             {/* First Floor Rooms */}
-            <div className="rooms-grid">
+            <div className="rooms-grid" style={{
+              background: 'linear-gradient(145deg, rgba(255,255,255,0.85), rgba(243,241,255,0.7))',
+              padding: '15px',
+              borderRadius: '12px',
+              boxShadow: '0 2px 10px rgba(106, 130, 251, 0.1)',
+              border: '1px solid rgba(255,255,255,0.6)',
+              position: 'relative',
+              zIndex: 2
+            }}>
                     {rooms.firstFloor
                       .filter(filterRoom)
                       .map(room => (
                         <div key={room.number} 
-                    className={`room-card ${room.status === 'available' ? 'available' : room.status === 'cleared' ? 'cleared' : 'occupied'}`}
+                            className={`room-card ${room.status === 'available' ? 'available' : room.status === 'cleared' ? 'cleared' : 'occupied'}`}
                             onClick={() => handleRoomCardClick('firstFloor', room.number)}
-                  >
-                    <div style={{ fontWeight: 'bold', marginBottom: '5px' }}>Room {room.number}</div>
-                    <div>{room.beds}</div>
-                    {room.type === 'jacuzzi' && <span>🛁</span>}
-                    {room.smoking ? <span>🚬</span> : <span>🚭</span>}
-                    {room.handicap && <span>♿</span>}
-                              </div>
-                ))}
+                        >
+                          <div className="room-number">Room {room.number}</div>
+                          <div>{room.beds}</div>
+                          <div className="room-features">
+                            {room.type === 'jacuzzi' && <span>🛁</span>}
+                            {room.smoking ? <span>🚬</span> : <span>🚭</span>}
+                            {room.handicap && <span>♿</span>}
+                          </div>
+                        </div>
+                      ))}
                                   </div>
                                 </div>
                                 </div>
@@ -2636,29 +2893,61 @@ function App() {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          backgroundColor: 'rgba(0, 0, 0, 0.7)',
+          backdropFilter: 'blur(5px)',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           zIndex: 1000
         }}>
           <div style={{
-            backgroundColor: 'white',
-            padding: '20px',
-            borderRadius: '8px',
+            background: 'linear-gradient(145deg, #ffffff, #f8f9fa)',
+            padding: '25px',
+            borderRadius: '16px',
             width: '90%',
-            maxWidth: '950px', // Increased width for more space
+            maxWidth: '950px',
             maxHeight: '90vh',
             overflowY: 'auto',
-            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)'
+            boxShadow: '0 10px 40px rgba(0, 0, 0, 0.25)',
+            border: '1px solid rgba(255, 255, 255, 0.8)',
+            position: 'relative'
           }}>
+            <div style={{ 
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '8px',
+              background: 'linear-gradient(90deg, #4776E6, #8E54E9)',
+              borderRadius: '16px 16px 0 0'
+            }}></div>
+            
             <div style={{ 
               display: 'flex', 
               justifyContent: 'space-between', 
               alignItems: 'center', 
-              marginBottom: '10px'
+              marginBottom: '15px',
+              marginTop: '8px'
             }}>
-              <h2 style={{ margin: 0, fontSize: '24px', fontWeight: 'bold' }}>Price Change</h2>
+              <h2 style={{ 
+                margin: 0, 
+                fontSize: '24px', 
+                fontWeight: 'bold',
+                color: '#2d3748',
+                position: 'relative',
+                display: 'inline-block'
+              }}>
+                Price Change
+                <div style={{
+                  position: 'absolute',
+                  bottom: '-5px',
+                  left: '0',
+                  width: '40px',
+                  height: '3px',
+                  background: 'linear-gradient(90deg, #4776E6, #8E54E9)',
+                  borderRadius: '3px'
+                }}></div>
+              </h2>
               <button 
                 onClick={() => setShowPriceChangeModal(false)}
                 style={{
@@ -2666,27 +2955,49 @@ function App() {
                   border: 'none',
                   cursor: 'pointer',
                   fontSize: '24px',
-                  fontWeight: 'bold'
+                  fontWeight: 'bold',
+                  color: '#a0aec0',
+                  transition: 'all 0.2s ease',
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.05)';
+                  e.currentTarget.style.color = '#4a5568';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                  e.currentTarget.style.color = '#a0aec0';
                 }}
               >
                 ×
               </button>
             </div>
             
-            <div style={{ borderBottom: '1px solid #001f5c', marginBottom: '20px' }}></div>
+            <div style={{ borderBottom: '1px solid #e2e8f0', marginBottom: '20px' }}></div>
             
             {showConfirmation && (
               <div style={{ 
-                color: 'darkgreen',
+                color: '#047857',
                 textAlign: 'center',
                 margin: '10px 0 20px',
                 fontWeight: 'bold',
                 fontSize: '16px',
-                backgroundColor: '#d4edda',
-                padding: '10px',
-                borderRadius: '4px'
+                background: 'linear-gradient(120deg, #d1fae5, #ecfdf5)',
+                padding: '15px',
+                borderRadius: '10px',
+                boxShadow: '0 2px 10px rgba(4, 120, 87, 0.1)',
+                border: '1px solid #a7f3d0',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '10px'
               }}>
-                Prices updated successfully!
+                <span style={{ fontSize: '20px' }}>✓</span> Prices updated successfully!
               </div>
             )}
             
@@ -2698,28 +3009,31 @@ function App() {
             }}>
               {/* Short Stay Prices */}
               <div style={{ 
-                backgroundColor: '#f5f5f5',
+                background: 'linear-gradient(120deg, #f8faff, #edf2ff)',
                 padding: '20px',
-                borderRadius: '8px'
+                borderRadius: '12px',
+                boxShadow: '0 4px 15px rgba(0, 31, 92, 0.06)',
+                border: '1px solid rgba(182, 203, 254, 0.4)'
               }}>
                 <h3 style={{ 
                   textAlign: 'center',
-                  color: '#001f5c',
-                  borderBottom: '2px solid #001f5c',
+                  color: '#2d3748',
+                  borderBottom: '2px solid #4776E6',
                   paddingBottom: '10px',
                   marginTop: '0',
                   marginBottom: '20px',
-                  fontSize: '20px'
+                  fontSize: '20px',
+                  fontWeight: '700'
                 }}>Short Stay Prices</h3>
 
-                <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 0' }}> {/* Changed vertical spacing from 25px to 0 */}
+                <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 15px' }}> 
                   <tbody>
                     <tr>
                       {/* Increased width for label column */}
-                      <td style={{ fontWeight: 'bold', width: '130px', verticalAlign: 'middle', whiteSpace: 'nowrap' }}>Base Rate:</td>
+                      <td style={{ fontWeight: 'bold', width: '130px', verticalAlign: 'middle', whiteSpace: 'nowrap', color: '#4a5568' }}>Base Rate:</td>
                       <td>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
-                          <span style={{ whiteSpace: 'nowrap', minWidth: '80px' }}>Regular: $</span>
+                          <span style={{ whiteSpace: 'nowrap', minWidth: '80px', color: '#4a5568' }}>Regular: $</span>
                           <input 
                             type="number" 
                             value={shortStayPrices.baseRate.withoutJacuzzi} 
@@ -2728,12 +3042,14 @@ function App() {
                               baseRate: { ...shortStayPrices.baseRate, withoutJacuzzi: parseFloat(e.target.value) }
                             })} 
                             style={{ 
-                              width: '80px', // Adjusted width slightly
-                              padding: '8px',
-                              border: '1px solid #ccc',
-                              borderRadius: '4px',
+                              width: '80px',
+                              padding: '10px',
+                              border: '1px solid #cbd5e0',
+                              borderRadius: '8px',
                               fontSize: '16px',
-                              marginLeft: '5px'
+                              marginLeft: '5px',
+                              boxShadow: '0 1px 3px rgba(0,0,0,0.05) inset',
+                              transition: 'all 0.2s ease'
                             }}
                           />
                         </div>
@@ -2741,7 +3057,7 @@ function App() {
                       {/* Added paddingLeft for spacing */}
                       <td style={{ paddingLeft: '20px' }}>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
-                          <span style={{ whiteSpace: 'nowrap', minWidth: '80px' }}>Jacuzzi: $</span>
+                          <span style={{ whiteSpace: 'nowrap', minWidth: '80px', color: '#4a5568' }}>Jacuzzi: $</span>
                           <input 
                             type="number" 
                             value={shortStayPrices.baseRate.withJacuzzi} 
@@ -2750,12 +3066,14 @@ function App() {
                               baseRate: { ...shortStayPrices.baseRate, withJacuzzi: parseFloat(e.target.value) }
                             })} 
                             style={{ 
-                              width: '80px', // Adjusted width slightly
-                              padding: '8px',
-                              border: '1px solid #ccc',
-                              borderRadius: '4px',
+                              width: '80px',
+                              padding: '10px',
+                              border: '1px solid #cbd5e0',
+                              borderRadius: '8px',
                               fontSize: '16px',
-                              marginLeft: '5px'
+                              marginLeft: '5px',
+                              boxShadow: '0 1px 3px rgba(0,0,0,0.05) inset',
+                              transition: 'all 0.2s ease'
                             }}
                           />
                         </div>
@@ -2763,11 +3081,11 @@ function App() {
                     </tr>
                     <tr>
                       {/* Increased width for label column */}
-                      <td style={{ fontWeight: 'bold', width: '130px', verticalAlign: 'middle', whiteSpace: 'nowrap' }}>Extra Hour:</td>
+                      <td style={{ fontWeight: 'bold', width: '130px', verticalAlign: 'middle', whiteSpace: 'nowrap', color: '#4a5568' }}>Extra Hour:</td>
                       {/* Added paddingLeft to this cell */}
                       <td style={{ paddingLeft: '6px' }}> 
                         <div style={{ display: 'flex', alignItems: 'center' }}>
-                          <span style={{ whiteSpace: 'nowrap', minWidth: '80px' }}>Regular: $</span>
+                          <span style={{ whiteSpace: 'nowrap', minWidth: '80px', color: '#4a5568' }}>Regular: $</span>
                           <input 
                             type="number" 
                             value={shortStayPrices.extraHourRate.regular} 
@@ -2776,12 +3094,14 @@ function App() {
                               extraHourRate: { ...shortStayPrices.extraHourRate, regular: parseFloat(e.target.value) }
                             })} 
                             style={{ 
-                              width: '80px', // Adjusted width slightly
-                              padding: '8px',
-                              border: '1px solid #ccc',
-                              borderRadius: '4px',
+                              width: '80px',
+                              padding: '10px',
+                              border: '1px solid #cbd5e0',
+                              borderRadius: '8px',
                               fontSize: '16px',
-                              marginLeft: '5px'
+                              marginLeft: '5px',
+                              boxShadow: '0 1px 3px rgba(0,0,0,0.05) inset',
+                              transition: 'all 0.2s ease'
                             }}
                           />
                         </div>
@@ -2789,7 +3109,7 @@ function App() {
                       {/* Added paddingLeft for spacing */}
                       <td style={{ paddingLeft: '20px' }}>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
-                          <span style={{ whiteSpace: 'nowrap', minWidth: '95px' }}>Discounted: $</span>
+                          <span style={{ whiteSpace: 'nowrap', minWidth: '95px', color: '#4a5568' }}>Discounted: $</span>
                           <input 
                             type="number" 
                             value={shortStayPrices.extraHourRate.discounted} 
@@ -2798,12 +3118,14 @@ function App() {
                               extraHourRate: { ...shortStayPrices.extraHourRate, discounted: parseFloat(e.target.value) }
                             })} 
                             style={{ 
-                              width: '80px', // Adjusted width slightly
-                              padding: '8px',
-                              border: '1px solid #ccc',
-                              borderRadius: '4px',
+                              width: '80px',
+                              padding: '10px',
+                              border: '1px solid #cbd5e0',
+                              borderRadius: '8px',
                               fontSize: '16px',
-                              marginLeft: '5px'
+                              marginLeft: '5px',
+                              boxShadow: '0 1px 3px rgba(0,0,0,0.05) inset',
+                              transition: 'all 0.2s ease'
                             }}
                           />
                         </div>
@@ -2815,28 +3137,31 @@ function App() {
 
               {/* Regular Room Prices */}
               <div style={{
-                backgroundColor: '#f5f5f5',
+                background: 'linear-gradient(120deg, #f8faff, #edf2ff)',
                 padding: '20px',
-                borderRadius: '8px'
+                borderRadius: '12px',
+                boxShadow: '0 4px 15px rgba(0, 31, 92, 0.06)',
+                border: '1px solid rgba(182, 203, 254, 0.4)'
               }}>
                 <h3 style={{ 
                   textAlign: 'center',
-                  color: '#001f5c', 
-                  borderBottom: '2px solid #001f5c',
+                  color: '#2d3748', 
+                  borderBottom: '2px solid #4776E6',
                   paddingBottom: '10px',
                   marginTop: '0',
                   marginBottom: '20px',
-                  fontSize: '20px'
+                  fontSize: '20px',
+                  fontWeight: '700'
                 }}>
                   Regular Room
                 </h3>
                 <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 15px' }}>
                   <tbody>
                     <tr>
-                      <td style={{ fontWeight: 'bold', width: '120px', verticalAlign: 'middle' }}>Weekday:</td>
+                      <td style={{ fontWeight: 'bold', width: '120px', verticalAlign: 'middle', color: '#4a5568' }}>Weekday:</td>
                       <td>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
-                          <span style={{ marginRight: '8px' }}>$</span>
+                          <span style={{ marginRight: '8px', color: '#4a5568' }}>$</span>
                           <input 
                             type="number" 
                             value={prices.weekday.withoutJacuzzi} 
@@ -2846,20 +3171,22 @@ function App() {
                             })} 
                             style={{ 
                               width: '100px',
-                              padding: '8px',
-                              border: '1px solid #ccc',
-                              borderRadius: '4px',
-                              fontSize: '16px'
+                              padding: '10px',
+                              border: '1px solid #cbd5e0',
+                              borderRadius: '8px',
+                              fontSize: '16px',
+                              boxShadow: '0 1px 3px rgba(0,0,0,0.05) inset',
+                              transition: 'all 0.2s ease'
                             }}
                           />
                         </div>
                       </td>
                     </tr>
                     <tr>
-                      <td style={{ fontWeight: 'bold', width: '120px', verticalAlign: 'middle' }}>Friday:</td>
+                      <td style={{ fontWeight: 'bold', width: '120px', verticalAlign: 'middle', color: '#4a5568' }}>Friday:</td>
                       <td>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
-                          <span style={{ marginRight: '8px' }}>$</span>
+                          <span style={{ marginRight: '8px', color: '#4a5568' }}>$</span>
                           <input 
                             type="number" 
                             value={prices.friday.withoutJacuzzi} 
@@ -2869,20 +3196,22 @@ function App() {
                             })} 
                             style={{ 
                               width: '100px',
-                              padding: '8px',
-                              border: '1px solid #ccc',
-                              borderRadius: '4px',
-                              fontSize: '16px'
+                              padding: '10px',
+                              border: '1px solid #cbd5e0',
+                              borderRadius: '8px',
+                              fontSize: '16px',
+                              boxShadow: '0 1px 3px rgba(0,0,0,0.05) inset',
+                              transition: 'all 0.2s ease'
                             }}
                           />
                         </div>
                       </td>
                     </tr>
                     <tr>
-                      <td style={{ fontWeight: 'bold', width: '120px', verticalAlign: 'middle' }}>Weekend:</td>
+                      <td style={{ fontWeight: 'bold', width: '120px', verticalAlign: 'middle', color: '#4a5568' }}>Weekend:</td>
                       <td>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
-                          <span style={{ marginRight: '8px' }}>$</span>
+                          <span style={{ marginRight: '8px', color: '#4a5568' }}>$</span>
                           <input 
                             type="number" 
                             value={prices.weekend.withoutJacuzzi} 
@@ -2892,10 +3221,12 @@ function App() {
                             })} 
                             style={{ 
                               width: '100px',
-                              padding: '8px',
-                              border: '1px solid #ccc',
-                              borderRadius: '4px',
-                              fontSize: '16px'
+                              padding: '10px',
+                              border: '1px solid #cbd5e0',
+                              borderRadius: '8px',
+                              fontSize: '16px',
+                              boxShadow: '0 1px 3px rgba(0,0,0,0.05) inset',
+                              transition: 'all 0.2s ease'
                             }}
                           />
                         </div>
@@ -2908,23 +3239,26 @@ function App() {
 
             {/* Jacuzzi Room Prices */}
             <div style={{ 
-              backgroundColor: '#f5f5f5',
+              background: 'linear-gradient(120deg, #f0f7ff, #e6f0fd)',
               padding: '20px',
-              borderRadius: '8px',
-              marginBottom: '30px'
+              borderRadius: '12px',
+              marginBottom: '30px',
+              boxShadow: '0 4px 15px rgba(0, 31, 92, 0.06)',
+              border: '1px solid rgba(130, 174, 255, 0.4)'
             }}>
               <h3 style={{ 
                 textAlign: 'center',
-                color: '#001f5c', 
-                borderBottom: '2px solid #001f5c',
+                color: '#2d3748', 
+                borderBottom: '2px solid #4776E6',
                 paddingBottom: '10px',
                 marginTop: '0',
                 marginBottom: '20px',
-                fontSize: '20px'
+                fontSize: '20px',
+                fontWeight: '700'
               }}>
                 Jacuzzi Room
               </h3>
-              <table style={{ width: '100%', tableLayout: 'fixed' }}> {/* Use fixed table layout */} 
+              <table style={{ width: '100%', tableLayout: 'fixed' }}> 
                 <tbody>
                   <tr>
                     {/* Adjusted padding and label width */}
