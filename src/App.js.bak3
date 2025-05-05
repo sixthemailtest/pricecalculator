@@ -2053,7 +2053,7 @@ function App() {
       
       .room-card::before {
         content: '' !important;
-        position: absolute !important;
+        margin-top: 5px !important;
         top: 0 !important;
         left: 0 !important;
         width: 100% !important;
@@ -2099,16 +2099,16 @@ function App() {
       }
       
       .room-card .price-tag {
-        position: absolute !important;
-        top: -10px !important;
-        right: -10px !important;
-        background: linear-gradient(135deg, #ff416c, #ff4b2b) !important;
+        margin-top: 5px !important;
+        
+        
+        background: linear-gradient(135deg, #304B82, #4776E6) !important;
         color: white !important;
-        padding: 12px 15px !important;
-        border-radius: 50% !important;
+        padding: 6px 10px !important;
+        border-radius: 8px !important;
         font-weight: 700 !important;
         box-shadow: 0 4px 10px rgba(255, 65, 108, 0.4) !important;
-        transform: rotate(15deg) !important;
+        
         z-index: 5 !important;
         display: flex !important;
         flex-direction: column !important;
@@ -2120,12 +2120,12 @@ function App() {
       
       .room-card .price-tag::after {
         content: '' !important;
-        position: absolute !important;
+        margin-top: 5px !important;
         bottom: -15px !important;
         right: 10px !important;
         width: 20px !important;
         height: 20px !important;
-        background: linear-gradient(135deg, #ff416c, #ff4b2b) !important;
+        background: linear-gradient(135deg, #304B82, #4776E6) !important;
         transform: rotate(45deg) !important;
         z-index: -1 !important;
         box-shadow: 0 4px 10px rgba(255, 65, 108, 0.4) !important;

@@ -9,151 +9,151 @@ function App() {
   const filterButtonStyles = {
     all: {
       selected: {
-        backgroundColor: '#304B82',
-        color: '#ffffff',
-        border: '2px solid #304B82',
+        backgroundColor: '#BDE0FE', // Light Blue
+        color: '#000000', // Black text for light blue
+        border: '2px solid #A0C4FF', // Adjusted border
         fontWeight: 700,
-        boxShadow: '0 4px 10px rgba(48, 75, 130, 0.35)',
+        boxShadow: '0 4px 10px rgba(189, 224, 254, 0.35)', // Adjusted shadow
         transform: 'translateY(-2px)'
       },
       unselected: {
         backgroundColor: '#eef2ff',
-        color: '#304B82',
+        color: '#000000', // Black
         border: '2px solid #c7d2fe'
       }
     },
     available: {
       selected: {
-        backgroundColor: '#10B981',
-        color: '#ffffff',
-        border: '2px solid #0f9d7a',
+        backgroundColor: '#BDE0FE', // Light Blue
+        color: '#000000', // Black text for light blue
+        border: '2px solid #A0C4FF', // Adjusted border
         fontWeight: 700,
-        boxShadow: '0 4px 10px rgba(16, 185, 129, 0.35)',
+        boxShadow: '0 4px 10px rgba(189, 224, 254, 0.35)', // Adjusted shadow
         transform: 'translateY(-2px)'
       },
       unselected: {
         backgroundColor: '#dcfce7',
-        color: '#15803d',
+        color: '#000000', // Black
         border: '2px solid #86efac'
       }
     },
     jacuzzi: {
       selected: {
-        backgroundColor: '#38BDF8',
-        color: '#ffffff',
-        border: '2px solid #24a8e0',
+        backgroundColor: '#BDE0FE', // Light Blue
+        color: '#000000', // Black text for light blue
+        border: '2px solid #A0C4FF', // Adjusted border
         fontWeight: 700,
-        boxShadow: '0 4px 10px rgba(56, 189, 248, 0.35)',
+        boxShadow: '0 4px 10px rgba(189, 224, 254, 0.35)', // Adjusted shadow
         transform: 'translateY(-2px)'
       },
       unselected: {
         backgroundColor: '#e0f2fe',
-        color: '#0369a1',
+        color: '#000000', // Black
         border: '2px solid #7dd3fc'
       }
     },
     nonJacuzzi: {
       selected: {
-        backgroundColor: '#6366F1',
-        color: '#ffffff',
-        border: '2px solid #4e51d6',
+        backgroundColor: '#BDE0FE', // Light Blue
+        color: '#000000', // Black text for light blue
+        border: '2px solid #A0C4FF', // Adjusted border
         fontWeight: 700,
-        boxShadow: '0 4px 10px rgba(99, 102, 241, 0.35)',
+        boxShadow: '0 4px 10px rgba(189, 224, 254, 0.35)', // Adjusted shadow
         transform: 'translateY(-2px)'
       },
       unselected: {
         backgroundColor: '#ede9fe',
-        color: '#5b21b6',
+        color: '#000000', // Black
         border: '2px solid #c4b5fd'
       }
     },
     smoking: {
       selected: {
-        backgroundColor: '#F97316',
-        color: '#ffffff',
-        border: '2px solid #e4630a',
+        backgroundColor: '#BDE0FE', // Light Blue
+        color: '#000000', // Black text for light blue
+        border: '2px solid #A0C4FF', // Adjusted border
         fontWeight: 700,
-        boxShadow: '0 4px 10px rgba(249, 115, 22, 0.35)',
+        boxShadow: '0 4px 10px rgba(189, 224, 254, 0.35)', // Adjusted shadow
         transform: 'translateY(-2px)'
       },
       unselected: {
         backgroundColor: '#fff7ed',
-        color: '#c2410c',
+        color: '#000000', // Black
         border: '2px solid #fdba74'
       }
     },
     nonSmoking: {
       selected: {
-        backgroundColor: '#64748B',
-        color: '#ffffff',
-        border: '2px solid #525d6d',
+        backgroundColor: '#BDE0FE', // Light Blue
+        color: '#000000', // Black text for light blue
+        border: '2px solid #A0C4FF', // Adjusted border
         fontWeight: 700,
-        boxShadow: '0 4px 10px rgba(100, 116, 139, 0.35)',
+        boxShadow: '0 4px 10px rgba(189, 224, 254, 0.35)', // Adjusted shadow
         transform: 'translateY(-2px)'
       },
       unselected: {
         backgroundColor: '#f1f5f9',
-        color: '#334155',
+        color: '#000000', // Black
         border: '2px solid #cbd5e1'
       }
     },
     handicap: {
       selected: {
-        backgroundColor: '#8B5CF6',
-        color: '#ffffff',
-        border: '2px solid #7a43e8',
+        backgroundColor: '#BDE0FE', // Light Blue
+        color: '#000000', // Black text for light blue
+        border: '2px solid #A0C4FF', // Adjusted border
         fontWeight: 700,
-        boxShadow: '0 4px 10px rgba(139, 92, 246, 0.35)',
+        boxShadow: '0 4px 10px rgba(189, 224, 254, 0.35)', // Adjusted shadow
         transform: 'translateY(-2px)'
       },
       unselected: {
         backgroundColor: '#f5f3ff',
-        color: '#6d28d9',
+        color: '#000000', // Black
         border: '2px solid #c4b5fd'
       }
     },
     queen: {
       selected: {
-        backgroundColor: '#EC4899',
-        color: '#ffffff',
-        border: '2px solid #d63787',
+        backgroundColor: '#BDE0FE', // Light Blue
+        color: '#000000', // Black text for light blue
+        border: '2px solid #A0C4FF', // Adjusted border
         fontWeight: 700,
-        boxShadow: '0 4px 10px rgba(236, 72, 153, 0.35)',
+        boxShadow: '0 4px 10px rgba(189, 224, 254, 0.35)', // Adjusted shadow
         transform: 'translateY(-2px)'
       },
       unselected: {
         backgroundColor: '#fdf2f8',
-        color: '#be185d',
+        color: '#000000', // Black
         border: '2px solid #fbcfe8'
       }
     },
     king: {
       selected: {
-        backgroundColor: '#6366F1',
-        color: '#ffffff',
-        border: '2px solid #4e51d6',
+        backgroundColor: '#BDE0FE', // Light Blue
+        color: '#000000', // Black text for light blue
+        border: '2px solid #A0C4FF', // Adjusted border
         fontWeight: 700,
-        boxShadow: '0 4px 10px rgba(99, 102, 241, 0.35)',
+        boxShadow: '0 4px 10px rgba(189, 224, 254, 0.35)', // Adjusted shadow
         transform: 'translateY(-2px)'
       },
       unselected: {
         backgroundColor: '#eef2ff',
-        color: '#4338ca',
+        color: '#000000', // Black
         border: '2px solid #c7d2fe'
       }
     },
     queen2Beds: {
       selected: {
-        backgroundColor: '#0EA5E9',
-        color: '#ffffff',
-        border: '2px solid #0b8ac4',
+        backgroundColor: '#BDE0FE', // Light Blue
+        color: '#000000', // Black text for light blue
+        border: '2px solid #A0C4FF', // Adjusted border
         fontWeight: 700,
-        boxShadow: '0 4px 10px rgba(14, 165, 233, 0.35)',
+        boxShadow: '0 4px 10px rgba(189, 224, 254, 0.35)', // Adjusted shadow
         transform: 'translateY(-2px)'
       },
       unselected: {
         backgroundColor: '#f0f9ff',
-        color: '#0369a1',
+        color: '#000000', // Black
         border: '2px solid #bae6fd'
       }
     }
@@ -320,50 +320,50 @@ function App() {
       setRooms(JSON.parse(savedRoomsData));
     } else {
       const defaultRooms = {
-        groundFloor: [
+      groundFloor: [
           { number: "101", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: true },
-          { number: "102", type: "standard", beds: "Queen", status: "available", smoking: true, handicap: false },
-          { number: "103", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
-          { number: "104", type: "standard", beds: "Queen", status: "available", smoking: true, handicap: false },
-          { number: "105", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
-          { number: "106", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
-          { number: "107", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
-          { number: "108", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: true },
-          { number: "109", type: "jacuzzi", beds: "Queen", status: "available", smoking: false, handicap: false },
-          { number: "110", type: "jacuzzi", beds: "Queen", status: "available", smoking: true, handicap: false },
-          { number: "111", type: "jacuzzi", beds: "Queen", status: "available", smoking: false, handicap: false },
-          { number: "112", type: "jacuzzi", beds: "Queen", status: "available", smoking: true, handicap: false },
-          { number: "114", type: "standard", beds: "Queen", status: "available", smoking: false},
-          { number: "119", type: "jacuzzi", beds: "Queen", status: "available", smoking: true, handicap: false, onlineBookingOnly: true }
-        ],
-        firstFloor: [
-          { number: "200", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
-          { number: "201", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
-          { number: "202", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
-          { number: "203", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
-          { number: "204", type: "standard", beds: "Queen", status: "available", smoking: true, handicap: true },
-          { number: "205", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
-          { number: "206", type: "standard", beds: "Queen", status: "available", smoking: true, handicap: false },
-          { number: "207", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: true, handicap: false },
-          { number: "208", type: "jacuzzi", beds: "King", status: "available", smoking: false, handicap: false },
-          { number: "209", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
-          { number: "210", type: "jacuzzi", beds: "King", status: "available", smoking: true, handicap: false },
-          { number: "211", type: "standard", beds: "King", status: "available", smoking: true, handicap: false },
-          { number: "212", type: "standard", beds: "King", status: "available", smoking: false, handicap: false },
-          { number: "214", type: "jacuzzi", beds: "King", status: "available", smoking: false, handicap: false },
-          { number: "215", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: true },
-          { number: "216", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
-          { number: "217", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
-          { number: "218", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
-          { number: "219", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: true, handicap: false },
-          { number: "220", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
-          { number: "221", type: "standard", beds: "King", status: "available", smoking: false, handicap: false },
-          { number: "222", type: "standard", beds: "King", status: "available", smoking: false, handicap: false },
-          { number: "223", type: "standard", beds: "King", status: "available", smoking: false, handicap: false },
-          { number: "224", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
-          { number: "225", type: "standard", beds: "King", status: "available", smoking: false, handicap: false }
-        ]
-      };
+        { number: "102", type: "standard", beds: "Queen", status: "available", smoking: true, handicap: false },
+        { number: "103", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "104", type: "standard", beds: "Queen", status: "available", smoking: true, handicap: false },
+        { number: "105", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "106", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "107", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "108", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: true },
+        { number: "109", type: "jacuzzi", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "110", type: "jacuzzi", beds: "Queen", status: "available", smoking: true, handicap: false },
+        { number: "111", type: "jacuzzi", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "112", type: "jacuzzi", beds: "Queen", status: "available", smoking: true, handicap: false },
+        { number: "114", type: "standard", beds: "Queen", status: "available", smoking: false},
+        { number: "119", type: "jacuzzi", beds: "Queen", status: "available", smoking: true, handicap: false, onlineBookingOnly: true }
+      ],
+      firstFloor: [
+        { number: "200", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "201", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "202", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "203", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "204", type: "standard", beds: "Queen", status: "available", smoking: true, handicap: true },
+        { number: "205", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "206", type: "standard", beds: "Queen", status: "available", smoking: true, handicap: false },
+        { number: "207", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: true, handicap: false },
+        { number: "208", type: "jacuzzi", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "209", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "210", type: "jacuzzi", beds: "King", status: "available", smoking: true, handicap: false },
+        { number: "211", type: "standard", beds: "King", status: "available", smoking: true, handicap: false },
+        { number: "212", type: "standard", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "214", type: "jacuzzi", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "215", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: true },
+        { number: "216", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "217", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "218", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "219", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: true, handicap: false },
+        { number: "220", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "221", type: "standard", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "222", type: "standard", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "223", type: "standard", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "224", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "225", type: "standard", beds: "King", status: "available", smoking: false, handicap: false }
+      ]
+    };
       setRooms(defaultRooms);
       // Save defaults if nothing was loaded
       localStorage.setItem('roomsData', JSON.stringify(defaultRooms));
@@ -2103,10 +2103,12 @@ function App() {
         background: rgba(0, 0, 0, 0.25) !important;
         padding: 4px 8px !important;
         border-radius: 4px !important;
-        font-size: 11px !important;
-        font-weight: 700 !important;
+        font-size: 10px !important; /* Reduced font size */
+        font-weight: 600 !important; /* Adjusted font weight */
+        letter-spacing: 0.5px !important; /* Added letter spacing */
         color: white !important;
         text-shadow: 0 1px 1px rgba(0,0,0,0.2) !important;
+        line-height: 1.2 !important; /* Adjusted line height for smaller text */
       }
     `;
     document.head.appendChild(styleElement);
@@ -2295,7 +2297,7 @@ function App() {
           >
             <span style={{ fontSize: '16px' }}>🔄</span> Change Room Status
           </button>
-
+          
           {/* Price Change Button */}
           <button 
             onClick={() => setShowPriceChangeModal(true)}
@@ -2384,7 +2386,7 @@ function App() {
                   e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
-                Clear
+                Clear Options
               </button>
                 </div>
             
@@ -2898,7 +2900,7 @@ function App() {
                     onClick={() => handleFilterClick('all')}
                     className={selectedFilters.length === 0 ? "all-button-selected" : "all-button-unselected"}
                     style={{
-                      borderRadius: '50px',
+                  borderRadius: '50px',
                       padding: '10px 20px',
                       fontWeight: selectedFilters.length === 0 ? 700 : 600,
                       fontSize: '14px',
@@ -2907,7 +2909,7 @@ function App() {
                       display: 'inline-flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      transition: 'all 0.2s ease',
+                  transition: 'all 0.2s ease',
                       backgroundColor: selectedFilters.length === 0 ? '#304B82' : '#eef2ff',
                       color: selectedFilters.length === 0 ? '#ffffff' : '#304B82',
                       border: selectedFilters.length === 0 ? '2px solid #304B82' : '2px solid #c7d2fe',
@@ -2927,9 +2929,9 @@ function App() {
                         e.target.style.backgroundColor = '#eef2ff';
                         e.target.style.opacity = '0.85';
                       }
-                    }}
-                  >
-                    All
+                }}
+              >
+                All
                   </button>
               {/* Available Button */}
                   <button
@@ -2944,7 +2946,7 @@ function App() {
                   cursor: 'pointer !important',
                   fontSize: '14px !important',
                   transition: 'all 0.2s ease !important',
-                  boxShadow: selectedFilters.includes('available')
+                      boxShadow: selectedFilters.includes('available')
                     ? '0 4px 10px rgba(16, 185, 129, 0.35) !important'
                     : '0 2px 5px rgba(0,0,0,0.08) !important',
                   transform: selectedFilters.includes('available') ? 'translateY(-2px) !important' : 'none !important',
@@ -2971,8 +2973,8 @@ function App() {
                   borderRadius: '50px',
                   padding: '8px 20px',
                   fontWeight: selectedFilters.includes('jacuzzi') ? '700' : '600',
-                  cursor: 'pointer',
-                  fontSize: '14px',
+                      cursor: 'pointer',
+                      fontSize: '14px',
                   transition: 'all 0.2s ease',
                   display: 'flex',
                   alignItems: 'center',
@@ -2983,8 +2985,8 @@ function App() {
                   transform: selectedFilters.includes('jacuzzi') ? 'translateY(-2px)' : 'none',
                   position: 'relative',
                   zIndex: 2
-                    }}
-                  >
+                }}
+              >
                 <span style={{ fontSize: '16px' }}>🛁</span> Jacuzzi
                   </button>
 
@@ -2998,11 +3000,11 @@ function App() {
                   borderRadius: '50px',
                   padding: '8px 20px',
                   fontWeight: selectedFilters.includes('non-jacuzzi') ? '700' : '600',
-                  cursor: 'pointer',
-                  fontSize: '14px',
+                      cursor: 'pointer',
+                      fontSize: '14px',
                   transition: 'all 0.2s ease',
-                  display: 'flex',
-                  alignItems: 'center',
+                      display: 'flex',
+                      alignItems: 'center',
                   gap: '6px',
                   boxShadow: selectedFilters.includes('non-jacuzzi')
                     ? '0 4px 10px rgba(99, 102, 241, 0.35)'
@@ -3024,11 +3026,11 @@ function App() {
                   borderRadius: '50px',
                   padding: '8px 20px',
                   fontWeight: selectedFilters.includes('smoking') ? '700' : '600',
-                  cursor: 'pointer',
-                  fontSize: '14px',
+                      cursor: 'pointer',
+                      fontSize: '14px',
                   transition: 'all 0.2s ease',
-                  display: 'flex',
-                  alignItems: 'center',
+                      display: 'flex',
+                      alignItems: 'center',
                   gap: '6px',
                   boxShadow: selectedFilters.includes('smoking')
                     ? '0 4px 10px rgba(249, 115, 22, 0.35)'
@@ -3050,11 +3052,11 @@ function App() {
                   borderRadius: '50px',
                   padding: '8px 20px',
                   fontWeight: selectedFilters.includes('non-smoking') ? '700' : '600',
-                  cursor: 'pointer',
-                  fontSize: '14px',
+                      cursor: 'pointer',
+                      fontSize: '14px',
                   transition: 'all 0.2s ease',
-                  display: 'flex',
-                  alignItems: 'center',
+                      display: 'flex',
+                      alignItems: 'center',
                   gap: '6px',
                   boxShadow: selectedFilters.includes('non-smoking')
                     ? '0 4px 10px rgba(100, 116, 139, 0.35)'
@@ -3076,11 +3078,11 @@ function App() {
                   borderRadius: '50px',
                   padding: '8px 20px',
                   fontWeight: selectedFilters.includes('handicap') ? '700' : '600',
-                  cursor: 'pointer',
-                  fontSize: '14px',
+                      cursor: 'pointer',
+                      fontSize: '14px',
                   transition: 'all 0.2s ease',
-                  display: 'flex',
-                  alignItems: 'center',
+                      display: 'flex',
+                      alignItems: 'center',
                   gap: '6px',
                   boxShadow: selectedFilters.includes('handicap')
                     ? '0 4px 10px rgba(139, 92, 246, 0.35)'
@@ -3102,8 +3104,8 @@ function App() {
                   borderRadius: '50px',
                   padding: '8px 20px',
                   fontWeight: selectedFilters.includes('Queen') ? '700' : '600',
-                  cursor: 'pointer',
-                  fontSize: '14px',
+                      cursor: 'pointer',
+                      fontSize: '14px',
                   transition: 'all 0.2s ease',
                   boxShadow: selectedFilters.includes('Queen')
                     ? '0 4px 10px rgba(236, 72, 153, 0.35)'
@@ -3125,8 +3127,8 @@ function App() {
                   borderRadius: '50px',
                   padding: '8px 20px',
                   fontWeight: selectedFilters.includes('King') ? '700' : '600',
-                  cursor: 'pointer',
-                  fontSize: '14px',
+                      cursor: 'pointer',
+                      fontSize: '14px',
                   transition: 'all 0.2s ease',
                   boxShadow: selectedFilters.includes('King')
                     ? '0 4px 10px rgba(99, 102, 241, 0.35)'
@@ -3148,8 +3150,8 @@ function App() {
                   borderRadius: '50px',
                   padding: '8px 20px',
                   fontWeight: selectedFilters.includes('Queen 2 Beds') ? '700' : '600',
-                  cursor: 'pointer',
-                  fontSize: '14px',
+                      cursor: 'pointer',
+                      fontSize: '14px',
                   transition: 'all 0.2s ease',
                   whiteSpace: 'nowrap',
                   boxShadow: selectedFilters.includes('Queen 2 Beds')
@@ -3219,9 +3221,9 @@ function App() {
                               
                               return (
                                 <>
-                                  <span style={{ fontSize: '5px', lineHeight: '1.1', display: 'block', color: 'rgba(255, 255, 255, 0.9)' }}>Base:${basePrice.toFixed(2)}</span>
-                                  <span style={{ fontSize: '5px', lineHeight: '1.1', display: 'block', color: 'rgba(255, 255, 255, 0.9)' }}>Tax:${tax.toFixed(2)}</span>
-                                  <span style={{ fontSize: '7px', fontWeight: 'bold', lineHeight: '1.1', display: 'block' }}>Total:${total.toFixed(2)}</span>
+                                  <span style={{ fontSize: '9px', lineHeight: '1.1', display: 'block', color: 'rgba(255, 255, 255, 0.9)', fontWeight: '500' }}>Base:${basePrice.toFixed(2)}</span>
+                                  <span style={{ fontSize: '9px', lineHeight: '1.1', display: 'block', color: 'rgba(255, 255, 255, 0.9)', fontWeight: '500' }}>Tax:${tax.toFixed(2)}</span>
+                                  <span style={{ fontSize: '10px', fontWeight: 'bold', lineHeight: '1.1', display: 'block' }}>Total:${total.toFixed(2)}</span>
                                 </>
                               );
                             })()}
@@ -3341,9 +3343,9 @@ function App() {
                               
                               return (
                                 <>
-                                  <span style={{ fontSize: '5px', lineHeight: '1.1', display: 'block', color: 'rgba(255, 255, 255, 0.9)' }}>Base:${basePrice.toFixed(2)}</span>
-                                  <span style={{ fontSize: '5px', lineHeight: '1.1', display: 'block', color: 'rgba(255, 255, 255, 0.9)' }}>Tax:${tax.toFixed(2)}</span>
-                                  <span style={{ fontSize: '7px', fontWeight: 'bold', lineHeight: '1.1', display: 'block' }}>Total:${total.toFixed(2)}</span>
+                                  <span style={{ fontSize: '9px', lineHeight: '1.1', display: 'block', color: 'rgba(255, 255, 255, 0.9)', fontWeight: '500' }}>Base:${basePrice.toFixed(2)}</span>
+                                  <span style={{ fontSize: '9px', lineHeight: '1.1', display: 'block', color: 'rgba(255, 255, 255, 0.9)', fontWeight: '500' }}>Tax:${tax.toFixed(2)}</span>
+                                  <span style={{ fontSize: '10px', fontWeight: 'bold', lineHeight: '1.1', display: 'block' }}>Total:${total.toFixed(2)}</span>
                                 </>
                               );
                             })()}
@@ -3477,29 +3479,29 @@ function App() {
               position: 'absolute',
               top: 0,
               left: 0,
-              width: '100%',
+                    width: '100%',
               height: '8px',
               background: 'linear-gradient(90deg, #3498db, #2980b9)',
               borderRadius: '16px 16px 0 0'
             }}></div>
             
             <div style={{ 
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
               marginBottom: '20px',
               marginTop: '8px'
             }}>
               <h2 style={{ 
                 margin: 0, 
                 fontSize: '24px', 
-                fontWeight: 'bold',
+                    fontWeight: 'bold',
                 color: '#2d3748',
                 position: 'relative',
                 display: 'inline-block'
               }}>
                 Select Room
-                <div style={{ 
+                              <div style={{ 
                   position: 'absolute',
                   bottom: '-5px',
                   left: '0',
@@ -3509,12 +3511,12 @@ function App() {
                   borderRadius: '3px'
                 }}></div>
               </h2>
-              <button
+                                    <button
                 onClick={() => setShowRoomStatusModal(false)}
-                style={{
+                                      style={{
                   backgroundColor: 'transparent',
-                  border: 'none',
-                  cursor: 'pointer',
+                                        border: 'none',
+                                        cursor: 'pointer',
                   fontSize: '24px',
                   fontWeight: 'bold',
                   color: '#a0aec0',
@@ -3536,31 +3538,320 @@ function App() {
                 }}
               >
                 ×
-              </button>
-            </div>
+                                </button>
+                              </div>
             
             <div style={{ borderBottom: '1px solid #e2e8f0', marginBottom: '20px' }}></div>
             
+            {/* Room Filters - Copied from Ground Floor Section */}
+            <div className="room-filters" style={{
+                display: 'flex',
+                gap: '10px',
+                marginBottom: '15px',
+                padding: '15px', 
+                background: 'linear-gradient(145deg, rgba(255,255,255,0.85), rgba(245, 248, 255, 0.7))',
+                borderRadius: '12px',
+                justifyContent: 'flex-start',
+                flexWrap: 'wrap', 
+                overflowX: 'auto',
+                boxShadow: 'inset 0 1px 5px rgba(0,0,0,0.05), 0 2px 10px rgba(52, 152, 219, 0.1)',
+                border: '1px solid rgba(226, 232, 240, 0.8)',
+                position: 'relative',
+                zIndex: 2
+            }}>
+              {/* All Button */}
+                  <button
+                    onClick={() => handleFilterClick('all')}
+                    className={selectedFilters.length === 0 ? "all-button-selected" : "all-button-unselected"}
+                    style={{
+                      borderRadius: '50px',
+                      padding: '10px 20px',
+                      fontWeight: selectedFilters.length === 0 ? 700 : 600,
+                      fontSize: '14px',
+                      cursor: 'pointer',
+                      margin: '6px',
+                      display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                      transition: 'all 0.2s ease',
+                      backgroundColor: selectedFilters.length === 0 ? '#304B82' : '#eef2ff',
+                      color: selectedFilters.length === 0 ? '#ffffff' : '#304B82',
+                      border: selectedFilters.length === 0 ? '2px solid #304B82' : '2px solid #c7d2fe',
+                      boxShadow: selectedFilters.length === 0 
+                        ? '0 4px 10px rgba(48, 75, 130, 0.35)'
+                        : '0 2px 5px rgba(0,0,0,0.08)',
+                      transform: selectedFilters.length === 0 ? 'translateY(-2px)' : 'none'
+                    }}
+                    onMouseOver={(e) => {
+                      if (selectedFilters.length !== 0) {
+                        e.target.style.backgroundColor = '#dbe4ff';
+                        e.target.style.opacity = '1';
+                      }
+                    }}
+                    onMouseOut={(e) => {
+                      if (selectedFilters.length !== 0) {
+                        e.target.style.backgroundColor = '#eef2ff';
+                        e.target.style.opacity = '0.85';
+                      }
+                    }}
+                  >
+                    All
+                  </button>
+              {/* Available Button */}
+                  <button
+                    onClick={() => handleFilterClick('available')}
+                    style={{
+                      backgroundColor: selectedFilters.includes('available') ? '#10B981 !important' : '#dcfce7 !important',
+                      color: selectedFilters.includes('available') ? '#ffffff !important' : '#15803d !important',
+                      border: selectedFilters.includes('available') ? '2px solid #0f9d7a !important' : '2px solid #86efac !important',
+                      borderRadius: '50px !important',
+                      padding: '8px 20px !important',
+                      fontWeight: selectedFilters.includes('available') ? '700 !important' : '600 !important',
+                      cursor: 'pointer !important',
+                      fontSize: '14px !important',
+                      transition: 'all 0.2s ease !important',
+                      boxShadow: selectedFilters.includes('available')
+                        ? '0 4px 10px rgba(16, 185, 129, 0.35) !important'
+                        : '0 2px 5px rgba(0,0,0,0.08) !important',
+                      transform: selectedFilters.includes('available') ? 'translateY(-2px) !important' : 'none !important',
+                      position: 'relative !important',
+                      zIndex: '2 !important',
+                      width: 'auto !important',
+                      height: 'auto !important',
+                      display: 'inline-flex !important',
+                      alignItems: 'center !important',
+                      justifyContent: 'center !important',
+                      marginBottom: '0 !important',
+                      textTransform: 'none !important'
+                    }}
+                  >
+                    Available
+                  </button>
+              {/* Jacuzzi Button */}
+                  <button
+                    onClick={() => handleFilterClick('jacuzzi')}
+                    style={{
+                      backgroundColor: selectedFilters.includes('jacuzzi') ? '#38BDF8' : '#e0f2fe',
+                      color: selectedFilters.includes('jacuzzi') ? '#ffffff' : '#0369a1',
+                      border: selectedFilters.includes('jacuzzi') ? '2px solid #24a8e0' : '2px solid #7dd3fc',
+                      borderRadius: '50px',
+                      padding: '8px 20px',
+                      fontWeight: selectedFilters.includes('jacuzzi') ? '700' : '600',
+                      cursor: 'pointer',
+                      fontSize: '14px',
+                      transition: 'all 0.2s ease',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      boxShadow: selectedFilters.includes('jacuzzi')
+                        ? '0 4px 10px rgba(56, 189, 248, 0.35)'
+                        : '0 2px 5px rgba(0,0,0,0.08)',
+                      transform: selectedFilters.includes('jacuzzi') ? 'translateY(-2px)' : 'none',
+                      position: 'relative',
+                      zIndex: 2
+                    }}
+                  >
+                <span style={{ fontSize: '16px' }}>🛁</span> Jacuzzi
+                  </button>
+
+              {/* Non-Jacuzzi Button */}
+                  <button
+                    onClick={() => handleFilterClick('non-jacuzzi')}
+                                  style={{
+                      backgroundColor: selectedFilters.includes('non-jacuzzi') ? '#6366F1' : '#ede9fe',
+                      color: selectedFilters.includes('non-jacuzzi') ? '#ffffff' : '#5b21b6',
+                      border: selectedFilters.includes('non-jacuzzi') ? '2px solid #4e51d6' : '2px solid #c4b5fd',
+                      borderRadius: '50px',
+                      padding: '8px 20px',
+                      fontWeight: selectedFilters.includes('non-jacuzzi') ? '700' : '600',
+                      cursor: 'pointer',
+                      fontSize: '14px',
+                      transition: 'all 0.2s ease',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      boxShadow: selectedFilters.includes('non-jacuzzi')
+                        ? '0 4px 10px rgba(99, 102, 241, 0.35)'
+                        : '0 2px 5px rgba(0,0,0,0.08)',
+                      transform: selectedFilters.includes('non-jacuzzi') ? 'translateY(-2px)' : 'none',
+                      position: 'relative',
+                      zIndex: 2
+                    }}
+                  >
+                <span style={{ fontSize: '16px' }}>🚿</span> Non-Jacuzzi
+                  </button>
+              {/* Smoking Button */}
+                  <button
+                onClick={() => handleFilterClick('smoking')}
+                            style={{ 
+                      backgroundColor: selectedFilters.includes('smoking') ? '#F97316' : '#fff7ed',
+                      color: selectedFilters.includes('smoking') ? '#ffffff' : '#c2410c',
+                      border: selectedFilters.includes('smoking') ? '2px solid #e4630a' : '2px solid #fdba74',
+                      borderRadius: '50px',
+                      padding: '8px 20px',
+                      fontWeight: selectedFilters.includes('smoking') ? '700' : '600',
+                      cursor: 'pointer',
+                      fontSize: '14px',
+                      transition: 'all 0.2s ease',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      boxShadow: selectedFilters.includes('smoking')
+                        ? '0 4px 10px rgba(249, 115, 22, 0.35)'
+                        : '0 2px 5px rgba(0,0,0,0.08)',
+                      transform: selectedFilters.includes('smoking') ? 'translateY(-2px)' : 'none',
+                      position: 'relative',
+                      zIndex: 2
+                    }}
+                  >
+                <span style={{ fontSize: '16px' }}>🚬</span> Smoking
+                  </button>
+              {/* Non-Smoking Button */}
+                  <button
+                    onClick={() => handleFilterClick('non-smoking')}
+                                    style={{
+                      backgroundColor: selectedFilters.includes('non-smoking') ? '#64748B' : '#f1f5f9',
+                      color: selectedFilters.includes('non-smoking') ? '#ffffff' : '#334155',
+                      border: selectedFilters.includes('non-smoking') ? '2px solid #525d6d' : '2px solid #cbd5e1',
+                      borderRadius: '50px',
+                      padding: '8px 20px',
+                      fontWeight: selectedFilters.includes('non-smoking') ? '700' : '600',
+                      cursor: 'pointer',
+                      fontSize: '14px',
+                      transition: 'all 0.2s ease',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      boxShadow: selectedFilters.includes('non-smoking')
+                        ? '0 4px 10px rgba(100, 116, 139, 0.35)'
+                        : '0 2px 5px rgba(0,0,0,0.08)',
+                      transform: selectedFilters.includes('non-smoking') ? 'translateY(-2px)' : 'none',
+                      position: 'relative',
+                      zIndex: 2
+                    }}
+                  >
+                <span style={{ fontSize: '16px' }}>🚭</span> Non-Smoking
+                  </button>
+              {/* Handicap Button */}
+                  <button
+                onClick={() => handleFilterClick('handicap')}
+                                style={{
+                      backgroundColor: selectedFilters.includes('handicap') ? '#8B5CF6' : '#f5f3ff',
+                      color: selectedFilters.includes('handicap') ? '#ffffff' : '#6d28d9',
+                      border: selectedFilters.includes('handicap') ? '2px solid #7a43e8' : '2px solid #c4b5fd',
+                      borderRadius: '50px',
+                      padding: '8px 20px',
+                      fontWeight: selectedFilters.includes('handicap') ? '700' : '600',
+                      cursor: 'pointer',
+                      fontSize: '14px',
+                      transition: 'all 0.2s ease',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      boxShadow: selectedFilters.includes('handicap')
+                        ? '0 4px 10px rgba(139, 92, 246, 0.35)'
+                        : '0 2px 5px rgba(0,0,0,0.08)',
+                      transform: selectedFilters.includes('handicap') ? 'translateY(-2px)' : 'none',
+                      position: 'relative',
+                      zIndex: 2
+                    }}
+                  >
+                <span style={{ fontSize: '16px' }}>♿</span> Handicap
+                  </button>
+              {/* Queen Button */}
+                  <button
+                onClick={() => handleFilterClick('Queen')}
+                    style={{
+                      backgroundColor: selectedFilters.includes('Queen') ? '#EC4899' : '#fdf2f8',
+                      color: selectedFilters.includes('Queen') ? '#ffffff' : '#be185d',
+                      border: selectedFilters.includes('Queen') ? '2px solid #d63787' : '2px solid #fbcfe8',
+                      borderRadius: '50px',
+                      padding: '8px 20px',
+                      fontWeight: selectedFilters.includes('Queen') ? '700' : '600',
+                      cursor: 'pointer',
+                      fontSize: '14px',
+                      transition: 'all 0.2s ease',
+                      boxShadow: selectedFilters.includes('Queen')
+                        ? '0 4px 10px rgba(236, 72, 153, 0.35)'
+                        : '0 2px 5px rgba(0,0,0,0.08)',
+                      transform: selectedFilters.includes('Queen') ? 'translateY(-2px)' : 'none',
+                      position: 'relative',
+                      zIndex: 2
+                    }}
+                  >
+                Queen
+                  </button>
+              {/* King Button */}
+                  <button
+                onClick={() => handleFilterClick('King')}
+                    style={{
+                      backgroundColor: selectedFilters.includes('King') ? '#6366F1' : '#eef2ff',
+                      color: selectedFilters.includes('King') ? '#ffffff' : '#4338ca',
+                      border: selectedFilters.includes('King') ? '2px solid #4e51d6' : '2px solid #c7d2fe',
+                      borderRadius: '50px',
+                      padding: '8px 20px',
+                      fontWeight: selectedFilters.includes('King') ? '700' : '600',
+                      cursor: 'pointer',
+                      fontSize: '14px',
+                      transition: 'all 0.2s ease',
+                      boxShadow: selectedFilters.includes('King')
+                        ? '0 4px 10px rgba(99, 102, 241, 0.35)'
+                        : '0 2px 5px rgba(0,0,0,0.08)',
+                      transform: selectedFilters.includes('King') ? 'translateY(-2px)' : 'none',
+                      position: 'relative',
+                      zIndex: 2
+                    }}
+                  >
+                King
+                  </button>
+              {/* Queen 2 Beds Button */}
+                  <button
+                onClick={() => handleFilterClick('Queen 2 Beds')}
+                    style={{
+                      backgroundColor: selectedFilters.includes('Queen 2 Beds') ? '#0EA5E9' : '#f0f9ff',
+                      color: selectedFilters.includes('Queen 2 Beds') ? '#ffffff' : '#0369a1',
+                      border: selectedFilters.includes('Queen 2 Beds') ? '2px solid #0b8ac4' : '2px solid #bae6fd',
+                      borderRadius: '50px',
+                      padding: '8px 20px',
+                      fontWeight: selectedFilters.includes('Queen 2 Beds') ? '700' : '600',
+                      cursor: 'pointer',
+                      fontSize: '14px',
+                      transition: 'all 0.2s ease',
+                      whiteSpace: 'nowrap',
+                      boxShadow: selectedFilters.includes('Queen 2 Beds')
+                        ? '0 4px 10px rgba(14, 165, 233, 0.35)'
+                        : '0 2px 5px rgba(0,0,0,0.08)',
+                      transform: selectedFilters.includes('Queen 2 Beds') ? 'translateY(-2px)' : 'none',
+                      position: 'relative',
+                      zIndex: 2
+                    }}
+                  >
+                    Queen 2 Beds
+                  </button>
+                          </div>
+
             {/* Ground Floor Rooms */}
             <div style={{ marginBottom: '20px' }}>
-              <h3 style={{ 
-                color: '#2d3748', 
+                    <h3 style={{ 
+                  color: '#2d3748', 
                 fontSize: '18px',
                 borderBottom: '1px solid #e2e8f0',
-                paddingBottom: '10px',
+                      paddingBottom: '10px',
                 marginBottom: '15px'
-              }}>
+                }}>
                 Ground Floor
-              </h3>
+                    </h3>
               <div style={{ 
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
                 gap: '15px'
               }}>
-                {rooms.groundFloor.map(room => (
+                {rooms.groundFloor
+                  .filter(filterRoom) // Apply filter here
+                  .map(room => (
                   <div 
                     key={room.number}
-                    style={{
+                              style={{ 
                       padding: '15px',
                       borderRadius: '10px',
                       backgroundColor: room.status === 'available' ? 'rgba(42, 157, 143, 0.1)' : 
@@ -3571,14 +3862,14 @@ function App() {
                       position: 'relative'
                     }}
                   >
-                    <input 
+                            <input 
                       type="checkbox"
                       id={`room-${room.number}`}
                       name={`room-${room.number}`}
                       value={room.number}
                       checked={selectedRoomsForShortStay.includes(room.number)}
                       onChange={() => handleRoomSelectionForShortStay(room.number)}
-                      style={{
+                              style={{ 
                         position: 'absolute',
                         top: '10px',
                         right: '10px',
@@ -3589,11 +3880,11 @@ function App() {
                     />
                     <label 
                       htmlFor={`room-${room.number}`}
-                      style={{
+                              style={{ 
                         display: 'block',
                         cursor: 'pointer',
                         fontWeight: '600',
-                        fontSize: '16px',
+                              fontSize: '16px',
                         marginBottom: '10px',
                         color: '#2d3748'
                       }}
@@ -3612,7 +3903,7 @@ function App() {
                         {room.type === 'jacuzzi' && <span>🛁 Jacuzzi</span>}
                         {room.smoking ? <span>🚬 Smoking</span> : <span>🚭 Non-Smoking</span>}
                         {room.handicap && <span>♿ Handicap</span>}
-                      </div>
+                          </div>
                       <div style={{ 
                         marginTop: '5px',
                         padding: '4px 8px',
@@ -3630,119 +3921,121 @@ function App() {
                     </div>
                   </div>
                 ))}
-              </div>
-            </div>
-            
+                    </div>
+                  </div>
+
             {/* First Floor Rooms */}
             <div style={{ marginBottom: '20px' }}>
-              <h3 style={{ 
+                    <h3 style={{ 
                 color: '#2d3748', 
-                fontSize: '18px',
-                borderBottom: '1px solid #e2e8f0',
-                paddingBottom: '10px',
-                marginBottom: '15px'
+                  fontSize: '18px',
+                  borderBottom: '1px solid #e2e8f0',
+                      paddingBottom: '10px',
+                  marginBottom: '15px'
               }}>
                 First Floor
-              </h3>
+                    </h3>
               <div style={{ 
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
                 gap: '15px'
               }}>
-                {rooms.firstFloor.map(room => (
-                  <div 
-                    key={room.number}
-                    style={{
-                      padding: '15px',
-                      borderRadius: '10px',
-                      backgroundColor: room.status === 'available' ? 'rgba(42, 157, 143, 0.1)' : 
-                                       room.status === 'cleared' ? 'rgba(87, 216, 168, 0.1)' : 
-                                       'rgba(211, 47, 47, 0.1)',
-                      border: selectedRoomsForShortStay.includes(room.number) ? '2px solid #3498db' : '1px solid #e2e8f0',
-                      transition: 'all 0.2s ease',
-                      position: 'relative'
-                    }}
-                  >
-                    <input 
-                      type="checkbox"
-                      id={`room-${room.number}`}
-                      name={`room-${room.number}`}
-                      value={room.number}
-                      checked={selectedRoomsForShortStay.includes(room.number)}
-                      onChange={() => handleRoomSelectionForShortStay(room.number)}
-                      style={{
-                        position: 'absolute',
-                        top: '10px',
-                        right: '10px',
-                        width: '18px',
-                        height: '18px',
-                        cursor: 'pointer'
-                      }}
-                    />
-                    <label 
-                      htmlFor={`room-${room.number}`}
-                      style={{
-                        display: 'block',
-                        cursor: 'pointer',
-                        fontWeight: '600',
-                        fontSize: '16px',
-                        marginBottom: '10px',
-                        color: '#2d3748'
+                {rooms.firstFloor
+                  .filter(filterRoom) // Apply filter here
+                  .map(room => (
+                    <div 
+                      key={room.number}
+                              style={{ 
+                        padding: '15px',
+                        borderRadius: '10px',
+                        backgroundColor: room.status === 'available' ? 'rgba(42, 157, 143, 0.1)' : 
+                                         room.status === 'cleared' ? 'rgba(87, 216, 168, 0.1)' : 
+                                         'rgba(211, 47, 47, 0.1)',
+                        border: selectedRoomsForShortStay.includes(room.number) ? '2px solid #3498db' : '1px solid #e2e8f0',
+                        transition: 'all 0.2s ease',
+                        position: 'relative'
                       }}
                     >
-                      Room {room.number}
-                    </label>
-                    <div style={{ 
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '5px',
-                      fontSize: '14px',
-                      color: '#4a5568'
-                    }}>
-                      <div>{room.beds}</div>
-                      <div style={{ display: 'flex', gap: '8px' }}>
-                        {room.type === 'jacuzzi' && <span>🛁 Jacuzzi</span>}
-                        {room.smoking ? <span>🚬 Smoking</span> : <span>🚭 Non-Smoking</span>}
-                        {room.handicap && <span>♿ Handicap</span>}
-                      </div>
+                            <input 
+                        type="checkbox"
+                        id={`room-${room.number}`}
+                        name={`room-${room.number}`}
+                        value={room.number}
+                        checked={selectedRoomsForShortStay.includes(room.number)}
+                        onChange={() => handleRoomSelectionForShortStay(room.number)}
+                              style={{ 
+                          position: 'absolute',
+                          top: '10px',
+                          right: '10px',
+                          width: '18px',
+                          height: '18px',
+                          cursor: 'pointer'
+                        }}
+                      />
+                      <label 
+                        htmlFor={`room-${room.number}`}
+                              style={{ 
+                          display: 'block',
+                          cursor: 'pointer',
+                          fontWeight: '600',
+                          fontSize: '16px',
+                          marginBottom: '10px',
+                          color: '#2d3748'
+                        }}
+                      >
+                        Room {room.number}
+                      </label>
                       <div style={{ 
-                        marginTop: '5px',
-                        padding: '4px 8px',
-                        backgroundColor: room.status === 'available' ? '#2a9d8f' : 
-                                        room.status === 'cleared' ? '#57d8a8' : 
-                                        '#d32f2f',
-                        color: 'white',
-                        borderRadius: '4px',
-                        display: 'inline-block',
-                        fontSize: '12px',
-                        fontWeight: '600'
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '5px',
+                        fontSize: '14px',
+                        color: '#4a5568'
                       }}>
-                        {room.status.charAt(0).toUpperCase() + room.status.slice(1)}
+                        <div>{room.beds}</div>
+                        <div style={{ display: 'flex', gap: '8px' }}>
+                          {room.type === 'jacuzzi' && <span>🛁 Jacuzzi</span>}
+                          {room.smoking ? <span>🚬 Smoking</span> : <span>🚭 Non-Smoking</span>}
+                          {room.handicap && <span>♿ Handicap</span>}
+                          </div>
+                        <div style={{ 
+                          marginTop: '5px',
+                          padding: '4px 8px',
+                          backgroundColor: room.status === 'available' ? '#2a9d8f' : 
+                                          room.status === 'cleared' ? '#57d8a8' : 
+                                          '#d32f2f',
+                          color: 'white',
+                          borderRadius: '4px',
+                          display: 'inline-block',
+                          fontSize: '12px',
+                          fontWeight: '600'
+                        }}>
+                          {room.status.charAt(0).toUpperCase() + room.status.slice(1)}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
               </div>
-            </div>
-            
+                </div>
+
             {/* Action Buttons */}
-            <div style={{ 
+                <div style={{ 
               display: 'flex',
               justifyContent: 'flex-end',
               marginTop: '20px',
               borderTop: '1px solid #e2e8f0',
               paddingTop: '20px',
               gap: '15px'
-            }}>
-              <button
+                }}>
+                  <button 
                 onClick={() => setShowRoomStatusModal(false)}
-                style={{
+                    style={{ 
                   backgroundColor: '#e2e8f0',
                   border: 'none',
                   padding: '10px 20px',
                   borderRadius: '8px',
                   fontWeight: '600',
-                  fontSize: '16px',
+                      fontSize: '16px',
                   color: '#4a5568',
                   cursor: 'pointer',
                   transition: 'all 0.2s ease'
@@ -3760,13 +4053,13 @@ function App() {
                 onClick={confirmRoomSelection}
                 style={{
                   backgroundColor: '#3498db',
-                  border: 'none',
+                      border: 'none',
                   padding: '10px 20px',
                   borderRadius: '8px',
                   fontWeight: '600',
                   fontSize: '16px',
                   color: 'white',
-                  cursor: 'pointer',
+                      cursor: 'pointer',
                   transition: 'all 0.2s ease'
                 }}
                 onMouseOver={(e) => {
@@ -3777,11 +4070,11 @@ function App() {
                 }}
               >
                 Confirm Selection
-              </button>
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          )}
       
       {/* Price Change Modal */}
       {showPriceChangeModal && (
@@ -3815,7 +4108,7 @@ function App() {
           </div>
         </div>
       )}
-        </div>
+    </div>
   );
 }
 
