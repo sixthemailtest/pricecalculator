@@ -257,7 +257,10 @@ function App() {
   const [showPriceChangeModal, setShowPriceChangeModal] = useState(false);
   // Add state for room status modal
   const [showRoomStatusModal, setShowRoomStatusModal] = useState(false);
-  const [selectedRoomsForShortStay, setSelectedRoomsForShortStay] = useState([]);
+  const [selectedRoomsForShortStay, setSelectedRoomsForShortStay] = useState(() => {
+    const savedRooms = localStorage.getItem('selectedRoomsForShortStay');
+    return savedRooms ? JSON.parse(savedRooms) : [];
+  });
   
   // Overnight stay state
   const [overnightSmoking, setOvernightSmoking] = useState(false);
@@ -1458,6 +1461,11 @@ function App() {
     }
   }, [activeTab]);
   
+  // Save selected rooms to localStorage when they change
+  useEffect(() => {
+    localStorage.setItem('selectedRoomsForShortStay', JSON.stringify(selectedRoomsForShortStay));
+  }, [selectedRoomsForShortStay]);
+  
   // State for room-specific calendar and hour adjustments
   const [openCalendar, setOpenCalendar] = useState(null);
   const [roomSchedules, setRoomSchedules] = useState(() => {
@@ -1958,9 +1966,6 @@ function App() {
     
     // Update current time
     updateCurrentDateTime();
-    
-    // Clear selected rooms
-    setSelectedRoomsForShortStay([]);
   };
   
   // Handler for room selection in the modal
