@@ -299,6 +299,10 @@ function App() {
   // Confirmation message visibility
   const [showConfirmation, setShowConfirmation] = useState(false);
   
+  // State for Price Change Modal temporary values
+  const [tempPrices, setTempPrices] = useState(prices);
+  const [tempShortStayPrices, setTempShortStayPrices] = useState(shortStayPrices);
+  
   // Initialize date and time on component mount and set up timer
   useEffect(() => {
     // Load saved prices from localStorage
@@ -1466,6 +1470,14 @@ function App() {
     localStorage.setItem('selectedRoomsForShortStay', JSON.stringify(selectedRoomsForShortStay));
   }, [selectedRoomsForShortStay]);
   
+  // Effect to update temporary prices when the modal opens
+  useEffect(() => {
+    if (showPriceChangeModal) {
+      setTempPrices(prices); // Reset temp state to current main state
+      setTempShortStayPrices(shortStayPrices);
+    }
+  }, [showPriceChangeModal, prices, shortStayPrices]); // Dependencies ensure reset happens correctly
+  
   // State for room-specific calendar and hour adjustments
   const [openCalendar, setOpenCalendar] = useState(null);
   const [roomSchedules, setRoomSchedules] = useState(() => {
@@ -2133,6 +2145,46 @@ function App() {
       extraHourRate: { regular: 15, discounted: 10 }
     });
   };
+  
+  // --- Price Change Modal Handlers ---
+  // Handle input changes within the modal for overnight prices
+  const handleModalPriceChange = (day, type, value) => {
+    setTempPrices(prev => ({ 
+      ...prev, 
+      [day]: { ...prev[day], [type]: Number(value) || 0 } 
+    }));
+  };
+  
+  // Handle input changes within the modal for short stay prices
+  const handleModalShortStayPriceChange = (category, type, value) => {
+    setTempShortStayPrices(prev => ({
+      ...prev,
+      [category]: { ...prev[category], [type]: Number(value) || 0 }
+    }));
+  };
+  
+  // Handler for the modal's Update Prices button
+  const handleModalUpdate = () => {
+    setPrices(tempPrices); // Update main state with temp prices
+    setShortStayPrices(tempShortStayPrices);
+    handlePriceUpdate(); // Trigger save and recalculations
+    setShowPriceChangeModal(false); // Close modal
+  };
+  
+  // Handler for the modal's Clear Prices button (using existing handleClearPrices)
+  const handleModalClearPrices = () => {
+     // Reset temp prices to hardcoded defaults directly
+      setTempPrices({
+        weekday: { withoutJacuzzi: 105, withJacuzzi: 120 },
+        friday: { withoutJacuzzi: 139, withJacuzzi: 159 },
+        weekend: { withoutJacuzzi: 139, withJacuzzi: 169 }
+      });
+      setTempShortStayPrices({
+        baseRate: { withoutJacuzzi: 60, withJacuzzi: 90 }, 
+        extraHourRate: { regular: 15, discounted: 10 }
+      });
+  };
+  // --- End Price Change Modal Handlers ---
   
   return (
     <div className="App">
@@ -3828,7 +3880,7 @@ function App() {
                   >
                     Queen 2 Beds
                   </button>
-                          </div>
+                                      </div>
 
             {/* Ground Floor Rooms */}
             <div style={{ marginBottom: '20px' }}>
@@ -3841,8 +3893,8 @@ function App() {
                 }}>
                 Ground Floor
                     </h3>
-              <div style={{ 
-                display: 'grid',
+                                      <div style={{ 
+              display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
                 gap: '15px'
               }}>
@@ -3891,7 +3943,7 @@ function App() {
                     >
                       Room {room.number}
                     </label>
-                    <div style={{ 
+                                      <div style={{ 
                       display: 'flex',
                       flexDirection: 'column',
                       gap: '5px',
@@ -3926,11 +3978,11 @@ function App() {
 
             {/* First Floor Rooms */}
             <div style={{ marginBottom: '20px' }}>
-                    <h3 style={{ 
-                color: '#2d3748', 
+                <h3 style={{ 
+                  color: '#2d3748',
                   fontSize: '18px',
                   borderBottom: '1px solid #e2e8f0',
-                      paddingBottom: '10px',
+                  paddingBottom: '10px',
                   marginBottom: '15px'
               }}>
                 First Floor
@@ -3956,14 +4008,14 @@ function App() {
                         position: 'relative'
                       }}
                     >
-                            <input 
+                          <input 
                         type="checkbox"
                         id={`room-${room.number}`}
                         name={`room-${room.number}`}
                         value={room.number}
                         checked={selectedRoomsForShortStay.includes(room.number)}
                         onChange={() => handleRoomSelectionForShortStay(room.number)}
-                              style={{ 
+                                  style={{
                           position: 'absolute',
                           top: '10px',
                           right: '10px',
@@ -3974,11 +4026,11 @@ function App() {
                       />
                       <label 
                         htmlFor={`room-${room.number}`}
-                              style={{ 
+                            style={{ 
                           display: 'block',
                           cursor: 'pointer',
                           fontWeight: '600',
-                          fontSize: '16px',
+                              fontSize: '16px',
                           marginBottom: '10px',
                           color: '#2d3748'
                         }}
@@ -3997,7 +4049,7 @@ function App() {
                           {room.type === 'jacuzzi' && <span>🛁 Jacuzzi</span>}
                           {room.smoking ? <span>🚬 Smoking</span> : <span>🚭 Non-Smoking</span>}
                           {room.handicap && <span>♿ Handicap</span>}
-                          </div>
+                        </div>
                         <div style={{ 
                           marginTop: '5px',
                           padding: '4px 8px',
@@ -4029,17 +4081,17 @@ function App() {
                 }}>
                   <button 
                 onClick={() => setShowRoomStatusModal(false)}
-                    style={{ 
+                                    style={{
                   backgroundColor: '#e2e8f0',
                   border: 'none',
                   padding: '10px 20px',
-                  borderRadius: '8px',
+                              borderRadius: '8px',
                   fontWeight: '600',
-                      fontSize: '16px',
+                              fontSize: '16px',
                   color: '#4a5568',
                   cursor: 'pointer',
-                  transition: 'all 0.2s ease'
-                }}
+                              transition: 'all 0.2s ease'
+                            }}
                 onMouseOver={(e) => {
                   e.currentTarget.style.backgroundColor = '#cbd5e0';
                 }}
@@ -4051,17 +4103,17 @@ function App() {
               </button>
               <button
                 onClick={confirmRoomSelection}
-                style={{
+                                style={{
                   backgroundColor: '#3498db',
                       border: 'none',
                   padding: '10px 20px',
-                  borderRadius: '8px',
+                              borderRadius: '8px',
                   fontWeight: '600',
-                  fontSize: '16px',
+                              fontSize: '16px',
                   color: 'white',
                       cursor: 'pointer',
-                  transition: 'all 0.2s ease'
-                }}
+                              transition: 'all 0.2s ease'
+                            }}
                 onMouseOver={(e) => {
                   e.currentTarget.style.backgroundColor = '#2980b9';
                 }}
@@ -4071,14 +4123,14 @@ function App() {
               >
                 Confirm Selection
                   </button>
-                </div>
-              </div>
+                              </div>
+                          </div>
             </div>
           )}
-      
+
       {/* Price Change Modal */}
       {showPriceChangeModal && (
-        <div style={{
+                <div style={{
           position: 'fixed',
           top: 0,
           left: 0,
@@ -4104,11 +4156,162 @@ function App() {
             position: 'relative'
           }}>
             {/* Price Change Modal Content */}
-            {/* ... existing code ... */}
-          </div>
+            <h2 style={{ margin: 0, fontSize: '24px', fontWeight: 'bold', color: '#2d3748', marginBottom: '20px' }}>
+              Update Prices
+            </h2>
+            
+            <>
+              {/* Overnight Prices Section */}
+              <div style={{ marginBottom: '25px', paddingBottom: '20px', borderBottom: '1px solid #e2e8f0' }}>
+                <h3 style={{ fontSize: '18px', color: '#4a5568', marginBottom: '15px' }}>Overnight Stay Prices</h3>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
+                  {/* Weekday Prices */}
+                  <div>
+                    <label style={{ display: 'block', marginBottom: '10px', fontWeight: '600', color: '#718096' }}>Weekday</label>
+                    <div style={{ marginBottom: '10px' }}>
+                      <label style={{ display: 'block', fontSize: '14px', color: '#4a5568', marginBottom: '5px' }}>Standard:</label>
+                            <input 
+                              type="number" 
+                        value={tempPrices.weekday.withoutJacuzzi}
+                        onChange={(e) => handleModalPriceChange('weekday', 'withoutJacuzzi', e.target.value)}
+                        style={{ width: '90%', padding: '8px', borderRadius: '6px', border: '1px solid #cbd5e0' }}
+                            />
+                          </div>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '14px', color: '#4a5568', marginBottom: '5px' }}>Jacuzzi:</label>
+                            <input 
+                              type="number" 
+                        value={tempPrices.weekday.withJacuzzi}
+                        onChange={(e) => handleModalPriceChange('weekday', 'withJacuzzi', e.target.value)}
+                        style={{ width: '90%', padding: '8px', borderRadius: '6px', border: '1px solid #cbd5e0' }}
+                            />
+                          </div>
+                  </div>
+                  {/* Friday Prices */}
+                  <div>
+                    <label style={{ display: 'block', marginBottom: '10px', fontWeight: '600', color: '#718096' }}>Friday</label>
+                    <div style={{ marginBottom: '10px' }}>
+                      <label style={{ display: 'block', fontSize: '14px', color: '#4a5568', marginBottom: '5px' }}>Standard:</label>
+                            <input 
+                              type="number" 
+                        value={tempPrices.friday.withoutJacuzzi}
+                        onChange={(e) => handleModalPriceChange('friday', 'withoutJacuzzi', e.target.value)}
+                        style={{ width: '90%', padding: '8px', borderRadius: '6px', border: '1px solid #cbd5e0' }}
+                            />
+                          </div>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '14px', color: '#4a5568', marginBottom: '5px' }}>Jacuzzi:</label>
+                      <input 
+                        type="number" 
+                        value={tempPrices.friday.withJacuzzi}
+                        onChange={(e) => handleModalPriceChange('friday', 'withJacuzzi', e.target.value)}
+                        style={{ width: '90%', padding: '8px', borderRadius: '6px', border: '1px solid #cbd5e0' }}
+                      />
+                    </div>
+                  </div>
+                  {/* Weekend Prices */}
+                  <div>
+                    <label style={{ display: 'block', marginBottom: '10px', fontWeight: '600', color: '#718096' }}>Weekend (Sat/Sun)</label>
+                    <div style={{ marginBottom: '10px' }}>
+                      <label style={{ display: 'block', fontSize: '14px', color: '#4a5568', marginBottom: '5px' }}>Standard:</label>
+                      <input 
+                        type="number" 
+                        value={tempPrices.weekend.withoutJacuzzi}
+                        onChange={(e) => handleModalPriceChange('weekend', 'withoutJacuzzi', e.target.value)}
+                        style={{ width: '90%', padding: '8px', borderRadius: '6px', border: '1px solid #cbd5e0' }}
+                      />
+                    </div>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '14px', color: '#4a5568', marginBottom: '5px' }}>Jacuzzi:</label>
+                      <input 
+                        type="number" 
+                        value={tempPrices.weekend.withJacuzzi}
+                        onChange={(e) => handleModalPriceChange('weekend', 'withJacuzzi', e.target.value)}
+                        style={{ width: '90%', padding: '8px', borderRadius: '6px', border: '1px solid #cbd5e0' }}
+                      />
+                    </div>
+                  </div>
+                    </div>
+                  </div>
+
+              {/* Short Stay Prices Section */}
+              <div style={{ marginBottom: '25px', paddingBottom: '20px', borderBottom: '1px solid #e2e8f0' }}>
+                <h3 style={{ fontSize: '18px', color: '#4a5568', marginBottom: '15px' }}>Short Stay Prices</h3>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>
+                  {/* Base Rates */}
+                  <div>
+                    <label style={{ display: 'block', marginBottom: '10px', fontWeight: '600', color: '#718096' }}>Base Rate (4hr)</label>
+                    <div style={{ marginBottom: '10px' }}>
+                      <label style={{ display: 'block', fontSize: '14px', color: '#4a5568', marginBottom: '5px' }}>Standard:</label>
+                            <input 
+                              type="number" 
+                        value={tempShortStayPrices.baseRate.withoutJacuzzi}
+                        onChange={(e) => handleModalShortStayPriceChange('baseRate', 'withoutJacuzzi', e.target.value)}
+                        style={{ width: '90%', padding: '8px', borderRadius: '6px', border: '1px solid #cbd5e0' }}
+                            />
+                          </div>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '14px', color: '#4a5568', marginBottom: '5px' }}>Jacuzzi:</label>
+                            <input 
+                              type="number" 
+                        value={tempShortStayPrices.baseRate.withJacuzzi}
+                        onChange={(e) => handleModalShortStayPriceChange('baseRate', 'withJacuzzi', e.target.value)}
+                        style={{ width: '90%', padding: '8px', borderRadius: '6px', border: '1px solid #cbd5e0' }}
+                            />
+                          </div>
+                  </div>
+                  {/* Extra Hour Rates */}
+                  <div>
+                    <label style={{ display: 'block', marginBottom: '10px', fontWeight: '600', color: '#718096' }}>Extra Hour Rate</label>
+                    <div style={{ marginBottom: '10px' }}>
+                      <label style={{ display: 'block', fontSize: '14px', color: '#4a5568', marginBottom: '5px' }}>Regular ($15):</label>
+                            <input 
+                              type="number" 
+                        value={tempShortStayPrices.extraHourRate.regular}
+                        onChange={(e) => handleModalShortStayPriceChange('extraHourRate', 'regular', e.target.value)}
+                        style={{ width: '90%', padding: '8px', borderRadius: '6px', border: '1px solid #cbd5e0' }}
+                            />
+                          </div>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '14px', color: '#4a5568', marginBottom: '5px' }}>Discounted ($10):</label>
+                      <input 
+                        type="number" 
+                        value={tempShortStayPrices.extraHourRate.discounted}
+                        onChange={(e) => handleModalShortStayPriceChange('extraHourRate', 'discounted', e.target.value)}
+                        style={{ width: '90%', padding: '8px', borderRadius: '6px', border: '1px solid #cbd5e0' }}
+                      />
+                    </div>
+                  </div>
+                </div>
+                </div>
+
+              {/* Action Buttons */}
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '15px', marginTop: '20px' }}>
+                  <button 
+                  onClick={handleModalClearPrices} // Use specific modal clear handler
+                  style={{ backgroundColor: '#f1f5f9', border: '1px solid #cbd5e0', color: '#4a5568', padding: '10px 20px', borderRadius: '8px', fontWeight: '600', cursor: 'pointer' }}
+                >
+                  Clear Prices
+                </button>
+                <button 
+                  onClick={() => setShowPriceChangeModal(false)}
+                  style={{ backgroundColor: '#e2e8f0', border: 'none', color: '#4a5568', padding: '10px 20px', borderRadius: '8px', fontWeight: '600', cursor: 'pointer' }}
+                >
+                  Cancel
+                </button>
+                <button 
+                  onClick={handleModalUpdate} // Use specific modal update handler
+                  style={{ backgroundColor: '#3498db', border: 'none', color: 'white', padding: '10px 20px', borderRadius: '8px', fontWeight: '600', cursor: 'pointer' }}
+                  >
+                    Update Prices
+                  </button>
+                </div>
+            </>
+            {/* End of Price Change Modal Content */}
+              </div>
+            </div>
+          )}
         </div>
-      )}
-    </div>
   );
 }
 
