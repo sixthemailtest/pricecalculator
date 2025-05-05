@@ -1732,15 +1732,17 @@ function App() {
   
   // Handle logout
   const handleLogout = () => {
-    // Clear authentication state
     setIsAuthenticated(false);
+    setPriceModalAuthenticated(false);
     localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('priceModalAuthenticated');
     
-    // Reset pending room actions
-    setPendingRoomAction(null);
+    // Store current prices to local storage before logout
+    localStorage.setItem('cachedPrices', JSON.stringify(prices));
+    localStorage.setItem('cachedShortStayPrices', JSON.stringify(shortStayPrices));
     
-    // Force hard refresh to reset all state
-    window.location.href = window.location.pathname;
+    // Redirect to main page
+    window.location.href = "/";
   };
   
   // Function to clear only the Short Stay section
@@ -1868,6 +1870,66 @@ function App() {
       document.head.removeChild(styleElement);
     };
   }, []);
+  
+  // Add state for authentication in the price change modal
+  const [priceModalAuthenticated, setPriceModalAuthenticated] = useState(false);
+  const [showPriceLoginModal, setShowPriceLoginModal] = useState(false);
+  
+  // Add this useEffect to load prices from localStorage on component mount
+  // Place after the other useEffect declarations
+  useEffect(() => {
+    // Check if user is authenticated and if there are cached prices
+    if (localStorage.getItem('isAuthenticated') === 'true') {
+      // If authenticated, check for price cache
+      const cachedPrices = localStorage.getItem('cachedPrices');
+      const cachedShortStayPrices = localStorage.getItem('cachedShortStayPrices');
+      
+      if (cachedPrices) {
+        setPrices(JSON.parse(cachedPrices));
+      }
+      
+      if (cachedShortStayPrices) {
+        setShortStayPrices(JSON.parse(cachedShortStayPrices));
+      }
+      
+      // Check if price modal was authenticated
+      if (localStorage.getItem('priceModalAuthenticated') === 'true') {
+        setPriceModalAuthenticated(true);
+      }
+    }
+  }, []);
+  
+  // Price Change Modal Login handler
+  const handlePriceModalLogin = (success) => {
+    if (success) {
+      setPriceModalAuthenticated(true);
+      localStorage.setItem('priceModalAuthenticated', 'true');
+      setShowPriceLoginModal(false);
+    }
+  };
+  
+  // Clear all prices to default
+  const clearAllPrices = () => {
+    // Reset prices to default values
+    setPrices({
+      weekday: { withoutJacuzzi: 105, withJacuzzi: 120 },
+      friday: { withoutJacuzzi: 139, withJacuzzi: 159 },
+      weekend: { withoutJacuzzi: 139, withJacuzzi: 169 }
+    });
+    
+    // Reset short stay prices to default values
+    setShortStayPrices({
+      baseRate: { withoutJacuzzi: 60, withJacuzzi: 90 },
+      extraHourRate: { regular: 15, discounted: 10 }
+    });
+    
+    // Show confirmation
+    setShowConfirmation(true);
+    setTimeout(() => setShowConfirmation(false), 3000);
+    
+    // Update all UI elements with new prices
+    handlePriceUpdate();
+  };
   
   return (
     <div className="App">
@@ -2465,44 +2527,44 @@ function App() {
               {isAuthenticated && (
                 <div style={{
                   display: 'flex',
-                  justifyContent: 'space-between',
+                  justifyContent: 'center',
                   alignItems: 'center',
                   marginBottom: '15px',
-                  padding: '15px 20px',
-                  background: 'white',
-                  borderRadius: '15px',
-                  boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
-                  position: 'relative',
-                  zIndex: 5
+                  padding: '10px',
+                  background: 'linear-gradient(145deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7))',
+                  borderRadius: '10px',
+                  boxShadow: '0 2px 10px rgba(0,0,0,0.05)'
                 }}>
-                  <div style={{ 
-                    color: '#65B97B',
+                  <span style={{ 
+                    color: '#10b981',
                     fontWeight: 'bold',
-                    fontSize: '18px',
+                    marginRight: '15px',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '8px'
+                    gap: '6px'
                   }}>
-                    <span style={{ fontSize: '22px' }}>✓</span> Admin Mode Active
-                  </div>
+                    <span style={{ fontSize: '16px' }}>✓</span> Admin Mode Active
+                  </span>
                   <button
-                    id="logoutButton"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      handleLogout();
-                    }}
+                    onClick={handleLogout}
                     style={{
-                      background: '#E85B65',
-                      padding: '8px 20px',
-                      borderRadius: '50px',
+                      background: 'linear-gradient(145deg, #f87171, #ef4444)',
+                      padding: '6px 12px',
+                      borderRadius: '20px',
                       border: 'none',
+                      boxShadow: '0 2px 6px rgba(239, 68, 68, 0.3)',
                       color: 'white',
-                      fontSize: '16px',
-                      fontWeight: 'bold',
+                      fontSize: '13px',
                       cursor: 'pointer',
-                      position: 'relative',
-                      zIndex: 10
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-1px)';
+                      e.currentTarget.style.boxShadow = '0 4px 8px rgba(239, 68, 68, 0.4)';
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 2px 6px rgba(239, 68, 68, 0.3)';
                     }}
                   >
                     Logout
@@ -3006,87 +3068,114 @@ function App() {
           alignItems: 'center',
           zIndex: 1000
         }}>
-          <div style={{
-            background: 'linear-gradient(145deg, #ffffff, #f8f9fa)',
-            padding: '25px',
-            borderRadius: '16px',
-            width: '90%',
-            maxWidth: '950px',
-            maxHeight: '90vh',
-            overflowY: 'auto',
-            boxShadow: '0 10px 40px rgba(0, 0, 0, 0.25)',
-            border: '1px solid rgba(255, 255, 255, 0.8)',
-            position: 'relative'
-          }}>
-            <div style={{ 
-              position: 'absolute',
-              top: 0,
-              left: 0,
-                    width: '100%',
-              height: '8px',
-              background: 'linear-gradient(90deg, #4776E6, #8E54E9)',
-              borderRadius: '16px 16px 0 0'
-            }}></div>
-            
-            <div style={{ 
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-              marginBottom: '15px',
-              marginTop: '8px'
+          {!priceModalAuthenticated ? (
+            <LoginModal 
+              isOpen={true}
+              onClose={() => setShowPriceChangeModal(false)}
+              onLogin={handlePriceModalLogin}
+            />
+          ) : (
+            <div style={{
+              background: 'linear-gradient(145deg, #ffffff, #f8f9fa)',
+              padding: '25px',
+              borderRadius: '16px',
+              width: '90%',
+              maxWidth: '950px',
+              maxHeight: '90vh',
+              overflowY: 'auto',
+              boxShadow: '0 10px 40px rgba(0, 0, 0, 0.25)',
+              border: '1px solid rgba(255, 255, 255, 0.8)',
+              position: 'relative'
             }}>
-              <h2 style={{ 
-                margin: 0, 
-                fontSize: '24px', 
-                    fontWeight: 'bold',
-                color: '#2d3748',
-                position: 'relative',
-                display: 'inline-block'
+              <div style={{ 
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '8px',
+                background: 'linear-gradient(90deg, #4776E6, #8E54E9)',
+                borderRadius: '16px 16px 0 0'
+              }}></div>
+              
+              <div style={{ 
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginBottom: '15px',
+                marginTop: '8px'
               }}>
-                Price Change
-                              <div style={{ 
-                  position: 'absolute',
-                  bottom: '-5px',
-                  left: '0',
-                  width: '40px',
-                  height: '3px',
-                  background: 'linear-gradient(90deg, #4776E6, #8E54E9)',
-                  borderRadius: '3px'
-                }}></div>
-              </h2>
-                                    <button
-                onClick={() => setShowPriceChangeModal(false)}
-                                      style={{
-                  backgroundColor: 'transparent',
-                                        border: 'none',
-                                        cursor: 'pointer',
-                  fontSize: '24px',
+                <h2 style={{ 
+                  margin: 0, 
+                  fontSize: '24px', 
                   fontWeight: 'bold',
-                  color: '#a0aec0',
-                  transition: 'all 0.2s ease',
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.05)';
-                  e.currentTarget.style.color = '#4a5568';
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.backgroundColor = 'transparent';
-                  e.currentTarget.style.color = '#a0aec0';
-                }}
-              >
-                ×
-                                </button>
-                              </div>
-            
-            <div style={{ borderBottom: '1px solid #e2e8f0', marginBottom: '20px' }}></div>
-            
-            {showConfirmation && (
+                  color: '#2d3748',
+                  position: 'relative',
+                  display: 'inline-block'
+                }}>
+                  Price Change
+                  <div style={{ 
+                    position: 'absolute',
+                    bottom: '-5px',
+                    left: '0',
+                    width: '40px',
+                    height: '3px',
+                    background: 'linear-gradient(90deg, #4776E6, #8E54E9)',
+                    borderRadius: '3px'
+                  }}></div>
+                </h2>
+                
+                {/* Logout button in price change modal */}
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <button
+                    onClick={handleLogout}
+                    style={{
+                      background: '#dc3545',
+                      padding: '6px 12px',
+                      fontSize: '12px',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '4px',
+                      cursor: 'pointer',
+                      fontWeight: '500'
+                    }}
+                  >
+                    Logout
+                  </button>
+                  
+                  <button
+                    onClick={() => setShowPriceChangeModal(false)}
+                    style={{
+                      backgroundColor: 'transparent',
+                      border: 'none',
+                      cursor: 'pointer',
+                      fontSize: '24px',
+                      fontWeight: 'bold',
+                      color: '#a0aec0',
+                      transition: 'all 0.2s ease',
+                      width: '40px',
+                      height: '40px',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.05)';
+                      e.currentTarget.style.color = '#4a5568';
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                      e.currentTarget.style.color = '#a0aec0';
+                    }}
+                  >
+                    ×
+                  </button>
+                </div>
+              </div>
+              
+              <div style={{ borderBottom: '1px solid #e2e8f0', marginBottom: '20px' }}></div>
+
+              {showConfirmation && (
                                       <div style={{ 
                 color: '#047857',
                 textAlign: 'center',
@@ -3439,34 +3528,56 @@ function App() {
                 </div>
 
                 <div style={{ 
-              textAlign: 'center'
+                  textAlign: 'center',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  gap: '15px',
+                  marginTop: '20px'
                 }}>
                   <button 
-                onClick={() => {
-                  handlePriceUpdate();
-                  setShowPriceChangeModal(false);
-                }}
+                    onClick={clearAllPrices}
+                    style={{ 
+                      backgroundColor: '#6c757d',
+                      padding: '12px 25px',
+                      fontSize: '14px',
+                      fontWeight: 'bold',
+                      borderRadius: '5px',
+                      color: '#fff',
+                      border: 'none',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Reset to Default
+                  </button>
+                  <button 
+                    onClick={() => {
+                      // Store prices to localStorage
+                      localStorage.setItem('cachedPrices', JSON.stringify(prices));
+                      localStorage.setItem('cachedShortStayPrices', JSON.stringify(shortStayPrices));
+                      
+                      // Update UI with new prices
+                      handlePriceUpdate();
+                      setShowPriceChangeModal(false);
+                    }}
                     style={{ 
                       backgroundColor: '#001f5c',
                       padding: '12px 30px',
                       fontSize: '16px',
                       fontWeight: 'bold',
-                  borderRadius: '5px',
+                      borderRadius: '5px',
                       color: '#fff',
                       border: 'none',
-                      cursor: 'pointer',
-                  width: '200px'
+                      cursor: 'pointer'
                     }}
                   >
                     Update Prices
                   </button>
                 </div>
               </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        )}
   );
-}
 
 // Helper function to render the rooms section
 const renderRoomsSection = () => (

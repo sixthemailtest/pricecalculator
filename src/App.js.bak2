@@ -1,0 +1,946 @@
+import React, { useState, useEffect } from 'react';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
+import './App.css';
+import LoginModal from './LoginModal';
+
+function App() {
+  // Short stay state
+  const [currentDay, setCurrentDay] = useState('');
+  const [currentDate, setCurrentDate] = useState('');
+  const [currentTime, setCurrentTime] = useState('');
+  const [checkoutTime, setCheckoutTime] = useState('');
+  const [extraHours, setExtraHours] = useState(0);
+  const [hasJacuzzi, setHasJacuzzi] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState('cash');
+  const [extraHourRate, setExtraHourRate] = useState(15);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [isSmoking, setIsSmoking] = useState(false);
+  const [dayStyle, setDayStyle] = useState({});
+  
+  // Short stay price settings
+  const defaultShortStayPrices = {
+    baseRate: { withoutJacuzzi: 60, withJacuzzi: 90 },
+    extraHourRate: { regular: 15, discounted: 10 }
+  };
+  
+  // Short stay price settings - load from localStorage if available
+  const [shortStayPrices, setShortStayPrices] = useState(() => {
+    const savedShortStayPrices = localStorage.getItem('savedShortStayPrices');
+    return savedShortStayPrices ? JSON.parse(savedShortStayPrices) : defaultShortStayPrices;
+  });
+  
+  // Rooms state
+  const [roomFilter, setRoomFilter] = useState('all');
+  const [groundFloorExpanded, setGroundFloorExpanded] = useState(true);
+  const [firstFloorExpanded, setFirstFloorExpanded] = useState(false);
+  const [rooms, setRooms] = useState(() => {
+    // Try to load rooms from localStorage
+    const savedRooms = localStorage.getItem('roomsData');
+    if (savedRooms) {
+      return JSON.parse(savedRooms);
+    }
+    
+    // Default initial state if nothing in localStorage
+    return {
+      groundFloor: [
+        { number: "101", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "102", type: "standard", beds: "Queen", status: "available", smoking: true, handicap: false },
+        { number: "103", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "104", type: "standard", beds: "Queen", status: "available", smoking: true, handicap: false },
+        { number: "105", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "106", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "107", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "108", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: true },
+        { number: "109", type: "jacuzzi", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "110", type: "jacuzzi", beds: "Queen", status: "available", smoking: true, handicap: false },
+        { number: "111", type: "jacuzzi", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "112", type: "jacuzzi", beds: "Queen", status: "available", smoking: true, handicap: false },
+        { number: "114", type: "standard", beds: "Queen", status: "available", smoking: false},
+        { number: "119", type: "jacuzzi", beds: "Queen", status: "available", smoking: true, handicap: false, onlineBookingOnly: true }
+      ],
+      firstFloor: [
+        { number: "200", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "201", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "202", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "203", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "204", type: "standard", beds: "Queen", status: "available", smoking: true, handicap: true },
+        { number: "205", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "206", type: "standard", beds: "Queen", status: "available", smoking: true, handicap: false },
+        { number: "207", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: true, handicap: false },
+        { number: "208", type: "jacuzzi", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "209", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "210", type: "jacuzzi", beds: "King", status: "available", smoking: true, handicap: false },
+        { number: "211", type: "standard", beds: "King", status: "available", smoking: true, handicap: false },
+        { number: "212", type: "standard", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "214", type: "jacuzzi", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "215", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: true },
+        { number: "216", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "217", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "218", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "219", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: true, handicap: false },
+        { number: "220", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "221", type: "standard", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "222", type: "standard", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "223", type: "standard", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "224", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "225", type: "standard", beds: "King", status: "available", smoking: false, handicap: false }
+      ]
+    };
+  });
+  
+  // UI state
+  const [activeTab, setActiveTab] = useState('short');
+  const [showPriceChangeModal, setShowPriceChangeModal] = useState(false);
+  
+  // Overnight stay state
+  const [overnightSmoking, setOvernightSmoking] = useState(false);
+  const [overnightPayment, setOvernightPayment] = useState('cash');
+  const [overnightExtraRate, setOvernightExtraRate] = useState(15);
+  const [overnightExtraHours, setOvernightExtraHours] = useState(0);
+  const [overnightCheckoutExtraHours, setOvernightCheckoutExtraHours] = useState(0);
+  const [hasJacuzziOvernight, setHasJacuzziOvernight] = useState(false);
+  const [bedType, setBedType] = useState('Queen');
+  
+  // Multiple overnight stays management
+  const [savedStays, setSavedStays] = useState([]);
+  const [totalStaysPrice, setTotalStaysPrice] = useState(0);
+  
+  // Default check-in date (today at 3 PM)
+  const defaultCheckIn = new Date();
+  defaultCheckIn.setHours(15, 0, 0, 0);
+  
+  // Default checkout date (tomorrow at 11 AM)
+  const defaultCheckOut = new Date(defaultCheckIn);
+  defaultCheckOut.setDate(defaultCheckOut.getDate() + 1);
+  defaultCheckOut.setHours(11, 0, 0, 0);
+  
+  const [checkInDate, setCheckInDate] = useState(defaultCheckIn);
+  const [checkOutDate, setCheckOutDate] = useState(defaultCheckOut);
+  
+  // Initialize state variables with default or stored prices
+  const defaultPrices = {
+    weekday: { withoutJacuzzi: 105, withJacuzzi: 120 },
+    friday: { withoutJacuzzi: 139, withJacuzzi: 159 },
+    weekend: { withoutJacuzzi: 139, withJacuzzi: 169 }
+  };
+
+  const [prices, setPrices] = useState(() => {
+    // Try to load saved prices from localStorage first
+    const savedPrices = localStorage.getItem('savedPrices');
+    return savedPrices ? JSON.parse(savedPrices) : defaultPrices;
+  });
+  
+  // Add state for tracking when prices are updated
+  const [priceUpdateCounter, setPriceUpdateCounter] = useState(0);
+  // Confirmation message visibility
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  
+  // Initialize date and time on component mount and set up timer
+  useEffect(() => {
+    // Clear localStorage for rooms data to force reset
+    localStorage.removeItem('roomsData');
+    
+    // Reset rooms with the updated configuration
+    const updatedRooms = {
+      groundFloor: [
+        { number: "101", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "102", type: "standard", beds: "Queen", status: "available", smoking: true, handicap: false },
+        { number: "103", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "104", type: "standard", beds: "Queen", status: "available", smoking: true, handicap: false },
+        { number: "105", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "106", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "107", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "108", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: true },
+        { number: "109", type: "jacuzzi", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "110", type: "jacuzzi", beds: "Queen", status: "available", smoking: true, handicap: false },
+        { number: "111", type: "jacuzzi", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "112", type: "jacuzzi", beds: "Queen", status: "available", smoking: true, handicap: false },
+        { number: "114", type: "standard", beds: "Queen", status: "available", smoking: false},
+        { number: "119", type: "jacuzzi", beds: "Queen", status: "available", smoking: true, handicap: false, onlineBookingOnly: true }
+      ],
+      firstFloor: [
+        { number: "200", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "201", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "202", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "203", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "204", type: "standard", beds: "Queen", status: "available", smoking: true, handicap: true },
+        { number: "205", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "206", type: "standard", beds: "Queen", status: "available", smoking: true, handicap: false },
+        { number: "207", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: true, handicap: false },
+        { number: "208", type: "jacuzzi", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "209", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "210", type: "jacuzzi", beds: "King", status: "available", smoking: true, handicap: false },
+        { number: "211", type: "standard", beds: "King", status: "available", smoking: true, handicap: false },
+        { number: "212", type: "standard", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "214", type: "jacuzzi", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "215", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: true },
+        { number: "216", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "217", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "218", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: false, handicap: false },
+        { number: "219", type: "standard", beds: "Queen 2 Beds", status: "available", smoking: true, handicap: false },
+        { number: "220", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "221", type: "standard", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "222", type: "standard", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "223", type: "standard", beds: "King", status: "available", smoking: false, handicap: false },
+        { number: "224", type: "standard", beds: "Queen", status: "available", smoking: false, handicap: false },
+        { number: "225", type: "standard", beds: "King", status: "available", smoking: false, handicap: false }
+      ]
+    };
+    
+    // Update state
+    setRooms(updatedRooms);
+    
+    // Save to localStorage
+    localStorage.setItem('roomsData', JSON.stringify(updatedRooms));
+    
+    updateCurrentDateTime(); // Initial update
+    
+    // Set up timer to update every second
+    const timer = setInterval(() => {
+      updateCurrentDateTime();
+    }, 1000);
+    
+    // Cleanup timer on component unmount
+    return () => clearInterval(timer);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Update calculations when relevant state changes
+  useEffect(() => {
+    calculateCheckoutTime();
+    calculatePrice();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [extraHours, hasJacuzzi, paymentMethod, extraHourRate, isSmoking, currentTime, shortStayPrices]);
+  
+  // Update overnight calculations when relevant state changes
+  useEffect(() => {
+    calculateOvernightPrice();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [overnightSmoking, overnightPayment, hasJacuzziOvernight, checkInDate, checkOutDate, 
+      overnightExtraHours, overnightExtraRate, overnightCheckoutExtraHours, bedType, priceUpdateCounter]);
+  
+  const updateCurrentDateTime = () => {
+    const now = new Date();
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    let dayName = days[now.getDay()];
+    let style = {};
+    
+    // Format current day based on weekday type
+    let formattedDay;
+    if (now.getDay() === 5) { // Friday
+      formattedDay = `Friday`;
+      style = { fontWeight: '900' };
+    } else if (now.getDay() === 0 || now.getDay() === 6) { // Weekend
+      formattedDay = `${dayName}`;
+      style = { color: '#00308F', fontWeight: 'bold' };
+    } else { // Weekday
+      formattedDay = ` ${dayName}`;
+    }
+    
+    setCurrentDay(formattedDay);
+    setDayStyle(style);
+    
+    // Format date
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    setCurrentDate(now.toLocaleDateString('en-US', options));
+    
+    // Format time
+    const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+    const timeString = now.toLocaleTimeString('en-US', timeOptions);
+    setCurrentTime(timeString);
+
+    // Also update checkout time when current time changes
+    calculateCheckoutTime(now);
+  };
+  
+  const calculateCheckoutTime = (currentTimeDate = null) => {
+    const now = currentTimeDate || new Date();
+    const checkoutDate = new Date(now.getTime() + ((4 + extraHours) * 60 * 60 * 1000));
+    const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+    setCheckoutTime(checkoutDate.toLocaleTimeString('en-US', timeOptions));
+  };
+  
+  const calculatePrice = () => {
+    // Base price for first 4 hours (without tax)
+    let basePrice;
+    let tax = 0;
+    
+    // Use shortStayPrices for base rate
+    basePrice = hasJacuzzi ? shortStayPrices.baseRate.withJacuzzi : shortStayPrices.baseRate.withoutJacuzzi;
+    
+    // Use shortStayPrices for extra hour rate
+    const hourlyRate = extraHourRate === 15 ? shortStayPrices.extraHourRate.regular : shortStayPrices.extraHourRate.discounted;
+    const extraHoursCost = extraHours * hourlyRate;
+    
+    // Calculate tax only for credit card and only on base price
+    if (paymentMethod === 'credit') {
+      tax = basePrice * 0.15;
+    }
+    
+    // Total
+    let total = basePrice + extraHoursCost + tax;
+    
+    // Round for credit card payments with jacuzzi
+    if (paymentMethod === 'credit' && hasJacuzzi) {
+      total = Math.round(total);
+    }
+    
+    setTotalPrice(total);
+    return { basePrice, extraHoursCost, tax, total };
+  };
+  
+  const calculateOvernightPrice = () => {
+    if (!checkInDate || !checkOutDate) return 0;
+
+    // Calculate total days
+    const oneDay = 24 * 60 * 60 * 1000;
+    const totalNights = Math.round(Math.abs((checkOutDate - checkInDate) / oneDay));
+    
+    // Initialize pricing variables
+    let totalBasePrice = 0;
+    let calculatedTotalPrice = 0;
+    let daysBreakdown = [];
+    
+    // Special pricing for 7-night stays
+    if (totalNights === 7) {
+      // Flat rate for 7 nights
+      totalBasePrice = hasJacuzziOvernight ? 695 : 675;
+      
+      // Add bed type adjustment for 7 nights
+      if (bedType === 'king') {
+        totalBasePrice += (5 * 7); // $5 extra per night for King
+      } else if (bedType === 'Queen 2 Beds') {
+        totalBasePrice += (10 * 7); // $10 extra per night for Queen 2 Beds
+      }
+    } else {
+      // Regular pricing for non-7-night stays
+      totalBasePrice = calculateRegularPricing(totalNights, daysBreakdown);
+    }
+    
+    // Calculate tax (15%) for all payments if stay is less than 7 nights
+    let taxAmount = 0;
+    if (totalNights < 7) {
+      taxAmount = totalBasePrice * 0.15;
+    }
+    
+    // Calculate extra hours cost for check-in
+    let extraHoursCheckInCost = 0;
+    if (overnightExtraHours !== 0) {
+      extraHoursCheckInCost = Math.abs(overnightExtraHours) * overnightExtraRate;
+    }
+    
+    // Calculate extra hours cost for checkout
+    let extraHoursCheckOutCost = 0;
+    if (overnightCheckoutExtraHours > 0) {
+      extraHoursCheckOutCost = overnightCheckoutExtraHours * overnightExtraRate;
+    }
+    
+    // Calculate total price
+    calculatedTotalPrice = totalBasePrice + taxAmount + extraHoursCheckInCost + extraHoursCheckOutCost;
+    
+    return {
+      nights: totalNights,
+      totalBasePrice,
+      taxAmount,
+      extraHoursCheckInCost,
+      extraHoursCheckOutCost,
+      totalPrice: calculatedTotalPrice,
+      daysBreakdown
+    };
+  };
+  
+  // Helper function to calculate regular pricing (non-7-night stays)
+  const calculateRegularPricing = (totalNights, daysBreakdown) => {
+    let totalBasePrice = 0;
+    
+    // Create pricing for each day of stay
+    for (let i = 0; i < totalNights; i++) {
+      const currentDate = new Date(checkInDate);
+      currentDate.setDate(currentDate.getDate() + i);
+      const dayOfWeek = currentDate.getDay();
+      
+      let dayBasePrice = 0;
+      let dayName = '';
+      
+      // Set day name based on day of week
+      if (dayOfWeek === 0) {
+        dayName = 'Sunday';
+      } else if (dayOfWeek === 6) {
+        dayName = 'Saturday';
+      } else if (dayOfWeek === 5) {
+        dayName = 'Friday';
+      } else {
+        dayName = ['Monday', 'Tuesday', 'Wednesday', 'Thursday'][dayOfWeek - 1];
+      }
+      
+      // Set base prices based on day of week and jacuzzi using the updated prices
+      if (dayOfWeek === 5) { // Friday
+        dayBasePrice = hasJacuzziOvernight ? prices.friday.withJacuzzi : prices.friday.withoutJacuzzi;
+      } else if (dayOfWeek === 0 || dayOfWeek === 6) { // Weekend (Sunday or Saturday)
+        dayBasePrice = hasJacuzziOvernight ? prices.weekend.withJacuzzi : prices.weekend.withoutJacuzzi;
+      } else { // Weekday (Mon-Thu)
+        dayBasePrice = hasJacuzziOvernight ? prices.weekday.withJacuzzi : prices.weekday.withoutJacuzzi;
+      }
+
+      // Add bed type price adjustment
+      if (bedType === 'king') {
+        dayBasePrice += 5; // King bed is $5 more
+      } else if (bedType === 'Queen 2 Beds') {
+        dayBasePrice += 10; // Queen 2 Beds bed is $10 more
+      }
+      
+      // Add to pricing totals
+      totalBasePrice += dayBasePrice;
+      
+      // Add to days breakdown
+      daysBreakdown.push({
+        day: dayName,
+        date: '',
+        basePrice: dayBasePrice
+      });
+    }
+    
+    return totalBasePrice;
+  };
+  
+  const handleExtraHoursChange = (change) => {
+    const newExtraHours = Math.max(0, extraHours + change);
+    setExtraHours(newExtraHours);
+  };
+  
+  // Add a handler for overnight extra hours
+  const handleOvernightExtraHoursChange = (change) => {
+    setOvernightExtraHours(overnightExtraHours + change);
+  };
+  
+  // Add handler for checkout extra hours
+  // eslint-disable-next-line no-unused-vars
+  const handleCheckoutExtraHoursChange = (change) => {
+    setOvernightCheckoutExtraHours(overnightCheckoutExtraHours + change);
+  };
+  
+  // Handler for check-in date changes
+  const handleCheckInChange = (date) => {
+    setCheckInDate(date);
+    
+    // If check-out date is before new check-in date, update it
+    if (checkOutDate && date > checkOutDate) {
+      // Set checkout to same day as check-in for now
+      setCheckOutDate(new Date(date.getTime()));
+    }
+    
+    // Reset extra hours when changing date
+    setOvernightExtraHours(0);
+    
+    // Calculate price after state updates
+    setTimeout(() => {
+      handlePriceUpdate();
+    }, 0);
+  };
+  
+  const handleCheckOutChange = (date) => {
+    setCheckOutDate(date);
+    
+    // Reset extra hours when changing date
+    setOvernightCheckoutExtraHours(0);
+    
+    // Calculate price after state updates
+    setTimeout(() => {
+      handlePriceUpdate();
+    }, 0);
+  };
+
+  // Update resetForm function
+  const resetForm = () => {
+      // Reset prices to default values
+      setPrices({
+        weekday: { withoutJacuzzi: 105, withJacuzzi: 120 },
+        friday: { withoutJacuzzi: 139, withJacuzzi: 159 },
+        weekend: { withoutJacuzzi: 139, withJacuzzi: 169 }
+      });
+    
+    // Reset short stay prices to default values
+    setShortStayPrices({
+      baseRate: { withoutJacuzzi: 45, withJacuzzi: 55 },
+      extraHourRate: { regular: 15, discounted: 10 }
+    });
+    
+    // Clear localStorage for room data if needed
+    if (window.confirm("Do you want to reset all room statuses?")) {
+      localStorage.removeItem('roomsData');
+      window.location.reload();
+      return;
+    }
+
+    // Reset short stay options
+    setExtraHours(0);
+    setHasJacuzzi(false);
+    setPaymentMethod('cash');
+    setExtraHourRate(15);
+    
+    // Reset overnight stay options
+    setOvernightPayment('cash');
+    setOvernightExtraRate(15);
+    setOvernightExtraHours(0);
+    setOvernightCheckoutExtraHours(0);
+    setHasJacuzziOvernight(false);
+    setBedType('Queen');
+    
+    // Reset dates to defaults
+    const defaultCheckIn = new Date();
+    defaultCheckIn.setHours(15, 0, 0, 0);
+    
+    const defaultCheckOut = new Date(defaultCheckIn);
+    defaultCheckOut.setDate(defaultCheckOut.getDate() + 1);
+    defaultCheckOut.setHours(11, 0, 0, 0);
+    
+    setCheckInDate(defaultCheckIn);
+    setCheckOutDate(defaultCheckOut);
+    
+    // Clear saved stays
+    setSavedStays([]);
+    setTotalStaysPrice(0);
+    
+    // Update current time
+    updateCurrentDateTime();
+    
+    // Update all calculations with new prices
+    handlePriceUpdate();
+  };
+  
+  // Reset overnight stay
+  const resetOvernightStay = () => {
+    // Save current selection before resetting
+    const pricing = calculateOvernightPrice();
+    if (pricing && pricing.totalPrice > 0) {
+      const checkInDay = new Date(checkInDate).toLocaleDateString('en-US', { weekday: 'long' });
+      const checkOutDay = new Date(checkOutDate).toLocaleDateString('en-US', { weekday: 'long' });
+      
+      const newStay = {
+        id: Date.now(),
+        checkIn: new Date(checkInDate),
+        checkOut: new Date(checkOutDate),
+        hasJacuzzi: hasJacuzziOvernight,
+        smoking: overnightSmoking,
+        payment: overnightPayment,
+        extraRate: overnightExtraRate,
+        checkInAdjustment: overnightExtraHours,
+        checkOutAdjustment: overnightCheckoutExtraHours,
+        nights: pricing.nights,
+        basePrice: pricing.totalBasePrice,
+        tax: pricing.taxAmount,
+        extraHoursCheckIn: pricing.extraHoursCheckInCost,
+        extraHoursCheckOut: pricing.extraHoursCheckOutCost,
+        price: pricing.totalPrice,
+        checkInDay,
+        checkOutDay,
+        details: pricing,
+        bedType: bedType
+      };
+      
+      const updatedStays = [...savedStays, newStay];
+      setSavedStays(updatedStays);
+      
+      // Calculate total price of all stays
+      const newTotalPrice = updatedStays.reduce((sum, stay) => sum + stay.price, 0);
+      setTotalStaysPrice(newTotalPrice);
+    }
+    
+    // Reset all selections including bed type
+    setOvernightPayment('cash');
+    setOvernightExtraHours(0);
+    setOvernightCheckoutExtraHours(0);
+    setHasJacuzziOvernight(false);
+    setOvernightSmoking(false);
+    setBedType('Queen');
+    
+    // Reset dates to defaults
+    const today = new Date();
+    const checkInDefault = new Date(today);
+    checkInDefault.setHours(15, 0, 0, 0); // 3:00 PM
+    setCheckInDate(checkInDefault);
+    
+    const checkOutDefault = new Date(today);
+    checkOutDefault.setDate(checkOutDefault.getDate() + 1);
+    checkOutDefault.setHours(11, 0, 0, 0); // 11:00 AM
+    setCheckOutDate(checkOutDefault);
+  };
+  
+  // Remove a saved stay
+  const removeSavedStay = (stayId) => {
+    const updatedStays = savedStays.filter(stay => stay.id !== stayId);
+    setSavedStays(updatedStays);
+    
+    // Recalculate total price
+    const newTotalPrice = updatedStays.reduce((sum, stay) => sum + stay.price, 0);
+    setTotalStaysPrice(newTotalPrice);
+  };
+  
+  // Price summary section for overnight stays
+  const renderOvernightStayPriceSummary = () => {
+    // If check-in and check-out dates are not set, show basic message
+    if (!checkInDate || !checkOutDate) {
+      return <p style={{ fontSize: '14px' }}>Please select check-in and check-out dates.</p>;
+    }
+
+    const pricing = calculateOvernightPrice();
+    
+      return (
+        <div className="price-summary" style={{ 
+          backgroundColor: '#2c3e50',
+          background: 'linear-gradient(135deg, #2c3e50, #4776E6)',
+          padding: '15px',
+          borderRadius: '8px',
+          boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+          margin: '15px 0',
+          color: 'white'
+        }}>
+          <h3 style={{ 
+            color: 'white',
+            borderBottom: '2px solid rgba(255,255,255,0.3)',
+            paddingBottom: '10px',
+                marginBottom: '15px',
+            fontSize: '16px'
+          }}>Price Summary</h3>
+
+          {/* Saved Stays Section */}
+          {savedStays.length > 0 && (
+            <div className="saved-stays-section">
+              {savedStays.map((stay, index) => (
+                <div key={stay.id} className="saved-stay" style={{ 
+                  marginBottom: '15px', 
+                  padding: '15px', 
+                  background: 'linear-gradient(135deg, #304b68, #4776E6)',
+                  borderRadius: '8px',
+                  position: 'relative',
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  color: 'white'
+                }}>
+                  <div style={{ marginBottom: '10px' }}>
+                    <div style={{ 
+                      display: 'flex', 
+                      justifyContent: 'space-between', 
+                      alignItems: 'center', 
+                      marginBottom: '8px',
+                      borderBottom: '1px solid rgba(255,255,255,0.2)',
+                      paddingBottom: '8px',
+                        flexWrap: 'nowrap',
+                        gap: '10px'
+                    }}>
+                      <div style={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        gap: '4px',
+                            flex: '0 0 auto'
+                      }}>
+                        <span 
+                          className="stay-number"
+                          style={{ 
+                            fontWeight: 'bold', 
+                            fontSize: '14px',
+                            color: 'white',
+                                whiteSpace: 'nowrap'
+                          }}
+                        >
+                          Stay #{index+1}
+                        </span>
+                        <button
+                          onClick={() => {
+                            // Set all the form fields to this stay's values
+                            setCheckInDate(new Date(stay.checkIn));
+                            setCheckOutDate(new Date(stay.checkOut));
+                            setHasJacuzziOvernight(stay.hasJacuzzi);
+                            setOvernightPayment(stay.payment);
+                            setOvernightExtraRate(stay.extraRate);
+                            setOvernightExtraHours(stay.checkInAdjustment);
+                            setOvernightCheckoutExtraHours(stay.checkOutAdjustment);
+                            setBedType(stay.bedType);
+                            // Remove this stay
+                            removeSavedStay(stay.id);
+                          }}
+                          style={{
+                            background: '#dc3545',
+                            border: 'none',
+                            color: '#fff',
+                            fontSize: '12px',
+                            cursor: 'pointer',
+                            padding: '3px 6px',
+                            borderRadius: '4px',
+                            fontWeight: '500'
+                          }}
+                        >
+                          Edit
+                        </button>
+                      </div>
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                          flex: '1',
+                            justifyContent: 'flex-end'
+                      }}>
+                        <span 
+                          className="stay-price"
+                          style={{ 
+                            fontWeight: 'bold', 
+                            color: 'white',
+                            fontSize: '16px',
+                              marginLeft: 'auto'
+                          }}
+                        >
+                          ${stay.price.toFixed(2)}
+                        </span>
+                        <button 
+                          className="remove-button"
+                          onClick={() => removeSavedStay(stay.id)}
+                          style={{
+                            background: '#dc3545',
+                            border: 'none',
+                            color: '#fff',
+                            fontSize: '12px',
+                            cursor: 'pointer',
+                            padding: '3px 6px',
+                            borderRadius: '4px',
+                            fontWeight: '500',
+                              marginLeft: '4px'
+                          }}
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                    <div style={{ fontSize: '14px', color: 'white' }}>
+                      {stay.checkInDay} ({stay.checkIn.toLocaleDateString()}) to {stay.checkOutDay} ({stay.checkOut.toLocaleDateString()})
+                    </div>
+                    <div style={{ fontSize: '14px', color: 'white', marginTop: '4px' }}>
+                      {stay.nights} {stay.nights === 1 ? 'night' : 'nights'}
+                      {stay.hasJacuzzi ? ' • Jacuzzi' : ''}
+                      {' • '}{stay.bedType.charAt(0).toUpperCase() + stay.bedType.slice(1)} Bed
+                      {stay.checkInAdjustment !== 0 && ` • CI ${stay.checkInAdjustment > 0 ? `+${stay.checkInAdjustment}h` : `${stay.checkInAdjustment}h`}`}
+                      {stay.checkOutAdjustment !== 0 && ` • CO ${stay.checkOutAdjustment > 0 ? `+${stay.checkOutAdjustment}h` : `${stay.checkOutAdjustment}h`}`}
+                    </div>
+                  </div>
+                  <div style={{ 
+                    fontSize: '13px',
+                    color: 'white', 
+                    backgroundColor: 'rgba(255,255,255,0.1)',
+                    padding: '8px',
+                    borderRadius: '6px',
+                    marginTop: '8px'
+                  }}>
+                    <div className="summary-line" style={{ 
+                      display: 'flex', 
+                      flexDirection: 'column',
+                      gap: '3px'
+                    }}>
+                      <div style={{ 
+                        display: 'flex', 
+                        justifyContent: 'space-between',
+                        borderBottom: '1px solid rgba(255,255,255,0.2)',
+                        paddingBottom: '3px',
+                        marginBottom: '3px'
+                      }}>
+                        <span style={{ color: 'white' }}>Base ({stay.nights}n):</span>
+                        <span style={{ color: 'white', fontWeight: '600' }}>${stay.basePrice.toFixed(2)}</span>
+                      </div>
+                      {stay.details.daysBreakdown.map((day, idx) => (
+                        <div key={idx} style={{ 
+                          display: 'flex', 
+                          justifyContent: 'space-between',
+                          fontSize: '12px',
+                          color: 'rgba(255,255,255,0.8)'
+                        }}>
+                          <span style={{ color: 'white' }}>{day.day}:</span>
+                          <span style={{ color: 'white' }}>${day.basePrice.toFixed(2)}</span>
+                        </div>
+                      ))}
+                    </div>
+                    {stay.tax > 0 && (
+                      <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px', marginTop: '6px' }}>
+                        <span style={{ color: 'white' }}>Tax (15%):</span>
+                        <span style={{ color: 'white', fontWeight: '600' }}>${stay.tax.toFixed(2)}</span>
+                      </div>
+                    )}
+                    {stay.extraHoursCheckIn > 0 && (
+                      <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}>
+                        <span style={{ color: 'white' }}>CI Hours ({stay.checkInAdjustment > 0 ? `+${stay.checkInAdjustment}h` : `${Math.abs(stay.checkInAdjustment)}h`}):</span>
+                        <span style={{ color: 'white', fontWeight: '600' }}>${stay.extraHoursCheckIn.toFixed(2)}</span>
+                      </div>
+                    )}
+                    {stay.extraHoursCheckOut > 0 && (
+                      <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}>
+                        <span style={{ color: 'white' }}>CO Hours ({stay.checkOutAdjustment > 0 ? `+${stay.checkOutAdjustment}h` : `${Math.abs(stay.checkOutAdjustment)}h`}):</span>
+                        <span style={{ color: 'white', fontWeight: '600' }}>${stay.extraHoursCheckOut.toFixed(2)}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+              
+              <div className="summary-line total" style={{ 
+                marginTop: '15px',
+                borderTop: '2px solid rgba(255,255,255,0.3)',
+                paddingTop: '10px',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                fontSize: '18px',
+                fontWeight: 'bold'
+              }}>
+                <span style={{ color: 'white' }}>Total Price:</span>
+                <span style={{ color: 'white', fontSize: '20px' }}>
+                  ${totalStaysPrice.toFixed(2)}
+                </span>
+              </div>
+            </div>
+          )}
+
+          {savedStays.length === 0 && pricing && (
+            <>
+              <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                <span style={{ color: 'white' }}>Duration:</span>
+                <span style={{ color: 'white' }}>{pricing.nights} {pricing.nights === 1 ? 'Night' : 'Nights'}</span>
+        </div>
+            
+              {pricing.nights === 7 && (
+                <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                  <span style={{ color: 'white' }}>Weekly Rate:</span>
+                  <span style={{ color: 'white', fontWeight: '600' }}>${(() => {
+                let baseRate = hasJacuzziOvernight ? 695 : 675;
+                if (bedType === 'king') {
+                    baseRate += (5 * 7); 
+                    } else if (bedType === 'Queen 2 Beds') {
+                    baseRate += (10 * 7);
+                }
+                return baseRate.toFixed(2);
+              })()}</span>
+            </div>
+          )}
+          
+              {pricing.nights !== 7 && (
+            <>
+              {pricing.daysBreakdown.map((day, index) => (
+                    <div key={index} className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', fontSize: '12px', color: 'rgba(255,255,255,0.8)' }}>
+                      <span style={{ color: 'white' }}>{day.day}:</span>
+                      <span style={{ color: 'white' }}>${day.basePrice.toFixed(2)}</span>
+                </div>
+              ))}
+                  <div className="summary-line" style={{ borderTop: '1px solid rgba(255,255,255,0.3)', marginTop: '8px', paddingTop: '8px', display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                    <span style={{ color: 'white' }}>Total Base:</span>
+                    <span style={{ color: 'white', fontWeight: '600' }}>${pricing.totalBasePrice.toFixed(2)}</span>
+              </div>
+            </>
+          )}
+          
+              {pricing.nights < 7 && pricing.taxAmount > 0 && (
+                <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                  <span style={{ color: 'white' }}>Tax (15%):</span>
+                  <span style={{ color: 'white', fontWeight: '600' }}>${pricing.taxAmount.toFixed(2)}</span>
+            </div>
+          )}
+          
+            {overnightExtraHours !== 0 && pricing.extraHoursCheckInCost > 0 && (
+                <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                  <span style={{ color: 'white' }}>CI Hours ({overnightExtraHours > 0 ? `+${overnightExtraHours}h` : `${Math.abs(overnightExtraHours)}h`}):</span>
+                  <span style={{ color: 'white', fontWeight: '600' }}>${pricing.extraHoursCheckInCost.toFixed(2)}</span>
+            </div>
+          )}
+          
+            {overnightCheckoutExtraHours !== 0 && pricing.extraHoursCheckOutCost > 0 && (
+                <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                  <span style={{ color: 'white' }}>CO Hours ({overnightCheckoutExtraHours > 0 ? `+${overnightCheckoutExtraHours}h` : `${Math.abs(overnightCheckoutExtraHours)}h`}):</span>
+                  <span style={{ color: 'white', fontWeight: '600' }}>${pricing.extraHoursCheckOutCost.toFixed(2)}</span>
+            </div>
+          )}
+          
+              <div className="summary-line total" style={{ borderTop: '1px solid rgba(255,255,255,0.3)', marginTop: '8px', paddingTop: '8px', display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', fontSize: '16px' }}>
+                <span style={{ color: 'white' }}>Total Price:</span>
+                <span style={{ color: 'white', fontWeight: '700' }}>${pricing.totalPrice.toFixed(2)}</span>
+          </div>
+          </>
+        )}
+        
+        {savedStays.length === 0 && !pricing && (
+          <p style={{ 
+                  </button>
+                </div>
+
+                <div style={{ 
+              display: 'flex',
+              justifyContent: 'center',
+              gap: '20px',
+              marginTop: '10px'
+                }}>
+                  <button 
+                onClick={() => {
+                  clearPrices();
+                  setShowPriceChangeModal(false);
+                }}
+                    style={{ 
+                      backgroundColor: '#e53e3e',
+                      padding: '12px 30px',
+                      fontSize: '16px',
+                      fontWeight: 'bold',
+                      borderRadius: '5px',
+                      color: '#fff',
+                      border: 'none',
+                      cursor: 'pointer',
+                      width: '200px',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.backgroundColor = '#c53030';
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.backgroundColor = '#e53e3e';
+                    }}
+                  >
+                    Clear Prices
+                  </button>
+                  <button 
+                onClick={() => {
+                  handlePriceUpdate();
+                  setShowPriceChangeModal(false);
+                }}
+                    style={{ 
+                      backgroundColor: '#001f5c',
+                      padding: '12px 30px',
+                      fontSize: '16px',
+                      fontWeight: 'bold',
+                      borderRadius: '5px',
+                      color: '#fff',
+                      border: 'none',
+                      cursor: 'pointer',
+                      width: '200px',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.backgroundColor = '#0e367f';
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.backgroundColor = '#001f5c';
+                    }}
+                  >
+                    Update Prices
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+  );
+}
+
+// Helper function to render the rooms section
+const renderRoomsSection = () => (
+  <div className="rooms-section" style={{ 
+    backgroundColor: '#f5f5f5',
+            padding: '20px',
+  }}>
+    {/* ... Content of the rooms section (Header, Filters, Accordions) ... */}
+    {/* This includes the h2, filters, ground floor, first floor divs */}
+    </div>
+  );
+
+export default App;

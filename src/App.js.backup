@@ -86,6 +86,9 @@ function App() {
   // UI state
   const [activeTab, setActiveTab] = useState('short');
   const [showPriceChangeModal, setShowPriceChangeModal] = useState(false);
+  const [activeFloorTab, setActiveFloorTab] = useState('ground');
+  const [tabAnimating, setTabAnimating] = useState(false);
+  const [floorTabAnimating, setFloorTabAnimating] = useState(false);
   
   // Overnight stay state
   const [overnightSmoking, setOvernightSmoking] = useState(false);
@@ -634,6 +637,19 @@ function App() {
                           Stay #{index+1}
                         </span>
                         <button
+                          style={{
+                            background: 'rgba(255,255,255,0.2)',
+                            border: 'none',
+                            color: '#fff',
+                            cursor: 'pointer',
+                            padding: '2px 4px',
+                            fontSize: '10px',
+                            borderRadius: '3px',
+                            fontWeight: '500',
+                            textTransform: 'uppercase',
+                            minWidth: '28px',
+                                justifyContent: 'center'
+                          }}
                           onClick={() => {
                             // Set all the form fields to this stay's values
                             setCheckInDate(new Date(stay.checkIn));
@@ -646,16 +662,6 @@ function App() {
                             setBedType(stay.bedType);
                             // Remove this stay
                             removeSavedStay(stay.id);
-                          }}
-                          style={{
-                            background: '#dc3545',
-                            border: 'none',
-                            color: '#fff',
-                            fontSize: '12px',
-                            cursor: 'pointer',
-                            padding: '3px 6px',
-                            borderRadius: '4px',
-                            fontWeight: '500'
                           }}
                         >
                           Edit
@@ -1732,15 +1738,8 @@ function App() {
   
   // Handle logout
   const handleLogout = () => {
-    // Clear authentication state
     setIsAuthenticated(false);
     localStorage.removeItem('isAuthenticated');
-    
-    // Reset pending room actions
-    setPendingRoomAction(null);
-    
-    // Force hard refresh to reset all state
-    window.location.href = window.location.pathname;
   };
   
   // Function to clear only the Short Stay section
@@ -1821,15 +1820,15 @@ function App() {
       }
       
       .room-card.available {
-        background: linear-gradient(180deg, #2a9d8f, #4ad395) !important;
+        background: linear-gradient(135deg, #43a047, #2E7D32) !important;
       }
       
       .room-card.occupied {
-        background: linear-gradient(180deg, #d32f2f, #f44336) !important;
+        background: linear-gradient(135deg, #e53935, #c62828) !important;
       }
       
       .room-card.cleared {
-        background: linear-gradient(180deg, #57d8a8, #70e0b8) !important;
+        background: linear-gradient(135deg, #fb8c00, #ef6c00) !important;
       }
       
       .room-card:hover {
@@ -1852,13 +1851,83 @@ function App() {
       
       .room-card .price-tag {
         margin-top: 8px !important;
-        background: rgba(0, 0, 0, 0.25) !important;
+        background: rgba(255, 255, 255, 0.15) !important;
         padding: 4px 8px !important;
         border-radius: 4px !important;
-        font-size: 11px !important;
+        font-size: 13px !important;
         font-weight: 700 !important;
-        color: white !important;
+        color: #FF9F43 !important; /* Change text color to orange */
         text-shadow: 0 1px 1px rgba(0,0,0,0.2) !important;
+      }
+      
+      /* Tab styling */
+      .tab-container {
+        display: flex !important;
+        background: rgba(255, 255, 255, 0.15) !important;
+        padding: 4px !important;
+        border-radius: 25px !important;
+        margin-bottom: 15px !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+        position: relative !important;
+        z-index: 5 !important;
+      }
+      
+      .tab-button {
+        flex: 1 !important;
+        padding: 8px 16px !important;
+        text-align: center !important;
+        font-weight: 600 !important;
+        font-size: 14px !important;
+        border: none !important;
+        background: transparent !important;
+        border-radius: 25px !important;
+        cursor: pointer !important;
+        color: #4a5568 !important;
+        position: relative !important;
+        z-index: 2 !important;
+        transition: color 0.3s ease !important;
+      }
+      
+      .tab-button.active {
+        color: white !important;
+      }
+      
+      .tab-selector {
+        position: absolute !important;
+        height: calc(100% - 8px) !important;
+        border-radius: 25px !important;
+        transition: transform 0.5s cubic-bezier(0.85, 0, 0.15, 1) !important;
+        z-index: 1 !important;
+        top: 4px !important;
+        width: calc(50% - 4px) !important;
+      }
+      
+      .tab-content {
+        perspective: 1000px !important;
+        position: relative !important;
+        transition: height 0.3s ease !important;
+      }
+      
+      .tab-panel {
+        backface-visibility: hidden !important;
+        transition: transform 1s ease !important;
+        transform-style: preserve-3d !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+      }
+      
+      .tab-panel.rotate-enter {
+        transform: rotateY(0deg) !important;
+      }
+      
+      .tab-panel.rotate-exit {
+        transform: rotateY(360deg) !important;
+      }
+      
+      .tab-panel.hidden {
+        display: none !important;
       }
     `;
     document.head.appendChild(styleElement);
@@ -1955,7 +2024,7 @@ function App() {
                     const tax = basePrice * 0.15;
                     const total = basePrice + tax;
                     return (
-                      <span style={{ fontSize: '16px', fontWeight: 'bold', color: '#FF9F43', whiteSpace: 'nowrap' }}> {/* Changed color to orange */}
+                      <span style={{ fontSize: '16px', fontWeight: 'bold', color: 'white', whiteSpace: 'nowrap' }}>
                         ${total.toFixed(2)}
                         <span style={{ fontSize: '11px', fontWeight: 'normal', color: 'rgba(255, 255, 255, 0.7)', marginLeft: '4px' }}>
                           (Base ${basePrice.toFixed(2)} + Tax ${tax.toFixed(2)})
@@ -1987,7 +2056,7 @@ function App() {
                     const tax = basePrice * 0.15;
                     const total = basePrice + tax;
                     return (
-                       <span style={{ fontSize: '16px', fontWeight: 'bold', color: '#FF9F43', whiteSpace: 'nowrap' }}> {/* Changed color to orange */}
+                       <span style={{ fontSize: '16px', fontWeight: 'bold', color: 'white', whiteSpace: 'nowrap' }}>
                         ${total.toFixed(2)}
                         <span style={{ fontSize: '11px', fontWeight: 'normal', color: 'rgba(255, 255, 255, 0.7)', marginLeft: '4px' }}>
                           (Base ${basePrice.toFixed(2)} + Tax ${tax.toFixed(2)})
@@ -2038,344 +2107,398 @@ function App() {
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
           gridTemplateRows: 'auto auto',
-                gap: '15px',
+          gap: '15px',
           gridTemplateAreas: `
-            "shortstay multinight"
-            "groundfloor firstfloor"
+            "shortstay shortstay"
+            "groundfloor groundfloor"
           `
         }}>
-          {/* Short Stay Section - Top Left */}
-          <div className="short-stay-section" style={{ 
-            gridArea: 'shortstay',
-            backgroundImage: 'linear-gradient(120deg, #f6f8fb 0%, #e9f2ff 100%)', 
-            backgroundSize: 'cover',
-            boxShadow: '0 8px 30px rgba(0, 31, 92, 0.12)',
-            border: '1px solid rgba(255, 255, 255, 0.6)',
-            position: 'relative',
-            overflow: 'hidden'
-          }}> 
-            {/* Header */} 
-                <div style={{ 
-                  display: 'flex', 
-              justifyContent: 'space-between', 
-                  alignItems: 'center', 
-              background: 'linear-gradient(90deg, #4776E6, #8E54E9)',
-              padding: '12px 15px', 
-              borderRadius: '10px',
-              color: 'white',
-              marginBottom: '15px',
-              boxShadow: '0 4px 15px rgba(71, 118, 230, 0.2)'
-            }}>
-              <h2 className="section-header" style={{ margin: 0, borderBottom: 'none', color: 'white', fontSize: '16px', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '700' }}>Short Stay</h2>
-              <button 
-                onClick={clearShortStay}
+          {/* Upper Tab Container (Short Stay / Multiple Nights) */}
+          <div style={{ gridArea: 'shortstay' }}>
+            <div className="tab-container">
+              <div 
+                className="tab-selector" 
                 style={{ 
-                  background: 'rgba(255,255,255,0.15)',
-                  padding: '6px 12px', 
-                  fontSize: '12px', 
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '20px', 
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                  backdropFilter: 'blur(5px)'
+                  transform: `translateX(${activeTab === 'short' ? '0%' : '100%'})`,
+                  background: activeTab === 'short' 
+                    ? 'linear-gradient(90deg, #4776E6, #8E54E9)' 
+                    : 'linear-gradient(90deg, #11998e, #38ef7d)'
                 }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.25)';
-                  e.currentTarget.style.transform = 'translateY(-1px)';
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
-                  e.currentTarget.style.transform = 'translateY(0)';
+              ></div>
+              <button 
+                className={`tab-button ${activeTab === 'short' ? 'active' : ''}`}
+                onClick={() => {
+                  if (activeTab !== 'short' && !tabAnimating) {
+                    setTabAnimating(true);
+                    setActiveTab('short');
+                    setTimeout(() => setTabAnimating(false), 1000);
+                  }
                 }}
               >
-                Clear
+                Short Stay
               </button>
-                </div>
-            
-            {/* Row 1: Time and Extra Hours */} 
-            <div className="section-controls-row"> 
-              {/* Check-in & Check-out Group */} 
-              <div className="date-time-display" style={{ width: '68%', display: 'flex', justifyContent: 'space-between', gap: '15px' }}> 
-                <div className="check-time" style={{ 
-                  width: '48%', 
-                  backgroundColor: 'rgba(255, 255, 255, 0.6)',
-                  borderRadius: '12px',
-                  padding: '10px 15px',
-                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)'
-                }}> 
-                  <label style={{ fontSize: '16px', fontWeight: '600', display: 'block', marginBottom: '5px', color: '#4a5568' }}>Check-in @</label>
-                  <span style={{ fontSize: '18px', fontWeight: '700', color: '#2d3748' }}>{currentTime}</span>
-                </div>
-                <div className="check-time" style={{ 
-                  width: '48%', 
-                  backgroundColor: 'rgba(255, 255, 255, 0.6)',
-                  borderRadius: '12px',
-                  padding: '10px 15px',
-                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)'
-                }}> 
-                  <label style={{ fontSize: '16px', fontWeight: '600', display: 'block', marginBottom: '5px', color: '#4a5568' }}>Check-out @</label>
-                  <span style={{
-                    fontSize: '18px',
-                    fontWeight: '700',
-                    color: extraHours > 0 ? '#f92b04' : '#2d3748', // Orange if extra hours > 0
-                    transition: 'color 0.3s ease'
-                  }}>{checkoutTime}</span>
-              </div>
-                </div>
-                
-              {/* Extra Hours */} 
-              <div className="extra-hours" style={{ width: '32%' }}> 
-                <label style={{ fontSize: '16px', fontWeight: '600' }}>Extra Hours:</label> 
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '2px', marginTop: '5px' }}> 
-                  <button 
-                    className="minus-btn" 
-                    onClick={() => handleExtraHoursChange(-1)} 
-                    style={{ 
-                      padding: '0',
-                      width: '32px', 
-                      height: '32px', 
-                      borderRadius: '50%', 
-                      border: 'none', 
-                      backgroundColor: '#E53935', 
-                      color: 'white', 
-                      fontSize: '18px', 
-                      fontWeight: 'bold', 
-                      cursor: 'pointer',
-                      lineHeight: '32px',
-                      boxShadow: '0 2px 5px rgba(0,0,0,0.2)'
-                    }}
-                  >-</button> 
-                  <span style={{ fontSize: '20px', fontWeight: 'bold', minWidth: '30px', textAlign: 'center' }}>{extraHours}</span> 
-                  <button 
-                    className="plus-btn" 
-                    onClick={() => handleExtraHoursChange(1)} 
-                    style={{ 
-                      padding: '0',
-                      width: '32px', 
-                      height: '32px', 
-                      borderRadius: '50%', 
-                      border: 'none', 
-                      backgroundColor: '#4CAF50', 
-                      color: 'white', 
-                      fontSize: '18px', 
-                      fontWeight: 'bold', 
-                      cursor: 'pointer',
-                      lineHeight: '32px',
-                      boxShadow: '0 2px 5px rgba(0,0,0,0.2)'
-                    }}
-                  >+</button> 
-                </div>
-                <span className="hours-note" style={{ color: '#00308F', fontWeight: 'bold', fontSize: '12px', textAlign: 'center', display: 'block', marginTop: '3px' }}>(Total: {4 + extraHours}hr)</span>
-              </div>
-            </div>
-            
-            {/* Row 2: Options */} 
-            <div className="options-row"> 
-              {/* Room Type Box */} 
-              <div className="option-box"> 
-                <label>Room Type</label> 
-                <div className="segmented-control"> 
-                  <button onClick={() => setHasJacuzzi(false)} className={!hasJacuzzi ? 'active' : ''}>No Jacuzzi</button>
-                  <button onClick={() => setHasJacuzzi(true)} className={hasJacuzzi ? 'active' : ''}>Jacuzzi</button>
-                </div>
-              </div>
-              {/* Payment Box */} 
-              <div className="option-box"> 
-                <label>Payment</label> 
-                <div className="segmented-control"> 
-                  <button onClick={() => setPaymentMethod('cash')} className={paymentMethod === 'cash' ? 'active' : ''}>Cash</button>
-                  <button onClick={() => setPaymentMethod('credit')} className={paymentMethod === 'credit' ? 'active' : ''}>Credit</button>
-                </div>
-              </div>
-              {/* Extra Rate Box */} 
-              <div className="option-box"> 
-                <label>Extra Rate</label> 
-                <div className="segmented-control"> 
-                  <button onClick={() => setExtraHourRate(15)} className={extraHourRate === 15 ? 'active' : ''}>$15/hr</button>
-                  <button onClick={() => setExtraHourRate(10)} className={extraHourRate === 10 ? 'active' : ''}>$10/hr</button>
-                </div>
-              </div>
-            </div>
-            
-            {/* Price Summary */} 
-            <div className="price-summary" style={{ marginTop: '5px', padding: '5px', backgroundColor: '#2c3e50', borderRadius: '4px', border: '1px solid #eee', background: 'linear-gradient(135deg, #2c3e50, #4776E6)' }}> 
-               {/* Summary Lines - Ensure minimal margins/padding */} 
-               <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '1px' }}>
-                  <span style={{ color: 'white' }}>Base (4hr):</span>
-                  <span style={{ color: 'white', fontWeight: '600' }}>${(hasJacuzzi ? shortStayPrices.baseRate.withJacuzzi : shortStayPrices.baseRate.withoutJacuzzi).toFixed(2)}</span>
-              </div>
-              {paymentMethod === 'credit' && (
-                  <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '1px' }}>
-                    <span style={{ color: 'white' }}>Tax (15%):</span>
-                    <span style={{ color: 'white', fontWeight: '600' }}>${((hasJacuzzi ? shortStayPrices.baseRate.withJacuzzi : shortStayPrices.baseRate.withoutJacuzzi) * 0.15).toFixed(2)}</span>
-                </div>
-              )}
-                <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '1px' }}>
-                  <span style={{ color: 'white' }}>Extra Hrs ({extraHours}):</span>
-                  <span style={{ color: 'white', fontWeight: '600' }}>${(extraHours * (extraHourRate === 15 ? shortStayPrices.extraHourRate.regular : shortStayPrices.extraHourRate.discounted)).toFixed(2)}</span>
-              </div>
-                <div className="summary-line total" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', fontWeight: 'bold', color: 'white', borderTop: '1px solid rgba(255,255,255,0.3)', marginTop: '3px', paddingTop: '3px' }}> 
-                  <span style={{ color: 'white' }}>Total Price:</span>
-                  <span style={{ color: 'white', fontWeight: '700' }}>${totalPrice.toFixed(2)}</span>
-              </div>
-            </div>
-          </div>
-          
-          {/* Multiple Nights Section - Top Right */}
-          <div className="multi-night-section" style={{ 
-            gridArea: 'multinight', 
-            backgroundImage: 'linear-gradient(120deg, #f6f8fb 0%, #e5f5ef 100%)',
-            backgroundSize: 'cover',
-            boxShadow: '0 8px 30px rgba(0, 31, 92, 0.12)',
-            border: '1px solid rgba(255, 255, 255, 0.6)',
-            position: 'relative',
-            overflow: 'hidden'
-          }}> 
-            {/* Header */} 
-            <div style={{ 
-              display: 'flex', 
-              justifyContent: 'space-between', 
-              alignItems: 'center', 
-              marginBottom: '15px',
-              background: 'linear-gradient(90deg, #11998e, #38ef7d)',
-              padding: '12px 15px',
-              borderRadius: '10px',
-              color: 'white',
-              boxShadow: '0 4px 15px rgba(17, 153, 142, 0.2)'
-            }}>
-              <h2 className="section-header" style={{ margin: 0, color: 'white', fontSize: '16px', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '700' }}>Multiple Nights</h2>
-              <div style={{ display: 'flex', gap: '8px' }}>
-                <button 
-                  className="add-more-button"
-                  onClick={() => resetOvernightStay()}
-            style={{
-                    background: 'rgba(255,255,255,0.15)',
-                    padding: '6px 12px', 
-                    fontSize: '12px', 
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '20px',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '5px',
-                    transition: 'all 0.2s ease',
-                    backdropFilter: 'blur(5px)'
-                  }}
-                  onMouseOver={(e) => {
-                    e.currentTarget.style.background = 'rgba(255,255,255,0.25)';
-                    e.currentTarget.style.transform = 'translateY(-1px)';
-                  }}
-                  onMouseOut={(e) => {
-                    e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                  }}
-                >
-                  <span style={{ fontSize: '14px' }}>+</span> Add Stay
-                </button>
-                {/* Add Clear Button */}
               <button 
-                  onClick={clearMultipleNights}
-                  style={{ 
-                    background: 'rgba(255,255,255,0.15)',
-                    padding: '6px 12px', 
-                    fontSize: '12px', 
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '20px', 
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease',
-                    backdropFilter: 'blur(5px)'
-                  }}
-                  onMouseOver={(e) => {
-                    e.currentTarget.style.background = 'rgba(255,255,255,0.25)';
-                    e.currentTarget.style.transform = 'translateY(-1px)';
-                  }}
-                  onMouseOut={(e) => {
-                    e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                  }}
-                >
-                  Clear
+                className={`tab-button ${activeTab === 'overnight' ? 'active' : ''}`}
+                onClick={() => {
+                  if (activeTab !== 'overnight' && !tabAnimating) {
+                    setTabAnimating(true);
+                    setActiveTab('overnight');
+                    setTimeout(() => setTabAnimating(false), 1000);
+                  }
+                }}
+              >
+                Multiple Nights
               </button>
-              </div>
             </div>
             
-            {/* Dates and Hour Adjustments - Using Grid */} 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '15px' }}> {/* Increased gaps/margin */}
-              {/* Check-in Column */} 
-              <div className="date-picker-container">
-                <label>Check-in Date:</label>
-                <DatePicker
-                  selected={checkInDate}
-                  onChange={handleCheckInChange}
-                  dateFormat="MM/dd/yy"
-                  className="date-picker compact-datepicker"
-                  showTimeSelect={false}
-                  popperPlacement="bottom-start"
-                  calendarClassName="compact-calendar"
-                />
-                <div className="extra-hours-overnight">
-                  <label>Hour Adj:</label>
-                  <div className="extra-hours-controls"> 
-                    <div className="hours-control">
-                      <button className="minus-btn" onClick={() => handleOvernightExtraHoursChange(-1)}>-</button>
-                      <span>{overnightExtraHours}</span>
-                      <button className="plus-btn" onClick={() => handleOvernightExtraHoursChange(1)}>+</button>
+            <div className="tab-content">
+              {/* Short Stay Panel */}
+              <div 
+                className={`tab-panel ${activeTab === 'short' ? 'rotate-enter' : 'rotate-exit'} ${(activeTab !== 'short' && !tabAnimating) ? 'hidden' : ''}`}
+                style={{
+                  zIndex: activeTab === 'short' ? 2 : 1
+                }}
+              >
+                <div className="short-stay-section" style={{ 
+                  backgroundImage: 'linear-gradient(120deg, #f6f8fb 0%, #e9f2ff 100%)', 
+                  backgroundSize: 'cover',
+                  boxShadow: '0 8px 30px rgba(0, 31, 92, 0.12)',
+                  border: '1px solid rgba(255, 255, 255, 0.6)',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  borderRadius: '16px',
+                  padding: '20px'
+                }}> 
+                  {/* Header */} 
+                  <div style={{ 
+                    display: 'flex', 
+                    justifyContent: 'space-between', 
+                    alignItems: 'center', 
+                    background: 'linear-gradient(90deg, #4776E6, #8E54E9)',
+                    padding: '12px 15px', 
+                    borderRadius: '10px',
+                    color: 'white',
+                    marginBottom: '15px',
+                    boxShadow: '0 4px 15px rgba(71, 118, 230, 0.2)'
+                  }}>
+                    <h2 className="section-header" style={{ margin: 0, borderBottom: 'none', color: 'white', fontSize: '16px', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '700' }}>Short Stay</h2>
+                    <button 
+                      onClick={clearShortStay}
+                      style={{ 
+                        background: 'rgba(255,255,255,0.15)',
+                        padding: '6px 12px', 
+                        fontSize: '12px', 
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '20px', 
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease',
+                        backdropFilter: 'blur(5px)'
+                      }}
+                      onMouseOver={(e) => {
+                        e.currentTarget.style.background = 'rgba(255,255,255,0.25)';
+                        e.currentTarget.style.transform = 'translateY(-1px)';
+                      }}
+                      onMouseOut={(e) => {
+                        e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
+                        e.currentTarget.style.transform = 'translateY(0)';
+                      }}
+                    >
+                      Clear
+                    </button>
+                  </div>
+                  
+                  {/* Row 1: Time and Extra Hours */} 
+                  <div className="section-controls-row"> 
+                    {/* Check-in & Check-out Group */} 
+                    <div className="date-time-display" style={{ width: '68%', display: 'flex', justifyContent: 'space-between', gap: '15px' }}> 
+                      <div className="check-time" style={{ 
+                        width: '48%', 
+                        backgroundColor: 'rgba(255, 255, 255, 0.6)',
+                        borderRadius: '12px',
+                        padding: '10px 15px',
+                        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)'
+                      }}> 
+                        <label style={{ fontSize: '16px', fontWeight: '600', display: 'block', marginBottom: '5px', color: '#4a5568' }}>Check-in @</label>
+                        <span style={{ fontSize: '18px', fontWeight: '700', color: '#2d3748' }}>{currentTime}</span>
+                      </div>
+                      <div className="check-time" style={{ 
+                        width: '48%', 
+                        backgroundColor: 'rgba(255, 255, 255, 0.6)',
+                        borderRadius: '12px',
+                        padding: '10px 15px',
+                        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)'
+                      }}> 
+                        <label style={{ fontSize: '16px', fontWeight: '600', display: 'block', marginBottom: '5px', color: '#4a5568' }}>Check-out @</label>
+                        <span style={{
+                          fontSize: '18px',
+                          fontWeight: '700',
+                          color: extraHours > 0 ? '#f92b04' : '#2d3748', // Orange if extra hours > 0
+                          transition: 'color 0.3s ease'
+                        }}>{checkoutTime}</span>
+                      </div>
                     </div>
-                    <span className="hours-note"> 
-                      {/* Time calculation - kept compact */}
-                      {overnightExtraHours !== 0 ? `(${new Date(new Date().setHours(15 + overnightExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})})` : '(3PM)'}
-                    </span>
+                    
+                    {/* Extra Hours */} 
+                    <div className="extra-hours" style={{ width: '32%' }}> 
+                      <label style={{ fontSize: '16px', fontWeight: '600' }}>Extra Hours:</label> 
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '2px', marginTop: '5px' }}> 
+                        <button 
+                          className="minus-btn" 
+                          onClick={() => handleExtraHoursChange(-1)} 
+                          style={{ 
+                            padding: '0',
+                            width: '32px', 
+                            height: '32px', 
+                            borderRadius: '50%', 
+                            border: 'none', 
+                            backgroundColor: '#E53935', 
+                            color: 'white', 
+                            fontSize: '18px', 
+                            fontWeight: 'bold', 
+                            cursor: 'pointer',
+                            lineHeight: '32px',
+                            boxShadow: '0 2px 5px rgba(0,0,0,0.2)'
+                          }}
+                        >-</button> 
+                        <span style={{ fontSize: '20px', fontWeight: 'bold', minWidth: '30px', textAlign: 'center' }}>{extraHours}</span> 
+                        <button 
+                          className="plus-btn" 
+                          onClick={() => handleExtraHoursChange(1)} 
+                          style={{ 
+                            padding: '0',
+                            width: '32px', 
+                            height: '32px', 
+                            borderRadius: '50%', 
+                            border: 'none', 
+                            backgroundColor: '#4CAF50', 
+                            color: 'white', 
+                            fontSize: '18px', 
+                            fontWeight: 'bold', 
+                            cursor: 'pointer',
+                            lineHeight: '32px',
+                            boxShadow: '0 2px 5px rgba(0,0,0,0.2)'
+                          }}
+                        >+</button> 
+                      </div>
+                      <span className="hours-note" style={{ color: '#00308F', fontWeight: 'bold', fontSize: '12px', textAlign: 'center', display: 'block', marginTop: '3px' }}>(Total: {4 + extraHours}hr)</span>
+                    </div>
+                  </div>
+
+                  {/* Row 2: Options */} 
+                  <div className="options-row"> 
+                    {/* Room Type Box */} 
+                    <div className="option-box"> 
+                      <label>Room Type</label> 
+                      <div className="segmented-control"> 
+                        <button onClick={() => setHasJacuzzi(false)} className={!hasJacuzzi ? 'active' : ''}>No Jacuzzi</button>
+                        <button onClick={() => setHasJacuzzi(true)} className={hasJacuzzi ? 'active' : ''}>Jacuzzi</button>
+                      </div>
+                    </div>
+                    {/* Payment Box */} 
+                    <div className="option-box"> 
+                      <label>Payment</label> 
+                      <div className="segmented-control"> 
+                        <button onClick={() => setPaymentMethod('cash')} className={paymentMethod === 'cash' ? 'active' : ''}>Cash</button>
+                        <button onClick={() => setPaymentMethod('credit')} className={paymentMethod === 'credit' ? 'active' : ''}>Credit</button>
+                      </div>
+                    </div>
+                    {/* Extra Rate Box */} 
+                    <div className="option-box"> 
+                      <label>Extra Rate</label> 
+                      <div className="segmented-control"> 
+                        <button onClick={() => setExtraHourRate(15)} className={extraHourRate === 15 ? 'active' : ''}>$15/hr</button>
+                        <button onClick={() => setExtraHourRate(10)} className={extraHourRate === 10 ? 'active' : ''}>$10/hr</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Price Summary */} 
+                  <div className="price-summary" style={{ marginTop: '5px', padding: '5px', backgroundColor: '#2c3e50', borderRadius: '4px', border: '1px solid #eee', background: 'linear-gradient(135deg, #2c3e50, #4776E6)' }}> 
+                     {/* Summary Lines - Ensure minimal margins/padding */} 
+                     <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '1px' }}>
+                        <span style={{ color: 'white' }}>Base (4hr):</span>
+                        <span style={{ color: 'white', fontWeight: '600' }}>${(hasJacuzzi ? shortStayPrices.baseRate.withJacuzzi : shortStayPrices.baseRate.withoutJacuzzi).toFixed(2)}</span>
+                      </div>
+                      {paymentMethod === 'credit' && (
+                        <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '1px' }}>
+                          <span style={{ color: 'white' }}>Tax (15%):</span>
+                          <span style={{ color: 'white', fontWeight: '600' }}>${((hasJacuzzi ? shortStayPrices.baseRate.withJacuzzi : shortStayPrices.baseRate.withoutJacuzzi) * 0.15).toFixed(2)}</span>
+                        </div>
+                      )}
+                      <div className="summary-line" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '1px' }}>
+                        <span style={{ color: 'white' }}>Extra Hrs ({extraHours}):</span>
+                        <span style={{ color: 'white', fontWeight: '600' }}>${(extraHours * (extraHourRate === 15 ? shortStayPrices.extraHourRate.regular : shortStayPrices.extraHourRate.discounted)).toFixed(2)}</span>
+                      </div>
+                      <div className="summary-line total" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', fontWeight: 'bold', color: 'white', borderTop: '1px solid rgba(255,255,255,0.3)', marginTop: '3px', paddingTop: '3px' }}> 
+                        <span style={{ color: 'white' }}>Total Price:</span>
+                        <span style={{ color: 'white', fontWeight: '700' }}>${totalPrice.toFixed(2)}</span>
+                      </div>
                   </div>
                 </div>
               </div>
               
-              {/* Check-out Column */} 
-              <div className="date-picker-container">
-                <label>Check-out Date:</label>
-                <DatePicker
-                  selected={checkOutDate}
-                  onChange={handleCheckOutChange}
-                  dateFormat="MM/dd/yy"
-                  className="date-picker compact-datepicker"
-                  showTimeSelect={false}
-                  popperPlacement="bottom-start"
-                  calendarClassName="compact-calendar"
-                />
-                <div className="extra-hours-overnight">
-                  <label>Hour Adj:</label>
-                  <div className="extra-hours-controls"> 
-                    <div className="hours-control">
-                      <button className="minus-btn" onClick={() => handleCheckoutExtraHoursChange(-1)}>-</button> 
-                      <span>{overnightCheckoutExtraHours}</span> 
-                      <button className="plus-btn" onClick={() => handleCheckoutExtraHoursChange(1)}>+</button> 
+              {/* Multiple Nights Panel */}
+              <div 
+                className={`tab-panel ${activeTab === 'overnight' ? 'rotate-enter' : 'rotate-exit'} ${(activeTab !== 'overnight' && !tabAnimating) ? 'hidden' : ''}`}
+                style={{
+                  zIndex: activeTab === 'overnight' ? 2 : 1
+                }}
+              >
+                <div className="multi-night-section" style={{ 
+                  backgroundImage: 'linear-gradient(120deg, #f6f8fb 0%, #e5f5ef 100%)',
+                  backgroundSize: 'cover',
+                  boxShadow: '0 8px 30px rgba(0, 31, 92, 0.12)',
+                  border: '1px solid rgba(255, 255, 255, 0.6)',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  borderRadius: '16px',
+                  padding: '20px'
+                }}> 
+                  {/* Header */} 
+                  <div style={{ 
+                    display: 'flex', 
+                    justifyContent: 'space-between', 
+                    alignItems: 'center', 
+                    marginBottom: '15px',
+                    background: 'linear-gradient(90deg, #11998e, #38ef7d)',
+                    padding: '12px 15px',
+                    borderRadius: '10px',
+                    color: 'white',
+                    boxShadow: '0 4px 15px rgba(17, 153, 142, 0.2)'
+                  }}>
+                    <h2 className="section-header" style={{ margin: 0, color: 'white', fontSize: '16px', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '700' }}>Multiple Nights</h2>
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                      <button 
+                        className="add-more-button"
+                        onClick={() => resetOvernightStay()}
+                        style={{ 
+                          background: 'rgba(255,255,255,0.15)',
+                          padding: '6px 12px', 
+                          fontSize: '12px', 
+                          color: 'white',
+                          border: 'none',
+                          borderRadius: '20px',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '5px',
+                          transition: 'all 0.2s ease',
+                          backdropFilter: 'blur(5px)'
+                        }}
+                        onMouseOver={(e) => {
+                          e.currentTarget.style.background = 'rgba(255,255,255,0.25)';
+                          e.currentTarget.style.transform = 'translateY(-1px)';
+                        }}
+                        onMouseOut={(e) => {
+                          e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
+                          e.currentTarget.style.transform = 'translateY(0)';
+                        }}
+                      >
+                        <span style={{ fontSize: '14px' }}>+</span> Add Stay
+                      </button>
+                      {/* Add Clear Button */}
+                      <button 
+                        onClick={clearMultipleNights}
+                        style={{ 
+                          background: 'rgba(255,255,255,0.15)',
+                          padding: '6px 12px', 
+                          fontSize: '12px', 
+                          color: 'white',
+                          border: 'none',
+                          borderRadius: '20px', 
+                          cursor: 'pointer',
+                          transition: 'all 0.2s ease',
+                          backdropFilter: 'blur(5px)'
+                        }}
+                        onMouseOver={(e) => {
+                          e.currentTarget.style.background = 'rgba(255,255,255,0.25)';
+                          e.currentTarget.style.transform = 'translateY(-1px)';
+                        }}
+                        onMouseOut={(e) => {
+                          e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
+                          e.currentTarget.style.transform = 'translateY(0)';
+                        }}
+                      >
+                        Clear
+                      </button>
                     </div>
-                    <span className="hours-note"> 
-                      {/* Time calculation - kept compact */}
-                      {overnightCheckoutExtraHours !== 0 ? `(${new Date(new Date().setHours(11 + overnightCheckoutExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})})` : '(11AM)'}
-                    </span>
                   </div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Options - Using Grid */}
-            <div className="options-grid"> 
-              {/* Column 1: Room Type & Bed Type */}
-              <div className="options-column"> 
-                {/* Room Type Box */}
-                <div className="option-box"> 
-                  <label>Room Type</label> 
-                  <div className="segmented-control"> 
-                    <button onClick={() => setHasJacuzziOvernight(false)} className={!hasJacuzziOvernight ? 'active' : ''}>No Jacuzzi</button> 
-                    <button onClick={() => setHasJacuzziOvernight(true)} className={hasJacuzziOvernight ? 'active' : ''}>Jacuzzi</button> 
-                </div>
-              </div>
-                {/* Bed Type Box */}
-                <div className="option-box"> 
-                  <label>Bed Type</label> 
+                  
+                  {/* Dates and Hour Adjustments - Using Grid */} 
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '15px' }}> {/* Increased gaps/margin */}
+                    {/* Check-in Column */} 
+                    <div className="date-picker-container"> 
+                      <label>Check-in Date:</label>
+                      <DatePicker
+                        selected={checkInDate}
+                        onChange={handleCheckInChange}
+                        dateFormat="MM/dd/yy"
+                        className="date-picker compact-datepicker"
+                        showTimeSelect={false}
+                        popperPlacement="bottom-start"
+                        calendarClassName="compact-calendar"
+                      />
+                      <div className="extra-hours-overnight"> 
+                        <label>Hour Adj:</label>
+                        <div className="extra-hours-controls"> 
+                          <div className="hours-control"> 
+                            <button className="minus-btn" onClick={() => handleOvernightExtraHoursChange(-1)}>-</button> 
+                            <span>{overnightExtraHours}</span> 
+                            <button className="plus-btn" onClick={() => handleOvernightExtraHoursChange(1)}>+</button> 
+                          </div>
+                          <span className="hours-note"> 
+                            {/* Time calculation - kept compact */}
+                            {overnightExtraHours !== 0 ? `(${new Date(new Date().setHours(15 + overnightExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})})` : '(3PM)'}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Check-out Column */} 
+                    <div className="date-picker-container"> 
+                      <label>Check-out Date:</label>
+                      <DatePicker
+                        selected={checkOutDate}
+                        onChange={handleCheckOutChange}
+                        dateFormat="MM/dd/yy"
+                        className="date-picker compact-datepicker"
+                        showTimeSelect={false}
+                        popperPlacement="bottom-start"
+                        calendarClassName="compact-calendar"
+                      />
+                      <div className="extra-hours-overnight"> 
+                        <label>Hour Adj:</label>
+                        <div className="extra-hours-controls"> 
+                          <div className="hours-control"> 
+                            <button className="minus-btn" onClick={() => handleCheckoutExtraHoursChange(-1)}>-</button> 
+                            <span>{overnightCheckoutExtraHours}</span> 
+                            <button className="plus-btn" onClick={() => handleCheckoutExtraHoursChange(1)}>+</button> 
+                          </div>
+                          <span className="hours-note"> 
+                            {/* Time calculation - kept compact */}
+                            {overnightCheckoutExtraHours !== 0 ? `(${new Date(new Date().setHours(11 + overnightCheckoutExtraHours, 0, 0, 0)).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})})` : '(11AM)'}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Options - Using Grid */}
+                  <div className="options-grid"> 
+                    {/* Column 1: Room Type & Bed Type */}
+                    <div className="options-column"> 
+                      {/* Room Type Box */}
+                      <div className="option-box"> 
+                        <label>Room Type</label> 
+                        <div className="segmented-control"> 
+                          <button onClick={() => setHasJacuzziOvernight(false)} className={!hasJacuzziOvernight ? 'active' : ''}>No Jacuzzi</button> 
+                          <button onClick={() => setHasJacuzziOvernight(true)} className={hasJacuzziOvernight ? 'active' : ''}>Jacuzzi</button> 
+                        </div>
+                      </div>
+                      {/* Bed Type Box */}
+                      <div className="option-box"> 
+                        <label>Bed Type</label> 
                   <div className="segmented-control"> 
                     <button onClick={() => setBedType('Queen')} className={bedType === 'Queen' ? 'active' : ''}>Queen</button> 
                     <button onClick={() => setBedType('King')} className={bedType === 'King' ? 'active' : ''}>King</button> 
@@ -2465,44 +2588,44 @@ function App() {
               {isAuthenticated && (
                 <div style={{
                   display: 'flex',
-                  justifyContent: 'space-between',
+                  justifyContent: 'center',
                   alignItems: 'center',
                   marginBottom: '15px',
-                  padding: '15px 20px',
-                  background: 'white',
-                  borderRadius: '15px',
-                  boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
-                  position: 'relative',
-                  zIndex: 5
+                  padding: '10px',
+                  background: 'linear-gradient(145deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7))',
+                  borderRadius: '10px',
+                  boxShadow: '0 2px 10px rgba(0,0,0,0.05)'
                 }}>
-                  <div style={{ 
-                    color: '#65B97B',
+                  <span style={{ 
+                    color: '#10b981',
                     fontWeight: 'bold',
-                    fontSize: '18px',
+                    marginRight: '15px',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '8px'
+                    gap: '6px'
                   }}>
-                    <span style={{ fontSize: '22px' }}>✓</span> Admin Mode Active
-                  </div>
+                    <span style={{ fontSize: '16px' }}>✓</span> Admin Mode Active
+                  </span>
                   <button
-                    id="logoutButton"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      handleLogout();
-                    }}
+                    onClick={handleLogout}
                     style={{
-                      background: '#E85B65',
-                      padding: '8px 20px',
-                      borderRadius: '50px',
+                      background: 'linear-gradient(145deg, #f87171, #ef4444)',
+                      padding: '6px 12px',
+                      borderRadius: '20px',
                       border: 'none',
+                      boxShadow: '0 2px 6px rgba(239, 68, 68, 0.3)',
                       color: 'white',
-                      fontSize: '16px',
-                      fontWeight: 'bold',
+                      fontSize: '13px',
                       cursor: 'pointer',
-                      position: 'relative',
-                      zIndex: 10
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-1px)';
+                      e.currentTarget.style.boxShadow = '0 4px 8px rgba(239, 68, 68, 0.4)';
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 2px 6px rgba(239, 68, 68, 0.3)';
                     }}
                   >
                     Logout
@@ -2743,7 +2866,7 @@ function App() {
                             {room.handicap && <span>♿</span>}
                           </div>
                           <div className="price-tag">
-                            {(() => { /* Changed to return JSX for breakdown */
+                            ${(() => {
                               // Calculate price based on room properties
                               const now = new Date();
                               const day = now.getDay();
@@ -2769,13 +2892,7 @@ function App() {
                               const tax = basePrice * 0.15;
                               const total = basePrice + tax;
                               
-                              return (
-                                <>
-                                  <span style={{ fontSize: '5px', lineHeight: '1.1', display: 'block', color: 'rgba(255, 255, 255, 0.9)' }}>Base:${basePrice.toFixed(2)}</span>
-                                  <span style={{ fontSize: '5px', lineHeight: '1.1', display: 'block', color: 'rgba(255, 255, 255, 0.9)' }}>Tax:${tax.toFixed(2)}</span>
-                                  <span style={{ fontSize: '7px', fontWeight: 'bold', lineHeight: '1.1', display: 'block' }}>Total:${total.toFixed(2)}</span>
-                                </>
-                              );
+                              return total.toFixed(2);
                             })()}
                               </div>
                                   </div>
@@ -2858,7 +2975,7 @@ function App() {
                             {room.handicap && <span>♿</span>}
                           </div>
                           <div className="price-tag">
-                            {(() => { /* Changed to return JSX for breakdown */
+                            ${(() => {
                               // Calculate price based on room properties
                                   const now = new Date();
                               const day = now.getDay();
@@ -2884,13 +3001,7 @@ function App() {
                               const tax = basePrice * 0.15;
                               const total = basePrice + tax;
                               
-                              return (
-                                <>
-                                  <span style={{ fontSize: '5px', lineHeight: '1.1', display: 'block', color: 'rgba(255, 255, 255, 0.9)' }}>Base:${basePrice.toFixed(2)}</span>
-                                  <span style={{ fontSize: '5px', lineHeight: '1.1', display: 'block', color: 'rgba(255, 255, 255, 0.9)' }}>Tax:${tax.toFixed(2)}</span>
-                                  <span style={{ fontSize: '7px', fontWeight: 'bold', lineHeight: '1.1', display: 'block' }}>Total:${total.toFixed(2)}</span>
-                                </>
-                              );
+                              return total.toFixed(2);
                             })()}
                           </div>
                         </div>
@@ -3472,11 +3583,11 @@ function App() {
 const renderRoomsSection = () => (
   <div className="rooms-section" style={{ 
     backgroundColor: '#f5f5f5',
-            padding: '20px',
+    padding: '20px',
   }}>
     {/* ... Content of the rooms section (Header, Filters, Accordions) ... */}
     {/* This includes the h2, filters, ground floor, first floor divs */}
-    </div>
-  );
+  </div>
+);
 
 export default App;
