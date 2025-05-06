@@ -2505,7 +2505,7 @@ function App() {
                   e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
-                Clear Options
+                Clear
               </button>
                 </div>
             
@@ -4213,7 +4213,7 @@ function App() {
 
       {/* Price Change Modal */}
       {showPriceChangeModal && (
-                <div style={{
+        <div style={{
           position: 'fixed',
           top: 0,
           left: 0,
@@ -4227,173 +4227,424 @@ function App() {
           zIndex: 1000
         }}>
           <div style={{
-            background: 'linear-gradient(145deg, #ffffff, #f8f9fa)',
+            background: 'linear-gradient(145deg, #f8f9fa, #ffffff)',
             padding: '25px',
             borderRadius: '16px',
             width: '90%',
             maxWidth: '950px',
-            maxHeight: '90vh',
-            overflowY: 'auto',
-            boxShadow: '0 10px 40px rgba(0, 0, 0, 0.25)',
+            maxHeight: 'fit-content',
+            overflowY: 'hidden',
+            boxShadow: '0 10px 40px rgba(0, 31, 92, 0.35)',
             border: '1px solid rgba(255, 255, 255, 0.8)',
             position: 'relative'
           }}>
             {/* Price Change Modal Content */}
-            <h2 style={{ margin: 0, fontSize: '24px', fontWeight: 'bold', color: '#2d3748', marginBottom: '20px' }}>
-              Update Prices
-            </h2>
+            <div style={{
+              position: 'relative',
+              padding: '5px 0 15px',
+              borderBottom: '2px solid rgba(52, 152, 219, 0.2)',
+              marginBottom: '15px'
+            }}>
+              <h2 style={{ 
+                margin: 0, 
+                fontSize: '22px', 
+                fontWeight: 'bold', 
+                color: '#001f5c',
+                position: 'relative',
+                display: 'inline-block',
+                paddingBottom: '5px'
+              }}>
+                Update Prices
+                <div style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '3px',
+                  background: 'linear-gradient(90deg, #3498db, #2980b9)',
+                  borderRadius: '2px'
+                }}></div>
+              </h2>
+            </div>
+            
+            {/* Close Button */}
+            <button
+              onClick={() => setShowPriceChangeModal(false)}
+              style={{
+                position: 'absolute',
+                top: '15px',
+                right: '15px',
+                background: 'rgba(255, 255, 255, 0.9)',
+                border: '1px solid rgba(52, 152, 219, 0.3)',
+                borderRadius: '50%',
+                width: '30px',
+                height: '30px',
+                fontSize: '18px',
+                fontWeight: 'bold',
+                color: '#3498db',
+                cursor: 'pointer',
+                lineHeight: '1',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'all 0.2s ease',
+                boxShadow: '0 2px 8px rgba(0, 31, 92, 0.15)'
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.backgroundColor = '#3498db';
+                e.currentTarget.style.color = 'white';
+                e.currentTarget.style.transform = 'scale(1.1)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+                e.currentTarget.style.color = '#3498db';
+                e.currentTarget.style.transform = 'scale(1)';
+              }}
+            >
+              ×
+            </button>
             
             <>
               {/* Overnight Prices Section */}
-              <div style={{ marginBottom: '25px', paddingBottom: '20px', borderBottom: '1px solid #e2e8f0' }}>
-                <h3 style={{ fontSize: '18px', color: '#4a5568', marginBottom: '15px' }}>Overnight Stay Prices</h3>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
+              <div style={{ 
+                marginBottom: '15px', 
+                paddingBottom: '15px', 
+                borderBottom: '1px solid #e2e8f0',
+                background: 'linear-gradient(145deg, rgba(245, 247, 250, 0.5), rgba(255, 255, 255, 0.8))',
+                borderRadius: '12px',
+                padding: '15px',
+                boxShadow: '0 4px 12px rgba(0, 31, 92, 0.08)',
+                border: '1px solid rgba(230, 240, 255, 0.8)'
+              }}>
+                <h3 style={{ 
+                  fontSize: '16px', 
+                  color: '#1a447b', 
+                  marginBottom: '12px',
+                  marginTop: '0',
+                  borderLeft: '4px solid #3498db',
+                  paddingLeft: '8px',
+                  fontWeight: '600'
+                }}>Overnight Stay Prices</h3>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '15px' }}>
                   {/* Weekday Prices */}
-                  <div>
-                    <label style={{ display: 'block', marginBottom: '10px', fontWeight: '600', color: '#718096' }}>Weekday</label>
-                    <div style={{ marginBottom: '10px' }}>
-                      <label style={{ display: 'block', fontSize: '14px', color: '#4a5568', marginBottom: '5px' }}>Standard:</label>
-                            <input 
-                              type="number" 
+                  <div style={{
+                    background: 'rgba(255, 255, 255, 0.7)',
+                    padding: '12px',
+                    borderRadius: '10px',
+                    boxShadow: '0 2px 6px rgba(0, 31, 92, 0.06)',
+                    border: '1px solid rgba(230, 240, 255, 0.8)'
+                  }}>
+                    <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#2c3e50', fontSize: '14px' }}>Weekday</label>
+                    <div style={{ marginBottom: '8px' }}>
+                      <label style={{ display: 'block', fontSize: '13px', color: '#4a5568', marginBottom: '4px' }}>Standard:</label>
+                      <input 
+                        type="number" 
                         value={tempPrices.weekday.withoutJacuzzi}
                         onChange={(e) => handleModalPriceChange('weekday', 'withoutJacuzzi', e.target.value)}
-                        style={{ width: '90%', padding: '8px', borderRadius: '6px', border: '1px solid #cbd5e0' }}
-                            />
-                          </div>
+                        style={{ 
+                          width: '90%', 
+                          padding: '6px', 
+                          borderRadius: '6px', 
+                          border: '1px solid #cbd5e0',
+                          boxShadow: 'inset 0 1px 3px rgba(0, 31, 92, 0.08)'
+                        }}
+                      />
+                    </div>
                     <div>
-                      <label style={{ display: 'block', fontSize: '14px', color: '#4a5568', marginBottom: '5px' }}>Jacuzzi:</label>
-                            <input 
-                              type="number" 
+                      <label style={{ display: 'block', fontSize: '13px', color: '#4a5568', marginBottom: '4px' }}>Jacuzzi:</label>
+                      <input 
+                        type="number" 
                         value={tempPrices.weekday.withJacuzzi}
                         onChange={(e) => handleModalPriceChange('weekday', 'withJacuzzi', e.target.value)}
-                        style={{ width: '90%', padding: '8px', borderRadius: '6px', border: '1px solid #cbd5e0' }}
-                            />
-                          </div>
+                        style={{ 
+                          width: '90%', 
+                          padding: '6px', 
+                          borderRadius: '6px', 
+                          border: '1px solid #cbd5e0',
+                          boxShadow: 'inset 0 1px 3px rgba(0, 31, 92, 0.08)'
+                        }}
+                      />
+                    </div>
                   </div>
                   {/* Friday Prices */}
-                  <div>
-                    <label style={{ display: 'block', marginBottom: '10px', fontWeight: '600', color: '#718096' }}>Friday</label>
-                    <div style={{ marginBottom: '10px' }}>
-                      <label style={{ display: 'block', fontSize: '14px', color: '#4a5568', marginBottom: '5px' }}>Standard:</label>
-                            <input 
-                              type="number" 
+                  <div style={{
+                    background: 'rgba(255, 255, 255, 0.7)',
+                    padding: '12px',
+                    borderRadius: '10px',
+                    boxShadow: '0 2px 6px rgba(0, 31, 92, 0.06)',
+                    border: '1px solid rgba(230, 240, 255, 0.8)'
+                  }}>
+                    <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#2c3e50', fontSize: '14px' }}>Friday</label>
+                    <div style={{ marginBottom: '8px' }}>
+                      <label style={{ display: 'block', fontSize: '13px', color: '#4a5568', marginBottom: '4px' }}>Standard:</label>
+                      <input 
+                        type="number" 
                         value={tempPrices.friday.withoutJacuzzi}
                         onChange={(e) => handleModalPriceChange('friday', 'withoutJacuzzi', e.target.value)}
-                        style={{ width: '90%', padding: '8px', borderRadius: '6px', border: '1px solid #cbd5e0' }}
-                            />
-                          </div>
+                        style={{ 
+                          width: '90%', 
+                          padding: '6px', 
+                          borderRadius: '6px', 
+                          border: '1px solid #cbd5e0',
+                          boxShadow: 'inset 0 1px 3px rgba(0, 31, 92, 0.08)'
+                        }}
+                      />
+                    </div>
                     <div>
-                      <label style={{ display: 'block', fontSize: '14px', color: '#4a5568', marginBottom: '5px' }}>Jacuzzi:</label>
+                      <label style={{ display: 'block', fontSize: '13px', color: '#4a5568', marginBottom: '4px' }}>Jacuzzi:</label>
                       <input 
                         type="number" 
                         value={tempPrices.friday.withJacuzzi}
                         onChange={(e) => handleModalPriceChange('friday', 'withJacuzzi', e.target.value)}
-                        style={{ width: '90%', padding: '8px', borderRadius: '6px', border: '1px solid #cbd5e0' }}
+                        style={{ 
+                          width: '90%', 
+                          padding: '6px', 
+                          borderRadius: '6px', 
+                          border: '1px solid #cbd5e0',
+                          boxShadow: 'inset 0 1px 3px rgba(0, 31, 92, 0.08)'
+                        }}
                       />
                     </div>
                   </div>
                   {/* Weekend Prices */}
-                  <div>
-                    <label style={{ display: 'block', marginBottom: '10px', fontWeight: '600', color: '#718096' }}>Weekend (Sat/Sun)</label>
-                    <div style={{ marginBottom: '10px' }}>
-                      <label style={{ display: 'block', fontSize: '14px', color: '#4a5568', marginBottom: '5px' }}>Standard:</label>
+                  <div style={{
+                    background: 'rgba(255, 255, 255, 0.7)',
+                    padding: '12px',
+                    borderRadius: '10px',
+                    boxShadow: '0 2px 6px rgba(0, 31, 92, 0.06)',
+                    border: '1px solid rgba(230, 240, 255, 0.8)'
+                  }}>
+                    <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#2c3e50', fontSize: '14px' }}>Weekend</label>
+                    <div style={{ marginBottom: '8px' }}>
+                      <label style={{ display: 'block', fontSize: '13px', color: '#4a5568', marginBottom: '4px' }}>Standard:</label>
                       <input 
                         type="number" 
                         value={tempPrices.weekend.withoutJacuzzi}
                         onChange={(e) => handleModalPriceChange('weekend', 'withoutJacuzzi', e.target.value)}
-                        style={{ width: '90%', padding: '8px', borderRadius: '6px', border: '1px solid #cbd5e0' }}
+                        style={{ 
+                          width: '90%', 
+                          padding: '6px', 
+                          borderRadius: '6px', 
+                          border: '1px solid #cbd5e0',
+                          boxShadow: 'inset 0 1px 3px rgba(0, 31, 92, 0.08)'
+                        }}
                       />
                     </div>
                     <div>
-                      <label style={{ display: 'block', fontSize: '14px', color: '#4a5568', marginBottom: '5px' }}>Jacuzzi:</label>
+                      <label style={{ display: 'block', fontSize: '13px', color: '#4a5568', marginBottom: '4px' }}>Jacuzzi:</label>
                       <input 
                         type="number" 
                         value={tempPrices.weekend.withJacuzzi}
                         onChange={(e) => handleModalPriceChange('weekend', 'withJacuzzi', e.target.value)}
-                        style={{ width: '90%', padding: '8px', borderRadius: '6px', border: '1px solid #cbd5e0' }}
+                        style={{ 
+                          width: '90%', 
+                          padding: '6px', 
+                          borderRadius: '6px', 
+                          border: '1px solid #cbd5e0',
+                          boxShadow: 'inset 0 1px 3px rgba(0, 31, 92, 0.08)'
+                        }}
                       />
                     </div>
                   </div>
-                    </div>
-                  </div>
-
+                </div>
+              </div>
+              
               {/* Short Stay Prices Section */}
-              <div style={{ marginBottom: '25px', paddingBottom: '20px', borderBottom: '1px solid #e2e8f0' }}>
-                <h3 style={{ fontSize: '18px', color: '#4a5568', marginBottom: '15px' }}>Short Stay Prices</h3>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>
+              <div style={{ 
+                marginBottom: '15px', 
+                paddingBottom: '15px', 
+                borderBottom: '1px solid #e2e8f0',
+                background: 'linear-gradient(145deg, rgba(245, 247, 250, 0.5), rgba(255, 255, 255, 0.8))',
+                borderRadius: '12px',
+                padding: '15px',
+                boxShadow: '0 4px 12px rgba(0, 31, 92, 0.08)',
+                border: '1px solid rgba(230, 240, 255, 0.8)'
+              }}>
+                <h3 style={{ 
+                  fontSize: '16px', 
+                  color: '#1a447b', 
+                  marginBottom: '12px',
+                  marginTop: '0',
+                  borderLeft: '4px solid #3498db',
+                  paddingLeft: '8px',
+                  fontWeight: '600'
+                }}>Short Stay Prices</h3>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '15px' }}>
                   {/* Base Rates */}
-                  <div>
-                    <label style={{ display: 'block', marginBottom: '10px', fontWeight: '600', color: '#718096' }}>Base Rate (4hr)</label>
-                    <div style={{ marginBottom: '10px' }}>
-                      <label style={{ display: 'block', fontSize: '14px', color: '#4a5568', marginBottom: '5px' }}>Standard:</label>
-                            <input 
-                              type="number" 
+                  <div style={{
+                    background: 'rgba(255, 255, 255, 0.7)',
+                    padding: '12px',
+                    borderRadius: '10px',
+                    boxShadow: '0 2px 6px rgba(0, 31, 92, 0.06)',
+                    border: '1px solid rgba(230, 240, 255, 0.8)'
+                  }}>
+                    <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#2c3e50', fontSize: '14px' }}>Base Rate (4hr)</label>
+                    <div style={{ marginBottom: '8px' }}>
+                      <label style={{ display: 'block', fontSize: '13px', color: '#4a5568', marginBottom: '4px' }}>Standard:</label>
+                      <input 
+                        type="number" 
                         value={tempShortStayPrices.baseRate.withoutJacuzzi}
                         onChange={(e) => handleModalShortStayPriceChange('baseRate', 'withoutJacuzzi', e.target.value)}
-                        style={{ width: '90%', padding: '8px', borderRadius: '6px', border: '1px solid #cbd5e0' }}
-                            />
-                          </div>
+                        style={{ 
+                          width: '90%', 
+                          padding: '6px', 
+                          borderRadius: '6px', 
+                          border: '1px solid #cbd5e0',
+                          boxShadow: 'inset 0 1px 3px rgba(0, 31, 92, 0.08)'
+                        }}
+                      />
+                    </div>
                     <div>
-                      <label style={{ display: 'block', fontSize: '14px', color: '#4a5568', marginBottom: '5px' }}>Jacuzzi:</label>
-                            <input 
-                              type="number" 
+                      <label style={{ display: 'block', fontSize: '13px', color: '#4a5568', marginBottom: '4px' }}>Jacuzzi:</label>
+                      <input 
+                        type="number" 
                         value={tempShortStayPrices.baseRate.withJacuzzi}
                         onChange={(e) => handleModalShortStayPriceChange('baseRate', 'withJacuzzi', e.target.value)}
-                        style={{ width: '90%', padding: '8px', borderRadius: '6px', border: '1px solid #cbd5e0' }}
-                            />
-                          </div>
+                        style={{ 
+                          width: '90%', 
+                          padding: '6px', 
+                          borderRadius: '6px', 
+                          border: '1px solid #cbd5e0',
+                          boxShadow: 'inset 0 1px 3px rgba(0, 31, 92, 0.08)'
+                        }}
+                      />
+                    </div>
                   </div>
                   {/* Extra Hour Rates */}
-                  <div>
-                    <label style={{ display: 'block', marginBottom: '10px', fontWeight: '600', color: '#718096' }}>Extra Hour Rate</label>
-                    <div style={{ marginBottom: '10px' }}>
-                      <label style={{ display: 'block', fontSize: '14px', color: '#4a5568', marginBottom: '5px' }}>Regular (${shortStayPrices.extraHourRate.regular}):</label>
-                            <input 
-                              type="number" 
-                              value={tempShortStayPrices.extraHourRate.regular}
-                              onChange={(e) => handleModalShortStayPriceChange('extraHourRate', 'regular', e.target.value)}
-                              style={{ width: '90%', padding: '8px', borderRadius: '6px', border: '1px solid #cbd5e0' }}
-                            />
-                          </div>
+                  <div style={{
+                    background: 'rgba(255, 255, 255, 0.7)',
+                    padding: '12px',
+                    borderRadius: '10px',
+                    boxShadow: '0 2px 6px rgba(0, 31, 92, 0.06)',
+                    border: '1px solid rgba(230, 240, 255, 0.8)'
+                  }}>
+                    <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#2c3e50', fontSize: '14px' }}>Extra Hour Rate</label>
+                    <div style={{ marginBottom: '8px' }}>
+                      <label style={{ display: 'block', fontSize: '13px', color: '#4a5568', marginBottom: '4px' }}>Regular:</label>
+                      <input 
+                        type="number" 
+                        value={tempShortStayPrices.extraHourRate.regular}
+                        onChange={(e) => handleModalShortStayPriceChange('extraHourRate', 'regular', e.target.value)}
+                        style={{ 
+                          width: '90%', 
+                          padding: '6px', 
+                          borderRadius: '6px', 
+                          border: '1px solid #cbd5e0',
+                          boxShadow: 'inset 0 1px 3px rgba(0, 31, 92, 0.08)'
+                        }}
+                      />
+                    </div>
                     <div>
-                      <label style={{ display: 'block', fontSize: '14px', color: '#4a5568', marginBottom: '5px' }}>Discounted (${shortStayPrices.extraHourRate.discounted}):</label>
+                      <label style={{ display: 'block', fontSize: '13px', color: '#4a5568', marginBottom: '4px' }}>Discounted:</label>
                       <input 
                         type="number" 
                         value={tempShortStayPrices.extraHourRate.discounted}
                         onChange={(e) => handleModalShortStayPriceChange('extraHourRate', 'discounted', e.target.value)}
-                        style={{ width: '90%', padding: '8px', borderRadius: '6px', border: '1px solid #cbd5e0' }}
+                        style={{ 
+                          width: '90%', 
+                          padding: '6px', 
+                          borderRadius: '6px', 
+                          border: '1px solid #cbd5e0',
+                          boxShadow: 'inset 0 1px 3px rgba(0, 31, 92, 0.08)'
+                        }}
                       />
                     </div>
                   </div>
                 </div>
-                </div>
+              </div>
 
               {/* Action Buttons */}
-              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '15px', marginTop: '20px' }}>
-                  <button 
+              <div style={{ 
+                display: 'flex', 
+                justifyContent: 'flex-end', 
+                gap: '15px', 
+                marginTop: '10px',
+                paddingTop: '10px'
+              }}>
+                <button 
                   onClick={handleModalClearPrices} // Use specific modal clear handler
-                  style={{ backgroundColor: '#f1f5f9', border: '1px solid #cbd5e0', color: '#4a5568', padding: '10px 20px', borderRadius: '8px', fontWeight: '600', cursor: 'pointer' }}
+                  style={{ 
+                    backgroundColor: '#f1f5f9', 
+                    border: '1px solid #cbd5e0', 
+                    color: '#4a5568', 
+                    padding: '8px 16px', 
+                    borderRadius: '8px', 
+                    fontWeight: '600', 
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    boxShadow: '0 2px 5px rgba(0, 0, 0, 0.05)',
+                    fontSize: '14px'
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.backgroundColor = '#e2e8f0';
+                    e.currentTarget.style.transform = 'translateY(-1px)';
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.backgroundColor = '#f1f5f9';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
                 >
                   Clear Prices
                 </button>
                 <button 
                   onClick={() => setShowPriceChangeModal(false)}
-                  style={{ backgroundColor: '#e2e8f0', border: 'none', color: '#4a5568', padding: '10px 20px', borderRadius: '8px', fontWeight: '600', cursor: 'pointer' }}
+                  style={{ 
+                    backgroundColor: '#e2e8f0', 
+                    border: 'none', 
+                    color: '#4a5568', 
+                    padding: '8px 16px', 
+                    borderRadius: '8px', 
+                    fontWeight: '600', 
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    boxShadow: '0 2px 5px rgba(0, 0, 0, 0.05)',
+                    fontSize: '14px'
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.backgroundColor = '#cbd5e0';
+                    e.currentTarget.style.transform = 'translateY(-1px)';
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.backgroundColor = '#e2e8f0';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
                 >
                   Cancel
                 </button>
                 <button 
                   onClick={handleModalUpdate} // Use specific modal update handler
-                  style={{ backgroundColor: '#3498db', border: 'none', color: 'white', padding: '10px 20px', borderRadius: '8px', fontWeight: '600', cursor: 'pointer' }}
-                  >
-                    Update Prices
-                  </button>
-                </div>
+                  style={{ 
+                    backgroundColor: '#3498db', 
+                    border: 'none', 
+                    color: 'white', 
+                    padding: '8px 16px', 
+                    borderRadius: '8px', 
+                    fontWeight: '600', 
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    backgroundImage: 'linear-gradient(135deg, #3498db, #2980b9)',
+                    boxShadow: '0 4px 8px rgba(52, 152, 219, 0.3)',
+                    fontSize: '14px'
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.backgroundImage = 'linear-gradient(135deg, #2980b9, #2473a6)';
+                    e.currentTarget.style.transform = 'translateY(-1px)';
+                    e.currentTarget.style.boxShadow = '0 6px 12px rgba(52, 152, 219, 0.4)';
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.backgroundImage = 'linear-gradient(135deg, #3498db, #2980b9)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 4px 8px rgba(52, 152, 219, 0.3)';
+                  }}
+                >
+                  Update Prices
+                </button>
+              </div>
             </>
             {/* End of Price Change Modal Content */}
-              </div>
-            </div>
-          )}
+          </div>
+        </div>
+      )}
         </div>
   );
 }
