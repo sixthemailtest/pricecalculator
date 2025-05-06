@@ -265,6 +265,7 @@ function App() {
   // Overnight stay state
   const [overnightSmoking, setOvernightSmoking] = useState(false);
   const [overnightPayment, setOvernightPayment] = useState('cash');
+  const [overnightRateType, setOvernightRateType] = useState('regular'); // 'regular' or 'discounted'
   const [overnightExtraRate, setOvernightExtraRate] = useState(15);
   const [overnightExtraHours, setOvernightExtraHours] = useState(0);
   const [overnightCheckoutExtraHours, setOvernightCheckoutExtraHours] = useState(0);
@@ -302,6 +303,12 @@ function App() {
   // State for Price Change Modal temporary values
   const [tempPrices, setTempPrices] = useState(prices);
   const [tempShortStayPrices, setTempShortStayPrices] = useState(shortStayPrices);
+  
+  // Update temp prices whenever main prices change
+  useEffect(() => {
+    setTempPrices(prices);
+    setTempShortStayPrices(shortStayPrices);
+  }, [prices, shortStayPrices]);
   
   // Initialize date and time on component mount and set up timer
   useEffect(() => {
@@ -506,13 +513,21 @@ function App() {
     // Calculate extra hours cost for check-in
     let extraHoursCheckInCost = 0;
     if (overnightExtraHours !== 0) {
-      extraHoursCheckInCost = Math.abs(overnightExtraHours) * overnightExtraRate;
+      // Use the appropriate rate from shortStayPrices based on overnightRateType selection
+      const hourlyRate = overnightRateType === 'regular' ? 
+        shortStayPrices.extraHourRate.regular : 
+        shortStayPrices.extraHourRate.discounted;
+      extraHoursCheckInCost = Math.abs(overnightExtraHours) * hourlyRate;
     }
     
     // Calculate extra hours cost for checkout
     let extraHoursCheckOutCost = 0;
     if (overnightCheckoutExtraHours > 0) {
-      extraHoursCheckOutCost = overnightCheckoutExtraHours * overnightExtraRate;
+      // Use the appropriate rate from shortStayPrices based on overnightRateType selection
+      const hourlyRate = overnightRateType === 'regular' ? 
+        shortStayPrices.extraHourRate.regular : 
+        shortStayPrices.extraHourRate.discounted;
+      extraHoursCheckOutCost = overnightCheckoutExtraHours * hourlyRate;
     }
     
     // Calculate total price
@@ -703,7 +718,11 @@ function App() {
         hasJacuzzi: hasJacuzziOvernight,
         smoking: overnightSmoking,
         payment: overnightPayment,
+        extraRateType: overnightRateType,
         extraRate: overnightExtraRate,
+        extraRateValue: overnightRateType === 'regular' ? 
+          shortStayPrices.extraHourRate.regular : 
+          shortStayPrices.extraHourRate.discounted,
         checkInAdjustment: overnightExtraHours,
         checkOutAdjustment: overnightCheckoutExtraHours,
         nights: pricing.nights,
@@ -831,6 +850,13 @@ function App() {
                             setCheckOutDate(new Date(stay.checkOut));
                             setHasJacuzziOvernight(stay.hasJacuzzi);
                             setOvernightPayment(stay.payment);
+                            // Set rate type if available, otherwise determine from the rate
+                            if (stay.extraRateType) {
+                              setOvernightRateType(stay.extraRateType);
+                            } else {
+                              // For backward compatibility with older saved stays
+                              setOvernightRateType(stay.extraRate === shortStayPrices.extraHourRate.regular ? 'regular' : 'discounted');
+                            }
                             setOvernightExtraRate(stay.extraRate);
                             setOvernightExtraHours(stay.checkInAdjustment);
                             setOvernightCheckoutExtraHours(stay.checkOutAdjustment);
@@ -1089,14 +1115,36 @@ function App() {
         basePrice += 10;
       }
       
+      // Update the hourly rate based on the saved rate type
+      const rateType = stay.extraRateType || 
+        (stay.extraRate === 15 ? 'regular' : 'discounted');
+      
+      const hourlyRate = rateType === 'regular' ? 
+        shortStayPrices.extraHourRate.regular : 
+        shortStayPrices.extraHourRate.discounted;
+      
+      // Update the extraRate value to match the current rate
+      const updatedExtraRate = hourlyRate;
+      
+      // Calculate extra hours costs using the updated rates
+      const extraHoursCheckIn = stay.checkInAdjustment !== 0 ? 
+        Math.abs(stay.checkInAdjustment) * hourlyRate : 0;
+      
+      const extraHoursCheckOut = stay.checkOutAdjustment > 0 ? 
+        stay.checkOutAdjustment * hourlyRate : 0;
+      
       // Calculate total price
       const tax = stay.nights < 7 ? basePrice * 0.15 : 0;
-      const totalPrice = basePrice + tax + stay.extraHoursCheckIn + stay.extraHoursCheckOut;
+      const totalPrice = basePrice + tax + extraHoursCheckIn + extraHoursCheckOut;
       
       return {
         ...stay,
         basePrice,
         tax,
+        extraRate: updatedExtraRate,
+        extraRateValue: hourlyRate,
+        extraHoursCheckIn,
+        extraHoursCheckOut,
         price: totalPrice
       };
     });
@@ -2174,15 +2222,34 @@ function App() {
   // Handler for the modal's Clear Prices button (using existing handleClearPrices)
   const handleModalClearPrices = () => {
      // Reset temp prices to hardcoded defaults directly
-      setTempPrices({
+      const defaultPrices = {
         weekday: { withoutJacuzzi: 105, withJacuzzi: 120 },
         friday: { withoutJacuzzi: 139, withJacuzzi: 159 },
         weekend: { withoutJacuzzi: 139, withJacuzzi: 169 }
-      });
-      setTempShortStayPrices({
+      };
+      
+      const defaultShortStayPrices = {
         baseRate: { withoutJacuzzi: 60, withJacuzzi: 90 }, 
         extraHourRate: { regular: 15, discounted: 10 }
-      });
+      };
+      
+      // Update the temp states used in the modal
+      setTempPrices(defaultPrices);
+      setTempShortStayPrices(defaultShortStayPrices);
+      
+      // Also update the main price states
+      setPrices(defaultPrices);
+      setShortStayPrices(defaultShortStayPrices);
+      
+      // Save to localStorage
+      localStorage.setItem('appPrices', JSON.stringify(defaultPrices));
+      localStorage.setItem('appShortStayPrices', JSON.stringify(defaultShortStayPrices));
+      
+      // Increment the counter to force a UI refresh
+      setPriceUpdateCounter(prev => prev + 1);
+      
+      // Update calculations
+      calculatePrice();
   };
   // --- End Price Change Modal Handlers ---
   
@@ -2541,8 +2608,8 @@ function App() {
               <div className="option-box"> 
                 <label>Extra Rate</label> 
                 <div className="segmented-control"> 
-                  <button onClick={() => setExtraHourRate(15)} className={extraHourRate === 15 ? 'active' : ''}>$15/hr</button>
-                  <button onClick={() => setExtraHourRate(10)} className={extraHourRate === 10 ? 'active' : ''}>$10/hr</button>
+                  <button onClick={() => setExtraHourRate(15)} className={extraHourRate === 15 ? 'active' : ''}>${shortStayPrices.extraHourRate.regular}/hr</button>
+                  <button onClick={() => setExtraHourRate(10)} className={extraHourRate === 10 ? 'active' : ''}>${shortStayPrices.extraHourRate.discounted}/hr</button>
                 </div>
               </div>
             </div>
@@ -2819,8 +2886,24 @@ function App() {
                 <div className="option-box"> 
                   <label>Extra Rate</label> 
                   <div className="segmented-control"> 
-                    <button onClick={() => setOvernightExtraRate(15)} className={overnightExtraRate === 15 ? 'active' : ''}>$15/hr</button> 
-                    <button onClick={() => setOvernightExtraRate(10)} className={overnightExtraRate === 10 ? 'active' : ''}>$10/hr</button> 
+                    <button 
+                      onClick={() => {
+                        setOvernightRateType('regular');
+                        setOvernightExtraRate(shortStayPrices.extraHourRate.regular);
+                      }} 
+                      className={overnightRateType === 'regular' ? 'active' : ''}
+                    >
+                      ${shortStayPrices.extraHourRate.regular}/hr
+                    </button> 
+                    <button 
+                      onClick={() => {
+                        setOvernightRateType('discounted');
+                        setOvernightExtraRate(shortStayPrices.extraHourRate.discounted);
+                      }} 
+                      className={overnightRateType === 'discounted' ? 'active' : ''}
+                    >
+                      ${shortStayPrices.extraHourRate.discounted}/hr
+                    </button> 
                   </div>
                 </div>
               </div>
@@ -4264,16 +4347,16 @@ function App() {
                   <div>
                     <label style={{ display: 'block', marginBottom: '10px', fontWeight: '600', color: '#718096' }}>Extra Hour Rate</label>
                     <div style={{ marginBottom: '10px' }}>
-                      <label style={{ display: 'block', fontSize: '14px', color: '#4a5568', marginBottom: '5px' }}>Regular ($15):</label>
+                      <label style={{ display: 'block', fontSize: '14px', color: '#4a5568', marginBottom: '5px' }}>Regular (${shortStayPrices.extraHourRate.regular}):</label>
                             <input 
                               type="number" 
-                        value={tempShortStayPrices.extraHourRate.regular}
-                        onChange={(e) => handleModalShortStayPriceChange('extraHourRate', 'regular', e.target.value)}
-                        style={{ width: '90%', padding: '8px', borderRadius: '6px', border: '1px solid #cbd5e0' }}
+                              value={tempShortStayPrices.extraHourRate.regular}
+                              onChange={(e) => handleModalShortStayPriceChange('extraHourRate', 'regular', e.target.value)}
+                              style={{ width: '90%', padding: '8px', borderRadius: '6px', border: '1px solid #cbd5e0' }}
                             />
                           </div>
                     <div>
-                      <label style={{ display: 'block', fontSize: '14px', color: '#4a5568', marginBottom: '5px' }}>Discounted ($10):</label>
+                      <label style={{ display: 'block', fontSize: '14px', color: '#4a5568', marginBottom: '5px' }}>Discounted (${shortStayPrices.extraHourRate.discounted}):</label>
                       <input 
                         type="number" 
                         value={tempShortStayPrices.extraHourRate.discounted}
